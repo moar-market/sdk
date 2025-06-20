@@ -15,6 +15,7 @@
     "sdk": "pnpm --filter @moar-market/sdk",
     "utils": "pnpm --filter @moar-market/utils",
     "composer": "pnpm --filter @moar-market/composer",
+    "example": "pnpm --filter @moar-market/example",
     "all": "pnpm -r",
     "build": "pnpm all build",
     "dev": "pnpm all dev",

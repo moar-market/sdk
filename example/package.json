@@ -1,0 +1,32 @@
+{
+  "name": "@moar-market/example",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Examples showcasing Moar Market SDK usage",
+  "author": "Moar Market",
+  "license": "MIT",
+  "keywords": ["moar", "market", "sdk", "example", "defi", "aptos"],
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx --watch src/index.ts",
+    "pool-info": "tsx src/pool-info.ts",
+    "token-prices": "tsx src/token-prices.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --fix --cache"
+  },
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "catalog:blockchain",
+    "@itsmnthn/big-utils": "catalog:utils",
+    "@moar-market/sdk": "workspace:*",
+    "@moar-market/utils": "workspace:*",
+    "@thalalabs/surf": "catalog:blockchain"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:types",
+    "eslint": "catalog:lint",
+    "tsx": "catalog:dev",
+    "typescript": "catalog:dev"
+  }
+}

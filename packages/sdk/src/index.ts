@@ -13,6 +13,9 @@ export * from './abis'
 // Clients exports
 export * from './clients'
 
+// Token exports
+export * from './token'
+
 // Lending pool exports
 export * from './lend-pool'
 

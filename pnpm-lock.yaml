@@ -124,6 +124,37 @@ importers:
         specifier: catalog:dev
         version: 5.8.3
 
+  example:
+    dependencies:
+      '@aptos-labs/ts-sdk':
+        specifier: catalog:blockchain
+        version: 2.0.1(got@11.8.6)
+      '@itsmnthn/big-utils':
+        specifier: catalog:utils
+        version: 1.0.0
+      '@moar-market/sdk':
+        specifier: workspace:*
+        version: link:../packages/sdk
+      '@moar-market/utils':
+        specifier: workspace:*
+        version: link:../packages/utils
+      '@thalalabs/surf':
+        specifier: catalog:blockchain
+        version: 1.8.1(@aptos-labs/ts-sdk@2.0.1(got@11.8.6))
+    devDependencies:
+      '@types/node':
+        specifier: catalog:types
+        version: 22.15.32
+      eslint:
+        specifier: catalog:lint
+        version: 9.29.0(jiti@2.4.2)
+      tsx:
+        specifier: catalog:dev
+        version: 4.20.3
+      typescript:
+        specifier: catalog:dev
+        version: 5.8.3
+
   packages/sdk:
     dependencies:
       '@aptos-labs/script-composer-pack':
@@ -3376,7 +3407,7 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
-      '@types/node': 22.15.32
+      '@types/node': 24.0.3
 
   '@types/debug@4.1.12':
     dependencies:
