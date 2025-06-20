@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "antfu.pnpm-catalog-lens",
+    "oxc.oxc-vscode",
+    "dbaeumer.vscode-eslint",
+  ]
+}

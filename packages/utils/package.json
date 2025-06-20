@@ -1,0 +1,53 @@
+{
+  "name": "@moar-market/utils",
+  "type": "module",
+  "version": "0.0.1",
+  "private": false,
+  "packageManager": "pnpm@10.12.1",
+  "description": "Moar Market Utils",
+  "author": "Moar Market",
+  "license": "MIT",
+  "homepage": "https://moar.market",
+  "keywords": [
+    "moar",
+    "market",
+    "utils",
+    "typescript",
+    "blockchain",
+    "moar-market"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint . && eslint . --cache",
+    "lint:fix": "oxlint . --fix && eslint . --fix --cache",
+    "prepublishOnly": "pnpm run build",
+    "clean": "npx rimraf dist .output",
+    "clean:full": "npx rimraf node_modules dist .output"
+  },
+  "dependencies": {
+    "@itsmnthn/big-utils": "catalog:utils"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:lint",
+    "@types/node": "catalog:types",
+    "eslint": "catalog:lint",
+    "eslint-plugin-format": "catalog:lint",
+    "eslint-plugin-oxlint": "catalog:lint",
+    "oxlint": "catalog:lint",
+    "rimraf": "catalog:dev",
+    "tsdown": "catalog:dev",
+    "tsx": "catalog:dev",
+    "typescript": "catalog:dev"
+  }
+
+}
