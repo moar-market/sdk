@@ -27,16 +27,16 @@ export function getCreditManagerEventTypes() {
     // panora swap events
     panoraSwapEvent: `${pkg.moar_strategies}::panora_adapter::PanoraSwapEvent`,
 
-    // thala swap events
-    thalaSwapEvent: `${pkg.moar_strategies}::thala_v2_adapter::SwapEvent`,
+    // // thala swap events
+    // thalaSwapEvent: `${pkg.moar_strategies}::thala_v2_adapter::SwapEvent`,
 
-    // thala v2 LP Strategy Events
-    thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
-    thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
+    // // thala v2 LP Strategy Events
+    // thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
+    // thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
 
-    // thala v2 LSD Strategy Events
-    thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
-    thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
+    // // thala v2 LSD Strategy Events
+    // thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
+    // thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
   } as const
 }
 

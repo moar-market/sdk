@@ -41,6 +41,16 @@
     "./types": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/types/index.js"
+    },
+
+    "./protocols/panora": {
+      "types": "./dist/protocols/panora/index.d.ts",
+      "import": "./dist/protocols/panora/index.js"
+    },
+
+    "./protocols/hyperion": {
+      "types": "./dist/protocols/hyperion/index.d.ts",
+      "import": "./dist/protocols/hyperion/index.js"
     }
   },
   "main": "./dist/index.js",

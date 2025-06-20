@@ -34,5 +34,9 @@ export default defineConfig({
 
     // types
     './src/types/index.ts',
+
+    // protocols
+    './src/protocols/panora/index.ts',
+    './src/protocols/hyperion/index.ts',
   ],
 })
