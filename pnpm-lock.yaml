@@ -124,7 +124,7 @@ importers:
         specifier: catalog:dev
         version: 5.8.3
 
-  example:
+  examples:
     dependencies:
       '@aptos-labs/ts-sdk':
         specifier: catalog:blockchain

@@ -113,7 +113,7 @@ Dependencies are managed through PNPM's catalog feature for consistent versionin
 - **External Dependencies**: Blockchain SDKs marked as externals
 - **Multiple Entry Points**: Support for main exports and ABI exports
 
-## 🏷️ SDK Usage Example
+## 🏷️ SDK Usage Examples
 
 [TODO]
 
