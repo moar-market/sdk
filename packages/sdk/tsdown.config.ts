@@ -23,6 +23,12 @@ export default defineConfig({
     // clients
     './src/clients/index.ts',
 
+    // composer
+    './src/composer/index.ts',
+
+    // token
+    './src/token/index.ts',
+
     // lend-pool
     './src/lend-pool/index.ts',
 

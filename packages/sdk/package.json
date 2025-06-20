@@ -26,6 +26,14 @@
       "types": "./dist/clients/index.d.ts",
       "import": "./dist/clients/index.js"
     },
+    "./composer": {
+      "types": "./dist/composer/index.d.ts",
+      "import": "./dist/composer/index.js"
+    },
+    "./token": {
+      "types": "./dist/token/index.d.ts",
+      "import": "./dist/token/index.js"
+    },
     "./lend-pool": {
       "types": "./dist/lend-pool/index.d.ts",
       "import": "./dist/lend-pool/index.js"
