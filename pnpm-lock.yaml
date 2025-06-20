@@ -129,6 +129,9 @@ importers:
       '@itsmnthn/big-utils':
         specifier: catalog:utils
         version: 1.0.0
+      '@moar-market/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@thalalabs/surf':
         specifier: catalog:blockchain
         version: 1.8.1(@aptos-labs/ts-sdk@1.39.0(axios@1.10.0)(got@11.8.6))
@@ -136,9 +139,6 @@ importers:
       '@antfu/eslint-config':
         specifier: catalog:lint
         version: 4.15.0(@vue/compiler-sfc@3.5.17)(eslint-plugin-format@1.0.1(eslint@9.29.0(jiti@2.4.2)))(eslint@9.29.0(jiti@2.4.2))(typescript@5.8.3)
-      '@moar-market/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@types/node':
         specifier: catalog:types
         version: 22.15.32
@@ -169,18 +169,9 @@ importers:
 
   packages/utils:
     dependencies:
-      '@aptos-labs/script-composer-pack':
-        specifier: catalog:blockchain
-        version: 0.0.9
-      '@aptos-labs/ts-sdk':
-        specifier: catalog:blockchain
-        version: 1.39.0(axios@1.10.0)(got@11.8.6)
       '@itsmnthn/big-utils':
         specifier: catalog:utils
         version: 1.0.0
-      '@thalalabs/surf':
-        specifier: catalog:blockchain
-        version: 1.8.1(@aptos-labs/ts-sdk@1.39.0(axios@1.10.0)(got@11.8.6))
     devDependencies:
       '@antfu/eslint-config':
         specifier: catalog:lint

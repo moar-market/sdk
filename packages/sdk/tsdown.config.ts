@@ -17,8 +17,14 @@ export default defineConfig({
     // config
     './src/config/index.ts',
 
+    // abis
+    './src/abis/index.ts',
+
     // clients
     './src/clients/index.ts',
+
+    // lend-pool
+    './src/lend-pool/index.ts',
 
     // logger
     './src/logger/index.ts',

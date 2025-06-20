@@ -4,7 +4,6 @@ import { useChainConfig } from './../config'
 
 let aptosInstance: Aptos
 
-// TODO: expose specific aptos instead of global instance(which is big and we only use some things  )
 export function useAptos(): Aptos {
   const chain = useChainConfig()
   // Recreate aptos client if not initialized or if RPC URL changed
@@ -29,7 +28,7 @@ export function useAptosConfig(): AptosConfig {
 
   if (!aptosConfig || chain.rpc !== aptosConfig.fullnode) {
     const config: AptosSettings = {
-      network: chain.name as unknown as Network,
+      network: chain.name as Network,
       fullnode: chain.rpc,
       indexer: chain.indexer,
       clientConfig,

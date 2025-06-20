@@ -18,9 +18,17 @@
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js"
     },
+    "./abis": {
+      "types": "./dist/abis/index.d.ts",
+      "import": "./dist/abis/index.js"
+    },
     "./clients": {
       "types": "./dist/clients/index.d.ts",
       "import": "./dist/clients/index.js"
+    },
+    "./lend-pool": {
+      "types": "./dist/lend-pool/index.d.ts",
+      "import": "./dist/lend-pool/index.js"
     },
     "./logger": {
       "types": "./dist/logger/index.d.ts",
@@ -49,11 +57,11 @@
     "@thalalabs/surf": "catalog:blockchain"
   },
   "dependencies": {
-    "@itsmnthn/big-utils": "catalog:utils"
+    "@itsmnthn/big-utils": "catalog:utils",
+    "@moar-market/utils": "workspace:*"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
-    "@moar-market/utils": "workspace:*",
     "@types/node": "catalog:types",
     "eslint": "catalog:lint",
     "eslint-plugin-format": "catalog:lint",
