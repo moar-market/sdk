@@ -1,36 +1,30 @@
 packages:
   - packages/**
 
-
 catalogs:
   blockchain:
     '@aptos-labs/script-composer-pack': ^0.0.9
-    '@aptos-labs/ts-sdk': ^1.38.0
-    '@hyperionxyz/sdk': 0.0.13
+    '@aptos-labs/ts-sdk': ^2.0.1
     '@thalalabs/surf': 1.8.1
   dev:
     '@antfu/ni': ^25.0.0
-    bumpp: latest
-    c12: ^3.0.4
-    defu: ^6.1.4
+    bumpp: ^10.2.0
     husky: ^9.1.7
-    lint-staged: ^16.1.0
-    pathe: ^2.0.3
+    lint-staged: ^16.1.2
     rimraf: ^6.0.1
     simple-git-hooks: ^2.13.0
     tsdown: ^0.12.3
     tsx: ^4.19.3
     typescript: ^5.8.3
-    vite-plugin-node-polyfills: ^0.23.0
   lint:
-    '@antfu/eslint-config': ^4.13.2
+    '@antfu/eslint-config': ^4.15.0
     '@commitlint/cli': ^19.8.1
     '@commitlint/config-conventional': ^19.8.1
-    eslint: ^9.28.0
+    eslint: ^9.29.0
     eslint-plugin-format: ^1.0.1
     eslint-plugin-oxlint: ^1.2.0
     oxlint: ^1.2.0
   types:
-    '@types/node': ^22.15.21
+    '@types/node': ^22.15.32
   utils:
     '@itsmnthn/big-utils': ^1.0.0

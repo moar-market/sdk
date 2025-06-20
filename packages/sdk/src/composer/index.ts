@@ -1,14 +1,17 @@
 import type {
   AccountAddressInput,
   AptosConfig,
-  InputBatchedFunctionData,
+  EntryFunctionArgumentTypes,
   InputGenerateTransactionOptions,
+  MoveFunctionId,
+  MoveModule,
+  SimpleEntryFunctionArgumentTypes,
+  TypeArgument,
 } from '@aptos-labs/ts-sdk'
-import { ScriptComposerWasm } from '@aptos-labs/script-composer-pack'
+import { CallArgument, ScriptComposerWasm } from '@aptos-labs/script-composer-pack'
 import {
   AccountAddress,
   AptosApiType,
-  CallArgument,
   convertArgument,
   Deserializer,
   fetchModuleAbi,
@@ -19,6 +22,18 @@ import {
   TransactionPayloadScript,
 } from '@aptos-labs/ts-sdk'
 import { disableFetchCaching, enableFetchCaching, extractUrl } from '@moar-market/utils'
+
+export { CallArgument } // re-export for convenience
+
+export interface InputBatchedFunctionData {
+  function: MoveFunctionId
+  typeArguments?: Array<TypeArgument>
+  functionArguments: Array<
+    EntryFunctionArgumentTypes | CallArgument | SimpleEntryFunctionArgumentTypes
+  >
+  moduleAbi: MoveModule
+  moduleBytecodes?: string[]
+}
 
 /**
  * A wrapper class around TransactionComposer, which is a WASM library compiled

@@ -1,13 +1,16 @@
 {
   "name": "@moar-market/sdk-workspace",
-  "version": "0.0.1",
   "type": "module",
-  "description": "Moar Market SDK workspace",
+  "version": "0.0.1",
+  "private": true,
   "packageManager": "pnpm@10.12.1",
+  "description": "Moar Market SDK workspace",
+  "author": "Moar Market",
+  "license": "MIT",
+  "keywords": ["moar market", "moar", "market", "sdk"],
   "engines": {
     "node": ">=20.10"
   },
-  "private": true,
   "scripts": {
     "sdk": "pnpm --filter @moar-market/sdk",
     "utils": "pnpm --filter @moar-market/utils",
@@ -23,15 +26,12 @@
     "prepare": "husky",
     "bump": "bumpp -r"
   },
-  "keywords": ["moar market", "moar", "market", "sdk"],
-  "author": "Moar Market",
-  "license": "MIT",
   "devDependencies": {
+    "@antfu/eslint-config": "catalog:lint",
+    "@antfu/ni": "catalog:dev",
     "@commitlint/cli": "catalog:lint",
     "@commitlint/config-conventional": "catalog:lint",
     "@types/node": "catalog:types",
-    "@antfu/eslint-config": "catalog:lint",
-    "typescript": "catalog:dev",
     "bumpp": "catalog:dev",
     "eslint": "catalog:lint",
     "eslint-plugin-format": "catalog:lint",
@@ -40,7 +40,8 @@
     "lint-staged": "catalog:dev",
     "oxlint": "catalog:lint",
     "rimraf": "catalog:dev",
-    "simple-git-hooks": "catalog:dev"
+    "simple-git-hooks": "catalog:dev",
+    "typescript": "catalog:dev"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
