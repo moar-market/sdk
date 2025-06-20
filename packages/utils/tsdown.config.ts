@@ -9,7 +9,6 @@ export default defineConfig({
   tsconfig: 'tsconfig.json',
   target: 'esnext',
   format: ['esm'],
-  external: ['@aptos-labs/ts-sdk', '@thalalabs/surf'],
   entry: [
     // root
     './src/index.ts',
