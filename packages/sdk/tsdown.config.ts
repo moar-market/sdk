@@ -26,6 +26,9 @@ export default defineConfig({
     // lend-pool
     './src/lend-pool/index.ts',
 
+    // credit-manager
+    './src/credit-manager/index.ts',
+
     // logger
     './src/logger/index.ts',
 

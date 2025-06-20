@@ -16,6 +16,9 @@ export * from './clients'
 // Lending pool exports
 export * from './lend-pool'
 
+// Credit Manager exports
+export * from './credit-manager'
+
 // Logger exports
 export * from './logger'
 
