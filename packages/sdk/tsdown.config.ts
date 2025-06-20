@@ -13,5 +13,17 @@ export default defineConfig({
   entry: [
     // root
     './src/index.ts',
+
+    // config
+    './src/config/index.ts',
+
+    // clients
+    './src/clients/index.ts',
+
+    // logger
+    './src/logger/index.ts',
+
+    // types
+    './src/types/index.ts',
   ],
 })
