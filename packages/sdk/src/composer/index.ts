@@ -4,7 +4,7 @@ import type {
   EntryFunctionArgumentTypes,
   InputGenerateTransactionOptions,
   MoveFunctionId,
-  MoveModule,
+  // MoveModule,
   SimpleEntryFunctionArgumentTypes,
   TypeArgument,
 } from '@aptos-labs/ts-sdk'
@@ -25,14 +25,16 @@ import { disableFetchCaching, enableFetchCaching, extractUrl } from '@moar-marke
 
 export { CallArgument } // re-export for convenience
 
+// TODO: accept module bytecode as well to pass to the builder to avoid loading modules from the network
+
 export interface InputBatchedFunctionData {
   function: MoveFunctionId
   typeArguments?: Array<TypeArgument>
   functionArguments: Array<
     EntryFunctionArgumentTypes | CallArgument | SimpleEntryFunctionArgumentTypes
   >
-  moduleAbi: MoveModule
-  moduleBytecodes?: string[]
+  // moduleAbi: MoveModule
+  // moduleBytecodes?: string[]
 }
 
 /**
