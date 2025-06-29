@@ -226,3 +226,23 @@ export async function setupStrategyAccount(
 
   return creditAccount
 }
+
+export interface WithdrawCollateralParams {
+  metadata: Address
+  amount?: bigint
+  receiver: Address
+}
+
+export async function withdrawCollateral(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  params: WithdrawCollateralParams[],
+): Promise<void> {
+  for (const param of params) {
+    await builder.addBatchedCall({
+      function: `${getModuleAddress('moar_credit_manager')}::credit_manager::withdraw_entry`,
+      functionArguments: [CallArgument.newSigner(0), copyIfCallArgument(creditAccount), param.receiver, param.amount, param.metadata],
+      typeArguments: [],
+    }, moar_credit_manager_abi)
+  }
+}

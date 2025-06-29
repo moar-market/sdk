@@ -11,6 +11,10 @@ export default antfu(
       'no-console': 'off',
       // Examples don't need strict JSDoc
       'jsdoc/require-jsdoc': 'off',
+      'indent': 'off',
     },
+  },
+  {
+    ignores: ['./src'],
   },
 )

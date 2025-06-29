@@ -32,6 +32,7 @@ export const ADAPTER_STRATEGIES = {
   // hyperion - clmm
   hyperion_add_liquidity: { adapterId: ADAPTERS.HYPERION, strategyId: 1 },
   hyperion_remove_liquidity: { adapterId: ADAPTERS.HYPERION, strategyId: 2 },
+  hyperion_add_liquidity_optimally: { adapterId: ADAPTERS.HYPERION, strategyId: 3 },
 }
 
 export const PKGS = {
@@ -64,6 +65,7 @@ export const MODULES: Modules = {
   moar_pool: PKGS.moar,
   moar_risk_manager: PKGS.moar,
   moar_lens: PKGS.moar_lens,
+  moar_hyperion_lens: PKGS.moar_lens,
   moar_interest_rate_model: PKGS.moar,
 
   // composer utils
@@ -276,7 +278,7 @@ const LEND_POOLS: LendPoolConfig[] = [
 
 export const config: Config = {
   DEBUG: false,
-  PANORA_API_KEY: '',
+  PANORA_API_KEY: process.env.PANORA_API_KEY || '',
 
   CHAIN,
 

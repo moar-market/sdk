@@ -60,28 +60,9 @@
       "import": "./dist/protocols/hyperion/index.js"
     },
 
-    "./composer-strategies/protocols/panora": {
-      "types": "./dist/composer-strategies/protocols/panora/index.d.ts",
-      "import": "./dist/composer-strategies/protocols/panora/index.js"
-    },
-    "./composer-strategies/protocols/hyperion": {
-      "types": "./dist/composer-strategies/protocols/hyperion/index.d.ts",
-      "import": "./dist/composer-strategies/protocols/hyperion/index.js"
-    },
-
-    "./composer-strategies/shared": {
-      "types": "./dist/composer-strategies/shared/index.d.ts",
-      "import": "./dist/composer-strategies/shared/index.js"
-    },
-
-    "./composer-strategies/trade/panora": {
-      "types": "./dist/composer-strategies/trade/panora/index.d.ts",
-      "import": "./dist/composer-strategies/trade/panora/index.js"
-    },
-
-    "./composer-strategies/hyperion": {
-      "types": "./dist/composer-strategies/hyperion/index.d.ts",
-      "import": "./dist/composer-strategies/hyperion/index.js"
+    "./composer-strategies": {
+      "types": "./dist/composer-strategies/index.d.ts",
+      "import": "./dist/composer-strategies/index.js"
     }
 
   },

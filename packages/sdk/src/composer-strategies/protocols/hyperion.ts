@@ -148,3 +148,67 @@ export async function claimReward(
     nullType: '',
   })
 }
+
+export interface AddLiquidityOptimallyParams {
+  position_object?: Address
+  tokenA: Address
+  tokenB: Address
+  tickLower: number
+  tickUpper: number
+  feeTier: number
+  amountA: bigint
+  amountB: bigint
+  minAmountA: bigint
+  minAmountB: bigint
+  deadline?: number
+  isStake?: boolean
+  dustThreshold?: number
+}
+
+/**
+ * Add liquidity optimally to a hyperion pool, swaps tokens from hyperion pool if needed to maximize the amount of liquidity added
+ * @param builder - Script composer instance to add the liquidity operations to
+ * @param creditAccount - Credit account address or argument to execute the liquidity operations from
+ * @param liquidity - Parameters for adding liquidity
+ * @throws {Error} If Hyperion add liquidity optimally strategy is not configured or liquidity inputs creation fails
+ */
+export async function addLiquidityOptimally(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  liquidity: AddLiquidityOptimallyParams,
+): Promise<void> {
+  const hyperion_add_liquidity_optimally = useAdapterStrategiesConfig().hyperion_add_liquidity_optimally
+  if (!hyperion_add_liquidity_optimally)
+    throw new Error('Hyperion add liquidity optimally strategy not available or configured')
+
+  const [, addLiquidityOptimallyInput] = await builder.addBatchedCall({
+    function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_add_liquidity_optimally_inputs`,
+    functionArguments: [
+      liquidity.position_object,
+      liquidity.tokenA,
+      liquidity.tokenB,
+      liquidity.tickLower,
+      liquidity.tickUpper,
+      liquidity.feeTier,
+      liquidity.amountA,
+      liquidity.amountB,
+      liquidity.minAmountA,
+      liquidity.minAmountB,
+      liquidity.deadline ?? Math.floor(100 * 365 * 24 * 60 * 60 + Date.now() / 1e3), // 100 years from now by default
+      !!liquidity.isStake,
+      liquidity.dustThreshold ?? 100000, // 0.1% by default
+    ],
+    typeArguments: [],
+  }, moarStrategies_hyperion_adapter_abi)
+
+  if (!addLiquidityOptimallyInput)
+    throw new Error('Failed to create hyperion add liquidity optimally inputs')
+
+  await executeStrategy(
+    builder,
+    copyIfCallArgument(creditAccount),
+    hyperion_add_liquidity_optimally.adapterId,
+    hyperion_add_liquidity_optimally.strategyId,
+    addLiquidityOptimallyInput,
+  )
+}

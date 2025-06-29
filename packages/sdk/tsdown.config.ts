@@ -46,22 +46,23 @@ export default defineConfig({
     './src/protocols/hyperion/index.ts',
 
     // script composer protocols building blocks
-    './src/composer-strategies/protocols/panora.ts',
-    './src/composer-strategies/protocols/hyperion.ts',
+    // './src/composer-strategies/protocols/panora.ts',
+    // './src/composer-strategies/protocols/hyperion.ts',
     // './src/composer-strategies/protocols/thala_v2.ts', // not available deprecated
     // './src/composer-strategies/protocols/thala_v2_lsd.ts', // not available deprecated
 
     // strategies building blocks
-    './src/composer-strategies/shared.ts', // shared script composer functions across strategies
+    // './src/composer-strategies/shared.ts', // shared script composer functions across strategies
 
     // assembled trade strategies(router)
-    './src/composer-strategies/trade/panora.ts',
+    // './src/composer-strategies/trade/panora.ts',
     // './src/composer-strategies/trade/thala_v2.ts', // not available deprecated
 
     // lsd strategies
     // './src/composer-strategies/trade/thala_v2_lsd.ts', // not available deprecated
 
     // assembled hyperion clmm strategies(router)
-    './src/composer-strategies/hyperion.ts',
+    // './src/composer-strategies/hyperion.ts',
+    './src/composer-strategies/index.ts',
   ],
 })
