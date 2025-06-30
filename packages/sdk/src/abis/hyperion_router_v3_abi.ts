@@ -316,6 +316,47 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "add_liquidity_single",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_liquidity_single_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
       "name": "apt_transfer_to_coin",
       "visibility": "public",
       "is_entry": false,
@@ -410,6 +451,51 @@ export const hyperion_router_v3_abi = {
         "u64",
         "u64",
         "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_single",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_single_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
       ],
       "return": []
     },
@@ -829,6 +915,41 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "remove_liquidity_single",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_liquidity_single_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
       "name": "swap_batch",
       "visibility": "public",
       "is_entry": true,
@@ -867,5 +988,120 @@ export const hyperion_router_v3_abi = {
       "return": []
     }
   ],
-  "structs": []
+  "structs": [
+    {
+      "name": "AddSingleLiquidityEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "copy",
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_id",
+          "type": "address"
+        },
+        {
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "name": "position",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "input_amount",
+          "type": "u64"
+        },
+        {
+          "name": "swap_from",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "swap_to",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "swap_amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "swap_amount_out",
+          "type": "u64"
+        },
+        {
+          "name": "delta_lp_amount",
+          "type": "u128"
+        },
+        {
+          "name": "add_amount_a",
+          "type": "u64"
+        },
+        {
+          "name": "add_amount_b",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "RemoveSingleLiquidityEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "copy",
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_id",
+          "type": "address"
+        },
+        {
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "name": "position",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "swap_from",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "swap_to",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "swap_amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "swap_amount_out",
+          "type": "u64"
+        },
+        {
+          "name": "delta_lp_amount",
+          "type": "u128"
+        },
+        {
+          "name": "remove_amount_a",
+          "type": "u64"
+        },
+        {
+          "name": "remove_amount_b",
+          "type": "u64"
+        },
+        {
+          "name": "output_amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ]
 } as const;

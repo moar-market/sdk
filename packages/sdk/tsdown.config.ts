@@ -9,7 +9,7 @@ export default defineConfig({
   tsconfig: 'tsconfig.json',
   target: 'esnext',
   format: ['esm'],
-  external: ['@aptos-labs/ts-sdk', '@thalalabs/surf'],
+  external: ['@aptos-labs/ts-sdk'],
   entry: [
     // root
     './src/index.ts',
@@ -45,6 +45,9 @@ export default defineConfig({
     './src/protocols/panora/index.ts',
     './src/protocols/hyperion/index.ts',
 
+    // individual script composer actions
+    './src/composer-strategies/index.ts',
+
     // script composer protocols building blocks
     './src/composer-strategies/protocols/panora.ts',
     './src/composer-strategies/protocols/hyperion.ts',
@@ -52,7 +55,7 @@ export default defineConfig({
     // './src/composer-strategies/protocols/thala_v2_lsd.ts', // not available deprecated
 
     // strategies building blocks
-    './src/composer-strategies/shared.ts', // shared script composer functions across strategies
+    // './src/composer-strategies/shared.ts', // shared script composer functions across strategies
 
     // assembled trade strategies(router)
     './src/composer-strategies/trade/panora.ts',

@@ -18,5 +18,5 @@ export default antfu(
       'dist',
     ],
   },
-  oxlint.configs['flat/recommended'],
+  ...oxlint.configs['flat/recommended'],
 )

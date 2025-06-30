@@ -93,6 +93,32 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "create_add_liquidity_optimally_inputs",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::option::Option<0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::option::Option<u32>",
+        "0x1::option::Option<u32>",
+        "u8",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "bool",
+        "u64"
+      ],
+      "return": [
+        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::AddLiquidityOptimallyInputs",
+        "0x1::copyable_any::Any"
+      ]
+    },
+    {
       "name": "create_claim_rewards_inputs",
       "visibility": "public",
       "is_entry": false,
@@ -116,6 +142,34 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::LiquidateNonFAPositionInputs>",
+        "0x1::copyable_any::Any"
+      ]
+    },
+    {
+      "name": "create_rebalance_inputs",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u64",
+        "u64",
+        "u32",
+        "u32",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "bool",
+        "u64"
+      ],
+      "return": [
+        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::RebalanceInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -225,6 +279,20 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+      ]
+    },
+    {
+      "name": "get_oracle_sqrt_price",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u128"
       ]
     },
     {
@@ -426,6 +494,135 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "AddLiquidityOptimallyEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "pool",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+        },
+        {
+          "name": "position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "token_a_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "token_b_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "amount_a_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_a_added",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_added",
+          "type": "u64"
+        },
+        {
+          "name": "amount_a_left",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_left",
+          "type": "u64"
+        },
+        {
+          "name": "is_stake",
+          "type": "bool"
+        },
+        {
+          "name": "loop_count",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "AddLiquidityOptimallyInputs",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "copy",
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "position_object",
+          "type": "0x1::option::Option<0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>>"
+        },
+        {
+          "name": "token_a_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "token_b_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "tick_lower",
+          "type": "0x1::option::Option<u32>"
+        },
+        {
+          "name": "tick_upper",
+          "type": "0x1::option::Option<u32>"
+        },
+        {
+          "name": "fee_tier",
+          "type": "u8"
+        },
+        {
+          "name": "amount_a_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_a_min",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_min",
+          "type": "u64"
+        },
+        {
+          "name": "deadline",
+          "type": "u64"
+        },
+        {
+          "name": "is_stake",
+          "type": "bool"
+        },
+        {
+          "name": "dust_threshold",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "HyperionAdapterConfig",
       "is_native": false,
       "is_event": false,
@@ -506,6 +703,79 @@ export const moarStrategies_hyperion_adapter_abi = {
         {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
+        }
+      ]
+    },
+    {
+      "name": "RebalanceInputs",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "copy",
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "token_a_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "token_b_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "fee_tier",
+          "type": "u8"
+        },
+        {
+          "name": "amount_a_out_min",
+          "type": "u64"
+        },
+        {
+          "name": "amount_b_out_min",
+          "type": "u64"
+        },
+        {
+          "name": "tick_lower",
+          "type": "u32"
+        },
+        {
+          "name": "tick_upper",
+          "type": "u32"
+        },
+        {
+          "name": "additional_amount_a",
+          "type": "u64"
+        },
+        {
+          "name": "additional_amount_b",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_a",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_b",
+          "type": "u64"
+        },
+        {
+          "name": "deadline",
+          "type": "u64"
+        },
+        {
+          "name": "is_stake",
+          "type": "bool"
+        },
+        {
+          "name": "dust_threshold",
+          "type": "u64"
         }
       ]
     },

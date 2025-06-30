@@ -30,10 +30,16 @@ export function isDebugEnabled(): boolean {
   return getConfig().DEBUG || false
 }
 
+export function setPanoraApiKey(apiKey: string): void {
+  getConfig().PANORA_API_KEY = apiKey
+}
 export function usePanoraApiKey(): string {
   return getConfig().PANORA_API_KEY || ''
 }
 
+export function setAptosApiKey(apiKey: string): void {
+  getConfig().CHAIN.apiKey = apiKey
+}
 export function useChainConfig(): ChainConfig {
   return getConfig().CHAIN
 }

@@ -10,8 +10,8 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "dev": "tsx --watch src/index.ts",
-    "pool-info": "tsx src/pool-info.ts",
-    "token-prices": "tsx src/token-prices.ts",
+    "views": "tsx src/views.ts",
+    "user-actions": "tsx src/user-actions.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache"

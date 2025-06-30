@@ -113,6 +113,43 @@ export async function depositCollateral(
   }
 }
 
+export interface WithdrawCollateralParams {
+  metadata: Address
+  amount?: bigint
+  receiver: Address
+}
+
+/**
+ * Withdraws collateral from a credit account.
+ *
+ * @param {AptosScriptComposer} builder - The script composer instance to add the transaction to
+ * @param {CallArgument | Address} creditAccount - The credit account to withdraw collateral from
+ * @param {WithdrawCollateralParams[]} params - Array of withdrawal parameters
+ * @param {Address} params[].metadata - The metadata address of the collateral asset
+ * @param {bigint} [params[].amount] - The amount of collateral to withdraw (optional, withdraws all if not specified)
+ * @param {Address} params[].receiver - The address to receive the withdrawn collateral
+ * @returns {Promise<void>} Resolves when all withdrawal calls have been added to the batch
+ */
+export async function withdrawCollateral(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  params: WithdrawCollateralParams[],
+): Promise<void> {
+  for (const param of params) {
+    await builder.addBatchedCall({
+      function: `${getModuleAddress('moar_credit_manager')}::credit_manager::withdraw_entry`,
+      functionArguments: [
+        CallArgument.newSigner(0),
+        copyIfCallArgument(creditAccount),
+        param.receiver,
+        param.amount,
+        param.metadata,
+      ],
+      typeArguments: [],
+    }, moar_credit_manager_abi)
+  }
+}
+
 export interface BorrowParams {
   pool: number
   amount: bigint
