@@ -3,65 +3,6 @@
 A modern TypeScript monorepo for building the Moar Market SDK with modular 
 packages, built on pnpm workspaces with cutting-edge tooling.
 
-## 🏗️ Architecture
-
-This project uses a modular monorepo architecture with the following key components:
-
-```
-sdk/
-├── packages/
-│   ├── sdk/          # Main SDK package (@moar-market/sdk)
-│   └── utils/        # Utility functions (@moar-market/utils)
-├── package.json      # Root workspace configuration
-├── pnpm-workspace.yaml # Workspace and catalog configuration
-├── eslint.config.mjs # Shared ESLint configuration
-├── commitlint.config.js # Conventional commit rules
-└── tsconfig.json     # Root TypeScript configuration
-```
-
-## 📦 Packages
-
-### @moar-market/sdk
-The main SDK package providing core functionality for interacting with the Moar Market on Aptos blockchain.
-
-### @moar-market/utils
-Common utility functions shared across SDK packages and available for integration.
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js ≥20.10
-- pnpm ≥10.12.1
-
-### Installation & Development
-
-1. **Clone and install dependencies:**
-   ```bash
-   git clone <your-repo>
-   cd sdk
-   pnpm install
-   ```
-
-2. **Start development mode:**
-   ```bash
-   # Watch mode for all packages
-   pnpm dev
-   
-   # Watch mode for specific package
-   pnpm sdk dev
-   pnpm utils dev
-   ```
-
-3. **Build for production:**
-   ```bash
-   # Build all packages
-   pnpm build
-   
-   # Build specific package
-   pnpm sdk build
-   ```
-
-## 🛠️ Development Workflow
 
 ### Code Quality & Standards
 This project enforces high code quality standards through:
@@ -80,13 +21,12 @@ pnpm dev            # Development mode for all packages
 pnpm lint           # Lint all packages in parallel
 pnpm lint:fix       # Auto-fix linting issues
 pnpm clean          # Clean build artifacts
-pnpm clean:full     # Clean everything including node_modules
+pnpm clean:full     # Clean everything including node_modules & lockfiles
 ```
 
 **Package-Specific:**
 ```bash
 pnpm sdk <command>    # Run command in SDK package
-pnpm utils <command>  # Run command in utils package
 ```
 
 **Individual Package Scripts:**
@@ -115,7 +55,7 @@ Dependencies are managed through PNPM's catalog feature for consistent versionin
 
 ## 🏷️ SDK Usage Examples
 
-[TODO]
+See [examples](./examples/README.md) for more detailed examples.
 
 
 Built with ❤️ using modern TypeScript tooling and best practices. 
