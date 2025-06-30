@@ -12,6 +12,8 @@ export * from './hyperion_router_v3_abi'
 
 export * from './moar_credit_manager_abi'
 
+export * from './moar_hyperion_lens_abi'
+
 export * from './moar_interest_rate_model_abi'
 
 export * from './moar_lens_abi'
