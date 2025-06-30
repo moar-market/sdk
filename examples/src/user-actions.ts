@@ -1,29 +1,32 @@
 /**
  * Example: User Actions
  *
- * Simple example showing how to create/close a credit account, deposit, withdraw, borrow, repay, execute a swap, deposit into hyperion, withdraw from hyperion, claim rewards.
+ * Simple example showing how to create/close a credit account, deposit, withdraw, borrow, repay, execute a swap,
+ * deposit into hyperion, withdraw from hyperion, claim rewards.
  */
 
 import type { AnyRawTransaction, CommittedTransactionResponse, UserTransactionResponse } from '@aptos-labs/ts-sdk'
 import type { Address } from '@moar-market/sdk'
-
 import type { AptosScriptComposer } from '@moar-market/sdk/composer'
+import process from 'node:process'
 import { Account, Ed25519PrivateKey, PrivateKey, PrivateKeyVariants } from '@aptos-labs/ts-sdk'
-import { useAptos, useAptosConfig } from '@moar-market/sdk'
+import { /* setAptosApiKey, */ setPanoraApiKey, useAptos, useAptosConfig } from '@moar-market/sdk'
 import { scriptComposer } from '@moar-market/sdk/composer'
 import {
-  addLiquidityHyperion,
-  addLiquidityOptimallyHyperion,
   borrow,
-  claimRewardHyperion,
   closeCreditAccount,
   depositCollateral,
   openCreditAccount,
-  panoraSwap,
-  removeLiquidityHyperion,
   repay,
   withdrawCollateral,
 } from '@moar-market/sdk/composer-strategies'
+import {
+  addLiquidity as addLiquidityHyperion,
+  addLiquidityOptimally as addLiquidityOptimallyHyperion,
+  claimReward as claimRewardHyperion,
+  removeLiquidity as removeLiquidityHyperion,
+} from '@moar-market/sdk/composer-strategies/protocols/hyperion'
+import { swap as panoraSwap } from '@moar-market/sdk/composer-strategies/protocols/panora'
 import { get_position_info, getAllPositionsView, getOptimalLiquidityAmounts } from '@moar-market/sdk/protocols/hyperion'
 import { preview_swap_exact } from '@moar-market/sdk/protocols/panora'
 
@@ -31,6 +34,10 @@ const creditAccount: Address = '0x380cbdccc27092d5a767fdc435ecd00e719a6b7c16a47b
 const usdc_address: Address = '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b'
 const apt_address: Address = '0xa'
 const null_type = '0x1::string::String'
+
+// set these config once in the beginning of the script
+setPanoraApiKey(process.env.PANORA_API_KEY || '') // set panora api key
+// setAptosApiKey(process.env.APTOS_API_KEY || '') // set aptos api key
 
 async function getSender() {
   if (!process.env.PRIVATE_KEY)

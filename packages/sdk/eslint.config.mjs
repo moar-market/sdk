@@ -6,7 +6,7 @@ export default antfu(
     stylistic: true,
     typescript: true,
     markdown: true,
-    ignores: ['./dist', './src/abis', 'node_modules', 'dist', './src/configs'],
+    ignores: ['./dist', './src/abis', 'node_modules', 'dist'],
   },
   ...oxlint.configs['flat/recommended'],
 )

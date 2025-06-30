@@ -278,7 +278,7 @@ const LEND_POOLS: LendPoolConfig[] = [
 
 export const config: Config = {
   DEBUG: false,
-  PANORA_API_KEY: process.env.PANORA_API_KEY || '',
+  PANORA_API_KEY: '',
 
   CHAIN,
 

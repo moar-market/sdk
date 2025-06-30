@@ -3,7 +3,8 @@
  */
 
 import type { Address } from '@moar-market/sdk'
-import { fetchOraclePrices, getAllPools  } from '@moar-market/sdk'
+import { fetchOraclePrices, getAllPools /* setAptosApiKey */ } from '@moar-market/sdk'
+// import process from 'process'
 
 const creditAccount: Address = '0x380cbdccc27092d5a767fdc435ecd00e719a6b7c16a47b61be5cd8dd6f69db80'
 const usdc_address: Address = '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b'
@@ -12,6 +13,9 @@ const null_type = '0x1::string::String'
 
 async function showPoolInfo(): Promise<void> {
   console.log('🏦 Pool Information\n')
+
+  // set these config once in the beginning of the script
+  // setAptosApiKey(process.env.APTOS_API_KEY || '') // set aptos api key
 
   const pools = await getAllPools()
 

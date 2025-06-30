@@ -63,6 +63,23 @@
     "./composer-strategies": {
       "types": "./dist/composer-strategies/index.d.ts",
       "import": "./dist/composer-strategies/index.js"
+    },
+    "./composer-strategies/protocols/panora": {
+      "types": "./dist/composer-strategies/protocols/panora.d.ts",
+      "import": "./dist/composer-strategies/protocols/panora.js"
+    },
+    "./composer-strategies/protocols/hyperion": {
+      "types": "./dist/composer-strategies/protocols/hyperion.d.ts",
+      "import": "./dist/composer-strategies/protocols/hyperion.js"
+    },
+    "./composer-strategies/trade/panora": {
+      "types": "./dist/composer-strategies/trade/panora/index.d.ts",
+      "import": "./dist/composer-strategies/trade/panora/index.js"
+    },
+
+    "./composer-strategies/hyperion": {
+      "types": "./dist/composer-strategies/hyperion/index.d.ts",
+      "import": "./dist/composer-strategies/hyperion/index.js"
     }
 
   },
@@ -79,13 +96,13 @@
     "clean:full": "npx rimraf node_modules dist .output"
   },
   "peerDependencies": {
-    "@aptos-labs/script-composer-pack": "catalog:blockchain",
-    "@aptos-labs/ts-sdk": "catalog:blockchain",
-    "@thalalabs/surf": "catalog:blockchain"
+    "@aptos-labs/ts-sdk": "catalog:blockchain"
   },
   "dependencies": {
+    "@aptos-labs/script-composer-pack": "catalog:blockchain",
     "@itsmnthn/big-utils": "catalog:utils",
-    "@moar-market/utils": "workspace:*"
+    "@moar-market/utils": "workspace:*",
+    "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",

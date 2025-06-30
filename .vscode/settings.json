@@ -76,5 +76,6 @@
     "oxlint",
     "thalalabs",
     "tsdown"
-  ]
+  ],
+  "oxc.enable": true
 }

@@ -18,10 +18,5 @@ export default antfu(
       'dist',
     ],
   },
-  {
-    rules: {
-      'indent': 'off',
-    },
-  },
-  oxlint.configs['flat/recommended'],
+  ...oxlint.configs['flat/recommended'],
 )

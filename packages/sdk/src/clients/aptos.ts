@@ -26,7 +26,7 @@ export function useAptosConfig(): AptosConfig {
     }
   }
 
-  if (!aptosConfig || chain.rpc !== aptosConfig.fullnode) {
+  if (!aptosConfig || chain.rpc !== aptosConfig.fullnode || chain.apiKey !== aptosConfig.clientConfig?.API_KEY) {
     const config: AptosSettings = {
       network: chain.name as Network,
       fullnode: chain.rpc,
