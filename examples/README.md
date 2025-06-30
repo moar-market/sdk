@@ -19,51 +19,46 @@ pnpm install
 
 ```bash
 # Pool information
-pnpm example pool-info
+pnpm examples views
 
 # Token prices
-pnpm example token-prices
+pnpm examples user-actions
 
-# Main example (both)
-pnpm example start
 ```
 
 ## Examples
 
-### 1. Pool Information (`pool-info.ts`)
+### 1. Views ([`views.ts`](./src/views.ts))
 Shows how to:
 - Fetch all available lending pools
 - View total deposits and borrows
 - Calculate utilization rates
 
-### 2. Token Prices (`token-prices.ts`)
+### 2. Composer Strategies ([`user-actions.ts`](./src/user-actions.ts))
 Demonstrates how to:
-- Fetch single token prices from oracle
-- Get multiple token prices at once
-- Format price data
-
-### 3. Main Example (`index.ts`)
-Quick overview showing both pool info and token prices
+- Create/close a credit account
+- Deposit/withdraw collateral
+- Borrow/repay debt
+- Execute a swap
+- Deposit into hyperion
+- Withdraw from hyperion
+- Claim rewards
 
 ## Configuration
 
 The SDK uses the Aptos mainnet configuration by default. You can customize the configuration if needed:
 
-```typescript
-import { setConfig } from '@moar-market/sdk'
-
-// Use custom configuration
-setConfig(customConfig)
-```
-
-## Environment Variables
+## Environment Variables (optional)
 
 For advanced usage, you may need:
 - `PANORA_API_KEY` - For Panora protocol integration
 - `APTOS_API_KEY` - For enhanced RPC access
 
-## Documentation
+```typescript
+import process from 'node:process'
+import { setAptosApiKey, setPanoraApiKey } from '@moar-market/sdk'
 
-For more detailed documentation, see:
-- [SDK Documentation](../packages/sdk/README.md)
-- [Moar Market Protocol](https://moar.market)
+// set these config once in the beginning of the script
+setAptosApiKey(process.env.APTOS_API_KEY || '') // set aptos api key
+setPanoraApiKey(process.env.PANORA_API_KEY || '') // set panora api key if using panora swap
+```

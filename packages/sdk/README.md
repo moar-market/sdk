@@ -4,24 +4,22 @@ The main SDK for interacting with Moar Market on the Aptos blockchain.
 Provides configuration management, logging, and type-safe interfaces
 for blockchain operations.
 
-## 🚀 Quick Start
-
+## 📦 Installation
 ```bash
 pnpm add @moar-market/sdk
 ```
 
+## 🔧 Configuration
 ```typescript
-import { getConfig, logger, setConfig } from '@moar-market/sdk'
+import { setAptosApiKey, setPanoraApiKey } from '@moar-market/sdk'
 
-// Configure the SDK
-setConfig({
-  network: 'mainnet',
-  networkName: 'Aptos Mainnet',
-  networkId: '1',
-  networkUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
-  networkExplorerUrl: 'https://explorer.aptoslabs.com',
-  DEBUG: false
-})
+// set these config once in the beginning of the script
+// setAptosApiKey(process.env.APTOS_API_KEY || '') // set aptos api key
+// setPanoraApiKey(process.env.PANORA_API_KEY || '') // set panora api key
 
-// Use the logger
-logger.debug('SDK initialized:', getConfig())
+console.log('SDK initialized:')
+```
+
+## 📝 Examples
+
+See [examples](./../../examples/src/user-actions.ts) for more detailed examples.

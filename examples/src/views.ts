@@ -19,7 +19,7 @@ async function showPoolInfo(): Promise<void> {
 
   const pools = await getAllPools()
 
-  for (const pool of pools.slice(0, 2)) { // Show first 2 pools
+  for (const pool of pools) {
     const deposited = Number(pool.total_deposited)
     const borrowed = Number(pool.total_borrows)
     const utilization = (borrowed / deposited) * 100
@@ -56,9 +56,7 @@ async function main(): Promise<void> {
     await showPoolInfo()
     await showTokenPrices()
 
-    console.log('\n✅ Done! Run individual examples with:')
-    console.log('   pnpm example pool-info')
-    console.log('   pnpm example token-prices')
+    console.log('\n✅ Done!')
   }
   catch (error) {
     console.error('Error:', error)
