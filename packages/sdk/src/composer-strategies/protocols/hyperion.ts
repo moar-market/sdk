@@ -116,6 +116,79 @@ export async function addLiquidityOptimally(
   )
 }
 
+export interface RebalanceLiquidityParams {
+  // close position params
+  position_v3?: Address // required for close position
+  tokenA: Address
+  tokenB: Address
+  feeTier: number
+  minOutAmountA: bigint
+  minOutAmountB: bigint
+
+  // new position params
+  tickLower: number // new tick lower
+  tickUpper: number // new tick upper
+  additionalAmountA: bigint // additional amounts
+  additionalAmountB: bigint // additional amounts
+  minAmountA: bigint // new position min amounts
+  minAmountB: bigint // new position min amounts
+  deadline?: number
+  isStake?: boolean
+  dustThreshold?: number
+}
+
+/**
+ * Rebalance the price range of an existing position in the Hyperion protocol + increase position size
+ * @param builder - Script composer instance to add the rebalance operations to
+ * @param creditAccount - Credit account address or argument to execute the rebalance operations from
+ * @param liquidity - Parameters for rebalancing liquidity
+ * @throws {Error} If Hyperion rebalance strategy is not configured or rebalance inputs creation fails
+ */
+export async function rebalanceLiquidity(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  liquidity: RebalanceLiquidityParams,
+): Promise<void> {
+  const hyperion_rebalance = useAdapterStrategiesConfig().hyperion_rebalance
+  if (!hyperion_rebalance)
+    throw new Error('Hyperion rebalance strategy not available or configured')
+
+  const [, rebalanceLiquidityInput] = await builder.addBatchedCall({
+    function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_rebalance_inputs`,
+    functionArguments: [
+      // close position params
+      liquidity.position_v3,
+      liquidity.tokenA,
+      liquidity.tokenB,
+      liquidity.feeTier,
+      liquidity.minOutAmountA,
+      liquidity.minOutAmountB,
+      // new position params
+      liquidity.tickLower,
+      liquidity.tickUpper,
+      liquidity.additionalAmountA,
+      liquidity.additionalAmountB,
+      liquidity.minAmountA,
+      liquidity.minAmountB,
+      liquidity.deadline ?? Math.floor(100 * 365 * 24 * 60 * 60 + Date.now() / 1e3), // 100 years from now by default
+      !!liquidity.isStake,
+      liquidity.dustThreshold ?? 100000, // 0.1% by default
+    ],
+    typeArguments: [],
+  }, moarStrategies_hyperion_adapter_abi)
+
+  if (!rebalanceLiquidityInput)
+    throw new Error('Failed to create hyperion rebalance liquidity inputs')
+
+  await executeStrategy(
+    builder,
+    copyIfCallArgument(creditAccount),
+    hyperion_rebalance.adapterId,
+    hyperion_rebalance.strategyId,
+    rebalanceLiquidityInput,
+  )
+}
+
 export interface RemoveLiquidityParams {
   position_v3: Address
   liquidityDelta: bigint
