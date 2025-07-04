@@ -33,6 +33,7 @@ export const ADAPTER_STRATEGIES = {
   hyperion_add_liquidity: { adapterId: ADAPTERS.HYPERION, strategyId: 1 },
   hyperion_remove_liquidity: { adapterId: ADAPTERS.HYPERION, strategyId: 2 },
   hyperion_add_liquidity_optimally: { adapterId: ADAPTERS.HYPERION, strategyId: 3 },
+  hyperion_rebalance: { adapterId: ADAPTERS.HYPERION, strategyId: 4 },
 }
 
 export const PKGS = {

@@ -12,12 +12,13 @@ export interface AddLiquidityParams {
   tickLower: number
   tickUpper: number
   feeTier: number
-  amountA: bigint
-  amountB: bigint
+  amountA: bigint // for optimally the amount is available/wanted to add
+  amountB: bigint // for optimally the amount is available/wanted to add
   minAmountA: bigint
   minAmountB: bigint
   deadline?: number
   isStake?: boolean
+  dustThreshold?: number // for optimally the dust threshold to add liquidity optimally
 }
 
 /**
@@ -64,6 +65,127 @@ export async function addLiquidity(
     hyperion_add_liquidity.adapterId,
     hyperion_add_liquidity.strategyId,
     addLiquidityInput,
+  )
+}
+
+/**
+ * Add liquidity optimally to a hyperion pool, swaps tokens from hyperion pool if needed to maximize the amount of liquidity added
+ * @param builder - Script composer instance to add the liquidity operations to
+ * @param creditAccount - Credit account address or argument to execute the liquidity operations from
+ * @param liquidity - Parameters for adding liquidity
+ * @throws {Error} If Hyperion add liquidity optimally strategy is not configured or liquidity inputs creation fails
+ */
+export async function addLiquidityOptimally(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  liquidity: AddLiquidityParams,
+): Promise<void> {
+  const hyperion_add_liquidity_optimally = useAdapterStrategiesConfig().hyperion_add_liquidity_optimally
+  if (!hyperion_add_liquidity_optimally)
+    throw new Error('Hyperion add liquidity optimally strategy not available or configured')
+
+  const [, addLiquidityOptimallyInput] = await builder.addBatchedCall({
+    function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_add_liquidity_optimally_inputs`,
+    functionArguments: [
+      liquidity.position_v3,
+      liquidity.tokenA,
+      liquidity.tokenB,
+      liquidity.tickLower,
+      liquidity.tickUpper,
+      liquidity.feeTier,
+      liquidity.amountA,
+      liquidity.amountB,
+      liquidity.minAmountA,
+      liquidity.minAmountB,
+      liquidity.deadline ?? Math.floor(100 * 365 * 24 * 60 * 60 + Date.now() / 1e3), // 100 years from now by default
+      !!liquidity.isStake,
+      liquidity.dustThreshold ?? 100000, // 0.1% by default
+    ],
+    typeArguments: [],
+  }, moarStrategies_hyperion_adapter_abi)
+
+  if (!addLiquidityOptimallyInput)
+    throw new Error('Failed to create hyperion add liquidity optimally inputs')
+
+  await executeStrategy(
+    builder,
+    copyIfCallArgument(creditAccount),
+    hyperion_add_liquidity_optimally.adapterId,
+    hyperion_add_liquidity_optimally.strategyId,
+    addLiquidityOptimallyInput,
+  )
+}
+
+export interface RebalanceLiquidityParams {
+  // close position params
+  position_v3?: Address // required for close position
+  tokenA: Address
+  tokenB: Address
+  feeTier: number
+  minOutAmountA: bigint
+  minOutAmountB: bigint
+
+  // new position params
+  tickLower: number // new tick lower
+  tickUpper: number // new tick upper
+  additionalAmountA: bigint // additional amounts
+  additionalAmountB: bigint // additional amounts
+  minAmountA: bigint // new position min amounts
+  minAmountB: bigint // new position min amounts
+  deadline?: number
+  isStake?: boolean
+  dustThreshold?: number
+}
+
+/**
+ * Rebalance the price range of an existing position in the Hyperion protocol + increase position size
+ * @param builder - Script composer instance to add the rebalance operations to
+ * @param creditAccount - Credit account address or argument to execute the rebalance operations from
+ * @param liquidity - Parameters for rebalancing liquidity
+ * @throws {Error} If Hyperion rebalance strategy is not configured or rebalance inputs creation fails
+ */
+export async function rebalanceLiquidity(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  liquidity: RebalanceLiquidityParams,
+): Promise<void> {
+  const hyperion_rebalance = useAdapterStrategiesConfig().hyperion_rebalance
+  if (!hyperion_rebalance)
+    throw new Error('Hyperion rebalance strategy not available or configured')
+
+  const [, rebalanceLiquidityInput] = await builder.addBatchedCall({
+    function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_rebalance_inputs`,
+    functionArguments: [
+      // close position params
+      liquidity.position_v3,
+      liquidity.tokenA,
+      liquidity.tokenB,
+      liquidity.feeTier,
+      liquidity.minOutAmountA,
+      liquidity.minOutAmountB,
+      // new position params
+      liquidity.tickLower,
+      liquidity.tickUpper,
+      liquidity.additionalAmountA,
+      liquidity.additionalAmountB,
+      liquidity.minAmountA,
+      liquidity.minAmountB,
+      liquidity.deadline ?? Math.floor(100 * 365 * 24 * 60 * 60 + Date.now() / 1e3), // 100 years from now by default
+      !!liquidity.isStake,
+      liquidity.dustThreshold ?? 100000, // 0.1% by default
+    ],
+    typeArguments: [],
+  }, moarStrategies_hyperion_adapter_abi)
+
+  if (!rebalanceLiquidityInput)
+    throw new Error('Failed to create hyperion rebalance liquidity inputs')
+
+  await executeStrategy(
+    builder,
+    copyIfCallArgument(creditAccount),
+    hyperion_rebalance.adapterId,
+    hyperion_rebalance.strategyId,
+    rebalanceLiquidityInput,
   )
 }
 
@@ -147,68 +269,4 @@ export async function claimReward(
     calldata: calldata_vec,
     nullType: '',
   })
-}
-
-export interface AddLiquidityOptimallyParams {
-  position_object?: Address
-  tokenA: Address
-  tokenB: Address
-  tickLower: number
-  tickUpper: number
-  feeTier: number
-  amountA: bigint
-  amountB: bigint
-  minAmountA: bigint
-  minAmountB: bigint
-  deadline?: number
-  isStake?: boolean
-  dustThreshold?: number
-}
-
-/**
- * Add liquidity optimally to a hyperion pool, swaps tokens from hyperion pool if needed to maximize the amount of liquidity added
- * @param builder - Script composer instance to add the liquidity operations to
- * @param creditAccount - Credit account address or argument to execute the liquidity operations from
- * @param liquidity - Parameters for adding liquidity
- * @throws {Error} If Hyperion add liquidity optimally strategy is not configured or liquidity inputs creation fails
- */
-export async function addLiquidityOptimally(
-  builder: AptosScriptComposer,
-  creditAccount: CallArgument | Address,
-  liquidity: AddLiquidityOptimallyParams,
-): Promise<void> {
-  const hyperion_add_liquidity_optimally = useAdapterStrategiesConfig().hyperion_add_liquidity_optimally
-  if (!hyperion_add_liquidity_optimally)
-    throw new Error('Hyperion add liquidity optimally strategy not available or configured')
-
-  const [, addLiquidityOptimallyInput] = await builder.addBatchedCall({
-    function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_add_liquidity_optimally_inputs`,
-    functionArguments: [
-      liquidity.position_object,
-      liquidity.tokenA,
-      liquidity.tokenB,
-      liquidity.tickLower,
-      liquidity.tickUpper,
-      liquidity.feeTier,
-      liquidity.amountA,
-      liquidity.amountB,
-      liquidity.minAmountA,
-      liquidity.minAmountB,
-      liquidity.deadline ?? Math.floor(100 * 365 * 24 * 60 * 60 + Date.now() / 1e3), // 100 years from now by default
-      !!liquidity.isStake,
-      liquidity.dustThreshold ?? 100000, // 0.1% by default
-    ],
-    typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
-
-  if (!addLiquidityOptimallyInput)
-    throw new Error('Failed to create hyperion add liquidity optimally inputs')
-
-  await executeStrategy(
-    builder,
-    copyIfCallArgument(creditAccount),
-    hyperion_add_liquidity_optimally.adapterId,
-    hyperion_add_liquidity_optimally.strategyId,
-    addLiquidityOptimallyInput,
-  )
 }

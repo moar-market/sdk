@@ -1,15 +1,22 @@
 import type { SimpleTransaction } from '@aptos-labs/ts-sdk'
 import type { Address } from './../types'
-import type { AddLiquidityParams, RemoveLiquidityParams } from './protocols/hyperion'
+import type { AddLiquidityParams, RebalanceLiquidityParams, RemoveLiquidityParams } from './protocols/hyperion'
 import type { SwapParams } from './protocols/panora'
 import type { BorrowParams, CollateralParams, RepayParams } from './shared'
 import { useAptosConfig } from './../clients'
 import { scriptComposer } from './../composer'
-import { addLiquidity, claimReward, removeLiquidity } from './protocols/hyperion'
+import {
+  addLiquidity,
+  addLiquidityOptimally,
+  claimReward,
+  rebalanceLiquidity,
+  removeLiquidity,
+} from './protocols/hyperion'
 import { swap } from './protocols/panora'
 import { borrow, closeCreditAccount, depositCollateral, repay, setupStrategyAccount } from './shared'
 
-export type { AddLiquidityParams }
+// re-export types for convenience
+export type { AddLiquidityParams, RebalanceLiquidityParams, RemoveLiquidityParams }
 
 export interface OpenPositionParams {
   sender: Address
@@ -17,6 +24,7 @@ export interface OpenPositionParams {
   borrows: BorrowParams[]
   swaps: SwapParams[]
   liquidity: AddLiquidityParams
+  optimally?: boolean
 }
 
 /**
@@ -27,10 +35,11 @@ export interface OpenPositionParams {
  * @param {BorrowParams[]} params.borrows - The borrow parameters
  * @param {SwapParams[]} params.swaps - The swap parameters
  * @param {AddLiquidityParams} params.liquidity - The liquidity parameters
+ * @param {boolean} params.optimally - Whether to add liquidity optimally (default: false)
  * @returns {Promise<SimpleTransaction>} The transaction object
  */
 export async function openPosition(
-  { sender, collaterals, borrows, swaps, liquidity }: OpenPositionParams,
+  { sender, collaterals, borrows, swaps, liquidity, optimally = false }: OpenPositionParams,
 ): Promise<SimpleTransaction> {
   const transaction = await scriptComposer({
     config: useAptosConfig(),
@@ -43,7 +52,10 @@ export async function openPosition(
       await swap(builder, creditAccount, swaps)
 
       // add liquidity
-      await addLiquidity(builder, creditAccount, liquidity)
+      if (optimally)
+        await addLiquidityOptimally(builder, creditAccount, liquidity)
+      else
+        await addLiquidity(builder, creditAccount, liquidity)
 
       return builder
     },
@@ -59,6 +71,7 @@ export interface IncreasePositionParams {
   borrows: BorrowParams[]
   swaps: SwapParams[]
   liquidity: AddLiquidityParams
+  optimally?: boolean
 }
 
 /**
@@ -70,10 +83,11 @@ export interface IncreasePositionParams {
  * @param {BorrowParams[]} params.borrows - The borrow parameters
  * @param {SwapParams[]} params.swaps - The swap parameters
  * @param {AddLiquidityParams} params.liquidity - The liquidity parameters
+ * @param {boolean} params.optimally - Whether to add liquidity optimally (default: false)
  * @returns {Promise<SimpleTransaction>} The transaction object
  */
 export async function increasePosition(
-  { sender, creditAccount, collaterals = [], borrows, swaps, liquidity }: IncreasePositionParams,
+  { sender, creditAccount, collaterals = [], borrows, swaps, liquidity, optimally = false }: IncreasePositionParams,
 ): Promise<SimpleTransaction> {
   const transaction = await scriptComposer({
     config: useAptosConfig(),
@@ -89,7 +103,56 @@ export async function increasePosition(
       await swap(builder, creditAccount, swaps)
 
       // add liquidity
-      await addLiquidity(builder, creditAccount, liquidity)
+      if (optimally)
+        await addLiquidityOptimally(builder, creditAccount, liquidity)
+      else
+        await addLiquidity(builder, creditAccount, liquidity)
+
+      return builder
+    },
+  })
+
+  return transaction
+}
+
+export interface RebalancePositionParams {
+  sender: Address
+  creditAccount: Address
+  collaterals?: CollateralParams[]
+  borrows: BorrowParams[]
+  swaps: SwapParams[]
+  liquidity: RebalanceLiquidityParams
+}
+
+/**
+ * Rebalance the price range of an existing position in the Hyperion protocol + increase position size
+ * @param {RebalancePositionParams} params - The parameters for rebalancing a position
+ * @param {Address} params.sender - The sender account address
+ * @param {Address} params.creditAccount - The credit account address
+ * @param {CollateralParams[]} params.collaterals - The collateral parameters
+ * @param {BorrowParams[]} params.borrows - The borrow parameters
+ * @param {SwapParams[]} params.swaps - The swap parameters
+ * @param {RebalanceLiquidityParams} params.liquidity - The liquidity rebalance parameters
+ * @returns {Promise<SimpleTransaction>} The transaction object
+ */
+export async function rebalancePosition(
+  { sender, creditAccount, collaterals = [], borrows, swaps, liquidity }: RebalancePositionParams,
+): Promise<SimpleTransaction> {
+  const transaction = await scriptComposer({
+    config: useAptosConfig(),
+    sender,
+    builder: async (builder) => {
+      // deposit collaterals
+      await depositCollateral(builder, creditAccount, collaterals)
+
+      // borrows
+      await borrow(builder, creditAccount, borrows)
+
+      //  swaps
+      await swap(builder, creditAccount, swaps)
+
+      // rebalance
+      await rebalanceLiquidity(builder, creditAccount, liquidity)
 
       return builder
     },
