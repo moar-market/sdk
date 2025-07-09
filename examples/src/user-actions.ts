@@ -187,7 +187,13 @@ async function swapCreditAccountAssets(creditAccount: Address) {
   const config = useAptosConfig()
   const sender = (await getSender()).accountAddress
 
-  const swapParams = await preview_swap_exact(apt_address, usdc_address, 0.5, true)
+  const swapParams = await preview_swap_exact({
+    assetIn: apt_address,
+    assetOut: usdc_address,
+    amount: 0.5,
+    isExactIn: true,
+    slippage: 0.5,
+  })
   console.log('Amount in', swapParams?.amountIn)
   console.log('Amount out', swapParams?.amountOut)
 
