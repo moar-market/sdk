@@ -1,7 +1,7 @@
 {
   "name": "@moar-market/examples",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "description": "Examples showcasing Moar Market SDK usage",
   "author": "Moar Market",
