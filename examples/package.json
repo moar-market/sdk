@@ -12,6 +12,7 @@
     "dev": "tsx --watch src/index.ts",
     "views": "tsx src/views.ts",
     "user-actions": "tsx src/user-actions.ts",
+    "liquidation-price": "tsx src/liquidation-price-test.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache"
