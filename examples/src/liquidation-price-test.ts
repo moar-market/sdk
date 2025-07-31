@@ -33,14 +33,18 @@ import {
 // Liquidated account details
 // const LEDGER_VERSION = 3109071081
 const LEDGER_VERSION = undefined
-const CREDIT_ACCOUNT: Address = '0x974c250aeee1a7f1af9fea4ca4a6fff29cba62aaf2971e19235f3ff6f8115edb'
+const CREDIT_ACCOUNT: Address = '0x974c250aeee1a7f1af9fea4ca4a6fff29cba62aaf2971e19235f3ff6f8115edb' // APT-USDC position
+// const CREDIT_ACCOUNT: Address = '0x59d1c649d8e67576d49d708c51dde6e922bb0698dea26c2493f604cff2cfe528' // wBTC-USDC position
 
 // Common token addresses
-const APT_ADDRESS: Address = '0xa'
+const TOKEN_A_ADDRESS: Address = '0xa'
+// const TOKEN_A_ADDRESS: Address = '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d' // wBTC
+const TOKEN_A_DECIMALS = 8
 const USDC_ADDRESS: Address = '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b'
+const USDC_DECIMALS = 6
 
-// Hyperion pool addresses
-const HYPERION_APT_USDC_POOL: Address = '0x925660b8618394809f89f8002e2926600c775221f43bf1919782b297a79400d8'
+// // Hyperion pool addresses
+// const HYPERION_APT_USDC_POOL: Address = '0x925660b8618394809f89f8002e2926600c775221f43bf1919782b297a79400d8'
 
 // Default correlation for other assets
 const DEFAULT_CORRELATION = 0.4
@@ -48,7 +52,6 @@ const SCALE_8 = 100000000n
 const SCALE_8_N = 10 ** 8
 const SCALE_6_N = 10 ** 6
 const APT_DECIMALS = 8
-const USDC_DECIMALS = 6
 
 /**
  * Fetch LTV ratios from hyperion adapter for a given pool address
@@ -65,8 +68,6 @@ async function fetchHyperionLTVRatios(poolAddress: Address): Promise<Record<numb
       functionArguments: [poolAddress],
     })
 
-    console.log('Raw Hyperion LTV data:', ltvData)
-
     const ltvMap: Record<number, bigint> = {}
 
     // Parse the structure: { data: [{ key: '0', value: '83333333' }, ...] }
@@ -76,7 +77,6 @@ async function fetchHyperionLTVRatios(poolAddress: Address): Promise<Record<numb
         const poolId = Number(entry.key)
         const ltv = BigInt(entry.value)
         ltvMap[poolId] = ltv
-        console.log(`Parsed Hyperion LTV - Pool ${poolId}: ${Number(ltv)} (1e8 scale)`)
       }
     }
     else {
@@ -222,7 +222,12 @@ function createLTVMatrixFromChain(
   if (hyperionLtvData[0] && hyperionLtvData[1]) {
     matrix.X[poolAddress] = hyperionLtvData[0] // LTV for pool address against APT debt
     matrix.Y[poolAddress] = hyperionLtvData[1] // LTV for pool address against USDC debt
-    console.log(`✅ Hyperion LTV found for pool ${poolAddress}`)
+  }
+  else if (hyperionLtvData[0]) {
+    matrix.X[poolAddress] = hyperionLtvData[0] // LTV for pool address against APT debt
+  }
+  else if (hyperionLtvData[1]) {
+    matrix.Y[poolAddress] = hyperionLtvData[1] // LTV for pool address against USDC debt
   }
   else {
     console.log(`⚠️  Warning: No Hyperion LTV found for pool ${poolAddress}`)
@@ -233,7 +238,12 @@ function createLTVMatrixFromChain(
     if (aptLtvs[assetAddress] && usdcLtvs[assetAddress]) {
       matrix.X[assetAddress] = aptLtvs[assetAddress]
       matrix.Y[assetAddress] = usdcLtvs[assetAddress]
-      console.log(`✅ LTV found for ${assetAddress}`)
+    }
+    else if (aptLtvs[assetAddress]) {
+      matrix.X[assetAddress] = aptLtvs[assetAddress]
+    }
+    else if (usdcLtvs[assetAddress]) {
+      matrix.Y[assetAddress] = usdcLtvs[assetAddress]
     }
     else {
       console.log(`⚠️  Warning: No LTV found for asset ${assetAddress} - skipping from liquidation calculation`)
@@ -246,7 +256,7 @@ function createLTVMatrixFromChain(
 /**
  * Main test function for liquidated account
  */
-async function testLiquidatedAccount() {
+async function testLiquidationPrice() {
   console.log('=== Liquidated Credit Account Analysis ===\n')
   console.log(`Credit Account: ${CREDIT_ACCOUNT}`)
   console.log(`Ledger Version: ${LEDGER_VERSION}`)
@@ -262,20 +272,6 @@ async function testLiquidatedAccount() {
     // 1. Fetch account debt and asset data
     console.log('📊 Fetching account data...')
     const debtAndAssets: AccountDebtAndAssetAmounts = await getAccountDebtAndAssetAmounts(CREDIT_ACCOUNT)
-
-    console.log('Debt Data:')
-    for (const debt of debtAndAssets.debtValues) {
-      // Pool 0 = APT (8 decimals), Pool 1 = USDC (6 decimals)
-      const decimals = debt.poolId === 0 ? APT_DECIMALS : USDC_DECIMALS
-      console.log(`  Pool ${debt.poolId}: ${Number(debt.amount) / 10 ** decimals} tokens`)
-    }
-
-    console.log('Asset Data:')
-    for (const asset of debtAndAssets.assetValues) {
-      // Display with proper decimals
-      const decimals = asset.address === USDC_ADDRESS ? USDC_DECIMALS : APT_DECIMALS
-      console.log(`  ${asset.address}: ${Number(asset.amount) / 10 ** decimals} tokens`)
-    }
 
     // 2. Fetch hyperion positions
     console.log('\n🔄 Fetching Hyperion positions...')
@@ -293,7 +289,7 @@ async function testLiquidatedAccount() {
     const positionInfo: PositionInfo = await get_position_info(position.position_object, position.pool)
 
     // convert LP tokens to 1e8 precision
-    const liquidityDecimals = (USDC_DECIMALS + APT_DECIMALS) / 2 // (token_a_decimals + token_b_decimals) / 2
+    const liquidityDecimals = (USDC_DECIMALS + TOKEN_A_DECIMALS) / 2 // (token_a_decimals + token_b_decimals) / 2
     positionInfo.liquidity = BigInt(positionInfo.liquidity) * SCALE_8 / (10n ** BigInt(liquidityDecimals))
 
     console.log(`Position: ${Number(positionInfo.token_a_amount) / SCALE_8_N} APT + ${Number(positionInfo.token_b_amount) / SCALE_6_N} USDC, Price: ${Number(positionInfo.current_price) / SCALE_8_N}`)
@@ -312,13 +308,13 @@ async function testLiquidatedAccount() {
     }).filter(Boolean) as Address[]
 
     const allAssetAddresses = [
-      APT_ADDRESS,
+      TOKEN_A_ADDRESS,
       USDC_ADDRESS,
       ...debtAndAssets.assetValues.map(a => a.address).filter(addr =>
-        addr !== APT_ADDRESS && addr !== USDC_ADDRESS,
+        addr !== TOKEN_A_ADDRESS && addr !== USDC_ADDRESS,
       ),
       ...rewardTokens.filter(addr =>
-        addr !== APT_ADDRESS && addr !== USDC_ADDRESS,
+        addr !== TOKEN_A_ADDRESS && addr !== USDC_ADDRESS,
       ),
     ]
 
@@ -350,10 +346,10 @@ async function testLiquidatedAccount() {
 
     // Create LTV matrix (only include actual assets, not reward tokens)
     const assetAddressesForLTV = [
-      APT_ADDRESS,
+      TOKEN_A_ADDRESS,
       USDC_ADDRESS,
       ...debtAndAssets.assetValues.map(a => a.address).filter(addr =>
-        addr !== APT_ADDRESS && addr !== USDC_ADDRESS,
+        addr !== TOKEN_A_ADDRESS && addr !== USDC_ADDRESS,
       ),
     ]
     const ltvMatrix = createLTVMatrixFromChain(
@@ -373,14 +369,13 @@ async function testLiquidatedAccount() {
 
       const price = Number(oraclePrices[asset.address]) || 0
       if (price === 0)
-        continue
+        throw new Error(`Oracle price for asset ${asset.address} is 0`)
 
       // Determine asset decimals (default to 8, but USDC is 6)
       const decimals = asset.address === USDC_ADDRESS ? USDC_DECIMALS : APT_DECIMALS
 
       // Calculate USD value of this asset
-      const tokenAmount = Number(asset.amount) / 10 ** decimals
-      const usdValue = tokenAmount * (price / SCALE_8_N) // Convert oracle price from 1e8 to decimal
+      const usdValue = Number(asset.amount) * price / 10 ** decimals / SCALE_8_N // Convert oracle price from 1e8 to decimal
 
       // Skip amounts less than $0.1
       if (usdValue < 0.1) {
@@ -393,15 +388,15 @@ async function testLiquidatedAccount() {
       if (asset.address === USDC_ADDRESS) {
         correlation = 0.0 // Stablecoin
       }
-      else if (asset.address === APT_ADDRESS) {
+      else if (asset.address === TOKEN_A_ADDRESS) {
         correlation = 1.0 // Same as X token
       }
 
       faAssets.push(createFAAsset(
         asset.address,
         BigInt(asset.amount),
-        price / Number(oraclePrices[USDC_ADDRESS]), // Price in USDC terms (createFAAsset will scale by 1e8)
-        correlation,
+        BigInt(Math.floor(price * SCALE_8_N / Number(oraclePrices[USDC_ADDRESS]))), // Price in USDC terms
+        BigInt(Math.floor(correlation)) * SCALE_8,
         decimals,
       ))
 
@@ -417,7 +412,7 @@ async function testLiquidatedAccount() {
       ltvMatrix,
       faAssets,
       currentPrice,
-      xDecimals: APT_DECIMALS, // APT decimals
+      xDecimals: TOKEN_A_DECIMALS, // APT decimals
       yDecimals: USDC_DECIMALS, // USDC decimals
     }
 
@@ -426,56 +421,7 @@ async function testLiquidatedAccount() {
 
     // 7. Calculate liquidation prices
     console.log('\n⚡ Calculating liquidation prices...')
-    let result
-    try {
-      result = await calculateLiquidationPrices(params)
-    }
-    catch (error) {
-      console.log('❌ Error calculating liquidation prices:', error instanceof Error ? error.message : String(error))
-
-      // Let's calculate the basic metrics manually for debugging
-      console.log('\n📊 Manual Calculations (for debugging):')
-      console.log('=====================================')
-
-      const totalDebt = Number(params.position.debtX) / 10 ** params.xDecimals * (Number(currentPrice) / SCALE_8_N)
-        + Number(params.position.debtY) / 10 ** params.yDecimals
-      console.log(`Total Debt Value: ${totalDebt.toFixed(6)} USDC`)
-
-      // Use actual token amounts from position info for more accurate calculation
-      const aptValue = Number(positionInfo.token_a_amount) / SCALE_8_N * (Number(currentPrice) / SCALE_8_N)
-      const usdcValue = Number(positionInfo.token_b_amount) / SCALE_6_N // USDC has 6 decimals
-      const hyperionValue = aptValue + usdcValue
-      console.log(`Hyperion Position Value: ${hyperionValue.toFixed(6)} USDC`)
-      console.log(`  - APT: ${Number(positionInfo.token_a_amount) / SCALE_8_N} tokens * ${Number(currentPrice) / SCALE_8_N} = ${aptValue.toFixed(6)} USDC`)
-      console.log(`  - USDC: ${Number(positionInfo.token_b_amount) / SCALE_6_N} tokens = ${usdcValue.toFixed(6)} USDC`)
-
-      let totalFAValue = 0
-      for (const asset of params.faAssets) {
-        const assetValue = Number(asset.amount) / 10 ** asset.decimals * Number(asset.currentPrice) / SCALE_8_N
-        totalFAValue += assetValue
-        console.log(`FA Asset ${asset.assetAddress}: ${assetValue.toFixed(6)} USDC`)
-      }
-
-      const totalAssets = hyperionValue + totalFAValue
-
-      // Calculate weighted debt requirement (simplified approximation)
-      // This is a rough estimate - the actual calculation in the liquidation function is more complex
-      const aptDebtValue = Number(params.position.debtX) / 10 ** params.xDecimals * (Number(currentPrice) / SCALE_8_N)
-      const usdcDebtValue = Number(params.position.debtY) / 10 ** params.yDecimals
-
-      // Estimate weighted debt requirement using average LTV (~80-90%)
-      const avgLTV = 0.85 // This is just an estimate for manual calculation
-      const weightedDebtRequirement = (aptDebtValue + usdcDebtValue) / avgLTV
-
-      const marginRatio = totalAssets / weightedDebtRequirement // This is the health factor
-
-      console.log(`Total Assets: ${totalAssets.toFixed(6)} USDC`)
-      console.log(`Total Debts: ${totalDebt.toFixed(6)} USDC`)
-      console.log(`Estimated Weighted Debt Requirement: ${weightedDebtRequirement.toFixed(6)} USDC (using avg LTV ${avgLTV})`)
-      console.log(`Estimated Margin Ratio (Health Factor): ${marginRatio.toFixed(6)}`)
-
-      return
-    }
+    const result = await calculateLiquidationPrices(params)
 
     // 8. Display results
     const formatted = formatLiquidationResult(result, 6)
@@ -495,8 +441,8 @@ async function testLiquidatedAccount() {
 
     console.log('\n📈 Distance to Liquidation:')
     console.log('===========================')
-    console.log(`Distance to Lower: ${Number(result.liquidationDistance.low) / SCALE_8_N * 100}%`)
-    console.log(`Distance to Upper: ${Number(result.liquidationDistance.high) / SCALE_8_N * 100}%`)
+    console.log(`Distance to Lower: ${(Number(result.liquidationDistance.low) / SCALE_8_N * 100).toFixed(2)}%`)
+    console.log(`Distance to Upper: ${(Number(result.liquidationDistance.high) / SCALE_8_N * 100).toFixed(2)}%`)
 
     console.log('\n🔍 Position Breakdown:')
     console.log('=====================')
@@ -546,7 +492,9 @@ async function testLiquidatedAccount() {
  * Run the liquidated account test
  */
 async function main() {
-  await testLiquidatedAccount()
+  await testLiquidationPrice()
 }
 
-export { testLiquidatedAccount }
+main().catch(console.error)
+
+export { testLiquidationPrice }

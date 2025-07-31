@@ -1,4 +1,4 @@
-import type { Address, AnyNumber } from '../types'
+import type { Address } from '../types'
 import { absBig, formatAmount } from '@itsmnthn/big-utils'
 
 // =============================================================================
@@ -77,6 +77,7 @@ export interface LiquidationResult {
 
 const DEFAULT_DECIMALS = 8
 const SCALE_8 = 100000000n // 1e8
+const SCALE_4 = 10000n // 1e4
 const MAX_PRICE = 100000000000000000n // Max price (1e17, very high)
 const MIN_PRICE = 1n // Min price (very low)
 const MAX_U64 = 18446744073709551615n // Max u64 value
@@ -306,11 +307,102 @@ function calculateMarginRatio(totalAssets: bigint, weightedDebtRequirement: bigi
 }
 
 /**
+ * Check if account is healthy at a given price and return margin factor
+ */
+function isAccountHealthy(price: bigint, params: LTVLiquidationParams): { isHealthy: boolean, marginFactor: bigint, totalAssets: bigint, breakdown: Record<string, bigint>, wdr: bigint } {
+  const { totalValue: totalAssets, breakdown } = calculateTotalAssets(
+    price,
+    params.position,
+    params.faAssets,
+    params.currentPrice,
+    params.xDecimals,
+    params.yDecimals,
+  )
+
+  const wdr = calculateWeightedDebtRequirement(
+    price,
+    params.position,
+    params.ltvMatrix,
+    breakdown,
+    params.xDecimals,
+    params.yDecimals,
+  )
+
+  const marginFactor = calculateMarginRatio(totalAssets, wdr)
+  const isHealthy = totalAssets >= wdr // Account is healthy if total assets >= weighted debt requirement
+
+  return { isHealthy, marginFactor, totalAssets, breakdown, wdr }
+}
+
+/**
+ * Custom error for when derivative is too small in Newton-Raphson
+ */
+class DerivativeTooSmallError extends Error {
+  constructor(
+    public readonly price: bigint,
+    public readonly searchingLower: boolean,
+    message?: string,
+  ) {
+    super(message || 'Derivative too small, cannot continue Newton-Raphson')
+    this.name = 'DerivativeTooSmallError'
+  }
+}
+
+/**
+ * Handle the edge case when derivative is too small in Newton-Raphson
+ */
+function handleDerivativeTooSmallError(
+  error: DerivativeTooSmallError,
+  params: LTVLiquidationParams,
+): bigint {
+  // Get position price boundaries from ticks
+  const priceLower = tickToPrice(params.position.tickLower, params.xDecimals, params.yDecimals)
+  const priceUpper = tickToPrice(params.position.tickUpper, params.xDecimals, params.yDecimals)
+
+  // revert if error price in within the position price range (which is not possible because position composition changes with price)
+  if (error.price >= priceLower && error.price <= priceUpper) {
+    throw new Error('Error price is within position price range and derivative too small')
+  }
+
+  // Determine boundary price based on search direction
+  const boundaryPrice = error.searchingLower ? priceLower : priceUpper
+
+  // Check account health at boundary
+  const { isHealthy: healthyAtBoundary } = isAccountHealthy(boundaryPrice, params)
+
+  if (!healthyAtBoundary) {
+    // Account is unhealthy at boundary, try with adjustment
+    // Adjust guess to be slightly inside the position range
+    // For lower search: slightly higher than lower boundary
+    // For upper search: slightly lower than upper boundary
+    const adjustedGuess = error.searchingLower
+      ? priceLower + (priceLower * SCALE_8) / 10000n // +1% from lower boundary
+      : priceUpper - (priceUpper * SCALE_8) / 10000n // -1% from upper boundary
+
+    try {
+      // Try Newton-Raphson again with adjusted guess
+      return newtonRaphsonSolve(params, adjustedGuess, error.searchingLower)
+    }
+    catch (retryError) {
+      if (retryError instanceof DerivativeTooSmallError) {
+        throw new TypeError('Failed to find liquidation price even with boundary adjustment')
+      }
+      throw retryError
+    }
+  }
+  else {
+    // Account is healthy at boundary, return MIN/MAX price
+    return error.searchingLower ? MIN_PRICE : MAX_PRICE
+  }
+}
+
+/**
  * Newton-Raphson solver for liquidation price
  */
 function newtonRaphsonSolve(
   params: LTVLiquidationParams,
   initialGuess: bigint,
+  searchingLower: boolean = true, // true for lower liquidation price, false for upper
   tolerance: bigint = SCALE_8 / 1000000n, // 1e-6
   maxIterations: number = 100,
 ): bigint {
@@ -370,8 +462,8 @@ function newtonRaphsonSolve(
 
     const fprime = (fPlus - f) * SCALE_8 / delta
 
-    if (absBig(fprime) <= SCALE_8 / 1000000000000n) {
-      throw new Error('Derivative too small, cannot continue Newton-Raphson')
+    if (absBig(fprime) <= SCALE_4) {
+      throw new DerivativeTooSmallError(price, searchingLower)
     }
 
     const priceNext = price - (f * SCALE_8) / fprime
@@ -411,34 +503,60 @@ export async function calculateLiquidationPrices(
 ): Promise<LiquidationResult> {
   const currentPrice = params.currentPrice
 
-  // Calculate current position metrics
-  const { totalValue: currentTotalAssets, breakdown: currentBreakdown } = calculateTotalAssets(
-    currentPrice,
-    params.position,
-    params.faAssets,
-    currentPrice,
-    params.xDecimals,
-    params.yDecimals,
-  )
+  // Check if account is already in liquidation zone
+  const {
+    isHealthy: currentlyHealthy,
+    marginFactor: currentMarginRatio,
+    totalAssets: currentTotalAssets,
+    breakdown: currentBreakdown,
+    wdr: currentWDR,
+  } = isAccountHealthy(currentPrice, params)
 
-  const currentWDR = calculateWeightedDebtRequirement(
-    currentPrice,
-    params.position,
-    params.ltvMatrix,
-    currentBreakdown,
-    params.xDecimals,
-    params.yDecimals,
-  )
+  if (!currentlyHealthy) {
+    return {
+      liquidationPrices: [currentPrice, currentPrice],
+      currentMarginRatio, // Use actual calculated ratio
+      isAtRisk: true,
+      marginBuffer: currentMarginRatio - SCALE_8, // Can be negative
+      liquidationDistance: { low: 0n, high: 0n },
+      breakdown: {
+        totalAssets: currentTotalAssets,
+        totalDebts: (() => {
+          // Scale debt amounts to 1e8 for consistency
+          const debtXScaled = adjustDecimalScale(params.position.debtX, params.xDecimals, DEFAULT_DECIMALS)
+          const debtYScaled = adjustDecimalScale(params.position.debtY, params.yDecimals, DEFAULT_DECIMALS)
 
-  const currentMarginRatio = calculateMarginRatio(currentTotalAssets, currentWDR)
+          // Convert to Y terms and sum (scaled by 1e8)
+          const xDebtInY = (debtXScaled * currentPrice) / SCALE_8
+          const xDebtScaled = adjustDecimalScale(xDebtInY, params.xDecimals, params.yDecimals)
+
+          return xDebtScaled + debtYScaled
+        })(),
+        weightedDebtRequirement: currentWDR,
+        assetBreakdown: currentBreakdown,
+      },
+    }
+  }
+
+  // (Position metrics already calculated above)
 
   // Find liquidation prices
   let liquidationLow = MIN_PRICE
   let liquidationHigh = MAX_PRICE
 
   // Search for lower liquidation price (start below current)
-  const searchLow = (currentPrice * 5n) / 10n // 50% of current
-  liquidationLow = newtonRaphsonSolve(params, searchLow)
+  const searchLow = (currentPrice * 7n) / 10n // 70% of current
+  try {
+    liquidationLow = newtonRaphsonSolve(params, searchLow, true)
+  }
+  catch (error) {
+    if (error instanceof DerivativeTooSmallError) {
+      liquidationLow = handleDerivativeTooSmallError(error, params)
+    }
+    else {
+      throw error
+    }
+  }
 
   // Verify it's actually lower
   if (liquidationLow >= currentPrice) {
@@ -446,8 +564,18 @@ export async function calculateLiquidationPrices(
   }
 
   // Search for upper liquidation price (start above current)
-  const searchHigh = (currentPrice * 15n) / 10n // 150% of current
-  liquidationHigh = newtonRaphsonSolve(params, searchHigh)
+  const searchHigh = (currentPrice * 13n) / 10n // 130% of current
+  try {
+    liquidationHigh = newtonRaphsonSolve(params, searchHigh, false)
+  }
+  catch (error) {
+    if (error instanceof DerivativeTooSmallError) {
+      liquidationHigh = handleDerivativeTooSmallError(error, params)
+    }
+    else {
+      throw error
+    }
+  }
 
   // Verify it's actually higher
   if (liquidationHigh <= currentPrice) {
@@ -533,6 +661,8 @@ export function formatLiquidationResult(result: LiquidationResult, decimals: num
 /**
  * Create LTV matrix with scaled values
  * @param matrix Object with LTV ratios as numbers (e.g., 0.75 for 75%)
+ * @param matrix.X Object with LTV ratios for X token
+ * @param matrix.Y Object with LTV ratios for Y token
  * @returns LTV matrix with BigInt values scaled by 1e8
  */
 export function createLTVMatrix(matrix: {
@@ -557,16 +687,16 @@ export function createLTVMatrix(matrix: {
  */
 export function createFAAsset(
   assetAddress: Address,
-  amount: AnyNumber,
-  currentPrice: number,
-  correlation: number,
+  amount: bigint, // scaled by asset decimals
+  currentPrice: bigint, // scaled by 1e8
+  correlation: bigint, // scaled by 1e8
   decimals: number,
 ): FAAsset {
   return {
     assetAddress,
-    amount: BigInt(amount),
-    currentPrice: BigInt(Math.floor(currentPrice * Number(SCALE_8))),
-    correlation: BigInt(Math.floor(correlation * Number(SCALE_8))),
+    amount,
+    currentPrice,
+    correlation,
     decimals,
   }
 }
