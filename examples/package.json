@@ -8,10 +8,7 @@
   "license": "MIT",
   "keywords": ["moar", "market", "sdk", "example", "defi", "aptos"],
   "scripts": {
-    "start": "tsx src/index.ts",
-    "dev": "tsx --watch src/index.ts",
-    "views": "tsx src/views.ts",
-    "user-actions": "tsx src/user-actions.ts",
+    "example": "tsx scripts/run-example.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache"
