@@ -1,27 +1,41 @@
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { join, relative, resolve } from 'node:path'
 import process from 'node:process'
 
 const EXAMPLES_DIR = resolve('src')
 const fileArg = process.argv[2]
 
-function printUsageAndExit() {
-  const files = readdirSync(EXAMPLES_DIR)
-    .filter(f => f.endsWith('.ts'))
-    .map(f => f.replace(/\.ts$/, ''))
+function getAllTsFiles(dir: string): string[] {
+  const entries = readdirSync(dir, { withFileTypes: true })
+  return entries.flatMap((entry) => {
+    const fullPath = join(dir, entry.name)
+    if (entry.isDirectory()) {
+      return getAllTsFiles(fullPath)
+    }
+    if (entry.isFile() && entry.name.endsWith('.ts')) {
+      return [relative(EXAMPLES_DIR, fullPath).replace(/\\/g, '/')]
+    }
+    return []
+  })
+}
 
-  console.info(`ℹ  Please provide a valid example file name from /examples/src/.
+function printUsageAndExit() {
+  const files = getAllTsFiles(EXAMPLES_DIR).map(f => f.replace(/\.ts$/, ''))
+
+  console.info(`ℹ  Run a specific example script from /examples/src/.
 
 Usage:
-  pnpm examples <file>
+  pnpm examples <example-file-name>
+
+Where <example-file-name> is the name of a TypeScript file (without the .ts extension) in /examples/src/.
 
 Examples:
   pnpm examples views
   pnpm examples user-actions
-  pnpm examples historical-balance
+  pnpm examples inner-dir/inner-file
 
-Available files:
+Available examples:
 ${files.map(f => `  - ${f}`).join('\n')}
 `)
   process.exit(1)
