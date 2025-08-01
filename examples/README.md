@@ -21,6 +21,9 @@ pnpm install
 # Pool information
 pnpm examples views
 
+# Historical balance
+pnpm examples historical-balance
+
 # Token prices
 pnpm examples user-actions
 
