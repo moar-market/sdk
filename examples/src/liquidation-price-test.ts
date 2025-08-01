@@ -1,38 +1,22 @@
 import type { Address, CLMMPosition, LTVLiquidationParams } from '@moar-market/sdk'
 import type { AccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
-
 import type { PositionInfo } from '@moar-market/sdk/protocols/hyperion'
-
 import {
-
   calculateLiquidationPrices,
-
   createFAAsset,
   fetchOraclePrices,
   formatLiquidationResult,
-
+  useAptos,
   useSurfClient,
 } from '@moar-market/sdk'
-
-import {
-  moar_risk_manager_abi,
-  moarStrategies_hyperion_adapter_abi,
-} from '@moar-market/sdk/abis'
+import { moar_risk_manager_abi, moarStrategies_hyperion_adapter_abi } from '@moar-market/sdk/abis'
 import { getModuleAddress } from '@moar-market/sdk/config'
-
-import {
-
-  getAccountDebtAndAssetAmounts,
-} from '@moar-market/sdk/credit-manager'
-import {
-  get_position_info,
-  getAllPositionsView,
-
-} from '@moar-market/sdk/protocols/hyperion'
+import { getAccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
+import { get_position_info, getAllPositionsView } from '@moar-market/sdk/protocols/hyperion'
 
 // Liquidated account details
-// const LEDGER_VERSION = 3109071081
-const LEDGER_VERSION = undefined
+// const LEDGER_VERSION = undefined
+const LEDGER_VERSION = 3140012280
 const CREDIT_ACCOUNT: Address = '0x974c250aeee1a7f1af9fea4ca4a6fff29cba62aaf2971e19235f3ff6f8115edb' // APT-USDC position
 // const CREDIT_ACCOUNT: Address = '0x59d1c649d8e67576d49d708c51dde6e922bb0698dea26c2493f604cff2cfe528' // wBTC-USDC position
 
@@ -262,11 +246,8 @@ async function testLiquidationPrice() {
   console.log(`Ledger Version: ${LEDGER_VERSION}`)
   console.log('')
 
-  // Set ledger version for historical data
-  const surfClient = useSurfClient()
-  if (LEDGER_VERSION !== undefined) {
-    surfClient.setLedgerVersion(LEDGER_VERSION)
-  }
+  const aptos = useAptos()
+  aptos.setLedgerVersion?.(LEDGER_VERSION)
 
   try {
     // 1. Fetch account debt and asset data
@@ -481,10 +462,7 @@ async function testLiquidationPrice() {
     console.error('Error during liquidation analysis:', error)
   }
   finally {
-    // Reset ledger version
-    if (LEDGER_VERSION !== undefined) {
-      surfClient.setLedgerVersion(undefined)
-    }
+    aptos.setLedgerVersion?.(undefined)
   }
 }
 
