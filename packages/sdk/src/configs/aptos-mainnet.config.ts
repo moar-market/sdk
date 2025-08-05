@@ -1,6 +1,8 @@
 import type { Config } from '../config'
 import type { Address, ChainConfig, LendPoolConfig, Modules } from '../types'
 
+export const MOAR_API = 'https://no.moar.market'
+
 export const CHAIN: ChainConfig = {
   isMainnet: true,
   chainId: 1,
@@ -279,6 +281,7 @@ const LEND_POOLS: LendPoolConfig[] = [
 
 export const config: Config = {
   DEBUG: false,
+  MOAR_API,
   PANORA_API_KEY: '',
 
   CHAIN,

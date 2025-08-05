@@ -30,11 +30,24 @@ export function isDebugEnabled(): boolean {
   return getConfig().DEBUG || false
 }
 
+export function useMoarApi(): string {
+  const api = getConfig().MOAR_API
+  if (!api) {
+    throw new Error('MOAR_API is not set in the config')
+  }
+
+  return api
+}
+
 export function setPanoraApiKey(apiKey: string): void {
   getConfig().PANORA_API_KEY = apiKey
 }
 export function usePanoraApiKey(): string {
-  return getConfig().PANORA_API_KEY || ''
+  const apiKey = getConfig().PANORA_API_KEY
+  if (!apiKey) {
+    console.warn('PANORA_API_KEY is not set in the config')
+  }
+  return apiKey || ''
 }
 
 export function setAptosApiKey(apiKey: string): void {
@@ -84,6 +97,7 @@ export interface ModuleSettings {
 
 export interface Config {
   DEBUG: boolean
+  MOAR_API: string
   PANORA_API_KEY: string
 
   CHAIN: ChainConfig
