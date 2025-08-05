@@ -76,7 +76,8 @@
     "oxlint",
     "Panora",
     "thalalabs",
-    "tsdown"
+    "tsdown",
+    "unstake"
   ],
   "oxc.enable": true
 }
