@@ -67,6 +67,9 @@ export async function fetchAccountEvent<T>(
 
   const url = `${useMoarApi()}/events?${queryString}`
   const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch event type ${eventType}: ${res.status} ${res.statusText}`)
+  }
   const eventsRes = (await res.json()).events as EventBaseResponse<T>[]
 
   return sortEvents(eventsRes)
@@ -96,6 +99,9 @@ export async function fetchAccountEvents<T = CreditAccountEventData>(
 
   const url = `${useMoarApi()}/events?${queryString}`
   const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch events: ${res.status} ${res.statusText}`)
+  }
   const eventsRes = (await res.json()).events
 
   return sortEvents(eventsRes)
@@ -186,14 +192,6 @@ export function sortEvents<T>(eventsRes: EventBaseResponse<T>[]): EventBaseRespo
       return a.transaction_version - b.transaction_version
     }
     return a.index - b.index
-  }).map((event): EventBaseResponse<T> => {
-    return {
-      data: event.data as T,
-      index: event.index,
-      timestamp: event.timestamp,
-      transaction_version: event.transaction_version,
-      indexed_type: event.indexed_type,
-    }
   })
 }
 
@@ -235,6 +233,10 @@ export interface EventBaseResponse<T> {
   transaction_version: number
 }
 
+export interface Metadata {
+  inner: Address
+}
+
 /**
  * Type definitions for credit account event data
  */
@@ -252,13 +254,13 @@ export interface CreditAccountClosedEvent {
 export interface AssetAddedEvent {
   user: Address
   credit_account_address: Address
-  asset: { inner: string }
+  asset: Metadata
 }
 
 export interface CollateralDepositedEvent {
   user: Address
   credit_account_address: Address
-  asset: { inner: string }
+  asset: Metadata
   amount: string
 }
 
@@ -267,7 +269,7 @@ export interface AssetWithdrawnEvent {
   credit_account_address: Address
   receiver: Address
   amount: string
-  asset: { inner: string }
+  asset: Metadata
 }
 
 export interface BorrowedEvent {
@@ -289,52 +291,52 @@ export interface StrategyExecutedEvent {
   credit_account_address: Address
   adapter_id: number
   strategy: number
-  calldata: any
+  calldata: unknown
 }
 
 export interface LiquidationStartedEvent {
   credit_account_address: Address
   liquidator: Address
-  debt_data: any[]
-  asset_data: any[]
+  debt_data: unknown[]
+  asset_data: unknown[]
   debt_repaid_value: string
   asset_seized_value: string
-  fee_assets: any[]
+  fee_assets: unknown[]
   fee_amounts: string[]
 }
 
 export interface LiquidatedEvent {
   credit_account_address: Address
   liquidator: Address
-  debt_data: any[]
-  asset_data: any[]
+  debt_data: unknown[]
+  asset_data: unknown[]
   debt_repaid_value: string
   asset_seized_value: string
-  fee_assets: any[]
+  fee_assets: unknown[]
   fee_amounts: string[]
 }
 
 export interface BadDebtLiquidationStartedEvent {
   credit_account_address: Address
   liquidator: Address
-  debt_data: any[]
-  asset_data: any[]
+  debt_data: unknown[]
+  asset_data: unknown[]
   debt_repaid_value: string
   asset_seized_value: string
   bad_debt_value: string
-  fee_assets: any[]
+  fee_assets: unknown[]
   fee_amounts: string[]
 }
 
 export interface BadDebtLiquidatedEvent {
   credit_account_address: Address
   liquidator: Address
-  debt_data: any[]
-  asset_data: any[]
+  debt_data: unknown[]
+  asset_data: unknown[]
   debt_repaid_value: string
   asset_seized_value: string
   bad_debt_value: string
-  fee_assets: any[]
+  fee_assets: unknown[]
   fee_amounts: string[]
 }
 
