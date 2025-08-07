@@ -15,9 +15,9 @@ import { getAccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
 import { get_position_info, getAllPositionsView } from '@moar-market/sdk/protocols/hyperion'
 
 // Liquidated account details
-// const LEDGER_VERSION = undefined
-const LEDGER_VERSION = 3140012280
-const CREDIT_ACCOUNT: Address = '0x974c250aeee1a7f1af9fea4ca4a6fff29cba62aaf2971e19235f3ff6f8115edb' // APT-USDC position
+const LEDGER_VERSION = undefined
+// const LEDGER_VERSION = 3140012280
+const CREDIT_ACCOUNT: Address = '0x56bb6f3a1219fd5bee394eeb43ef905da56b9ab9152b1aae8a616e3512ea4a0a' // APT-USDC position
 // const CREDIT_ACCOUNT: Address = '0x59d1c649d8e67576d49d708c51dde6e922bb0698dea26c2493f604cff2cfe528' // wBTC-USDC position
 
 // Common token addresses

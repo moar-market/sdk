@@ -10,6 +10,7 @@
   "scripts": {
     "example": "tsx scripts/run-example.ts",
     "liquidation-price": "tsx src/liquidation-price-test.ts",
+    "liquidation-analysis": "tsx src/liquidation-analysis.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache"

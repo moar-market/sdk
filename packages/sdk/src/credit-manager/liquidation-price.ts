@@ -612,9 +612,7 @@ export async function calculateLiquidationPrices(
 
         // Convert to Y terms and sum (scaled by 1e8)
         const xDebtInY = (debtXScaled * currentPrice) / SCALE_8
-        const xDebtScaled = adjustDecimalScale(xDebtInY, params.xDecimals, params.yDecimals)
-
-        return xDebtScaled + debtYScaled
+        return xDebtInY + debtYScaled
       })(),
       weightedDebtRequirement: currentWDR,
       assetBreakdown: currentBreakdown,
