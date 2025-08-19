@@ -55,7 +55,7 @@ Dependencies are managed through PNPM's catalog feature for consistent versionin
 
 ## 🏷️ SDK Usage Examples
 
-See [examples](./examples/README.md) for more detailed examples.
+See [examples](https://github.com/moar-market/sdk/blob/main/examples/README.md) for more detailed examples.
 
 
 Built with ❤️ using modern TypeScript tooling and best practices. 

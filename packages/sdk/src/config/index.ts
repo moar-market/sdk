@@ -18,6 +18,7 @@ export function setConfig(newConfig: Config): void {
  */
 export function getConfig(): Config {
   if (!config) {
+    // this is required for sdk to work
     throw new Error(
       'Configuration not found: config must be initialized by calling setConfig() before accessing configuration values',
     )
@@ -30,11 +31,26 @@ export function isDebugEnabled(): boolean {
   return getConfig().DEBUG || false
 }
 
+export function useMoarApi(): string {
+  const api = getConfig().MOAR_API
+  if (!api) {
+    // this is required for api calls to work
+    throw new Error('MOAR_API is not set in the config')
+  }
+
+  return api
+}
+
 export function setPanoraApiKey(apiKey: string): void {
   getConfig().PANORA_API_KEY = apiKey
 }
 export function usePanoraApiKey(): string {
-  return getConfig().PANORA_API_KEY || ''
+  const apiKey = getConfig().PANORA_API_KEY
+  if (!apiKey) {
+    // this is optional, but recommended, panora api calls works without it
+    console.warn('PANORA_API_KEY is not set in the config')
+  }
+  return apiKey || ''
 }
 
 export function setAptosApiKey(apiKey: string): void {
@@ -60,6 +76,7 @@ export function getModuleAddress(moduleName: string) {
   const modules = useModulesConfig()
   const address = modules[moduleName as keyof typeof modules]
   if (!address) {
+    // this is required for sdk to work
     throw new Error(`Module address for ${moduleName} is not set`)
   }
   return address
@@ -84,6 +101,7 @@ export interface ModuleSettings {
 
 export interface Config {
   DEBUG: boolean
+  MOAR_API: string
   PANORA_API_KEY: string
 
   CHAIN: ChainConfig

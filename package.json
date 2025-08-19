@@ -3,11 +3,16 @@
   "type": "module",
   "version": "0.0.4",
   "private": true,
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.14.0",
   "description": "Moar Market SDK workspace",
   "author": "Moar Market",
   "license": "MIT",
-  "keywords": ["moar market", "moar", "market", "sdk"],
+  "keywords": [
+    "moar market",
+    "moar",
+    "market",
+    "sdk"
+  ],
   "engines": {
     "node": ">=20.10"
   },
