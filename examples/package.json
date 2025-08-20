@@ -19,7 +19,6 @@
     "@aptos-labs/ts-sdk": "catalog:blockchain",
     "@itsmnthn/big-utils": "catalog:utils",
     "@moar-market/sdk": "workspace:*",
-    "@moar-market/utils": "workspace:*",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {

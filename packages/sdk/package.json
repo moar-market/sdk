@@ -102,7 +102,6 @@
   "dependencies": {
     "@aptos-labs/script-composer-pack": "catalog:blockchain",
     "@itsmnthn/big-utils": "catalog:utils",
-    "@moar-market/utils": "workspace:*",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {

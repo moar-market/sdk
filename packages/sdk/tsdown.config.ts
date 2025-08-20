@@ -14,6 +14,9 @@ export default defineConfig({
     // root
     './src/index.ts',
 
+    // utils
+    './src/utils/index.ts',
+
     // config
     './src/config/index.ts',
 

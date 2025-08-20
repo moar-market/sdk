@@ -1,6 +1,6 @@
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
-import { extendTypeArguments } from '@moar-market/utils'
+import { extendTypeArguments } from '../../utils'
 import { composerUtils_fe_abi, moarStrategies_hyperion_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
 import { claimRewards, copyIfCallArgument, executeStrategy } from './../shared'

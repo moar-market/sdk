@@ -1,6 +1,6 @@
 import type { AptosScriptComposer } from './../composer'
 import type { Address, MoveStructId } from './../types'
-import { extendTypeArguments } from '@moar-market/utils'
+import { extendTypeArguments } from '../utils'
 import { moar_credit_manager_abi } from './../abis'
 import { CallArgument } from './../composer'
 import { getModuleAddress } from './../config'

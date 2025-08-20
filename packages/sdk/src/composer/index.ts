@@ -21,7 +21,7 @@ import {
   standardizeTypeTags,
   TransactionPayloadScript,
 } from '@aptos-labs/ts-sdk'
-import { disableFetchCaching, enableFetchCaching, extractUrl } from '@moar-market/utils'
+import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
 export { CallArgument } // re-export for convenience
 

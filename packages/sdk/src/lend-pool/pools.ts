@@ -1,5 +1,5 @@
-import type { Kink } from '@moar-market/utils'
 import type { LendPoolConfig, LendPoolResponse } from '../types'
+import type { Kink } from '../utils'
 import { unScale } from '@itsmnthn/big-utils'
 import { moar_interest_rate_model_abi, moar_pool_abi } from './../abis'
 import { useSurfClient } from './../clients'
