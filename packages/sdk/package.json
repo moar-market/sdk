@@ -115,6 +115,10 @@
     "tsdown": "catalog:dev",
     "tsx": "catalog:dev",
     "typescript": "catalog:dev"
+  },
+  "overrides": {
+    "@thalalabs/surf": {
+      "@aptos-labs/ts-sdk": "catalog:blockchain"
+    }
   }
-
 }
