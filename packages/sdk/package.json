@@ -14,6 +14,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    },
     "./config": {
       "types": "./dist/config/index.d.ts",
       "import": "./dist/config/index.js"
@@ -114,7 +118,8 @@
     "rimraf": "catalog:dev",
     "tsdown": "catalog:dev",
     "tsx": "catalog:dev",
-    "typescript": "catalog:dev"
+    "typescript": "catalog:dev",
+    "vitest": "catalog:dev"
   },
   "overrides": {
     "@thalalabs/surf": {
