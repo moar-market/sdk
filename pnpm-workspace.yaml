@@ -22,14 +22,14 @@ catalogs:
     '@antfu/eslint-config': ^5.2.1
     '@commitlint/cli': ^19.8.1
     '@commitlint/config-conventional': ^19.8.1
-    eslint: ^9.33.0
+    eslint: ^9.34.0
     eslint-plugin-format: ^1.0.1
-    eslint-plugin-oxlint: ^1.12.0
-    oxlint: ^1.12.0
+    eslint-plugin-oxlint: ^1.13.0
+    oxlint: ^1.13.0
   types:
     '@types/node': ^24.3.0
   utils:
-    '@itsmnthn/big-utils': ^1.0.0
+    '@itsmnthn/big-utils': ^2.0.0
 
 onlyBuiltDependencies:
   - esbuild
