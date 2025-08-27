@@ -33,6 +33,7 @@ export interface Kink {
 export interface LendPoolConfig extends Omit<LendPoolResponse, 'underlying_asset'> {
   readonly id: number
   readonly underlying_asset: Address
+  readonly address: Address
   ltvs: { address: Address, ltv: string }[]
   kinks: Kink[]
   reduceLeverage?: Record<Address, number>

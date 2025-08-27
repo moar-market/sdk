@@ -1,4 +1,4 @@
-import type { LendPoolConfig, LendPoolResponse } from '../types'
+import type { Address, LendPoolConfig, LendPoolResponse } from '../types'
 import type { Kink } from '../utils'
 import { unScale } from '@itsmnthn/big-utils'
 import { moar_interest_rate_model_abi, moar_pool_abi } from './../abis'
@@ -20,7 +20,22 @@ export async function getAllPools(): Promise<LendPoolConfig[]> {
     functionArguments: [],
   }) as [LendPoolResponse[]]
 
-  const pools = data.map(formatLendPoolConfig)
+  const pools = await Promise.all(
+    data.map(async (pool, index) => {
+      const [{ inner: address }] = await useSurfClient().useABI(
+        moar_pool_abi,
+        moduleAddress,
+      ).view.get_pool_by_id({
+        typeArguments: [],
+        functionArguments: [index],
+      })
+      const config = formatLendPoolConfig(pool, address, index)
+      return {
+        ...config,
+        address,
+      }
+    }),
+  )
 
   return pools
 }
@@ -52,10 +67,11 @@ export async function getPiecewiseLinearModel(poolId: number | string): Promise<
   }))
 }
 
-export function formatLendPoolConfig(pool: LendPoolResponse, index: number): LendPoolConfig {
+export function formatLendPoolConfig(pool: LendPoolResponse, address: Address, index: number): LendPoolConfig {
   return {
     ...pool,
     id: index,
+    address,
     name: pool.name.split(' ')[1]?.trim() || '', // strip moar from name (e.g. 'moar usdc' -> 'usdc')
     underlying_asset: pool.underlying_asset.inner,
     unbond_period: Number(pool.unbond_period),

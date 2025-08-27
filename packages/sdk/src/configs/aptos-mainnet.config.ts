@@ -117,6 +117,7 @@ const LEND_POOLS: LendPoolConfig[] = [
     unbond_period: 86400,
     underlying_asset: '0xa',
     withdraw_period: 172800,
+    address: '0x7b11a1658b4f36214b60a51d02dd35d3b5703f1552f8b7e4d045c0a13f8259c3',
     kinks: [
       { rate: 2, util: 0 },
       { rate: 9, util: 80 },
@@ -195,6 +196,7 @@ const LEND_POOLS: LendPoolConfig[] = [
     unbond_period: 86400,
     underlying_asset: '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b',
     withdraw_period: 172800,
+    address: '0x22dbe22abf689d8a0f751cab7a32fe5570c49b53fcccd4e5d709b269efda554a',
     kinks: [
       { rate: 3.5, util: 0 },
       { rate: 10, util: 70 },
