@@ -7,6 +7,7 @@ catalogs:
     '@aptos-labs/script-composer-pack': ^0.0.9
     '@aptos-labs/ts-sdk': ^4.0.0
     '@thalalabs/surf': 1.8.1
+    '@hyperionxyz/sdk': latest
   dev:
     '@antfu/ni': ^25.0.0
     bumpp: ^10.2.3

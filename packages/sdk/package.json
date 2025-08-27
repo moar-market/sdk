@@ -111,6 +111,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
+    "@hyperionxyz/sdk": "catalog:blockchain",
     "@types/node": "catalog:types",
     "eslint": "catalog:lint",
     "eslint-plugin-format": "catalog:lint",
