@@ -1,5 +1,5 @@
 import type { Address } from '../types'
-import { absBig, formatAmount } from '@itsmnthn/big-utils'
+import { bigAbs, formatAmount } from '@itsmnthn/big-utils'
 
 // =============================================================================
 // INTERFACES AND TYPES
@@ -430,7 +430,7 @@ function newtonRaphsonSolve(
 
     const f = totalAssets - wdr
 
-    if (absBig(f) <= tolerance) {
+    if (bigAbs(f) <= tolerance) {
       //   console.log('Newton-Raphson converged', price, i)
       return price // Converged
     }
@@ -462,7 +462,7 @@ function newtonRaphsonSolve(
 
     const fprime = (fPlus - f) * SCALE_8 / delta
 
-    if (absBig(fprime) <= SCALE_4) {
+    if (bigAbs(fprime) <= SCALE_4) {
       throw new DerivativeTooSmallError(price, searchingLower)
     }
 
@@ -479,7 +479,7 @@ function newtonRaphsonSolve(
     }
 
     // Check for convergence
-    const change = absBig(priceNext - price)
+    const change = bigAbs(priceNext - price)
     if (change <= (tolerance * price) / SCALE_8) {
       //   console.log('Newton-Raphson converged', priceNext, i)
       return priceNext
