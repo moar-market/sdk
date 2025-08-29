@@ -1,6 +1,6 @@
-import type { Address, StrategyIdentifier } from '../types'
+import type { Address, MoveStructId, StrategyIdentifier } from '@moar-market/types'
 import { moar_credit_manager_abi, moar_lens_abi } from './../abis'
-import { useSurfClient } from './../clients'
+import { useAptos, useSurfClient } from './../clients'
 import { getModuleAddress } from './../config'
 
 function CreditManager() {
@@ -37,6 +37,40 @@ export async function getAllCreditAccounts(userAddress: Address): Promise<Addres
   })
 
   return accounts
+}
+
+export interface CreditAccountResource {
+  assets: Array<{
+    inner: Address
+  }>
+  debt_pools: string[]
+  is_active: boolean
+  last_reward_claim_time: string
+  liquidators: Address[]
+  owner: Address
+  signer_cap: {
+    account: Address
+  }
+  strategies: Array<{
+    adapter_id: number
+    sub_type: Address
+    type: number
+  }>
+}
+
+/**
+ * Retrieves the owner address of a given credit account.
+ * @param creditAccount - The address of the credit account.
+ * @returns A promise that resolves to the owner's address of the credit account.
+ */
+export async function getCreditAccountOwner(creditAccount: Address): Promise<Address> {
+  const creditManager = getModuleAddress('moar_credit_manager')
+  const resourceType = `${creditManager}::credit_manager::CreditAccount` as MoveStructId
+  const resource = await useAptos().getAccountResource({
+    accountAddress: creditAccount,
+    resourceType,
+  }) as CreditAccountResource
+  return resource.owner
 }
 
 /**
@@ -161,6 +195,43 @@ export async function getAccountDebtAndAssetValues(creditAccount: Address): Prom
   })
 
   return { debtValue, assetValue }
+}
+
+/**
+ * Represents the net asset value and unrealized PnL for a credit account.
+ * @member netAssetValue - The current net asset value of the account, as a string.
+ * @member unrealizedPnL - The unrealized profit or loss for the account, as a string.
+ * @member totalPnL - The total profit or loss for the account, as a string. (Total PnL - Total Liquidation Losses)
+ * Negative value indicates a loss, positive value indicates a profit.
+ */
+export interface AccountNetAssetsAndPnLs {
+  netAssetValue: string
+  unrealizedPnL: string
+  totalPnL: string
+}
+
+/**
+ * Get total PnL for a credit account.
+ * @param creditAccount Credit account address
+ * @returns Total PnL as a string (negative if loss, positive if profit)
+ */
+export async function getAccountNetAssetsAndPnLs(creditAccount: Address): Promise<AccountNetAssetsAndPnLs> {
+  const [[netAssetValue, unrealizedPnL, isUnrealizedNegative], [totalPnL, isTotalNegative]] = await Promise.all([
+    CreditManager().view.get_net_asset_value_and_unrealized_pnl({
+      typeArguments: [],
+      functionArguments: [creditAccount],
+    }),
+    CreditManager().view.get_total_pnl({
+      typeArguments: [],
+      functionArguments: [creditAccount],
+    }),
+  ])
+
+  return {
+    netAssetValue,
+    unrealizedPnL: isUnrealizedNegative ? `-${unrealizedPnL}` : unrealizedPnL,
+    totalPnL: isTotalNegative ? `-${totalPnL}` : totalPnL,
+  }
 }
 
 export interface AccountHealthMetrics {
