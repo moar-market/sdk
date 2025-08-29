@@ -9,7 +9,7 @@ export default defineConfig({
     all: true,
     // automatically generate exports for all entry points
     customExports: (exports) => {
-      const newExports: Record<string, { types: string, import: string }> = {}
+      const newExports: Record<string, { types: string, import: string, development: string }> = {}
 
       for (const key in exports) {
         // Filter out the wildcard export
@@ -29,6 +29,7 @@ export default defineConfig({
         newExports[newKey] = {
           types: value.replace(/\.js$/, '.d.ts'),
           import: value,
+          development: value.replace(/\.js$/, '.ts').replace('./dist', './src'), // export source for development
         }
       }
 
@@ -86,6 +87,7 @@ export default defineConfig({
 
     // individual script composer actions
     './src/composer-strategies/index.ts',
+    './src/composer-strategies/credit-manager.ts',
 
     // script composer protocols building blocks
     './src/composer-strategies/protocols/panora.ts',

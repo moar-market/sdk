@@ -1,4 +1,5 @@
-import type { Debt, Kink } from './common'
+import type { Kink } from '../types'
+import type { Debt } from './common'
 import { describe, expect, it } from 'vitest'
 import { calcInterestForTime, calcLeverage, calcMaxWithdrawable, calcPiecewiseRate, calcWeightedInterestRate, calcWeights } from './common'
 

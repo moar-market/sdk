@@ -16,8 +16,7 @@
   },
   "include": [
     "src/**/*",
-    "src/**/*.d.ts",
-    "tsdown.config.ts"
+    "src/**/*.d.ts"
   ],
   "exclude": [
     "node_modules",
