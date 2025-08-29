@@ -1,5 +1,5 @@
 import type { Address, CommonSwapParams, CommonSwapPreview, CommonSwapQuote, ThalaV2SwapPreview } from '../../types'
-import { decreaseByPercentage, increaseByPercentage, scale } from '@itsmnthn/big-utils'
+import { decreaseByPercent, increaseByPercent, scale } from '@itsmnthn/big-utils'
 import { createViewPayload } from '@thalalabs/surf'
 import { moarStrategies_dex_swap_adapter_abi } from './../../abis'
 import { useSurfClient } from './../../clients'
@@ -53,12 +53,12 @@ export async function preview_swap_exact_hyperion(
       amountIn = BigInt(amount)
       amountOut = BigInt(result)
       maxFromTokenAmount = amountIn
-      minToTokenAmount = decreaseByPercentage(BigInt(amountOut), slippage, tokenOut.decimals)
+      minToTokenAmount = decreaseByPercent(BigInt(amountOut), slippage)
     }
     else {
       amountIn = BigInt(result)
       amountOut = BigInt(amount)
-      maxFromTokenAmount = increaseByPercentage(BigInt(amountIn), slippage, tokenIn.decimals)
+      maxFromTokenAmount = increaseByPercent(BigInt(amountIn), slippage)
       minToTokenAmount = amountOut
     }
 
@@ -180,12 +180,12 @@ export async function preview_swap_exact_thala_v2(
       amountIn = BigInt(amount)
       amountOut = BigInt(result.amount_out)
       maxFromTokenAmount = amountIn
-      minToTokenAmount = decreaseByPercentage(BigInt(amountOut), slippage, tokenOut.decimals)
+      minToTokenAmount = decreaseByPercent(BigInt(amountOut), slippage)
     }
     else {
       amountIn = BigInt(result.amount_in)
       amountOut = BigInt(amount)
-      maxFromTokenAmount = increaseByPercentage(BigInt(amountIn), slippage, tokenIn.decimals)
+      maxFromTokenAmount = increaseByPercent(BigInt(amountIn), slippage)
       minToTokenAmount = amountOut
     }
 
