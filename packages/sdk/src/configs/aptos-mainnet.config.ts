@@ -66,6 +66,7 @@ export const MODULES: Modules = {
   moar_credit_manager: PKGS.moar,
   moar_oracle: PKGS.moar,
   moar_pool: PKGS.moar,
+  moar_farming: PKGS.moar,
   moar_risk_manager: PKGS.moar,
   moar_lens: PKGS.moar_lens,
   moar_hyperion_lens: PKGS.moar_lens,

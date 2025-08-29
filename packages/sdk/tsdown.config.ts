@@ -35,6 +35,9 @@ export default defineConfig({
     // lend-pool
     './src/lend-pool/index.ts',
 
+    // farming
+    './src/farming/index.ts',
+
     // credit-manager
     './src/credit-manager/index.ts',
 

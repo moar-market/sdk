@@ -42,6 +42,10 @@
       "types": "./dist/lend-pool/index.d.ts",
       "import": "./dist/lend-pool/index.js"
     },
+    "./farming": {
+      "types": "./dist/farming/index.d.ts",
+      "import": "./dist/farming/index.js"
+    },
     "./credit-manager": {
       "types": "./dist/credit-manager/index.d.ts",
       "import": "./dist/credit-manager/index.js"

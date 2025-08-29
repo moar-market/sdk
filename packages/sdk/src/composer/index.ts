@@ -25,7 +25,7 @@ import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
 export { CallArgument } // re-export for convenience
 
-// TODO: accept module bytecode as well to pass to the builder to avoid loading modules from the network
+// TODO: update composer pack to new version with module bytecode caching
 
 export interface InputBatchedFunctionData {
   function: MoveFunctionId
