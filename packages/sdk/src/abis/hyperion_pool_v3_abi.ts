@@ -47,6 +47,21 @@ export const hyperion_pool_v3_abi = {
       ]
     },
     {
+      "name": "update_net_only",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address",
+        "u128",
+        "u32",
+        "u32"
+      ],
+      "return": []
+    },
+    {
       "name": "add_incentive",
       "visibility": "public",
       "is_entry": false,
@@ -244,21 +259,6 @@ export const hyperion_pool_v3_abi = {
         "0x1::option::Option<0x1::fungible_asset::FungibleAsset>",
         "0x1::option::Option<0x1::fungible_asset::FungibleAsset>"
       ]
-    },
-    {
-      "name": "update_net_only",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "address",
-        "u128",
-        "u32",
-        "u32"
-      ],
-      "return": []
     },
     {
       "name": "current_tick",
@@ -859,6 +859,18 @@ export const hyperion_pool_v3_abi = {
       ]
     },
     {
+      "name": "pause_pool",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+      ],
+      "return": []
+    },
+    {
       "name": "pause_protocol",
       "visibility": "public",
       "is_entry": true,
@@ -938,6 +950,18 @@ export const hyperion_pool_v3_abi = {
     },
     {
       "name": "restart_rewarder_manager",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+      ],
+      "return": []
+    },
+    {
+      "name": "resume_pool",
       "visibility": "public",
       "is_entry": true,
       "is_view": false,

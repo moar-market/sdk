@@ -105,6 +105,55 @@ export const moar_credit_manager_abi = {
       ]
     },
     {
+      "name": "backfill_accountant",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address",
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>",
+        "u128",
+        "bool",
+        "u64",
+        "vector<u64>",
+        "vector<u64>",
+        "vector<u64>"
+      ],
+      "return": []
+    },
+    {
+      "name": "get_net_asset_value_and_unrealized_pnl",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64",
+        "u128",
+        "bool"
+      ]
+    },
+    {
+      "name": "get_total_pnl",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u128",
+        "bool"
+      ]
+    },
+    {
       "name": "add_allowed_asset",
       "visibility": "public",
       "is_entry": true,
@@ -997,6 +1046,38 @@ export const moar_credit_manager_abi = {
       ]
     },
     {
+      "name": "RewardsClaimed",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "reward_tokens",
+          "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+        },
+        {
+          "name": "reward_amounts",
+          "type": "vector<u64>"
+        },
+        {
+          "name": "calldatas",
+          "type": "vector<0x1::copyable_any::Any>"
+        }
+      ]
+    },
+    {
       "name": "Borrowed",
       "is_native": false,
       "is_event": true,
@@ -1733,38 +1814,6 @@ export const moar_credit_manager_abi = {
         {
           "name": "amount",
           "type": "0x1::option::Option<u64>"
-        }
-      ]
-    },
-    {
-      "name": "RewardsClaimed",
-      "is_native": false,
-      "is_event": true,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "user",
-          "type": "address"
-        },
-        {
-          "name": "credit_account_address",
-          "type": "address"
-        },
-        {
-          "name": "reward_tokens",
-          "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
-        },
-        {
-          "name": "reward_amounts",
-          "type": "vector<u64>"
-        },
-        {
-          "name": "calldatas",
-          "type": "vector<0x1::copyable_any::Any>"
         }
       ]
     },

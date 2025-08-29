@@ -181,6 +181,19 @@ export const moar_lens_abi = {
       ]
     },
     {
+      "name": "get_bulk_health_summary",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "vector<address>"
+      ],
+      "return": [
+        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::lens::HealthSummary>"
+      ]
+    },
+    {
       "name": "get_credit_account_combined_asset_amounts",
       "visibility": "public",
       "is_entry": false,
@@ -217,6 +230,21 @@ export const moar_lens_abi = {
       ]
     },
     {
+      "name": "get_lp_value",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u64",
+        "address"
+      ],
+      "return": [
+        "u64",
+        "u64"
+      ]
+    },
+    {
       "name": "get_prices",
       "visibility": "public",
       "is_entry": false,
@@ -241,7 +269,49 @@ export const moar_lens_abi = {
       "return": [
         "u64"
       ]
+    },
+    {
+      "name": "get_total_lp_value",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64"
+      ]
     }
   ],
-  "structs": []
+  "structs": [
+    {
+      "name": "HealthSummary",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "copy",
+        "drop"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "is_healthy",
+          "type": "bool"
+        },
+        {
+          "name": "is_bad_debt",
+          "type": "bool"
+        },
+        {
+          "name": "health_factor",
+          "type": "u64"
+        }
+      ]
+    }
+  ]
 } as const;

@@ -80,6 +80,36 @@ export const moar_hyperion_lens_abi = {
       "return": [
         "u64"
       ]
+    },
+    {
+      "name": "get_price_from_tick",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u32",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
+      "name": "get_price_from_tick_multi",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "vector<u32>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "vector<u64>"
+      ]
     }
   ],
   "structs": [

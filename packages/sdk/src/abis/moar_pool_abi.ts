@@ -177,6 +177,19 @@ export const moar_pool_abi = {
       "return": []
     },
     {
+      "name": "deposit_fa",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u64",
+        "0x1::fungible_asset::FungibleAsset"
+      ],
+      "return": []
+    },
+    {
       "name": "get_all_pools",
       "visibility": "public",
       "is_entry": false,
@@ -203,6 +216,20 @@ export const moar_pool_abi = {
       ]
     },
     {
+      "name": "get_farming_pool_apy",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u64",
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "get_fee_recipient",
       "visibility": "public",
       "is_entry": false,
@@ -211,6 +238,19 @@ export const moar_pool_abi = {
       "params": [],
       "return": [
         "address"
+      ]
+    },
+    {
+      "name": "get_lp_token_price",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u64"
+      ],
+      "return": [
+        "u64"
       ]
     },
     {

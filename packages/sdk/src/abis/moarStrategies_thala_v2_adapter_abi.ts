@@ -43,6 +43,23 @@ export const moarStrategies_thala_v2_adapter_abi = {
       ]
     },
     {
+      "name": "execute_strategy",
+      "visibility": "friend",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u8",
+        "0x1::copyable_any::Any"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "0x1::option::Option<u8>",
+        "address"
+      ]
+    },
+    {
       "name": "create_add_liquidity_inputs",
       "visibility": "public",
       "is_entry": false,
@@ -89,23 +106,6 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "return": [
         "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::RemoveLiquidityInputs",
         "0x1::copyable_any::Any"
-      ]
-    },
-    {
-      "name": "execute_strategy",
-      "visibility": "friend",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "u8",
-        "0x1::copyable_any::Any"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "0x1::option::Option<u8>",
-        "address"
       ]
     },
     {

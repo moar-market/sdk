@@ -56,6 +56,23 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "execute_strategy",
+      "visibility": "friend",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u8",
+        "0x1::copyable_any::Any"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "0x1::option::Option<u8>",
+        "address"
+      ]
+    },
+    {
       "name": "add_reward_token",
       "visibility": "public",
       "is_entry": true,
@@ -195,23 +212,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
-      "name": "execute_strategy",
-      "visibility": "friend",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "u8",
-        "0x1::copyable_any::Any"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "0x1::option::Option<u8>",
-        "address"
-      ]
-    },
-    {
       "name": "get_all_positions",
       "visibility": "public",
       "is_entry": false,
@@ -222,6 +222,20 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>"
+      ]
+    },
+    {
+      "name": "get_all_positions_and_pools",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<address>",
+        "vector<address>"
       ]
     },
     {
@@ -302,6 +316,7 @@ export const moarStrategies_hyperion_adapter_abi = {
       "is_view": false,
       "generic_type_params": [],
       "params": [
+        "&signer",
         "&signer",
         "0x1::copyable_any::Any"
       ],
