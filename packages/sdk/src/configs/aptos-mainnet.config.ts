@@ -1,5 +1,7 @@
 import type { Config } from '../config'
-import type { Address, ChainConfig, LendPoolConfig, Modules } from '../types'
+import type { Address, ChainConfig, HyperionPoolConfig, LendPoolConfig, Modules, MoveStructId, ThalaV2PoolConfig } from '../types'
+
+const COIN_ZERO: MoveStructId = '0x1::string::String'
 
 export const MOAR_API = 'https://no.moar.market'
 
@@ -18,10 +20,16 @@ export const ADAPTERS = {
   THALA_V2: 1,
   PANORA: 2,
   HYPERION: 3,
+  TAPP: 4,
+  DEX_SWAP: 5,
 }
 
 export const ADAPTER_STRATEGIES = {
+  // swaps and trades
   panora_swap: { adapterId: ADAPTERS.PANORA, strategyId: 1 },
+  dex_hyperion_single_pool_swap: { adapterId: ADAPTERS.DEX_SWAP, strategyId: 1 },
+  dex_hyperion_multi_pool_swap: { adapterId: ADAPTERS.DEX_SWAP, strategyId: 2 },
+  dex_thala_v2_swap: { adapterId: ADAPTERS.DEX_SWAP, strategyId: 3 },
 
   // thala v2 - 1st strategy was swap and now removed
   thala_v2_add_liquidity: { adapterId: ADAPTERS.THALA_V2, strategyId: 2 },
@@ -80,6 +88,7 @@ export const MODULES: Modules = {
   moarStrategies_panora_adapter: PKGS.moar_strategies,
   moarStrategies_thala_v2_adapter: PKGS.moar_strategies,
   moarStrategies_hyperion_adapter: PKGS.moar_strategies,
+  moarStrategies_dex_swap_adapter: PKGS.moar_strategies,
 
   moarTiered_tiered_oracle: PKGS.moar_oracle,
 
@@ -282,6 +291,277 @@ const LEND_POOLS: LendPoolConfig[] = [
   },
 ]
 
+export const tokens = {
+  usdc: {
+    address: '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b',
+    name: 'USDC',
+    symbol: 'USDC',
+    decimals: 6,
+    coinType: COIN_ZERO,
+  },
+  usdt: {
+    address: '0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b',
+    name: 'Tether USDT',
+    symbol: 'USDT',
+    decimals: 6,
+    coinType: COIN_ZERO,
+  },
+  apt: {
+    address: '0xa',
+    name: 'Aptos',
+    symbol: 'APT',
+    decimals: 8,
+    coinType: '0x1::aptos_coin::AptosCoin',
+  },
+  sUSDe: {
+    address: '0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69',
+    name: 'Staked USDe',
+    symbol: 'sUSDe',
+    decimals: 6,
+    coinType: COIN_ZERO,
+  },
+  xBTC: {
+    address: '0x81214a80d82035a190fcb76b6ff3c0145161c3a9f33d137f2bbaee4cfec8a387',
+    name: 'OKX BTC',
+    symbol: 'xBTC',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  },
+  wbtc: {
+    address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
+    name: 'Wrapped BTC',
+    symbol: 'WBTC',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  },
+  stkAPT: {
+    address: '0x42556039b88593e768c97ab1a3ab0c6a17230825769304482dff8fdebe4c002b',
+    name: 'Staked Kofi APT',
+    symbol: 'stkAPT',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  },
+  thAPT: {
+    address: '0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011',
+    name: 'Thala APT',
+    symbol: 'thAPT',
+    decimals: 8,
+    coinType: '0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::ThalaAPT',
+  },
+  sthAPT: {
+    address: '0xa9ce1bddf93b074697ec5e483bc5050bc64cff2acd31e1ccfd8ac8cae5e4abe',
+    name: 'Staked Thala APT',
+    symbol: 'sthAPT',
+    decimals: 8,
+    coinType: '0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::StakedThalaAPT',
+  },
+} as const
+
+export enum HYPERION_FEE_INDEX {
+  'PER_0.01_SPACING_1' = 0,
+  'PER_0.05_SPACING_5' = 1,
+  'PER_0.3_SPACING_60' = 2,
+  'PER_1_SPACING_200' = 3,
+}
+
+export const HYPERION_POOLS = {
+  apt_usdc: {
+    name: 'APT-USDC',
+    address: '0x925660b8618394809f89f8002e2926600c775221f43bf1919782b297a79400d8',
+    coinAddresses: [tokens.apt.address, tokens.usdc.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+  usdt_usdc: {
+    name: 'USDT-USDC',
+    address: '0xd3894aca06d5f42b27c89e6f448114b3ed6a1ba07f992a58b2126c71dd83c127',
+    coinAddresses: [tokens.usdt.address, tokens.usdc.address],
+    feeTierIndex: 0,
+    priceDecimals: 4,
+    weights: [50, 50],
+    isWeighted: false,
+  } as HyperionPoolConfig,
+  xbtc_usdc: {
+    name: 'xBTC-USDC',
+    address: '0xff5a013a4676f724714aec0082403fad822972c56348ba08e0405d08e533325e',
+    coinAddresses: [tokens.xBTC.address, tokens.usdc.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+  wbtc_usdc: {
+    name: 'WBTC-USDC',
+    address: '0xa7bb8c9b3215e29a3e2c2370dcbad9c71816d385e7863170b147243724b2da58',
+    coinAddresses: [tokens.wbtc.address, tokens.usdc.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+  apt_usdt: {
+    name: 'APT-USDT',
+    address: '0x18269b1090d668fbbc01902fa6a5ac6e75565d61860ddae636ac89741c883cbc',
+    coinAddresses: [tokens.apt.address, tokens.usdt.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+  wbtc_xbtc: {
+    name: 'WBTC-xBTC',
+    address: '0x0a5002fbf45627d0769a1448d7ec2e022390b1ed4cf00a62b65ce51ff6030271',
+    coinAddresses: [tokens.wbtc.address, tokens.xBTC.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } as HyperionPoolConfig,
+  apt_sthapt: {
+    name: 'APT-sthAPT',
+    address: '0x9866e9ee75969c0274804231b55ed077c0c5c952268e3dc3df333614308f3f63',
+    coinAddresses: [tokens.apt.address, tokens.sthAPT.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } as HyperionPoolConfig,
+  apt_thapt: {
+    name: 'APT-thAPT',
+    address: '0x692ba87730279862aa1a93b5fef9a175ea0cccc1f29dfc84d3ec7fbe1561aef3',
+    coinAddresses: [tokens.apt.address, tokens.thAPT.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } as HyperionPoolConfig,
+  apt_stkapt: {
+    name: 'APT-stkAPT',
+    address: '0x9878b6f039b1fce27240fd51f536fceefac939268ecaa8dd6c84b7640177abe4',
+    coinAddresses: [tokens.apt.address, tokens.stkAPT.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } as HyperionPoolConfig,
+  apt_xbtc: {
+    name: 'APT-xBTC',
+    address: '0xd8609fb7a2446b1e343de45decc9651d4402b967439d352849a422b55327516f',
+    coinAddresses: [tokens.apt.address, tokens.xBTC.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+  apt_wbtc: {
+    name: 'APT-WBTC',
+    address: '0x6df8340de848eb3a43eaef4b090d365c8e88e79b3044f11964c9de7b213914e9',
+    coinAddresses: [tokens.apt.address, tokens.wbtc.address],
+    feeTierIndex: 1,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: true,
+  } as HyperionPoolConfig,
+} as const
+
+const ThalaV2LPT_COIN_TYPE = '0x7ca61cf9aa2239412154145e863823814b9fec37ef34b469718c5f690919e69e::coins::Coin2'
+const thAPT_REWARD_ID = '@0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011' // thAPT
+// const apt_REWARD_ID = '@0xa' // apt
+export const THALA_V2_POOLS = {
+  usdc_usdt: {
+    name: 'USDC-USDT',
+    address: '0xc3c4cbb3efcd3ec1b6679dc0ed45851486920dba0e86e612e80a79041a6cf1a3',
+    poolId: 23,
+    poolType: '0xc3c4cbb3efcd3ec1b6679dc0ed45851486920dba0e86e612e80a79041a6cf1a3',
+    lptAddress: '0xc3c4cbb3efcd3ec1b6679dc0ed45851486920dba0e86e612e80a79041a6cf1a3',
+    xlptAddress: '0x5b07f08f0c43104b1dcb747273c5fc13bd86074f6e8e591bf0d8c5b08720cbd4',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.usdt.address, tokens.usdc.address],
+    rewardIds: [thAPT_REWARD_ID],
+    isWeighted: false,
+    nullType: '', // THALA_V1_NULL_TYPE,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+  apt_usdc_2: {
+    name: 'APT-USDC',
+    address: '0xa928222429caf1924c944973c2cd9fc306ec41152ba4de27a001327021a4dff7',
+    poolId: 0,
+    poolType: '0xa928222429caf1924c944973c2cd9fc306ec41152ba4de27a001327021a4dff7',
+    lptAddress: '0xa928222429caf1924c944973c2cd9fc306ec41152ba4de27a001327021a4dff7',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.apt.address, tokens.usdc.address],
+    rewardIds: [],
+    isWeighted: true,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    nullType: '', // THALA_V1_NULL_TYPE,
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+  apt_usdc: {
+    name: 'APT-USDC',
+    address: '0xb4a8b8462b4423780d6ee256f3a9a3b9ece5d9440d614f7ab2bfa4556aa4f69d',
+    poolId: 25,
+    poolType: '0xb4a8b8462b4423780d6ee256f3a9a3b9ece5d9440d614f7ab2bfa4556aa4f69d',
+    lptAddress: '0xb4a8b8462b4423780d6ee256f3a9a3b9ece5d9440d614f7ab2bfa4556aa4f69d',
+    xlptAddress: '0x15b6b3396e883afa0fd10e82b964d09d562657ee3a583c12e65e2385521fcd69',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.apt.address, tokens.usdc.address],
+    rewardIds: [thAPT_REWARD_ID],
+    isWeighted: true,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    nullType: '', // THALA_V1_NULL_TYPE,
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+  apt_usdt: {
+    name: 'APT-USDT',
+    address: '0x99d34f16193e251af236d5a5c3114fa54e22ca512280317eda2f8faf1514c395',
+    poolId: -1, // not correct
+    poolType: '0x99d34f16193e251af236d5a5c3114fa54e22ca512280317eda2f8faf1514c395',
+    lptAddress: '0x99d34f16193e251af236d5a5c3114fa54e22ca512280317eda2f8faf1514c395',
+    xlptAddress: '0x15b6b3396e883afa0fd10e82b964d09d562657ee3a583c12e65e2385521fcd69',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.apt.address, tokens.usdt.address],
+    rewardIds: [thAPT_REWARD_ID],
+    isWeighted: true,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    nullType: '', // THALA_V1_NULL_TYPE,
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+  wbtc_usdc: {
+    name: 'WBTC-USDC',
+    address: '0xb64243d319b686130cf5a11d027589373106acf8d1bcce1531b860e92dbe70fe',
+    poolId: -1, // not correct
+    poolType: '0xb64243d319b686130cf5a11d027589373106acf8d1bcce1531b860e92dbe70fe',
+    lptAddress: '0xb64243d319b686130cf5a11d027589373106acf8d1bcce1531b860e92dbe70fe',
+    xlptAddress: '0x15b6b3396e883afa0fd10e82b964d09d562657ee3a583c12e65e2385521fcd69',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.wbtc.address, tokens.usdc.address],
+    rewardIds: [thAPT_REWARD_ID],
+    isWeighted: true,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    nullType: '', // THALA_V1_NULL_TYPE,
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+  susde_usdc: {
+    name: 'sUSDe-USDC',
+    address: '0xce9e3b2437fd2cddc5c14f6c4259fc7d3cef160b820837591aa48170bb509368',
+    poolId: 27,
+    poolType: '0xce9e3b2437fd2cddc5c14f6c4259fc7d3cef160b820837591aa48170bb509368',
+    lptAddress: '0xce9e3b2437fd2cddc5c14f6c4259fc7d3cef160b820837591aa48170bb509368',
+    xlptAddress: '0x35c3e420fa4fd925628366f1977865d62432c8856a2db147a1cb13f7207f6a79',
+    lptCoinType: ThalaV2LPT_COIN_TYPE,
+    coinAddresses: [tokens.sUSDe.address, tokens.usdc.address],
+    rewardIds: [thAPT_REWARD_ID],
+    isWeighted: false,
+    isMetastable: true,
+    weights: [50, 50], // will be dynamic fetch from module when required
+    nullType: '', // THALA_V1_NULL_TYPE,
+    minSlippage: 0.6,
+  } as ThalaV2PoolConfig,
+} as const
+
 export const config: Config = {
   DEBUG: false,
   MOAR_API,
@@ -297,6 +577,10 @@ export const config: Config = {
 
   ADAPTERS,
   ADAPTER_STRATEGIES,
+
+  TOKENS: Object.values(tokens),
+  HYPERION_POOLS: Object.values(HYPERION_POOLS),
+  THALA_V2_POOLS: Object.values(THALA_V2_POOLS),
 
   MOAR_MODULE_SETTINGS: {
     min_borrow_usd: '100000000',

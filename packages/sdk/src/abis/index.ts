@@ -26,6 +26,8 @@ export * from './moar_pool_abi'
 
 export * from './moar_risk_manager_abi'
 
+export * from './moarStrategies_dex_swap_adapter_abi'
+
 export * from './moarStrategies_hyperion_adapter_abi'
 
 export * from './moarStrategies_panora_adapter_abi'
