@@ -22,6 +22,11 @@ export interface LendPoolResponse {
   withdraw_period: number
 }
 
+/**
+ * A “knot” in a piecewise linear curve.
+ * util: [0…100] (percent utilization) — 0 is the minimum utilization, 100 is the maximum utilization
+ * rate: [0…∞) (APR in %, e.g. 10 = 10%) — 0 is the minimum rate, ∞ is the maximum rate
+ */
 export interface Kink {
   rate: number
   util: number

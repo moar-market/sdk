@@ -48,6 +48,8 @@ export interface CommonSwapPreview {
   quote: CommonSwapQuote
 }
 
+export type PreviewSwapExact = (params: CommonSwapParams) => Promise<CommonSwapPreview | undefined>
+
 export interface ThalaV2SwapPreview {
   amount_in: string
   amount_in_post_fee: string

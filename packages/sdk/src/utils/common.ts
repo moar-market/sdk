@@ -1,3 +1,4 @@
+import type { Kink } from '../types'
 import { bigDivRound, bigDivScaled, bigMulDivRound, ROUND_MODES, scale, unScale } from '@itsmnthn/big-utils'
 import { DECIMALS, ZERO } from './constants'
 
@@ -131,30 +132,20 @@ export function calcInterestForTime(
 }
 
 /**
- * A “knot” in a piecewise linear curve.
- * util: [0…100] (percent utilization) — 0 is the minimum utilization, 100 is the maximum utilization
- * rate: [0…∞) (APR in %, e.g. 10 = 10%) — 0 is the minimum rate, ∞ is the maximum rate
- */
-export interface Kink {
-  util: number
-  rate: number
-}
-
-/**
  * Given a utilization U and a sorted array of kinks, returns the interpolated rate.
  * All calculations are performed with scaled BigInts for precision.
  *
  * @param utilization - The utilization value, scaled.
- * @param ks - A sorted array of kinks (utilization and rate points).
+ * @param kinks - A sorted array of kinks (utilization and rate points).
  * @returns The interpolated rate, scaled by `scale`.
  */
-export function calcPiecewiseRate(utilization: number, kink: Kink[]): number {
-  if (kink.length === 0) {
+export function calcPiecewiseRate(utilization: number, kinks: Kink[]): number {
+  if (kinks.length === 0) {
     throw new Error('Need at least one kink')
   }
 
   // Sort by util ascending; avoid mutating caller’s array
-  const ks = kink.slice().sort((a, b) => a.util - b.util)
+  const ks = kinks.slice().sort((a, b) => a.util - b.util)
 
   // Clamp U into the defined util range
   const minU = ks[0].util
