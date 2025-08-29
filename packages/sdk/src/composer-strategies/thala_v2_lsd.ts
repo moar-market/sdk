@@ -1,6 +1,5 @@
 import type { SimpleTransaction } from '@aptos-labs/ts-sdk'
-import type { Address } from './../types'
-import type { SwapParams } from './protocols/panora'
+import type { Address, SwapParams } from './../types'
 import type { StakeAPTthAPTParams } from './protocols/thala_v2'
 import type { BorrowParams, CollateralParams, RepayParams } from './shared'
 import { useAptosConfig } from './../clients'

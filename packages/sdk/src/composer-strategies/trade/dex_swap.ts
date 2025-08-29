@@ -1,4 +1,4 @@
-import { swap } from './../protocols/panora'
+import { swap } from './../protocols/dex_swap'
 import {
   getClosePosition,
   getDecreasePosition,

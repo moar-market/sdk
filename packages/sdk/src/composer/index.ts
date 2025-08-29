@@ -23,7 +23,7 @@ import {
 } from '@aptos-labs/ts-sdk'
 import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
-export { CallArgument } // re-export for convenience
+export { CallArgument, SimpleTransaction } // re-export for convenience
 
 // TODO: update composer pack to new version with module bytecode caching
 

@@ -1,7 +1,6 @@
 import type { SimpleTransaction } from '@aptos-labs/ts-sdk'
-import type { Address } from './../types'
+import type { Address, SwapParams } from './../types'
 import type { AddLiquidityParams, RebalanceLiquidityParams, RemoveLiquidityParams } from './protocols/hyperion'
-import type { SwapParams } from './protocols/panora'
 import type { BorrowParams, CollateralParams, RepayParams } from './shared'
 import { useAptosConfig } from './../clients'
 import { scriptComposer } from './../composer'

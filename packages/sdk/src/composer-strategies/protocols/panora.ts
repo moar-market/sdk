@@ -1,16 +1,8 @@
 import type { AptosScriptComposer, CallArgument } from './../../composer'
-import type { Address, MoveStructId } from './../../types'
+import type { Address, SwapParams } from './../../types'
 import { moarStrategies_panora_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
 import { copyIfCallArgument, executeStrategy } from './../shared'
-
-export interface SwapParams {
-  arguments: any[]
-  function: MoveStructId
-  type_arguments: any[]
-  /** Whether this is a trade swap */
-  isTrade?: boolean
-}
 
 /**
  * Executes one or more swaps through the Panora protocol

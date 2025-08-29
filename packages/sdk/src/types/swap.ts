@@ -4,6 +4,8 @@ export interface SwapParams {
   function: MoveStructId
   arguments: any[]
   type_arguments: any[]
+  /** Whether this is a trade swap */
+  isTrade?: boolean
 }
 
 // This is panora like interface to be able to swap dex or panora or hyperion or thala v2 as needed

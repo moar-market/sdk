@@ -5,6 +5,36 @@ export default defineConfig({
   dts: {
     sourcemap: true,
   },
+  exports: {
+    all: true,
+    // automatically generate exports for all entry points
+    customExports: (exports) => {
+      const newExports: Record<string, { types: string, import: string }> = {}
+
+      for (const key in exports) {
+        // Filter out the wildcard export
+        if (key === './*') {
+          continue
+        }
+
+        const value = exports[key]
+        if (key === './package.json') {
+          newExports[key] = value
+          continue
+        }
+
+        // remove '/index' from the end. e.g. ./composer-strategies/index -> ./composer-strategies
+        const newKey = key.endsWith('/index') ? key.slice(0, -6) : key
+
+        newExports[newKey] = {
+          types: value.replace(/\.js$/, '.d.ts'),
+          import: value,
+        }
+      }
+
+      return newExports
+    },
+  },
   sourcemap: true,
   tsconfig: 'tsconfig.json',
   target: 'esnext',
@@ -51,6 +81,8 @@ export default defineConfig({
     './src/protocols/panora/index.ts',
     './src/protocols/hyperion/index.ts',
     './src/protocols/thala/v2/index.ts',
+    './src/protocols/dex_swap/index.ts',
+    './src/protocols/default-swap.ts',
 
     // individual script composer actions
     './src/composer-strategies/index.ts',
@@ -58,18 +90,18 @@ export default defineConfig({
     // script composer protocols building blocks
     './src/composer-strategies/protocols/panora.ts',
     './src/composer-strategies/protocols/hyperion.ts',
-    // './src/composer-strategies/protocols/thala_v2.ts', // not available deprecated
-    // './src/composer-strategies/protocols/thala_v2_lsd.ts', // not available deprecated
-
-    // strategies building blocks
-    // './src/composer-strategies/shared.ts', // shared script composer functions across strategies
+    './src/composer-strategies/protocols/dex_swap.ts',
+    './src/composer-strategies/protocols/default-swap.ts', // default swap protocol dex_swap or panora
+    './src/composer-strategies/protocols/thala_v2.ts',
 
     // assembled trade strategies(router)
     './src/composer-strategies/trade/panora.ts',
-    // './src/composer-strategies/trade/thala_v2.ts', // not available deprecated
+    './src/composer-strategies/trade/dex_swap.ts',
+    './src/composer-strategies/trade/default.ts', // default swap trade router dex_swap or panora
 
-    // lsd strategies
-    // './src/composer-strategies/trade/thala_v2_lsd.ts', // not available deprecated
+    // assembled thala v2 strategies (router)
+    './src/composer-strategies/thala_v2.ts',
+    './src/composer-strategies/thala_v2_lsd.ts',
 
     // assembled hyperion clmm strategies(router)
     './src/composer-strategies/hyperion.ts',

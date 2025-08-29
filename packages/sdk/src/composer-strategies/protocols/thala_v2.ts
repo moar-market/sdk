@@ -6,54 +6,6 @@ import { composerUtils_fe_abi, moarStrategies_thala_v2_adapter_abi } from './../
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
 import { claimRewards, copyIfCallArgument, executeStrategy } from './../shared'
 
-export interface SwapParams {
-  pool: Address
-  assetIn: Address
-  amountIn: bigint
-  assetOut: Address
-  amountOut: bigint
-  isExactIn: boolean
-}
-
-/**
- * Executes one or more swaps through the Thala v2 protocol
- * @param builder - Script composer instance to add the swap operations to
- * @param creditAccount - Credit account address or argument to execute the swaps from
- * @param swaps - Array of swap parameters defining the swap operations to execute
- * @throws {Error} If Thala v2 swap strategy is not configured or swap inputs creation fails
- */
-export async function swap(
-  builder: AptosScriptComposer,
-  creditAccount: CallArgument | Address,
-  swaps: SwapParams[],
-): Promise<void> {
-  throw new Error('Thala v2 swap strategy is not available')
-
-  const thala_v2_swap = useAdapterStrategiesConfig().thala_v2_swap
-  if (!thala_v2_swap)
-    throw new Error('Thala v2 swap strategy not available or configured')
-
-  for (const swap of swaps) {
-    // second swap input is of type any
-    const [, swapInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_swap_inputs`,
-      functionArguments: [swap.pool, swap.assetIn, swap.amountIn, swap.assetOut, swap.amountOut, swap.isExactIn],
-      typeArguments: [],
-    }, moarStrategies_thala_v2_adapter_abi)
-
-    if (!swapInput)
-      throw new Error('Failed to create thala v2 swap inputs')
-
-    await executeStrategy(
-      builder,
-      copyIfCallArgument(creditAccount),
-      thala_v2_swap.adapterId,
-      thala_v2_swap.strategyId,
-      swapInput,
-    )
-  }
-}
-
 export interface AddLiquidityParams {
   pool: Address
   amounts: [bigint, bigint] | bigint[]
