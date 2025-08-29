@@ -1,4 +1,4 @@
-import type { Address, MoveStructId, StrategyIdentifier } from '@moar-market/types'
+import type { Address, MoveStructId, StrategyIdentifier } from '../types'
 import { moar_credit_manager_abi, moar_lens_abi } from './../abis'
 import { useAptos, useSurfClient } from './../clients'
 import { getModuleAddress } from './../config'

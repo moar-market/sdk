@@ -1,5 +1,4 @@
-import type { Address, LendPoolConfig, LendPoolResponse } from '../types'
-import type { Kink } from '../utils'
+import type { Address, Kink, LendPoolConfig, LendPoolResponse } from '../types'
 import { unScale } from '@itsmnthn/big-utils'
 import { moar_interest_rate_model_abi, moar_lens_abi, moar_pool_abi } from './../abis'
 import { useSurfClient } from './../clients'

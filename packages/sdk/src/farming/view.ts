@@ -1,4 +1,4 @@
-import type { Address } from '@moar-market/types'
+import type { Address } from '../types'
 import { moar_farming_abi } from './../abis'
 import { useSurfClient } from './../clients'
 import { getModuleAddress } from './../config'

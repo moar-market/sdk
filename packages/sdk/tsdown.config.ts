@@ -50,6 +50,7 @@ export default defineConfig({
     // protocols
     './src/protocols/panora/index.ts',
     './src/protocols/hyperion/index.ts',
+    './src/protocols/thala/v2/index.ts',
 
     // individual script composer actions
     './src/composer-strategies/index.ts',

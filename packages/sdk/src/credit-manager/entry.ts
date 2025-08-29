@@ -1,5 +1,5 @@
-import type { Address, MoveStructId } from '@moar-market/types'
 import type { EntryPayload } from '@thalalabs/surf'
+import type { Address, MoveStructId } from '../types'
 import { createEntryPayload } from '@thalalabs/surf'
 import { moar_credit_manager_abi } from '../abis'
 import { getModuleAddress } from '../config'

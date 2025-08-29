@@ -67,6 +67,10 @@
       "types": "./dist/protocols/hyperion/index.d.ts",
       "import": "./dist/protocols/hyperion/index.js"
     },
+    "./protocols/thala/v2": {
+      "types": "./dist/protocols/thala/v2/index.d.ts",
+      "import": "./dist/protocols/thala/v2/index.js"
+    },
 
     "./composer-strategies": {
       "types": "./dist/composer-strategies/index.d.ts",
