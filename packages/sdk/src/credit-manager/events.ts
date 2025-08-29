@@ -32,12 +32,12 @@ export function getCreditManagerEventTypes() {
     hyperionRemoveLiquidity: `${pkg.moar_strategies}::hyperion_adapter::RemoveLiquidityEvent`,
 
     // thala v2 LP Strategy Events
-    // thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
-    // thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
+    thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
+    thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
 
     // thala v2 LSD Strategy Events
-    // thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
-    // thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
+    thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
+    thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
   } as const
 }
 
@@ -71,6 +71,33 @@ export async function fetchAccountEvent<T>(
     throw new Error(`Failed to fetch event type ${eventType}: ${res.status} ${res.statusText}`)
   }
   const eventsRes = (await res.json()).events as EventBaseResponse<T>[]
+
+  return sortEvents(eventsRes)
+}
+
+/**
+ * Fetches all common events for a specified credit account.
+ * common events are: `borrowed`, `repaid`, `accountClosed`, `strategyExecuted`, `liquidated`, `badDebtLiquidated`,
+ * `assetAdded`, `collateralDeposited`, `assetWithdrawn`, `panoraSwapEvent`, `dexSwapEvent`
+ *
+ * @param {Address} creditAccount - The address of the credit account.
+ * @returns {Promise<EventBaseResponse<CreditAccountEventData>[]>} The sorted list of common credit account events.
+ * @throws {Error} If the fetch operation fails.
+ */
+export async function fetchCommonAccountEvents(
+  creditAccount: Address,
+): Promise<EventBaseResponse<CreditAccountEventData>[]> {
+  const ledgerVersion = useAptos().getLedgerVersion?.()
+  let url = `${useMoarApi()}/events/fe-account?credit_account=${creditAccount}`
+  if (ledgerVersion) {
+    url += `&version_end=${ledgerVersion}`
+  }
+
+  const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch common events: ${res.status} ${res.statusText}`)
+  }
+  const eventsRes = (await res.json()).events as EventBaseResponse<CreditAccountEventData>[]
 
   return sortEvents(eventsRes)
 }
