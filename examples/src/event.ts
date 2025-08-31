@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 /**
  * Example: Fetching Credit Account Events
  *

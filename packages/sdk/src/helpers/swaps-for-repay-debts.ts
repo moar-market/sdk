@@ -1,6 +1,6 @@
 import type { Address, CommonSwapPreview, PreviewSwapExact, TokenData } from '../types'
 import { logger } from '../logger'
-import { preview_swap_exact as defaultPreviewSwapExact } from '../protocols/dex_swap' // default if not provided
+import { preview_swap_exact as defaultPreviewSwapExact } from '../protocols/default-swap' // default if not provided
 
 const ZERO = BigInt(0)
 const ADDRESS_ZERO = '0x0'

@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 import { fetchFungibleBalance, useAptos } from '@moar-market/sdk'
 
 async function main() {

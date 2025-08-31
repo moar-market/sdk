@@ -1,5 +1,5 @@
 {
-  "name": "@moar-market/examples",
+  "name": "@moar-market/sdk-examples",
   "type": "module",
   "version": "0.0.4",
   "private": true,

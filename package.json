@@ -18,8 +18,7 @@
   },
   "scripts": {
     "sdk": "pnpm --filter @moar-market/sdk",
-    "composer": "pnpm --filter @moar-market/composer",
-    "examples": "pnpm --filter @moar-market/examples run example",
+    "examples": "pnpm --filter @moar-market/sdk-examples run example",
     "all": "pnpm -r",
     "build": "pnpm all build",
     "dev": "pnpm all dev",

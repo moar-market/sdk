@@ -25,6 +25,8 @@ export function getCreditManagerEventTypes() {
 
     // panora swap events // needed for trade
     panoraSwapEvent: `${pkg.moar_strategies}::panora_adapter::PanoraSwapEvent`,
+    // dex swap events // needed for trade
+    dexSwapEvent: `${pkg.moar_strategies}::dex_swap_adapter::SwapEvent`,
 
     // hyperion events
     hyperionAddLiquidity: `${pkg.moar_strategies}::hyperion_adapter::AddLiquidityEvent`,
@@ -377,6 +379,17 @@ export interface PanoraSwapEvent {
   trade_value: string
 }
 
+export interface DexSwapEvent {
+  dex_id: number
+  credit_account_address: Address
+  from_token: Address
+  amount_in: string
+  to_token: Address
+  amount_out: string
+  trade_value: string
+  is_trade: boolean
+}
+
 export interface HyperionAddLiquidityEvent {
   credit_account_address: Address
   pool: Address
@@ -422,6 +435,8 @@ export type CreditAccountEventData = CreditAccountCreatedEvent
   | BadDebtLiquidatedEvent
   // panora swap or panora trade events
   | PanoraSwapEvent
+  // dex swap or dex trade events
+  | DexSwapEvent
   // hyperion events
   | HyperionAddLiquidityEvent
   | HyperionAddLiquidityOptimallyEvent
