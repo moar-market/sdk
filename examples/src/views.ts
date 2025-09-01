@@ -1,3 +1,5 @@
+// oxlint-disable no-unused-vars
+// oxlint-disable no-console
 /**
  * Moar Market SDK - some view examples
  */

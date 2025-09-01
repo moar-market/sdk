@@ -1,3 +1,4 @@
+// oxlint-disable no-unused-vars
 // oxlint-disable no-console
 import type { Address, CLMMPosition, LTVLiquidationParams } from '@moar-market/sdk'
 import type { AccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'

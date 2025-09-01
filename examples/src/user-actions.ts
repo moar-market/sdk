@@ -1,3 +1,4 @@
+// oxlint-disable no-unused-vars
 // oxlint-disable no-console
 /**
  * Example: User Actions

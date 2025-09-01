@@ -52,14 +52,14 @@ export type CreditManagerEventType = CreditManagerEventTypeMap[CreditManagerEven
  *
  * @param {Address} creditAccount - The address of the credit account.
  * @param {CreditManagerEventKey | MoveStructId} eventType - The event type key or address::module::event_name.
- * @param {GetAccountEventsOptions} [options] - Optional pagination options.
+ * @param {AccountEventsOptions} [options] - Optional pagination options.
  * @returns {Promise<EventBaseResponse<T>[]>} The matching credit account events.
  * @throws {Error} If the fetch fails.
  */
 export async function fetchAccountEvent<T>(
   creditAccount: Address,
   eventType: CreditManagerEventKey | MoveStructId,
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): Promise<EventBaseResponse<T>[]> {
   // If eventType is a key, map it to the real Move struct ID
   const eventTypes = getCreditManagerEventTypes()
@@ -109,14 +109,14 @@ export async function fetchCommonAccountEvents(
  *
  * @param {Address} creditAccount - The address of the credit account.
  * @param {(CreditManagerEventKey | MoveStructId)[]} eventTypes - The event types to fetch.
- * @param {GetAccountEventsOptions} [options] - Optional pagination options.
+ * @param {AccountEventsOptions} [options] - Optional pagination options.
  * @returns {Promise<EventBaseResponse<T>[]>} The matching credit account events.
  * @throws {Error} If the fetch fails.
  */
 export async function fetchAccountEvents<T = CreditAccountEventData>(
   creditAccount: Address,
   eventTypes: (CreditManagerEventKey | MoveStructId)[],
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): Promise<EventBaseResponse<T>[]> {
   // If eventType is a key, map it to the real Move struct ID
   const eventTypeMap = getCreditManagerEventTypes()
@@ -139,7 +139,7 @@ export async function fetchAccountEvents<T = CreditAccountEventData>(
 /**
  * Options for paginated event queries.
  */
-export interface GetAccountEventsOptions {
+export interface AccountEventsOptions {
   page_number?: number | string
   page_size?: number | string
   version_start?: number | string
@@ -153,13 +153,13 @@ export interface GetAccountEventsOptions {
  *
  * @param {Address} creditAccount - The address of the credit account to filter events for.
  * @param {string} indexedType - The event type(s) to filter, as a comma-separated string.
- * @param {GetAccountEventsOptions} [options] - Optional parameters for pagination and filtering, such as page number, page size, version range, and block height range.
+ * @param {AccountEventsOptions} [options] - Optional parameters for pagination and filtering, such as page number, page size, version range, and block height range.
  * @returns {string} The constructed query string for the events API endpoint.
  */
 function buildEventQueryFromParams(
   creditAccount: Address,
   indexedType: string,
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): string {
   const endLedgerVersion = useAptos().getLedgerVersion?.()
   const params: Record<string, string> = {
