@@ -36,7 +36,7 @@ const LOG_BASE = bigPrecomputeBase('1.0001', 18) // Using 18 decimals for high p
  * @param {FeeTierIndex} params.feeTierIndex - The fee tier to determine tick spacing.
  * @param {number} params.xDecimals - The number of decimals for the X token.
  * @param {number} params.yDecimals - The number of decimals for the Y token.
- * @param {number} [params.scale=18] - The internal precision for calculations.
+ * @param {number} [params.scale] - The internal precision for calculations.
  * @returns {bigint | null} The calculated and clamped tick index, or null for invalid prices.
  */
 export function priceToTick(params: {
@@ -94,7 +94,7 @@ export function priceToTick(params: {
  * @param {bigint | number | string} params.tick - The input tick index.
  * @param {number} params.xDecimals - The number of decimals for the X token.
  * @param {number} params.yDecimals - The number of decimals for the Y token.
- * @param {number} [params.scale=18] - The desired precision (decimal places) for the output price.
+ * @param {number} [params.scale] - The desired precision (decimal places) for the output price.
  * @returns {bigint} The calculated price, scaled by `scale`.
  */
 export function tickToPrice(params: {
