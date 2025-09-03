@@ -9,7 +9,7 @@ export default defineConfig({
     all: true,
     // automatically generate exports for all entry points
     customExports: (exports) => {
-      const newExports: Record<string, { types: string, import: string, development: string }> = {}
+      const newExports: Record<string, { types: string, import: string, development: { import: string } }> = {}
 
       for (const key in exports) {
         // Filter out the wildcard export
@@ -28,8 +28,8 @@ export default defineConfig({
 
         newExports[newKey] = {
           types: value.replace(/\.js$/, '.d.ts'),
+          development: { import: value.replace(/\.js$/, '.ts').replace('./dist', './src') }, // export source for development
           import: value,
-          development: value.replace(/\.js$/, '.ts').replace('./dist', './src'), // export source for development
         }
       }
 

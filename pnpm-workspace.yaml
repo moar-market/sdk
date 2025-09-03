@@ -30,7 +30,7 @@ catalogs:
   types:
     '@types/node': ^24.3.0
   utils:
-    '@itsmnthn/big-utils': ^2.0.0
+    '@itsmnthn/big-utils': ^2.0.1
 
 onlyBuiltDependencies:
   - esbuild

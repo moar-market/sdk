@@ -10,6 +10,8 @@ import type {
 } from '../types'
 import { config as aptosMainnetConfig } from '../configs/aptos-mainnet.config'
 
+export * from './view-cache'
+
 // Store the configuration
 let config: Config | null = aptosMainnetConfig
 
@@ -38,6 +40,10 @@ export function getConfig(): Config {
 
 export function isDebugEnabled(): boolean {
   return getConfig().DEBUG || false
+}
+
+export function isCacheViewEnabled(): boolean {
+  return getConfig().CACHE_VIEW || false
 }
 
 export function useMoarApi(): string {
@@ -175,6 +181,7 @@ export interface Config {
   DEBUG: boolean
   MOAR_API: string
   PANORA_API_KEY: string
+  CACHE_VIEW: boolean
 
   CHAIN: ChainConfig
 

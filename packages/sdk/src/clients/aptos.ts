@@ -8,8 +8,9 @@ import type {
   MoveValue,
   Network,
 } from '@aptos-labs/ts-sdk'
+import type { CacheOptions } from './../config'
 import { Aptos, AptosConfig } from '@aptos-labs/ts-sdk'
-import { useChainConfig } from './../config'
+import { getFunctionCacheOptions, isCacheViewEnabled, useChainConfig, useMoarApi } from './../config'
 
 declare module '@aptos-labs/ts-sdk' {
   interface Aptos {
@@ -63,7 +64,48 @@ export function useAptos(): Aptos {
     aptosInstance.view = async function <T extends Array<MoveValue>>(args: {
       payload: InputViewFunctionData
       options?: LedgerVersionArg
+      cache?: CacheOptions
     }): Promise<T> {
+      let cache: CacheOptions | undefined
+      if (isCacheViewEnabled()) {
+        cache = args.cache || getFunctionCacheOptions(args.payload.function) // explicit or default cache
+      }
+      // use moar api if cache is enabled and ledger version is not set
+      if (cache !== undefined && args.options?.ledgerVersion === undefined) {
+        let response: Response | undefined
+        delete args.payload.abi
+        try {
+          response = await fetch(`${useMoarApi()}/view`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ ...args, cache }),
+          })
+        }
+        catch (networkError) {
+          console.error('no moar view network failed', networkError)
+        }
+
+        if (response && response.ok) {
+          let body: any
+          try {
+            body = await response.json()
+          }
+          catch (jsonError) {
+            console.error('no moar view parse failed', jsonError)
+          }
+
+          if (body.error) { // if view errored, throw error
+            throw new Error(body.error)
+          }
+
+          return body.data
+        }
+
+        // continue to original view function if error or 500
+        console.error('no moar view internal failed', response?.status)
+      }
+
+      // use original view function if ledger version is set or cache is not enabled
       return await originalAptosView({
         payload: args.payload,
         options: getLedgerVersionArg(args.options),

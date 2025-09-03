@@ -566,6 +566,7 @@ export const config: Config = {
   DEBUG: false,
   MOAR_API,
   PANORA_API_KEY: '',
+  CACHE_VIEW: true,
 
   CHAIN,
 

@@ -19,163 +19,219 @@
     "aptos",
     "move"
   ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "development": "./src/index.ts"
+      "development": {
+        "import": "./src/index.ts"
+      },
+      "import": "./dist/index.js"
     },
     "./abis": {
       "types": "./dist/abis/index.d.ts",
-      "import": "./dist/abis/index.js",
-      "development": "./src/abis/index.ts"
+      "development": {
+        "import": "./src/abis/index.ts"
+      },
+      "import": "./dist/abis/index.js"
     },
     "./clients": {
       "types": "./dist/clients/index.d.ts",
-      "import": "./dist/clients/index.js",
-      "development": "./src/clients/index.ts"
+      "development": {
+        "import": "./src/clients/index.ts"
+      },
+      "import": "./dist/clients/index.js"
     },
     "./composer-strategies/credit-manager": {
       "types": "./dist/composer-strategies/credit-manager.d.ts",
-      "import": "./dist/composer-strategies/credit-manager.js",
-      "development": "./src/composer-strategies/credit-manager.ts"
+      "development": {
+        "import": "./src/composer-strategies/credit-manager.ts"
+      },
+      "import": "./dist/composer-strategies/credit-manager.js"
     },
     "./composer-strategies/hyperion": {
       "types": "./dist/composer-strategies/hyperion.d.ts",
-      "import": "./dist/composer-strategies/hyperion.js",
-      "development": "./src/composer-strategies/hyperion.ts"
+      "development": {
+        "import": "./src/composer-strategies/hyperion.ts"
+      },
+      "import": "./dist/composer-strategies/hyperion.js"
     },
     "./composer-strategies": {
       "types": "./dist/composer-strategies/index.d.ts",
-      "import": "./dist/composer-strategies/index.js",
-      "development": "./src/composer-strategies/index.ts"
+      "development": {
+        "import": "./src/composer-strategies/index.ts"
+      },
+      "import": "./dist/composer-strategies/index.js"
     },
     "./composer-strategies/protocols/default-swap": {
       "types": "./dist/composer-strategies/protocols/default-swap.d.ts",
-      "import": "./dist/composer-strategies/protocols/default-swap.js",
-      "development": "./src/composer-strategies/protocols/default-swap.ts"
+      "development": {
+        "import": "./src/composer-strategies/protocols/default-swap.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/default-swap.js"
     },
     "./composer-strategies/protocols/dex_swap": {
       "types": "./dist/composer-strategies/protocols/dex_swap.d.ts",
-      "import": "./dist/composer-strategies/protocols/dex_swap.js",
-      "development": "./src/composer-strategies/protocols/dex_swap.ts"
+      "development": {
+        "import": "./src/composer-strategies/protocols/dex_swap.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/dex_swap.js"
     },
     "./composer-strategies/protocols/hyperion": {
       "types": "./dist/composer-strategies/protocols/hyperion.d.ts",
-      "import": "./dist/composer-strategies/protocols/hyperion.js",
-      "development": "./src/composer-strategies/protocols/hyperion.ts"
+      "development": {
+        "import": "./src/composer-strategies/protocols/hyperion.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/hyperion.js"
     },
     "./composer-strategies/protocols/panora": {
       "types": "./dist/composer-strategies/protocols/panora.d.ts",
-      "import": "./dist/composer-strategies/protocols/panora.js",
-      "development": "./src/composer-strategies/protocols/panora.ts"
+      "development": {
+        "import": "./src/composer-strategies/protocols/panora.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/panora.js"
     },
     "./composer-strategies/protocols/thala_v2": {
       "types": "./dist/composer-strategies/protocols/thala_v2.d.ts",
-      "import": "./dist/composer-strategies/protocols/thala_v2.js",
-      "development": "./src/composer-strategies/protocols/thala_v2.ts"
+      "development": {
+        "import": "./src/composer-strategies/protocols/thala_v2.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/thala_v2.js"
     },
     "./composer-strategies/thala_v2": {
       "types": "./dist/composer-strategies/thala_v2.d.ts",
-      "import": "./dist/composer-strategies/thala_v2.js",
-      "development": "./src/composer-strategies/thala_v2.ts"
+      "development": {
+        "import": "./src/composer-strategies/thala_v2.ts"
+      },
+      "import": "./dist/composer-strategies/thala_v2.js"
     },
     "./composer-strategies/thala_v2_lsd": {
       "types": "./dist/composer-strategies/thala_v2_lsd.d.ts",
-      "import": "./dist/composer-strategies/thala_v2_lsd.js",
-      "development": "./src/composer-strategies/thala_v2_lsd.ts"
+      "development": {
+        "import": "./src/composer-strategies/thala_v2_lsd.ts"
+      },
+      "import": "./dist/composer-strategies/thala_v2_lsd.js"
     },
     "./composer-strategies/trade/default": {
       "types": "./dist/composer-strategies/trade/default.d.ts",
-      "import": "./dist/composer-strategies/trade/default.js",
-      "development": "./src/composer-strategies/trade/default.ts"
+      "development": {
+        "import": "./src/composer-strategies/trade/default.ts"
+      },
+      "import": "./dist/composer-strategies/trade/default.js"
     },
     "./composer-strategies/trade/dex_swap": {
       "types": "./dist/composer-strategies/trade/dex_swap.d.ts",
-      "import": "./dist/composer-strategies/trade/dex_swap.js",
-      "development": "./src/composer-strategies/trade/dex_swap.ts"
+      "development": {
+        "import": "./src/composer-strategies/trade/dex_swap.ts"
+      },
+      "import": "./dist/composer-strategies/trade/dex_swap.js"
     },
     "./composer-strategies/trade/panora": {
       "types": "./dist/composer-strategies/trade/panora.d.ts",
-      "import": "./dist/composer-strategies/trade/panora.js",
-      "development": "./src/composer-strategies/trade/panora.ts"
+      "development": {
+        "import": "./src/composer-strategies/trade/panora.ts"
+      },
+      "import": "./dist/composer-strategies/trade/panora.js"
     },
     "./composer": {
       "types": "./dist/composer/index.d.ts",
-      "import": "./dist/composer/index.js",
-      "development": "./src/composer/index.ts"
+      "development": {
+        "import": "./src/composer/index.ts"
+      },
+      "import": "./dist/composer/index.js"
     },
     "./config": {
       "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.js",
-      "development": "./src/config/index.ts"
+      "development": {
+        "import": "./src/config/index.ts"
+      },
+      "import": "./dist/config/index.js"
     },
     "./credit-manager": {
       "types": "./dist/credit-manager/index.d.ts",
-      "import": "./dist/credit-manager/index.js",
-      "development": "./src/credit-manager/index.ts"
+      "development": {
+        "import": "./src/credit-manager/index.ts"
+      },
+      "import": "./dist/credit-manager/index.js"
     },
     "./farming": {
       "types": "./dist/farming/index.d.ts",
-      "import": "./dist/farming/index.js",
-      "development": "./src/farming/index.ts"
+      "development": {
+        "import": "./src/farming/index.ts"
+      },
+      "import": "./dist/farming/index.js"
     },
     "./lend-pool": {
       "types": "./dist/lend-pool/index.d.ts",
-      "import": "./dist/lend-pool/index.js",
-      "development": "./src/lend-pool/index.ts"
+      "development": {
+        "import": "./src/lend-pool/index.ts"
+      },
+      "import": "./dist/lend-pool/index.js"
     },
     "./protocols/default-swap": {
       "types": "./dist/protocols/default-swap.d.ts",
-      "import": "./dist/protocols/default-swap.js",
-      "development": "./src/protocols/default-swap.ts"
+      "development": {
+        "import": "./src/protocols/default-swap.ts"
+      },
+      "import": "./dist/protocols/default-swap.js"
     },
     "./protocols/dex_swap": {
       "types": "./dist/protocols/dex_swap/index.d.ts",
-      "import": "./dist/protocols/dex_swap/index.js",
-      "development": "./src/protocols/dex_swap/index.ts"
+      "development": {
+        "import": "./src/protocols/dex_swap/index.ts"
+      },
+      "import": "./dist/protocols/dex_swap/index.js"
     },
     "./protocols/hyperion": {
       "types": "./dist/protocols/hyperion/index.d.ts",
-      "import": "./dist/protocols/hyperion/index.js",
-      "development": "./src/protocols/hyperion/index.ts"
+      "development": {
+        "import": "./src/protocols/hyperion/index.ts"
+      },
+      "import": "./dist/protocols/hyperion/index.js"
     },
     "./protocols/panora": {
       "types": "./dist/protocols/panora/index.d.ts",
-      "import": "./dist/protocols/panora/index.js",
-      "development": "./src/protocols/panora/index.ts"
+      "development": {
+        "import": "./src/protocols/panora/index.ts"
+      },
+      "import": "./dist/protocols/panora/index.js"
     },
     "./protocols/thala/v2": {
       "types": "./dist/protocols/thala/v2/index.d.ts",
-      "import": "./dist/protocols/thala/v2/index.js",
-      "development": "./src/protocols/thala/v2/index.ts"
+      "development": {
+        "import": "./src/protocols/thala/v2/index.ts"
+      },
+      "import": "./dist/protocols/thala/v2/index.js"
     },
     "./token": {
       "types": "./dist/token/index.d.ts",
-      "import": "./dist/token/index.js",
-      "development": "./src/token/index.ts"
+      "development": {
+        "import": "./src/token/index.ts"
+      },
+      "import": "./dist/token/index.js"
     },
     "./types": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/types/index.js",
-      "development": "./src/types/index.ts"
+      "development": {
+        "import": "./src/types/index.ts"
+      },
+      "import": "./dist/types/index.js"
     },
     "./utils": {
       "types": "./dist/utils/index.d.ts",
-      "import": "./dist/utils/index.js",
-      "development": "./src/utils/index.ts"
+      "development": {
+        "import": "./src/utils/index.ts"
+      },
+      "import": "./dist/utils/index.js"
     }
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "abis": "tsx scripts/generate-abis.ts",
     "build": "tsdown",
-    "build:types": "tsc --emitDeclarationOnly --outDir dist --rootDir src",
+    "build:t": "tsc --emitDeclarationOnly --outDir dist --rootDir src",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint . && eslint . --cache",
@@ -190,7 +246,7 @@
   },
   "dependencies": {
     "@aptos-labs/script-composer-pack": "catalog:blockchain",
-    "@itsmnthn/big-utils": "^2.0.0",
+    "@itsmnthn/big-utils": "^2.0.1",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {
@@ -210,6 +266,40 @@
   "overrides": {
     "@thalalabs/surf": {
       "@aptos-labs/ts-sdk": "catalog:blockchain"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./abis/index": "./dist/abis/index.js",
+      "./clients/index": "./dist/clients/index.js",
+      "./composer-strategies/credit-manager": "./dist/composer-strategies/credit-manager.js",
+      "./composer-strategies/hyperion": "./dist/composer-strategies/hyperion.js",
+      "./composer-strategies/index": "./dist/composer-strategies/index.js",
+      "./composer-strategies/protocols/default-swap": "./dist/composer-strategies/protocols/default-swap.js",
+      "./composer-strategies/protocols/dex_swap": "./dist/composer-strategies/protocols/dex_swap.js",
+      "./composer-strategies/protocols/hyperion": "./dist/composer-strategies/protocols/hyperion.js",
+      "./composer-strategies/protocols/panora": "./dist/composer-strategies/protocols/panora.js",
+      "./composer-strategies/protocols/thala_v2": "./dist/composer-strategies/protocols/thala_v2.js",
+      "./composer-strategies/thala_v2": "./dist/composer-strategies/thala_v2.js",
+      "./composer-strategies/thala_v2_lsd": "./dist/composer-strategies/thala_v2_lsd.js",
+      "./composer-strategies/trade/default": "./dist/composer-strategies/trade/default.js",
+      "./composer-strategies/trade/dex_swap": "./dist/composer-strategies/trade/dex_swap.js",
+      "./composer-strategies/trade/panora": "./dist/composer-strategies/trade/panora.js",
+      "./composer/index": "./dist/composer/index.js",
+      "./config/index": "./dist/config/index.js",
+      "./credit-manager/index": "./dist/credit-manager/index.js",
+      "./farming/index": "./dist/farming/index.js",
+      "./lend-pool/index": "./dist/lend-pool/index.js",
+      "./protocols/default-swap": "./dist/protocols/default-swap.js",
+      "./protocols/dex_swap/index": "./dist/protocols/dex_swap/index.js",
+      "./protocols/hyperion/index": "./dist/protocols/hyperion/index.js",
+      "./protocols/panora/index": "./dist/protocols/panora/index.js",
+      "./protocols/thala/v2/index": "./dist/protocols/thala/v2/index.js",
+      "./token/index": "./dist/token/index.js",
+      "./types/index": "./dist/types/index.js",
+      "./utils/index": "./dist/utils/index.js",
+      "./*": "./*"
     }
   }
 }
