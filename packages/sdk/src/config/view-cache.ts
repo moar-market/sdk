@@ -17,6 +17,10 @@ export const CACHED_CALLS = new Map<string, number>([
   ['get_lp_token_price', MINUTE * 5], // 5 minute
   ['get_farming_pool_apy', MINUTE * 5], // 5 minute
   ['get_lp_shares_and_deposited_amount', MINUTE * 5], // 5 minute
+  ['get_piecewise_linear_model', MINUTE * 5], // 5 minute
+  ['get_ltv_map', MINUTE * 5], // 5 minute
+  ['get_all_ltvs', MINUTE * 5], // 5 minute
+  ['get_borrows_of', MINUTE * 1], // 1 minute
 
   // farming
   ['claimable_reward_amount', MINUTE * 2], // 2 minute

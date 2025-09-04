@@ -26,7 +26,7 @@
     "lint": "pnpm all --parallel lint",
     "lint:fix": "pnpm all --parallel lint:fix",
     "clean": "pnpm all clean && npx rimraf dist",
-    "clean:full": "pnpm all clean:full && npx rimraf dist node_modules  pnpm-lock.yaml",
+    "cleanup": "pnpm all cleanup && npx rimraf dist node_modules  pnpm-lock.yaml",
     "prepare": "husky",
     "bump": "bumpp -r"
   },

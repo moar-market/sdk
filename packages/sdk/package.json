@@ -238,7 +238,7 @@
     "lint:fix": "oxlint . --fix && eslint . --fix --cache",
     "prepublishOnly": "pnpm run build",
     "clean": "npx rimraf dist .output",
-    "clean:full": "npx rimraf node_modules dist .output",
+    "cleanup": "npx rimraf node_modules dist .output",
     "test": "vitest"
   },
   "peerDependencies": {
@@ -246,7 +246,7 @@
   },
   "dependencies": {
     "@aptos-labs/script-composer-pack": "catalog:blockchain",
-    "@itsmnthn/big-utils": "^2.0.1",
+    "@itsmnthn/big-utils": "^2.0.3",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {
