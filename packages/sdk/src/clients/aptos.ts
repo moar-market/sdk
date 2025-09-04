@@ -7,6 +7,7 @@ import type {
   MoveStructId,
   MoveValue,
   Network,
+  ViewFunctionABI,
 } from '@aptos-labs/ts-sdk'
 import type { CacheOptions } from './../config'
 import { Aptos, AptosConfig } from '@aptos-labs/ts-sdk'
@@ -73,12 +74,16 @@ export function useAptos(): Aptos {
       // use moar api if cache is enabled and ledger version is not set
       if (cache !== undefined && args.options?.ledgerVersion === undefined) {
         let response: Response | undefined
-        delete args.payload.abi
         try {
+          const abiString = args.payload.abi && viewFunctionAbiToString(args.payload.abi, args.payload.function)
           response = await fetch(`${useMoarApi()}/view`, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify({ ...args, cache }),
+            body: JSON.stringify({
+              payload: { ...args.payload, abi: abiString },
+              options: args.options,
+              cache,
+            }),
           })
         }
         catch (networkError) {
@@ -157,4 +162,37 @@ export function useAptosConfig(): AptosConfig {
   }
 
   return aptosConfig
+}
+
+/**
+ * Converts a ViewFunctionABI and function name into a JSON string representation
+ * compatible with Aptos view function payloads.
+ *
+ * @param abi - The ABI object describing the view function, including type parameters, parameters, and return types.
+ * @param function_name - The fully qualified Move function identifier in the format 'address::module::function'.
+ * @returns The JSON string representation of the view function ABI.
+ */
+export function viewFunctionAbiToString(
+  abi: ViewFunctionABI,
+  function_name: MoveStructId,
+): string {
+  const [moduleAddress, moduleName, functionName] = function_name.split('::')
+
+  return JSON.stringify({
+    address: moduleAddress,
+    name: moduleName,
+    exposed_functions: [
+      {
+        name: functionName,
+        visibility: 'public',
+        is_entry: false,
+        is_view: true,
+        generic_type_params: abi.typeParameters.map(param => ({
+          constraints: param.constraints.toString(),
+        })),
+        params: abi.parameters.map(param => param.toString()),
+        return: abi.returnTypes.map(returnType => returnType.toString()),
+      },
+    ],
+  })
 }
