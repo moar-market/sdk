@@ -18,8 +18,6 @@ export interface LendPoolResponse {
   interest_accrued: string
   total_lp_token_supply: string
   interest_rate: string
-  unbond_period: number
-  withdraw_period: number
 }
 
 /**

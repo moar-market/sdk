@@ -12,9 +12,6 @@ export interface UserPositionParams {
 export interface UserPositionResponse {
   shares: string
   shareAmount: string
-  unbondingShares: string
-  unbondingAmount: string
-  unbondingTime: number
 }
 
 /**
@@ -32,7 +29,6 @@ export interface UserPositionResponse {
  *   user: "0x123..."
  * });
  * console.log(position.shares); // "1000000"
- * console.log(position.unbondingTime); // 1634567890
  * ```
  */
 export async function getUserPosition({ poolId, user }: UserPositionParams): Promise<UserPositionResponse> {
@@ -45,49 +41,13 @@ export async function getUserPosition({ poolId, user }: UserPositionParams): Pro
     functionArguments: [poolId, user],
   })
 
+  // last three data are 0 ? removed un-bond feature
   const res = {
     shares: data[0] ?? '0',
     shareAmount: data[1] ?? '0',
-    unbondingShares: data[2] ?? '0',
-    unbondingAmount: data[3] ?? '0',
-    unbondingTime: Number(data[4] ?? '0'),
   }
 
   return res
-}
-
-export interface UnbondingInfo {
-  shares: string
-  amount: string
-  unbondTime: number
-}
-
-/**
- * Retrieves the unbonding information for a user in a specific lending pool.
- *
- * @param {Address} userAddress - The address of the user.
- * @param {number|string} poolId - The ID of the lending pool.
- * @returns {Promise<UnbondingInfo>} An object containing the shares, amount, and unbond time.
- * @throws Will throw an error if the view function call fails - network request failure
- */
-export async function getUnbondingInfo(
-  userAddress: Address,
-  poolId: number | string,
-): Promise<UnbondingInfo> {
-  const moduleAddress = getModuleAddress('moar_pool')
-  const [shares, amount, unbondTime] = await useSurfClient().useABI(
-    moar_pool_abi,
-    moduleAddress,
-  ).view.get_unbonding_info({
-    typeArguments: [],
-    functionArguments: [userAddress, poolId],
-  })
-
-  return {
-    shares: shares ?? '0',
-    amount: amount ?? '0',
-    unbondTime: Number(unbondTime ?? '0'),
-  }
 }
 
 /**
@@ -444,8 +404,6 @@ export function formatLendPoolConfig(pool: LendPoolResponse, address: Address, i
     address,
     name: pool.name.split(' ')[1]?.trim() || '', // strip moar from name (e.g. 'moar usdc' -> 'usdc')
     underlying_asset: pool.underlying_asset.inner,
-    unbond_period: Number(pool.unbond_period),
-    withdraw_period: Number(pool.withdraw_period),
     kinks: [],
     ltvs: [],
   }
