@@ -11,7 +11,13 @@ import type {
 } from '@aptos-labs/ts-sdk'
 import type { CacheOptions } from './../config'
 import { Aptos, AptosConfig } from '@aptos-labs/ts-sdk'
-import { getFunctionCacheOptions, isCacheViewEnabled, useChainConfig, useMoarApi } from './../config'
+import {
+  getFunctionCacheOptions,
+  isCacheViewEnabled,
+  isRouteViewEnabled,
+  useChainConfig,
+  useMoarApi,
+} from './../config'
 
 declare module '@aptos-labs/ts-sdk' {
   interface Aptos {
@@ -67,12 +73,17 @@ export function useAptos(): Aptos {
       options?: LedgerVersionArg
       cache?: CacheOptions
     }): Promise<T> {
+      // Determine cache options
       let cache: CacheOptions | undefined
       if (isCacheViewEnabled()) {
         cache = args.cache || getFunctionCacheOptions(args.payload.function) // explicit or default cache
       }
-      // use moar api if cache is enabled and ledger version is not set
-      if (cache !== undefined && args.options?.ledgerVersion === undefined) {
+
+      // if cache is enabled or route view is enabled, call Moar `/view`
+      if (isRouteViewEnabled() || cache) {
+        // If no cache rule, set ttl: 0
+        const cacheForRequest: CacheOptions | undefined = cache ?? { ttl: 0 }
+
         let response: Response | undefined
         try {
           const abiString = args.payload.abi && viewFunctionAbiToString(args.payload.abi, args.payload.function)
@@ -82,7 +93,7 @@ export function useAptos(): Aptos {
             body: JSON.stringify({
               payload: { ...args.payload, abi: abiString },
               options: args.options,
-              cache,
+              cache: cacheForRequest,
             }),
           })
         }
@@ -99,18 +110,20 @@ export function useAptos(): Aptos {
             console.error('no moar view parse failed', jsonError)
           }
 
-          if (body.error) { // if view errored, throw error
+          if (body?.error) {
             throw new Error(body.error)
           }
 
-          return body.data
+          if (body?.data !== undefined) {
+            return body.data
+          }
         }
 
         // continue to original view function if error or 500
         console.error('no moar view internal failed', response?.status)
       }
 
-      // use original view function if ledger version is set or cache is not enabled
+      // Fallback to original view
       return await originalAptosView({
         payload: args.payload,
         options: getLedgerVersionArg(args.options),

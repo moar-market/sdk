@@ -39,11 +39,15 @@ export function getConfig(): Config {
 }
 
 export function isDebugEnabled(): boolean {
-  return getConfig().DEBUG || false
+  return getConfig().DEBUG ?? false // defaults to false
 }
 
 export function isCacheViewEnabled(): boolean {
-  return getConfig().CACHE_VIEW || false
+  return getConfig().APTOS_VIEW_FN_CACHE ?? false // defaults to false
+}
+
+export function isRouteViewEnabled(): boolean {
+  return getConfig().APTOS_ALL_VIEW_FN_ROUTE ?? false // defaults to false
 }
 
 export function useMoarApi(): string {
@@ -178,10 +182,20 @@ export interface ModuleSettings {
 }
 
 export interface Config {
-  DEBUG: boolean
-  MOAR_API: string
-  PANORA_API_KEY: string
-  CACHE_VIEW: boolean
+  DEBUG?: boolean
+  MOAR_API?: string
+  PANORA_API_KEY?: string
+  /**
+   * Enables caching for certain configured Aptos view functions.
+   * When true, view functions specified in the configuration will use cache rules to optimize performance.
+   */
+  APTOS_VIEW_FN_CACHE?: boolean
+
+  /**
+   * When enabled, route all Aptos view() calls through the Moar `/view` API.
+   * If a specific function has no cache rule, the caller should set `{ ttl: 0 }`.
+   */
+  APTOS_ALL_VIEW_FN_ROUTE?: boolean
 
   CHAIN: ChainConfig
 

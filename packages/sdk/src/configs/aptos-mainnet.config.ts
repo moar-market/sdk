@@ -559,10 +559,10 @@ export const THALA_V2_POOLS = {
 } as const
 
 export const config: Config = {
-  DEBUG: false,
   MOAR_API,
   PANORA_API_KEY: '',
-  CACHE_VIEW: false,
+  APTOS_VIEW_FN_CACHE: false,
+  APTOS_ALL_VIEW_FN_ROUTE: false,
 
   CHAIN,
 
