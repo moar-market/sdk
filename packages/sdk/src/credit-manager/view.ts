@@ -331,3 +331,67 @@ export async function getAllUsers(): Promise<Address[]> {
 
   return users
 }
+
+export interface EstimatedHealthFactorClAMMParams {
+  creditAccount: Address
+  assets: Address[]
+  assetAmounts: Array<bigint | string | number>
+  poolIds: number[]
+  debtAmounts: Array<bigint | string | number>
+  adapterId: number | string
+  liquidityPoolAddress: Address
+  estimatedLiquidity: bigint | string | number
+  tickLower: number | bigint | string
+  tickUpper: number | bigint | string
+  pendingFees: Array<bigint | string | number>
+}
+
+/**
+ * Gets the estimated health factor for a credit account when considering a CLAMM position state
+ *
+ * @param params Object containing account state and CLAMM position parameters
+ * @param params.creditAccount The credit account address
+ * @param params.assets Array of asset addresses in the credit account
+ * @param params.assetAmounts Array of asset amounts corresponding to assets
+ * @param params.poolIds Array of debt pool ids
+ * @param params.debtAmounts Array of debt amounts corresponding to poolIds
+ * @param params.adapterId Adapter id of the CLAMM position
+ * @param params.liquidityPoolAddress Address of the CLAMM liquidity pool
+ * @param params.estimatedLiquidity Total position liquidity after the action
+ * @param params.tickLower Lower tick of the CLAMM position
+ * @param params.tickUpper Upper tick of the CLAMM position
+ * @param params.pendingFees Pending fees of the exiting CLAMM position, empty if none
+ * @returns Estimated health factor as string, or undefined if not computable
+ */
+export async function getEstimatedHealthFactorClAMM({
+  creditAccount,
+  assets,
+  assetAmounts,
+  poolIds,
+  debtAmounts,
+  adapterId,
+  liquidityPoolAddress,
+  estimatedLiquidity,
+  tickLower,
+  tickUpper,
+  pendingFees,
+}: EstimatedHealthFactorClAMMParams): Promise<string | undefined> {
+  const [{ vec: [healthFactor] }] = await MoarLens().view.get_estimated_health_factor_clamm({
+    typeArguments: [],
+    functionArguments: [
+      creditAccount,
+      assets,
+      assetAmounts,
+      poolIds,
+      debtAmounts,
+      Number(adapterId),
+      liquidityPoolAddress,
+      estimatedLiquidity,
+      Number(tickLower),
+      Number(tickUpper),
+      pendingFees,
+    ],
+  })
+
+  return healthFactor
+}

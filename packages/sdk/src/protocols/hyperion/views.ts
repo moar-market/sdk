@@ -44,14 +44,14 @@ export interface AddLiquidityPreview {
  */
 export async function previewAddLiquidity(
   { tick, tokenA, tokenB, fromTokenA, feeTier, amount, minAmountA, minAmountB }: PreviewAddLiquidityParams,
-): Promise<string | undefined> {
+): Promise<{ lpAmount: bigint, outAmount: bigint } | undefined> {
   try {
     logger.debug(debugLabel, 'payload', { tick, tokenA, tokenB, fromTokenA, feeTier, amount, minAmountA, minAmountB })
     const moduleAddress = getModuleAddress('hyperion_router_v3')
     const views = useSurfClient().useABI(hyperion_router_v3_abi, moduleAddress).view
     const previewFunction = fromTokenA ? views.optimal_liquidity_amounts_from_a : views.optimal_liquidity_amounts_from_b
 
-    const [, outAmount] = await previewFunction({
+    const [lpAmount, outAmount] = await previewFunction({
       typeArguments: [],
       functionArguments: [
         Number(tick.lower),
@@ -66,7 +66,7 @@ export async function previewAddLiquidity(
       ],
     })
 
-    return outAmount
+    return { lpAmount: BigInt(lpAmount), outAmount: BigInt(outAmount) }
   }
   catch (error) {
     console.error(debugLabel, 'error previewing add liquidity', error)
@@ -92,12 +92,12 @@ export interface GetOptimalLiquidityAmountsParams {
  */
 export async function getOptimalLiquidityAmounts(
   { tickLower, tickUpper, tokenA, tokenB, feeTier, amountA, amountB, minAmountA, minAmountB }: GetOptimalLiquidityAmountsParams,
-): Promise<{ optimalAmountA: bigint, optimalAmountB: bigint } | undefined> {
+): Promise<{ optimalAmountA: bigint, optimalAmountB: bigint, lpAmount: bigint } | undefined> {
   try {
     const moduleAddress = getModuleAddress('hyperion_router_v3')
     const views = useSurfClient().useABI(hyperion_router_v3_abi, moduleAddress).view
 
-    const [, optimalAmountA, optimalAmountB] = await views.optimal_liquidity_amounts({
+    const [lpAmount, optimalAmountA, optimalAmountB] = await views.optimal_liquidity_amounts({
       typeArguments: [],
       functionArguments: [
         tickLower,
@@ -112,7 +112,7 @@ export async function getOptimalLiquidityAmounts(
       ],
     })
 
-    return { optimalAmountA: BigInt(optimalAmountA), optimalAmountB: BigInt(optimalAmountB) }
+    return { optimalAmountA: BigInt(optimalAmountA), optimalAmountB: BigInt(optimalAmountB), lpAmount: BigInt(lpAmount) }
   }
   catch (error) {
     console.error(debugLabel, 'error previewing add liquidity', error)
