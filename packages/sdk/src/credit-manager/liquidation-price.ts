@@ -1,6 +1,7 @@
 import type { Address } from '../types'
 import {
   bigAbs,
+  bigMax,
   bigMulDivRound,
   bigRescale,
   bigSqrtScaled,
@@ -216,7 +217,7 @@ function calculateTotalAssets(
   for (const asset of faAssets) {
     const priceRatio = bigMulDivRound(price, SCALE_8, currentPrice, ROUND_MODES.TRUNC)
     const priceChangeRatio = bigMulDivRound(asset.correlation, (priceRatio - SCALE_8), SCALE_8, ROUND_MODES.TRUNC)
-    const correlatedPrice = bigMulDivRound(asset.currentPrice, (SCALE_8 + priceChangeRatio), SCALE_8, ROUND_MODES.TRUNC)
+    const correlatedPrice = bigMax(MIN_PRICE, bigMulDivRound(asset.currentPrice, (SCALE_8 + priceChangeRatio), SCALE_8, ROUND_MODES.TRUNC))
 
     // Scale asset amount to 1e8
     const scaledAmount = adjustDecimalScale(asset.amount, asset.decimals, DEFAULT_DECIMALS)
@@ -241,6 +242,17 @@ function calculateWeightedDebtRequirement(
   xDecimals: number,
   yDecimals: number,
 ): bigint {
+  for (const key of Object.keys(assetBreakdown)) {
+    const xL = ltvMatrix.X[key]
+    const yL = ltvMatrix.Y[key]
+    if (xL === undefined || yL === undefined) {
+      throw new Error(`Missing LTV entry for asset in breakdown: ${key}`)
+    }
+    if (xL <= 0n || yL <= 0n) {
+      throw new Error(`Non-positive LTV for asset in breakdown: ${key}`)
+    }
+  }
+
   // Scale debt amounts to 1e8
   const debtXScaled = adjustDecimalScale(position.debtX, xDecimals, DEFAULT_DECIMALS)
   const yDebtValue = adjustDecimalScale(position.debtY, yDecimals, DEFAULT_DECIMALS)
@@ -257,23 +269,19 @@ function calculateWeightedDebtRequirement(
 
   // Calculate WDR using correct formula from Move code: Σ_debt_type Σ_asset_type (debt_value × asset_weight / LTV)
   // Where asset_weight = asset_value / total_asset_value
-  let minAssetValue = 0n
+  let wdr = 0n // wdr = weighted debt requirement
 
   for (const [assetType, assetValue] of Object.entries(assetBreakdown)) {
     // For X debt: X_debt_value × asset_weight / LTV[X][asset]
     const xLtv = ltvMatrix.X[assetType]
-    if (xLtv && xLtv > 0n) {
-      minAssetValue += bigMulDivRound(xDebtValue * assetValue, SCALE_8, (totalAssetValue * xLtv), ROUND_MODES.TRUNC)
-    }
+    wdr += bigMulDivRound(xDebtValue * assetValue, SCALE_8, (totalAssetValue * xLtv), ROUND_MODES.TRUNC)
 
     // For Y debt: Y_debt_value × asset_weight / LTV[Y][asset]
     const yLtv = ltvMatrix.Y[assetType]
-    if (yLtv && yLtv > 0n) {
-      minAssetValue += bigMulDivRound(yDebtValue * assetValue, SCALE_8, (totalAssetValue * yLtv), ROUND_MODES.TRUNC)
-    }
+    wdr += bigMulDivRound(yDebtValue * assetValue, SCALE_8, (totalAssetValue * yLtv), ROUND_MODES.TRUNC)
   }
 
-  return minAssetValue
+  return wdr
 }
 
 /**
@@ -336,12 +344,25 @@ function handleDerivativeTooSmallError(
   params: LTVLiquidationParams,
 ): bigint {
   // Get position price boundaries from ticks
-  const priceLower = tickToPrice(params.position.tickLower, params.xDecimals, params.yDecimals)
-  const priceUpper = tickToPrice(params.position.tickUpper, params.xDecimals, params.yDecimals)
+  let priceLower = tickToPrice(params.position.tickLower, params.xDecimals, params.yDecimals)
+  let priceUpper = tickToPrice(params.position.tickUpper, params.xDecimals, params.yDecimals)
+  if (priceLower < MIN_PRICE)
+    priceLower = MIN_PRICE
+  if (priceUpper < MIN_PRICE)
+    priceUpper = MIN_PRICE
 
-  // revert if error price in within the position price range (which is not possible because position composition changes with price)
   if (error.price >= priceLower && error.price <= priceUpper) {
-    throw new Error('Error price is within position price range and derivative too small')
+    const epsilon = 1n // 1e-8
+    const adjustedGuess = error.searchingLower
+      ? (priceLower + epsilon)
+      : (priceUpper > epsilon ? priceUpper - epsilon : priceUpper)
+
+    try {
+      return newtonRaphsonSolve(params, adjustedGuess)
+    }
+    catch {
+      return error.searchingLower ? priceLower : priceUpper // safe worst-case
+    }
   }
 
   // Determine boundary price based on search direction
@@ -356,12 +377,12 @@ function handleDerivativeTooSmallError(
     // For lower search: slightly higher than lower boundary
     // For upper search: slightly lower than upper boundary
     const adjustedGuess = error.searchingLower
-      ? priceLower + (priceLower * SCALE_8) / 10000n // +1% from lower boundary
-      : priceUpper - (priceUpper * SCALE_8) / 10000n // -1% from upper boundary
+      ? priceLower + (priceLower / 100n) // +1% from lower boundary
+      : priceUpper - (priceUpper / 100n) // -1% from upper boundary
 
     try {
       // Try Newton-Raphson again with adjusted guess
-      return newtonRaphsonSolve(params, adjustedGuess, error.searchingLower)
+      return newtonRaphsonSolve(params, adjustedGuess)
     }
     catch (retryError) {
       if (retryError instanceof DerivativeTooSmallError) {
@@ -382,7 +403,6 @@ function handleDerivativeTooSmallError(
 function newtonRaphsonSolve(
   params: LTVLiquidationParams,
   initialGuess: bigint,
-  searchingLower: boolean = true, // true for lower liquidation price, false for upper
   tolerance: bigint = SCALE_8 / 1000000n, // 1e-6
   maxIterations: number = 100,
 ): bigint {
@@ -416,14 +436,33 @@ function newtonRaphsonSolve(
     }
 
     if (price <= SCALE_8 / PRICE_DELTA) {
-      return 0n
+      return MIN_PRICE
     }
 
     // Calculate numerical derivative (simplified)
-    const delta = bigMulDivRound(price, PRICE_DELTA, SCALE_8, ROUND_MODES.TRUNC) // 0.01% change
-    const pricePlus = price + delta
-    const { totalValue: totalAssetsPlus } = calculateTotalAssets(
-      pricePlus,
+    const delta = bigMax(MIN_PRICE, bigMulDivRound(price, PRICE_DELTA, SCALE_8, ROUND_MODES.TRUNC))
+    const pMinus = price > delta ? price - delta : MIN_PRICE
+    const { totalValue: totalAssetsMinus, breakdown: brkMinus } = calculateTotalAssets(
+      pMinus,
+      params.position,
+      params.faAssets,
+      params.currentPrice,
+      params.xDecimals,
+      params.yDecimals,
+    )
+    const wdrMinus = calculateWeightedDebtRequirement(
+      pMinus,
+      params.position,
+      params.ltvMatrix,
+      brkMinus,
+      params.xDecimals,
+      params.yDecimals,
+    )
+    const fMinus = totalAssetsMinus - wdrMinus
+
+    const pPlus = price + delta <= MAX_PRICE ? price + delta : MAX_PRICE
+    const { totalValue: totalAssetsPlus, breakdown: brkPlus } = calculateTotalAssets(
+      pPlus,
       params.position,
       params.faAssets,
       params.currentPrice,
@@ -431,19 +470,39 @@ function newtonRaphsonSolve(
       params.yDecimals,
     )
     const wdrPlus = calculateWeightedDebtRequirement(
-      pricePlus,
+      pPlus,
       params.position,
       params.ltvMatrix,
-      breakdown,
+      brkPlus,
       params.xDecimals,
       params.yDecimals,
     )
     const fPlus = totalAssetsPlus - wdrPlus
-
-    const fprime = bigMulDivRound((fPlus - f), SCALE_8, delta, ROUND_MODES.TRUNC)
+    // Calculate numerical derivative F'(p) = (F(p + delta) - F(p - delta)) / (2 * delta).
+    // This approach is used instead of the analytical derivative for implementation
+    // simplicity and robustness, as the analytical form is highly complex.
+    // const fprime = bigMulDivRound((fPlus - f), SCALE_8, delta, ROUND_MODES.TRUNC)
+    const fprime = bigMulDivRound((fPlus - fMinus), SCALE_8, (2n * delta), ROUND_MODES.TRUNC)
 
     if (bigAbs(fprime) <= SCALE_4) {
-      throw new DerivativeTooSmallError(price, searchingLower)
+      // 1) Secant using symmetric samples
+      const secantDen = (fPlus - fMinus)
+      if (secantDen !== 0n) {
+        const secantStep = bigMulDivRound(2n * delta, f, secantDen, ROUND_MODES.TRUNC)
+        const pTry = price - secantStep
+        if (pTry > MIN_PRICE && pTry < MAX_PRICE) {
+          price = pTry
+          continue
+        }
+      }
+      // 2) Damped step toward reducing |F|
+      const step = bigMax(1n, delta >> 2n) // quarter of delta, floor 1
+      price = f > 0n ? (price + step) : (price - step)
+      if (price <= MIN_PRICE)
+        price = MIN_PRICE
+      if (price >= MAX_PRICE)
+        price = MAX_PRICE
+      continue
     }
 
     const step = bigMulDivRound(f, SCALE_8, fprime, ROUND_MODES.TRUNC)
@@ -507,9 +566,8 @@ export function calculateLiquidationPrices(params: LTVLiquidationParams): Liquid
 
           // Convert to Y terms and sum (scaled by 1e8)
           const xDebtInY = bigMulDivRound(debtXScaled, currentPrice, SCALE_8, ROUND_MODES.TRUNC)
-          const xDebtScaled = adjustDecimalScale(xDebtInY, params.xDecimals, params.yDecimals)
 
-          return xDebtScaled + debtYScaled
+          return xDebtInY + debtYScaled
         })(),
         weightedDebtRequirement: currentWDR,
         assetBreakdown: currentBreakdown,
@@ -526,7 +584,7 @@ export function calculateLiquidationPrices(params: LTVLiquidationParams): Liquid
   // Search for lower liquidation price (start below current)
   const searchLow = bigMulDivRound(currentPrice, 7n, 10n, ROUND_MODES.TRUNC) // 70% of current
   try {
-    liquidationLow = newtonRaphsonSolve(params, searchLow, true)
+    liquidationLow = newtonRaphsonSolve(params, searchLow)
   }
   catch (error) {
     if (error instanceof DerivativeTooSmallError) {
@@ -545,7 +603,7 @@ export function calculateLiquidationPrices(params: LTVLiquidationParams): Liquid
   // Search for upper liquidation price (start above current)
   const searchHigh = bigMulDivRound(currentPrice, 13n, 10n, ROUND_MODES.TRUNC) // 130% of current
   try {
-    liquidationHigh = newtonRaphsonSolve(params, searchHigh, false)
+    liquidationHigh = newtonRaphsonSolve(params, searchHigh)
   }
   catch (error) {
     if (error instanceof DerivativeTooSmallError) {
