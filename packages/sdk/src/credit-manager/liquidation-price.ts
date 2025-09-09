@@ -245,7 +245,7 @@ function calculateWeightedDebtRequirement(
   for (const key of Object.keys(assetBreakdown)) {
     const xL = ltvMatrix.X[key]
     const yL = ltvMatrix.Y[key]
-    if (xL === undefined || yL === undefined) {
+    if ((xL === undefined && position.debtX !== 0n) || (yL === undefined && position.debtY !== 0n)) {
       throw new Error(`Missing LTV entry for asset in breakdown: ${key}`)
     }
     if (xL <= 0n || yL <= 0n) {
@@ -274,11 +274,15 @@ function calculateWeightedDebtRequirement(
   for (const [assetType, assetValue] of Object.entries(assetBreakdown)) {
     // For X debt: X_debt_value × asset_weight / LTV[X][asset]
     const xLtv = ltvMatrix.X[assetType]
-    wdr += bigMulDivRound(xDebtValue * assetValue, SCALE_8, (totalAssetValue * xLtv), ROUND_MODES.TRUNC)
+    if (xLtv) {
+      wdr += bigMulDivRound(xDebtValue * assetValue, SCALE_8, (totalAssetValue * xLtv), ROUND_MODES.TRUNC)
+    }
 
     // For Y debt: Y_debt_value × asset_weight / LTV[Y][asset]
     const yLtv = ltvMatrix.Y[assetType]
-    wdr += bigMulDivRound(yDebtValue * assetValue, SCALE_8, (totalAssetValue * yLtv), ROUND_MODES.TRUNC)
+    if (yLtv) {
+      wdr += bigMulDivRound(yDebtValue * assetValue, SCALE_8, (totalAssetValue * yLtv), ROUND_MODES.TRUNC)
+    }
   }
 
   return wdr
@@ -358,7 +362,7 @@ function handleDerivativeTooSmallError(
       : (priceUpper > epsilon ? priceUpper - epsilon : priceUpper)
 
     try {
-      return newtonRaphsonSolve(params, adjustedGuess)
+      return newtonRaphsonSolve(params, adjustedGuess, error.searchingLower)
     }
     catch {
       return error.searchingLower ? priceLower : priceUpper // safe worst-case
@@ -382,7 +386,7 @@ function handleDerivativeTooSmallError(
 
     try {
       // Try Newton-Raphson again with adjusted guess
-      return newtonRaphsonSolve(params, adjustedGuess)
+      return newtonRaphsonSolve(params, adjustedGuess, error.searchingLower)
     }
     catch (retryError) {
       if (retryError instanceof DerivativeTooSmallError) {
@@ -403,6 +407,7 @@ function handleDerivativeTooSmallError(
 function newtonRaphsonSolve(
   params: LTVLiquidationParams,
   initialGuess: bigint,
+  searchingLower: boolean,
   tolerance: bigint = SCALE_8 / 1000000n, // 1e-6
   maxIterations: number = 100,
 ): bigint {
@@ -485,24 +490,7 @@ function newtonRaphsonSolve(
     const fprime = bigMulDivRound((fPlus - fMinus), SCALE_8, (2n * delta), ROUND_MODES.TRUNC)
 
     if (bigAbs(fprime) <= SCALE_4) {
-      // 1) Secant using symmetric samples
-      const secantDen = (fPlus - fMinus)
-      if (secantDen !== 0n) {
-        const secantStep = bigMulDivRound(2n * delta, f, secantDen, ROUND_MODES.TRUNC)
-        const pTry = price - secantStep
-        if (pTry > MIN_PRICE && pTry < MAX_PRICE) {
-          price = pTry
-          continue
-        }
-      }
-      // 2) Damped step toward reducing |F|
-      const step = bigMax(1n, delta >> 2n) // quarter of delta, floor 1
-      price = f > 0n ? (price + step) : (price - step)
-      if (price <= MIN_PRICE)
-        price = MIN_PRICE
-      if (price >= MAX_PRICE)
-        price = MAX_PRICE
-      continue
+      throw new DerivativeTooSmallError(price, searchingLower)
     }
 
     const step = bigMulDivRound(f, SCALE_8, fprime, ROUND_MODES.TRUNC)
@@ -521,7 +509,7 @@ function newtonRaphsonSolve(
     // Check for convergence
     const change = bigAbs(priceNext - price)
     if (change <= bigMulDivRound(tolerance, price, SCALE_8, ROUND_MODES.TRUNC)) {
-      //   console.log('Newton-Raphson converged', priceNext, i)
+      // console.log('Newton-Raphson converged', priceNext, i)
       return priceNext
     }
 
@@ -584,7 +572,7 @@ export function calculateLiquidationPrices(params: LTVLiquidationParams): Liquid
   // Search for lower liquidation price (start below current)
   const searchLow = bigMulDivRound(currentPrice, 7n, 10n, ROUND_MODES.TRUNC) // 70% of current
   try {
-    liquidationLow = newtonRaphsonSolve(params, searchLow)
+    liquidationLow = newtonRaphsonSolve(params, searchLow, true)
   }
   catch (error) {
     if (error instanceof DerivativeTooSmallError) {
@@ -603,7 +591,7 @@ export function calculateLiquidationPrices(params: LTVLiquidationParams): Liquid
   // Search for upper liquidation price (start above current)
   const searchHigh = bigMulDivRound(currentPrice, 13n, 10n, ROUND_MODES.TRUNC) // 130% of current
   try {
-    liquidationHigh = newtonRaphsonSolve(params, searchHigh)
+    liquidationHigh = newtonRaphsonSolve(params, searchHigh, false)
   }
   catch (error) {
     if (error instanceof DerivativeTooSmallError) {
