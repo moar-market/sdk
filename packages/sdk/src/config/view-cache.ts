@@ -1,11 +1,5 @@
 import type { MoveStructId } from '../types'
 
-export interface CacheOptions {
-  enabled?: boolean
-  ttl?: number
-  key?: string
-}
-
 const MINUTE = 60
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
@@ -25,7 +19,7 @@ export const CACHED_CALLS = new Map<string, number>([
   // farming
   ['claimable_reward_amount', MINUTE * 2], // 2 minute
   ['is_stake_initialized', MINUTE * 2], // 2 minute
-  ['isReconcileNeeded', MINUTE * 1], // 2 minute
+  ['isReconcileNeeded', MINUTE * 2], // 2 minute
 
   // credit manager
   ['get_user_active_credit_accounts', MINUTE * 2], // 2 minute
@@ -57,6 +51,16 @@ export const CACHED_CALLS = new Map<string, number>([
 
 ])
 
+let isCacheInvalidated: boolean = false
+let invalidateCacheTimeout: NodeJS.Timeout | null = null
+
+export interface CacheOptions {
+  enabled?: boolean
+  ttl?: number
+  key?: string
+  invalidate?: boolean
+}
+
 export function getFunctionCacheOptions(fn: MoveStructId): CacheOptions | undefined {
   const name = fn.split('::').pop()
   if (!name) {
@@ -68,5 +72,25 @@ export function getFunctionCacheOptions(fn: MoveStructId): CacheOptions | undefi
   if (ttl === 0) {
     return
   }
-  return { ttl } // key is optional, server takes care of it based on payload and params
+  return { ttl, invalidate: isCacheInvalidated } // key is optional, server takes care of it based on payload and params
+}
+
+export const viewCacheControl = {
+  invalidateCache: () => {
+    isCacheInvalidated = true
+  },
+  isCacheInvalidated: () => isCacheInvalidated,
+  resetCache: () => {
+    isCacheInvalidated = false
+  },
+  invalidateCacheForSeconds: (seconds: number) => {
+    isCacheInvalidated = true
+
+    if (invalidateCacheTimeout) {
+      clearTimeout(invalidateCacheTimeout)
+    }
+    invalidateCacheTimeout = setTimeout(() => {
+      isCacheInvalidated = false
+    }, seconds * 1000)
+  },
 }
