@@ -4,7 +4,7 @@ import type { BorrowParams, CollateralParams, RepayParams } from './shared'
 import { useAptosConfig } from './../clients'
 import { scriptComposer } from './../composer'
 import { swap } from './protocols/default-swap'
-import { borrow, depositCollateral, repay } from './shared'
+import { borrow, closeCreditAccount, depositCollateral, repay } from './shared'
 
 export interface BorrowDebtParams {
   sender: Address
@@ -110,6 +110,35 @@ export async function swapAsset(
     sender,
     builder: async (builder) => {
       await swap(builder, creditAccount, swaps)
+
+      return builder
+    },
+  })
+
+  return transaction
+}
+
+export interface CloseWithSwapParams extends SwapAssetParams {}
+
+/**
+ * Executes one or more swaps on an existing credit account and then closes the credit account.
+ * Used for get single asset on close account.
+ * @param {CloseWithSwapParams} params - Parameters for the operation.
+ * @param {Address} params.sender - The address initiating the transaction.
+ * @param {Address} params.creditAccount - The address of the credit account to operate on.
+ * @param {SwapParams[]} params.swaps - An array of swap instructions to execute before closing.
+ * @returns {Promise<SimpleTransaction>} A promise that resolves to the transaction object representing the swap(s) and account closure.
+ */
+export async function swapAssetsAndCloseCreditAccount(
+  { sender, creditAccount, swaps }: CloseWithSwapParams,
+): Promise<SimpleTransaction> {
+  const transaction = await scriptComposer({
+    config: useAptosConfig(),
+    sender,
+    builder: async (builder) => {
+      await swap(builder, creditAccount, swaps)
+
+      await closeCreditAccount(builder, creditAccount)
 
       return builder
     },
