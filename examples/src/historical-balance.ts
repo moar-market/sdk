@@ -13,8 +13,9 @@ async function main() {
     fetchFungibleBalance(userAddress, aptosFA),
     aptos.getLedgerInfo(),
   ])
-
   // this sets the global ledger version for all future calls after this even outside of this function in same runtime
+
+  // @ts-expect-error property setLedgerVersion does not exist on type Aptos
   aptos.setLedgerVersion?.(ledgerVersion)
   const historicalBalances = await fetchFungibleBalance(userAddress, aptosFA)
 
@@ -25,11 +26,13 @@ async function main() {
     },
     historicalBalances: {
       amount: Number(historicalBalances) / 1e8,
+      // @ts-expect-error property getLedgerVersion does not exist on type Aptos
       ledgerVersion: aptos.getLedgerVersion?.(),
     },
   })
 
   // this resets the global ledger version for all future calls after this even outside of this function in same runtime
+  // @ts-expect-error property setLedgerVersion does not exist on type Aptos
   aptos.setLedgerVersion?.(undefined)
 }
 

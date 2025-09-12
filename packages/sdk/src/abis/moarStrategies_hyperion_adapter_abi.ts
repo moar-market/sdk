@@ -722,6 +722,38 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "RebalanceEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+        },
+        {
+          "name": "old_position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "new_position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "tick_lower",
+          "type": "u32"
+        },
+        {
+          "name": "tick_upper",
+          "type": "u32"
+        }
+      ]
+    },
+    {
       "name": "RebalanceInputs",
       "is_native": false,
       "is_event": false,

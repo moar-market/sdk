@@ -154,6 +154,33 @@ export const moar_credit_manager_abi = {
       ]
     },
     {
+      "name": "add_authority",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address",
+        "address",
+        "vector<u8>"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_authority",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address",
+        "address"
+      ],
+      "return": []
+    },
+    {
       "name": "add_allowed_asset",
       "visibility": "public",
       "is_entry": true,

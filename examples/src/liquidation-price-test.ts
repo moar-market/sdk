@@ -248,6 +248,7 @@ async function testLiquidationPrice() {
   console.log('')
 
   const aptos = useAptos()
+  // @ts-expect-error setLedgerVersion is not typed correctly
   aptos.setLedgerVersion?.(LEDGER_VERSION)
 
   try {
@@ -463,6 +464,7 @@ async function testLiquidationPrice() {
     console.error('Error during liquidation analysis:', error)
   }
   finally {
+    // @ts-expect-error setLedgerVersion is not typed correctly
     aptos.setLedgerVersion?.(undefined)
   }
 }

@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
@@ -41,7 +42,7 @@ ${files.map(f => `  - ${f}`).join('\n')}
   process.exit(1)
 }
 
-if (!fileArg) {
+if (fileArg === undefined) {
   printUsageAndExit()
 }
 
