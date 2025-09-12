@@ -4,7 +4,7 @@ import type { ClaimRewardsParams } from './../shared'
 import { extendTypeArguments } from '../../utils'
 import { composerUtils_fe_abi, moarStrategies_thala_v2_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
-import { claimRewards, copyIfCallArgument, executeStrategy } from './../shared'
+import { claimRewards, executeStrategy } from './../shared'
 
 export interface AddLiquidityParams {
   pool: Address
@@ -41,7 +41,7 @@ export async function addLiquidity(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     thala_v2_add_liquidity.adapterId,
     thala_v2_add_liquidity.strategyId,
     addLiquidityInput,
@@ -84,7 +84,7 @@ export async function removeLiquidity(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     thala_v2_remove_liquidity.adapterId,
     thala_v2_remove_liquidity.strategyId,
     removeLiquidityInput,
@@ -117,11 +117,15 @@ export async function claimReward(
       typeArguments: [],
     }, composerUtils_fe_abi)
 
-    await claimRewards(builder, copyIfCallArgument(creditAccount), {
-      typeArguments: extendTypeArguments([], 4, reward.nullType),
-      calldata: calldata_vec,
-      nullType: reward.nullType,
-    })
+    await claimRewards(
+      builder,
+      builder.copyIfCallArgument(creditAccount),
+      {
+        typeArguments: extendTypeArguments([], 4, reward.nullType),
+        calldata: calldata_vec,
+        nullType: reward.nullType,
+      },
+    )
   }
 }
 
@@ -157,7 +161,7 @@ export async function stakeAPTthAPT(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     thala_v2_stake_apt_and_thapt.adapterId,
     thala_v2_stake_apt_and_thapt.strategyId,
     stakeAPTthAPTInput,
@@ -191,7 +195,7 @@ export async function unstakeAPTthAPT(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     thala_v2_unstake_thapt.adapterId,
     thala_v2_unstake_thapt.strategyId,
     unstakeAPTthAPTInput,

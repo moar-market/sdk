@@ -2,7 +2,7 @@ import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address, SwapParams } from './../../types'
 import { moarStrategies_dex_swap_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
-import { copyIfCallArgument, executeStrategy } from './../shared'
+import { executeStrategy } from './../shared'
 
 const functionNames = {
   hyperionSinglePoolSwap: 'create_hyperion_single_pool_swap_inputs',
@@ -66,7 +66,7 @@ export async function swap(
 
     await executeStrategy(
       builder,
-      copyIfCallArgument(creditAccount),
+      builder.copyIfCallArgument(creditAccount),
       adapterId,
       strategyId,
       swapInput,

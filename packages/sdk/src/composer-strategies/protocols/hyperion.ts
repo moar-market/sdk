@@ -3,7 +3,7 @@ import type { Address } from './../../types'
 import { extendTypeArguments } from '../../utils'
 import { composerUtils_fe_abi, moarStrategies_hyperion_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
-import { claimRewards, copyIfCallArgument, executeStrategy } from './../shared'
+import { claimRewards, executeStrategy } from './../shared'
 
 export interface AddLiquidityParams {
   position_v3?: Address // required for increase position
@@ -61,7 +61,7 @@ export async function addLiquidity(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     hyperion_add_liquidity.adapterId,
     hyperion_add_liquidity.strategyId,
     addLiquidityInput,
@@ -109,7 +109,7 @@ export async function addLiquidityOptimally(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     hyperion_add_liquidity_optimally.adapterId,
     hyperion_add_liquidity_optimally.strategyId,
     addLiquidityOptimallyInput,
@@ -182,7 +182,7 @@ export async function rebalanceLiquidity(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     hyperion_rebalance.adapterId,
     hyperion_rebalance.strategyId,
     rebalanceLiquidityInput,
@@ -236,7 +236,7 @@ export async function removeLiquidity(
 
   await executeStrategy(
     builder,
-    copyIfCallArgument(creditAccount),
+    builder.copyIfCallArgument(creditAccount),
     hyperion_remove_liquidity.adapterId,
     hyperion_remove_liquidity.strategyId,
     removeLiquidityInput,
@@ -264,7 +264,7 @@ export async function claimReward(
     typeArguments: [],
   }, composerUtils_fe_abi)
 
-  await claimRewards(builder, copyIfCallArgument(creditAccount), {
+  await claimRewards(builder, builder.copyIfCallArgument(creditAccount), {
     typeArguments: extendTypeArguments([], 4),
     calldata: calldata_vec,
     nullType: '',

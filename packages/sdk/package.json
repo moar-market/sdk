@@ -42,6 +42,20 @@
       },
       "import": "./dist/clients/index.js"
     },
+    "./composer": {
+      "types": "./dist/composer/index.d.ts",
+      "development": {
+        "import": "./src/composer/index.ts"
+      },
+      "import": "./dist/composer/index.js"
+    },
+    "./composer-strategies": {
+      "types": "./dist/composer-strategies/index.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/index.ts"
+      },
+      "import": "./dist/composer-strategies/index.js"
+    },
     "./composer-strategies/credit-manager": {
       "types": "./dist/composer-strategies/credit-manager.d.ts",
       "development": {
@@ -55,13 +69,6 @@
         "import": "./src/composer-strategies/hyperion.ts"
       },
       "import": "./dist/composer-strategies/hyperion.js"
-    },
-    "./composer-strategies": {
-      "types": "./dist/composer-strategies/index.d.ts",
-      "development": {
-        "import": "./src/composer-strategies/index.ts"
-      },
-      "import": "./dist/composer-strategies/index.js"
     },
     "./composer-strategies/protocols/default-swap": {
       "types": "./dist/composer-strategies/protocols/default-swap.d.ts",
@@ -132,13 +139,6 @@
         "import": "./src/composer-strategies/trade/panora.ts"
       },
       "import": "./dist/composer-strategies/trade/panora.js"
-    },
-    "./composer": {
-      "types": "./dist/composer/index.d.ts",
-      "development": {
-        "import": "./src/composer/index.ts"
-      },
-      "import": "./dist/composer/index.js"
     },
     "./config": {
       "types": "./dist/config/index.d.ts",

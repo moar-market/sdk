@@ -1,3 +1,4 @@
+import type { CallArgument } from '@aptos-labs/script-composer-pack'
 import type {
   AccountAddressInput,
   AptosConfig,
@@ -8,7 +9,6 @@ import type {
   SimpleEntryFunctionArgumentTypes,
   TypeArgument,
 } from '@aptos-labs/ts-sdk'
-import { CallArgument, ScriptComposerWasm } from '@aptos-labs/script-composer-pack'
 import {
   AccountAddress,
   AptosApiType,
@@ -23,7 +23,7 @@ import {
 } from '@aptos-labs/ts-sdk'
 import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
-export { CallArgument, SimpleTransaction } // re-export for convenience
+export type { CallArgument, SimpleTransaction } // re-export for convenience
 
 // TODO: update composer pack to new version with module bytecode caching
 
@@ -50,6 +50,9 @@ export class AptosScriptComposer {
 
   private static transactionComposer?: any
 
+  private scriptComposerWasm?: any
+  callArgument?: any
+
   constructor(aptosConfig: AptosConfig) {
     this.config = aptosConfig
     this.builder = undefined
@@ -60,11 +63,15 @@ export class AptosScriptComposer {
   async init(): Promise<void> {
     if (!AptosScriptComposer.transactionComposer) {
       const module = await import('@aptos-labs/script-composer-pack')
-      const { TransactionComposer, initSync } = module
-      if (!ScriptComposerWasm.isInitialized) {
-        ScriptComposerWasm.init()
+      const { TransactionComposer, initSync, ScriptComposerWasm, CallArgument } = module
+      if (!this.scriptComposerWasm) {
+        this.scriptComposerWasm = ScriptComposerWasm
+        this.callArgument = CallArgument
       }
-      initSync({ module: ScriptComposerWasm.wasm })
+      if (!this.scriptComposerWasm.isInitialized) {
+        this.scriptComposerWasm.init()
+      }
+      initSync({ module: this.scriptComposerWasm.wasm })
       AptosScriptComposer.transactionComposer = TransactionComposer
     }
     this.builder = AptosScriptComposer.transactionComposer.single_signer()
@@ -113,13 +120,21 @@ export class AptosScriptComposer {
       )
     }
 
-    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) =>
-      arg instanceof CallArgument
-        ? arg
-        : CallArgument.newBytes(
-            convertArgument(functionName, moduleAbi, arg, i, typeArguments, { allowUnknownStructs: true }).bcsToBytes(),
-          ),
-    )
+    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) => {
+      if (arg instanceof this.callArgument) {
+        return arg
+      }
+      return this.callArgument.newBytes(
+        convertArgument(
+          functionName,
+          moduleAbi,
+          arg as EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes,
+          i,
+          typeArguments,
+          { allowUnknownStructs: true },
+        ).bcsToBytes(),
+      )
+    })
 
     return this.builder.add_batched_call(
       `${moduleAddress}::${moduleName}`,
@@ -127,6 +142,16 @@ export class AptosScriptComposer {
       typeArguments.map(arg => arg.toString()),
       functionArguments,
     )
+  }
+
+  /**
+   * Utility function to handle CallArgument copying
+   * @template T - The type parameter for non-CallArgument values
+   * @param {CallArgument | T} arg - The argument to potentially copy
+   * @returns {CallArgument | T} A copy of the CallArgument if arg is a CallArgument, otherwise returns arg as-is
+   */
+  copyIfCallArgument<T>(arg: CallArgument | T): CallArgument | T {
+    return arg instanceof this.callArgument ? (arg as CallArgument).copy() : arg
   }
 
   build(): Uint8Array {

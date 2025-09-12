@@ -484,7 +484,6 @@ async function analyzeAccountAtVersion(
   highLiquidationPrice: number
 } | null> {
   const aptos = useAptos()
-  // @ts-expect-error setLedgerVersion is not typed correctly
   aptos.setLedgerVersion?.(ledgerVersion)
 
   // Get token info based on strategy
