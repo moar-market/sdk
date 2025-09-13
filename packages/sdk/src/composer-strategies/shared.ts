@@ -13,7 +13,7 @@ import { getModuleAddress } from './../config'
 export async function openCreditAccount(builder: AptosScriptComposer): Promise<CallArgument> {
   const [creditAccount] = await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::create_credit_account`,
-    functionArguments: [builder.callArgument.newSigner(0)],
+    functionArguments: [builder.getNewSigner(0)],
     typeArguments: [],
   }, moar_credit_manager_abi)
 
@@ -35,7 +35,10 @@ export async function closeCreditAccount(
 ): Promise<void> {
   await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::close_credit_account`,
-    functionArguments: [builder.callArgument.newSigner(0), builder.copyIfCallArgument(creditAccount)],
+    functionArguments: [
+      builder.getNewSigner(0),
+      builder.copyIfCallArgument(creditAccount),
+    ],
     typeArguments: [],
   }, moar_credit_manager_abi)
 }
@@ -61,7 +64,7 @@ export async function executeStrategy(
   await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::execute_strategy_public`,
     functionArguments: [
-      builder.callArgument.newSigner(0),
+      builder.getNewSigner(0),
       builder.copyIfCallArgument(creditAccount),
       protocol,
       strategy,
@@ -92,7 +95,7 @@ export async function depositCollateral(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::deposit_collateral_entry`,
       functionArguments: [
-        builder.callArgument.newSigner(0),
+        builder.getNewSigner(0),
         builder.copyIfCallArgument(creditAccount),
         collateral.metadata,
         collateral.amount,
@@ -128,7 +131,7 @@ export async function withdrawCollateral(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::withdraw_entry`,
       functionArguments: [
-        builder.callArgument.newSigner(0),
+        builder.getNewSigner(0),
         builder.copyIfCallArgument(creditAccount),
         param.receiver,
         param.amount,
@@ -160,7 +163,7 @@ export async function borrow(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::borrow_entry`,
       functionArguments: [
-        builder.callArgument.newSigner(0),
+        builder.getNewSigner(0),
         builder.copyIfCallArgument(creditAccount),
         borrow.pool,
         borrow.amount,
@@ -190,7 +193,7 @@ export async function repay(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::repay`,
       functionArguments: [
-        builder.callArgument.newSigner(0),
+        builder.getNewSigner(0),
         builder.copyIfCallArgument(creditAccount),
         repay.pool,
         repay.amount,

@@ -1,4 +1,4 @@
-import type { CallArgument } from '@aptos-labs/script-composer-pack'
+import type { CallArgument, TransactionComposer } from '@aptos-labs/script-composer-pack'
 import type {
   AccountAddressInput,
   AptosConfig,
@@ -46,16 +46,26 @@ export interface InputBatchedFunctionData {
 export class AptosScriptComposer {
   private config: AptosConfig
 
-  private builder?: any
-
-  private static transactionComposer?: any
+  private builder?: TransactionComposer
 
   private scriptComposerWasm?: any
-  callArgument?: any
+  private static transactionComposer?: any
+  static callArgument?: typeof CallArgument
 
   constructor(aptosConfig: AptosConfig) {
     this.config = aptosConfig
     this.builder = undefined
+  }
+
+  private getState() {
+    if (!this.builder || !AptosScriptComposer.callArgument) {
+      throw new Error('AptosScriptComposer has not been initialized. Please call and await init() first.')
+    }
+
+    return {
+      builder: this.builder,
+      callArgument: AptosScriptComposer.callArgument,
+    }
   }
 
   // Initializing the wasm needed for the script composer, must be called
@@ -63,16 +73,18 @@ export class AptosScriptComposer {
   async init(): Promise<void> {
     if (!AptosScriptComposer.transactionComposer) {
       const module = await import('@aptos-labs/script-composer-pack')
-      const { TransactionComposer, initSync, ScriptComposerWasm, CallArgument } = module
+      const { TransactionComposer: TC, initSync, ScriptComposerWasm, CallArgument: CA } = module
       if (!this.scriptComposerWasm) {
         this.scriptComposerWasm = ScriptComposerWasm
-        this.callArgument = CallArgument
+      }
+      if (!AptosScriptComposer.callArgument) {
+        AptosScriptComposer.callArgument = CA
       }
       if (!this.scriptComposerWasm.isInitialized) {
         this.scriptComposerWasm.init()
       }
       initSync({ module: this.scriptComposerWasm.wasm })
-      AptosScriptComposer.transactionComposer = TransactionComposer
+      AptosScriptComposer.transactionComposer = TC
     }
     this.builder = AptosScriptComposer.transactionComposer.single_signer()
   }
@@ -85,16 +97,17 @@ export class AptosScriptComposer {
   //
   // The function would also return a list of `CallArgument` that can be passed on to future calls.
   async addBatchedCall(input: InputBatchedFunctionData, moduleAbi?: any): Promise<CallArgument[]> {
+    const { builder, callArgument } = this.getState() // ensure the composer is initialized
     const { moduleAddress, moduleName, functionName } = getFunctionParts(input.function)
     const nodeUrl = this.config.getRequestUrl(AptosApiType.FULLNODE)
 
     // Load the calling module into the builder.
-    await this.builder.load_module(nodeUrl, `${moduleAddress}::${moduleName}`)
+    await builder.load_module(nodeUrl, `${moduleAddress}::${moduleName}`)
 
     // Load the calling type arguments into the loader.
     if (input.typeArguments !== undefined) {
       for (const typeArgument of input.typeArguments) {
-        await this.builder.load_type_tag(nodeUrl, typeArgument.toString())
+        await builder.load_type_tag(nodeUrl, typeArgument.toString())
       }
     }
     const typeArguments = standardizeTypeTags(input.typeArguments)
@@ -121,10 +134,10 @@ export class AptosScriptComposer {
     }
 
     const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) => {
-      if (arg instanceof this.callArgument) {
+      if (arg instanceof callArgument) {
         return arg
       }
-      return this.callArgument.newBytes(
+      return callArgument.newBytes(
         convertArgument(
           functionName,
           moduleAbi,
@@ -136,7 +149,7 @@ export class AptosScriptComposer {
       )
     })
 
-    return this.builder.add_batched_call(
+    return builder.add_batched_call(
       `${moduleAddress}::${moduleName}`,
       functionName,
       typeArguments.map(arg => arg.toString()),
@@ -151,11 +164,18 @@ export class AptosScriptComposer {
    * @returns {CallArgument | T} A copy of the CallArgument if arg is a CallArgument, otherwise returns arg as-is
    */
   copyIfCallArgument<T>(arg: CallArgument | T): CallArgument | T {
-    return arg instanceof this.callArgument ? (arg as CallArgument).copy() : arg
+    const { callArgument } = this.getState() // ensure the composer is initialized
+    return arg instanceof callArgument ? (arg as CallArgument).copy() : arg
+  }
+
+  getNewSigner(id: number): CallArgument {
+    const { callArgument } = this.getState() // ensure the composer is initialized
+    return callArgument.newSigner(id)
   }
 
   build(): Uint8Array {
-    return this.builder.generate_batched_calls(true)
+    const { builder } = this.getState() // ensure the composer is initialized
+    return builder.generate_batched_calls(true)
   }
 }
 
