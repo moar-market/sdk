@@ -43,6 +43,7 @@
     "husky": "catalog:dev",
     "lint-staged": "catalog:dev",
     "oxlint": "catalog:lint",
+    "oxlint-tsgolint": "catalog:lint",
     "rimraf": "catalog:dev",
     "simple-git-hooks": "catalog:dev",
     "typescript": "catalog:dev"
