@@ -1,7 +1,7 @@
 {
   "name": "@moar-market/sdk-workspace",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.15.0",
   "description": "Moar Market SDK workspace",
