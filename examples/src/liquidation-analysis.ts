@@ -1,3 +1,5 @@
+// oxlint-disable no-unused-vars
+// oxlint-disable no-console
 import type { Address, CLMMPosition, LTVLiquidationParams } from '@moar-market/sdk'
 import type { AccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
 import * as fs from 'node:fs'
@@ -11,7 +13,7 @@ import {
 import { hyperion_pool_v3_abi, hyperion_router_v3_abi, moar_risk_manager_abi, moarStrategies_hyperion_adapter_abi } from '@moar-market/sdk/abis'
 import { getModuleAddress } from '@moar-market/sdk/config'
 import { getAccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
-import { getAllPositionsView } from '@moar-market/sdk/protocols/hyperion'
+import { getAllPositionIds } from '@moar-market/sdk/protocols/hyperion'
 import { liquidationData } from './liq_price_data'
 
 // Token addresses for reference
@@ -491,7 +493,7 @@ async function analyzeAccountAtVersion(
   const debtAndAssets: AccountDebtAndAssetAmounts = await getAccountDebtAndAssetAmounts(creditAccount)
 
   // 2. Fetch hyperion positions
-  const positions = await getAllPositionsView(creditAccount)
+  const positions = await getAllPositionIds(creditAccount)
   if (positions.length === 0) {
     throw new Error(`No positions found for ${creditAccount} at version ${ledgerVersion}`)
   }
@@ -502,8 +504,8 @@ async function analyzeAccountAtVersion(
 
   const position = positions[0]
   const positionInfo: DirectPositionInfo = await getPositionInfoDirect(
-    position.position_object,
-    position.pool,
+    position.positionId,
+    position.poolAddress,
     tokenADecimals,
     tokenBDecimals,
   )
@@ -545,12 +547,12 @@ async function analyzeAccountAtVersion(
   // 5. Fetch LTV ratios
   const poolIds = [...new Set(debtAndAssets.debtValues.map(d => d.poolId))]
   const ltvData = await fetchLTVRatios(poolIds, allAssetAddresses)
-  const hyperionLtvData = await fetchHyperionLTVRatios(position.pool)
+  const hyperionLtvData = await fetchHyperionLTVRatios(position.poolAddress)
 
   // 6. Convert to liquidation calculation format
   const clmmPosition: CLMMPosition = await convertToClmmPosition(
     positionInfo,
-    position.pool,
+    position.poolAddress,
     debtAndAssets.debtValues,
     oraclePrices,
   )
@@ -566,14 +568,14 @@ async function analyzeAccountAtVersion(
   const ltvMatrix = createLTVMatrixFromChain(
     ltvData,
     hyperionLtvData,
-    position.pool,
+    position.poolAddress,
     assetAddressesForLTV,
   )
 
   // Create FA assets
   const faAssets = []
   for (const asset of debtAndAssets.assetValues) {
-    if (asset.address === position.position_object || asset.address === position.pool)
+    if (asset.address === position.positionId || asset.address === position.poolAddress)
       continue
 
     const price = Number(oraclePrices[asset.address]) || 0

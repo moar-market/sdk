@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.4",
   "private": true,
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "description": "Moar Market SDK workspace",
   "author": "Moar Market",
   "license": "MIT",
@@ -14,13 +14,11 @@
     "sdk"
   ],
   "engines": {
-    "node": ">=20.10"
+    "node": ">=22.19"
   },
   "scripts": {
     "sdk": "pnpm --filter @moar-market/sdk",
-    "utils": "pnpm --filter @moar-market/utils",
-    "composer": "pnpm --filter @moar-market/composer",
-    "examples": "pnpm --filter @moar-market/examples run example",
+    "examples": "pnpm --filter @moar-market/sdk-examples run example",
     "all": "pnpm -r",
     "build": "pnpm all build",
     "dev": "pnpm all dev",
@@ -28,7 +26,7 @@
     "lint": "pnpm all --parallel lint",
     "lint:fix": "pnpm all --parallel lint:fix",
     "clean": "pnpm all clean && npx rimraf dist",
-    "clean:full": "pnpm all clean:full && npx rimraf dist node_modules  pnpm-lock.yaml",
+    "cleanup": "pnpm all cleanup && npx rimraf dist node_modules  pnpm-lock.yaml",
     "prepare": "husky",
     "bump": "bumpp -r"
   },
@@ -45,6 +43,7 @@
     "husky": "catalog:dev",
     "lint-staged": "catalog:dev",
     "oxlint": "catalog:lint",
+    "oxlint-tsgolint": "catalog:lint",
     "rimraf": "catalog:dev",
     "simple-git-hooks": "catalog:dev",
     "typescript": "catalog:dev"

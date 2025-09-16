@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 import type { Address, CLMMPosition, LTVLiquidationParams } from '@moar-market/sdk'
 import type { AccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
 import type { PositionInfo } from '@moar-market/sdk/protocols/hyperion'
@@ -12,7 +13,7 @@ import {
 import { moar_risk_manager_abi, moarStrategies_hyperion_adapter_abi } from '@moar-market/sdk/abis'
 import { getModuleAddress } from '@moar-market/sdk/config'
 import { getAccountDebtAndAssetAmounts } from '@moar-market/sdk/credit-manager'
-import { get_position_info, getAllPositionsView } from '@moar-market/sdk/protocols/hyperion'
+import { getAllPositionIds, getPositionInfo } from '@moar-market/sdk/protocols/hyperion'
 
 // Liquidated account details
 const LEDGER_VERSION = undefined
@@ -256,7 +257,7 @@ async function testLiquidationPrice() {
 
     // 2. Fetch hyperion positions
     console.log('\n🔄 Fetching Hyperion positions...')
-    const positions = await getAllPositionsView(CREDIT_ACCOUNT)
+    const positions = await getAllPositionIds(CREDIT_ACCOUNT)
 
     if (positions.length === 0) {
       console.log('No Hyperion positions found!')
@@ -267,7 +268,7 @@ async function testLiquidationPrice() {
 
     // Get detailed info for the first position
     const position = positions[0]
-    const positionInfo: PositionInfo = await get_position_info(position.position_object, position.pool)
+    const positionInfo: PositionInfo = await getPositionInfo(position.positionId, position.poolAddress)
 
     // convert LP tokens to 1e8 precision
     const liquidityDecimals = (USDC_DECIMALS + TOKEN_A_DECIMALS) / 2 // (token_a_decimals + token_b_decimals) / 2
@@ -311,8 +312,8 @@ async function testLiquidationPrice() {
 
     // 5. Fetch Hyperion LTV ratios for the pool
     console.log('\n📋 Fetching Hyperion LTV ratios...')
-    const hyperionLtvData = await fetchHyperionLTVRatios(position.pool)
-    console.log(`Hyperion LTV ratios fetched for pool ${position.pool}`)
+    const hyperionLtvData = await fetchHyperionLTVRatios(position.poolAddress)
+    console.log(`Hyperion LTV ratios fetched for pool ${position.poolAddress}`)
 
     // 5. Convert to liquidation calculation format
     console.log('\n🔄 Converting to liquidation calculation format...')
@@ -320,7 +321,7 @@ async function testLiquidationPrice() {
     // Convert position (use pool address as position ID for LTV lookup)
     const clmmPosition: CLMMPosition = await convertToClmmPosition(
       positionInfo,
-      position.pool, // Use pool address as position ID for Hyperion
+      position.poolAddress, // Use pool address as position ID for Hyperion
       debtAndAssets.debtValues,
       oraclePrices,
     )
@@ -336,7 +337,7 @@ async function testLiquidationPrice() {
     const ltvMatrix = createLTVMatrixFromChain(
       ltvData,
       hyperionLtvData,
-      position.pool, // Use pool address as position ID for Hyperion
+      position.poolAddress, // Use pool address as position ID for Hyperion
       assetAddressesForLTV,
     )
 
@@ -345,7 +346,7 @@ async function testLiquidationPrice() {
 
     for (const asset of debtAndAssets.assetValues) {
       // Skip if this is the CLMM position itself (check both position object and pool address)
-      if (asset.address === position.position_object || asset.address === position.pool)
+      if (asset.address === position.positionId || asset.address === position.poolAddress)
         continue
 
       const price = Number(oraclePrices[asset.address]) || 0

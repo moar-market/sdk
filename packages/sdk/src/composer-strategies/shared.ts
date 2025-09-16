@@ -1,19 +1,8 @@
-import type { AptosScriptComposer } from './../composer'
+import type { AptosScriptComposer, CallArgument } from './../composer'
 import type { Address, MoveStructId } from './../types'
-import { extendTypeArguments } from '@moar-market/utils'
+import { extendTypeArguments } from '../utils'
 import { moar_credit_manager_abi } from './../abis'
-import { CallArgument } from './../composer'
 import { getModuleAddress } from './../config'
-
-/**
- * Utility function to handle CallArgument copying
- * @template T - The type parameter for non-CallArgument values
- * @param {CallArgument | T} arg - The argument to potentially copy
- * @returns {CallArgument | T} A copy of the CallArgument if arg is a CallArgument, otherwise returns arg as-is
- */
-export function copyIfCallArgument<T>(arg: CallArgument | T): CallArgument | T {
-  return arg instanceof CallArgument ? arg.copy() : arg
-}
 
 /**
  * Creates a new credit account
@@ -24,7 +13,7 @@ export function copyIfCallArgument<T>(arg: CallArgument | T): CallArgument | T {
 export async function openCreditAccount(builder: AptosScriptComposer): Promise<CallArgument> {
   const [creditAccount] = await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::create_credit_account`,
-    functionArguments: [CallArgument.newSigner(0)],
+    functionArguments: [builder.getNewSigner(0)],
     typeArguments: [],
   }, moar_credit_manager_abi)
 
@@ -46,7 +35,10 @@ export async function closeCreditAccount(
 ): Promise<void> {
   await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::close_credit_account`,
-    functionArguments: [CallArgument.newSigner(0), copyIfCallArgument(creditAccount)],
+    functionArguments: [
+      builder.getNewSigner(0),
+      builder.copyIfCallArgument(creditAccount),
+    ],
     typeArguments: [],
   }, moar_credit_manager_abi)
 }
@@ -72,8 +64,8 @@ export async function executeStrategy(
   await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::execute_strategy_public`,
     functionArguments: [
-      CallArgument.newSigner(0),
-      copyIfCallArgument(creditAccount),
+      builder.getNewSigner(0),
+      builder.copyIfCallArgument(creditAccount),
       protocol,
       strategy,
       calldata,
@@ -103,8 +95,8 @@ export async function depositCollateral(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::deposit_collateral_entry`,
       functionArguments: [
-        CallArgument.newSigner(0),
-        copyIfCallArgument(creditAccount),
+        builder.getNewSigner(0),
+        builder.copyIfCallArgument(creditAccount),
         collateral.metadata,
         collateral.amount,
       ],
@@ -139,8 +131,8 @@ export async function withdrawCollateral(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::withdraw_entry`,
       functionArguments: [
-        CallArgument.newSigner(0),
-        copyIfCallArgument(creditAccount),
+        builder.getNewSigner(0),
+        builder.copyIfCallArgument(creditAccount),
         param.receiver,
         param.amount,
         param.metadata,
@@ -171,8 +163,8 @@ export async function borrow(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::borrow_entry`,
       functionArguments: [
-        CallArgument.newSigner(0),
-        copyIfCallArgument(creditAccount),
+        builder.getNewSigner(0),
+        builder.copyIfCallArgument(creditAccount),
         borrow.pool,
         borrow.amount,
       ],
@@ -201,8 +193,8 @@ export async function repay(
     await builder.addBatchedCall({
       function: `${getModuleAddress('moar_credit_manager')}::credit_manager::repay`,
       functionArguments: [
-        CallArgument.newSigner(0),
-        copyIfCallArgument(creditAccount),
+        builder.getNewSigner(0),
+        builder.copyIfCallArgument(creditAccount),
         repay.pool,
         repay.amount,
       ],
@@ -233,8 +225,8 @@ export async function claimRewards(
   await builder.addBatchedCall({
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::claim_rewards`,
     functionArguments: [
-      copyIfCallArgument(creditAccount),
-      copyIfCallArgument(params.calldata),
+      builder.copyIfCallArgument(creditAccount),
+      builder.copyIfCallArgument(params.calldata),
     ],
     typeArguments: params.typeArguments,
   }, moar_credit_manager_abi)

@@ -53,6 +53,19 @@ export const moar_hyperion_lens_abi = {
       ]
     },
     {
+      "name": "get_ca_position_info",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::hyperion_lens::PositionInfo>"
+      ]
+    },
+    {
       "name": "get_position_info",
       "visibility": "public",
       "is_entry": false,
@@ -79,6 +92,36 @@ export const moar_hyperion_lens_abi = {
       ],
       "return": [
         "u64"
+      ]
+    },
+    {
+      "name": "get_price_from_tick",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u32",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
+      "name": "get_price_from_tick_multi",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "vector<u32>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "vector<u64>"
       ]
     }
   ],

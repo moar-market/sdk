@@ -1,3 +1,4 @@
+// oxlint-disable no-console
 import { fetchFungibleBalance, useAptos } from '@moar-market/sdk'
 
 async function main() {
@@ -12,8 +13,8 @@ async function main() {
     fetchFungibleBalance(userAddress, aptosFA),
     aptos.getLedgerInfo(),
   ])
-
   // this sets the global ledger version for all future calls after this even outside of this function in same runtime
+
   aptos.setLedgerVersion?.(ledgerVersion)
   const historicalBalances = await fetchFungibleBalance(userAddress, aptosFA)
 

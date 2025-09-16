@@ -56,6 +56,23 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "execute_strategy",
+      "visibility": "friend",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u8",
+        "0x1::copyable_any::Any"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "0x1::option::Option<u8>",
+        "address"
+      ]
+    },
+    {
       "name": "add_reward_token",
       "visibility": "public",
       "is_entry": true,
@@ -195,23 +212,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
-      "name": "execute_strategy",
-      "visibility": "friend",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "u8",
-        "0x1::copyable_any::Any"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "0x1::option::Option<u8>",
-        "address"
-      ]
-    },
-    {
       "name": "get_all_positions",
       "visibility": "public",
       "is_entry": false,
@@ -222,6 +222,20 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>"
+      ]
+    },
+    {
+      "name": "get_all_positions_and_pools",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<address>",
+        "vector<address>"
       ]
     },
     {
@@ -302,6 +316,7 @@ export const moarStrategies_hyperion_adapter_abi = {
       "is_view": false,
       "generic_type_params": [],
       "params": [
+        "&signer",
         "&signer",
         "0x1::copyable_any::Any"
       ],
@@ -703,6 +718,38 @@ export const moarStrategies_hyperion_adapter_abi = {
         {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
+        }
+      ]
+    },
+    {
+      "name": "RebalanceEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+        },
+        {
+          "name": "old_position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "new_position_object",
+          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
+        },
+        {
+          "name": "tick_lower",
+          "type": "u32"
+        },
+        {
+          "name": "tick_upper",
+          "type": "u32"
         }
       ]
     },

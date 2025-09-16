@@ -1,0 +1,397 @@
+import type { Address, MoveStructId, StrategyIdentifier } from '../types'
+import { moar_credit_manager_abi, moar_lens_abi } from './../abis'
+import { useAptos, useSurfClient } from './../clients'
+import { getModuleAddress } from './../config'
+
+function CreditManager() {
+  return useSurfClient().useABI(moar_credit_manager_abi, getModuleAddress('moar_credit_manager'))
+}
+
+function MoarLens() {
+  return useSurfClient().useABI(moar_lens_abi, getModuleAddress('moar_lens'))
+}
+
+/**
+ * Gets all active credit accounts owned by a user
+ * @param userAddress The user's address
+ * @returns Array of credit account addresses owned by the user
+ */
+export async function getCreditAccounts(userAddress: Address): Promise<Address[]> {
+  const [accounts] = await CreditManager().view.get_user_active_credit_accounts({
+    typeArguments: [],
+    functionArguments: [userAddress],
+  })
+
+  return accounts
+}
+
+/**
+ * Gets all(active and inactive) credit accounts owned by a user
+ * @param userAddress The user's address
+ * @returns Array of credit account addresses owned by the user
+ */
+export async function getAllCreditAccounts(userAddress: Address): Promise<Address[]> {
+  const [accounts] = await CreditManager().view.get_user_credit_accounts({
+    typeArguments: [],
+    functionArguments: [userAddress],
+  })
+
+  return accounts
+}
+
+export interface CreditAccountResource {
+  assets: Array<{
+    inner: Address
+  }>
+  debt_pools: string[]
+  is_active: boolean
+  last_reward_claim_time: string
+  liquidators: Address[]
+  owner: Address
+  signer_cap: {
+    account: Address
+  }
+  strategies: Array<{
+    adapter_id: number
+    sub_type: Address
+    type: number
+  }>
+}
+
+/**
+ * Retrieves the owner address of a given credit account.
+ * @param creditAccount - The address of the credit account.
+ * @returns A promise that resolves to the owner's address of the credit account.
+ */
+export async function getCreditAccountOwner(creditAccount: Address): Promise<Address> {
+  const creditManager = getModuleAddress('moar_credit_manager')
+  const resourceType = `${creditManager}::credit_manager::CreditAccount` as MoveStructId
+  const resource = await useAptos().getAccountResource({
+    accountAddress: creditAccount,
+    resourceType,
+  }) as CreditAccountResource
+  return resource.owner
+}
+
+/**
+ * Checks if a credit account is healthy
+ * @param creditAccount The credit account address
+ * @returns True if the account is healthy, false otherwise
+ */
+export async function isAccountHealthy(creditAccount: Address): Promise<boolean> {
+  const [isHealthy] = await CreditManager().view.is_position_healthy({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  })
+
+  return isHealthy
+}
+
+/**
+ * Checks if a credit account is in bad debt
+ * @param creditAccount The credit account address
+ * @returns True if the account is in bad debt, false otherwise
+ */
+export async function isAccountInBadDebt(creditAccount: Address): Promise<boolean> {
+  const [isInBadDebt] = await CreditManager().view.is_bad_debt({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  })
+
+  return isInBadDebt
+}
+
+interface AccountStrategyResponse {
+  type: number
+  adapter_id: number
+  sub_type: Address
+}
+
+/**
+ * Retrieves the strategies associated with a given credit account.
+ * @param creditAccount The address of the credit account.
+ * @returns An array of strategy objects, each containing adapterId, strategyId, and strategySubType.
+ */
+export async function getCreditAccountsStrategies(creditAccount: Address): Promise<StrategyIdentifier[]> {
+  const [strategies] = await CreditManager().view.get_credit_account_strategies({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  }) as unknown as [AccountStrategyResponse[]]
+
+  return strategies.map(({ type, adapter_id, sub_type }): StrategyIdentifier => ({
+    adapterId: Number(adapter_id),
+    strategyId: Number(type),
+    strategySubType: sub_type as Address,
+  }))
+}
+
+/**
+ * Gets the assets and debts associated with a credit account
+ * @param creditAccount The credit account address
+ * @returns Object containing arrays of asset addresses and debt asset addresses
+ */
+export async function getAccountAssets(creditAccount: Address): Promise<Address[]> {
+  const [, assets] = await CreditManager().view.get_credit_account_debt_pools_and_assets({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  })
+
+  return assets.map(({ inner }) => inner) as Address[]
+}
+
+export interface AccountDebtAndAssetAmounts {
+  debtValues: { poolId: number, amount: string }[]
+  assetValues: { address: Address, amount: string }[]
+}
+
+/**
+ * Gets the debt and asset amounts associated with a credit account
+ * @param creditAccount The credit account address
+ * @returns Object containing arrays of debt data (poolId and amount) and asset data (address and amount)
+ */
+export async function getAccountDebtAndAssetAmounts(creditAccount: Address): Promise<AccountDebtAndAssetAmounts> {
+  const [debtData, assetData] = await MoarLens().view.get_credit_account_debt_and_asset_amounts({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  }) as unknown as [
+    [{ pool_id: number, debt: string }],
+    [{ asset: { inner: Address }, amount: string }],
+  ]
+
+  return {
+    debtValues: debtData.map(({ pool_id, debt }) => ({ poolId: Number(pool_id), amount: debt })),
+    assetValues: assetData.map(({ asset: { inner }, amount }) => ({ address: inner, amount })),
+  }
+}
+
+/**
+ * Gets the minimum required account value for a credit account
+ * @param creditAccount The credit account address
+ * @returns The minimum required account value
+ */
+export async function getAccountMinRequiredValue(creditAccount: Address): Promise<string> {
+  const [minRequiredValue] = await MoarLens().view.get_min_asset_required({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  })
+
+  return minRequiredValue
+}
+
+export interface AccountDebtAndAssetValues {
+  debtValue: string
+  assetValue: string
+}
+
+/**
+ * Gets the total debt and total asset values for a credit account
+ * @param creditAccount The credit account address
+ * @returns Object containing the total debt value and total asset value
+ */
+export async function getAccountDebtAndAssetValues(creditAccount: Address): Promise<AccountDebtAndAssetValues> {
+  const [debtValue, assetValue] = await MoarLens().view.get_credit_account_debt_and_asset_values({
+    typeArguments: [],
+    functionArguments: [creditAccount],
+  })
+
+  return { debtValue, assetValue }
+}
+
+/**
+ * Represents the net asset value and unrealized PnL for a credit account.
+ * @member netAssetValue - The current net asset value of the account, as a string.
+ * @member unrealizedPnL - The unrealized profit or loss for the account, as a string.
+ * @member totalPnL - The total profit or loss for the account, as a string. (Total PnL - Total Liquidation Losses)
+ * Negative value indicates a loss, positive value indicates a profit.
+ */
+export interface AccountNetAssetsAndPnLs {
+  netAssetValue: string
+  unrealizedPnL: string
+  totalPnL: string
+}
+
+/**
+ * Get total PnL for a credit account.
+ * @param creditAccount Credit account address
+ * @returns Total PnL as a string (negative if loss, positive if profit)
+ */
+export async function getAccountNetAssetsAndPnLs(creditAccount: Address): Promise<AccountNetAssetsAndPnLs> {
+  const [[netAssetValue, unrealizedPnL, isUnrealizedNegative], [totalPnL, isTotalNegative]] = await Promise.all([
+    CreditManager().view.get_net_asset_value_and_unrealized_pnl({
+      typeArguments: [],
+      functionArguments: [creditAccount],
+    }),
+    CreditManager().view.get_total_pnl({
+      typeArguments: [],
+      functionArguments: [creditAccount],
+    }),
+  ])
+
+  return {
+    netAssetValue,
+    unrealizedPnL: isUnrealizedNegative ? `-${unrealizedPnL}` : unrealizedPnL,
+    totalPnL: isTotalNegative ? `-${totalPnL}` : totalPnL,
+  }
+}
+
+export interface AccountHealthMetrics {
+  healthFactor: string | undefined
+  liquidationPrice: string | undefined
+}
+
+export interface AccountHealthMetricsParams {
+  creditAccount: Address
+  tradeToken: Address
+  isLong: boolean
+}
+
+/**
+ * Gets the health factor and liquidation price for a credit account
+ * @param params Object containing the credit account address, trade token address, and long/short position flag
+ * @param params.creditAccount The credit account address
+ * @param params.tradeToken The trade token address
+ * @param params.isLong Boolean indicating if the position is long (true) or short (false)
+ * @returns Object containing the health factor and liquidation price
+ */
+export async function getAccountHealthFactorAndLiquidationPrice(
+  { creditAccount, tradeToken, isLong }: AccountHealthMetricsParams,
+): Promise<AccountHealthMetrics> {
+  const [{ vec: [healthFactor] }, { vec: [liquidationPrice] }] = await MoarLens().view.get_health_metrics({
+    typeArguments: [],
+    functionArguments: [creditAccount, tradeToken, isLong],
+  })
+
+  return { healthFactor, liquidationPrice }
+}
+
+export interface EstimatedHealthMetricsParams extends AccountHealthMetricsParams {
+  assets?: Address[]
+  assetAmounts?: Array<bigint | string | number>
+  poolIds?: number[]
+  debtAmounts?: Array<bigint | string | number>
+  tradeAmount?: bigint | string | number
+}
+
+/**
+ * Gets the estimated health factor and liquidation price for a credit account with hypothetical changes
+ *
+ * @param params Object containing the credit account details and hypothetical changes
+ * @param params.creditAccount The credit account address
+ * @param params.tradeToken The trade token address
+ * @param params.isLong Boolean indicating if the position is long (true) or short (false)
+ * @param params.assets Array of asset addresses to be considered in the estimation
+ * @param params.assetAmounts Array of asset amounts corresponding to the assets array
+ * @param params.poolIds Array of pool IDs for debt pools
+ * @param params.debtAmounts Array of debt amounts corresponding to the pool IDs
+ * @param params.tradeAmount The amount of the trade to be considered
+ * @returns Object containing the estimated health factor and liquidation price
+ */
+export async function getAccountEstHealthFactorAndLiquidationPrice({
+  creditAccount,
+  tradeToken,
+  isLong = true,
+  assets = [],
+  assetAmounts = [],
+  poolIds = [],
+  debtAmounts = [],
+  tradeAmount = BigInt(0),
+}: EstimatedHealthMetricsParams): Promise<AccountHealthMetrics> {
+  const [{ vec: [healthFactor] }, { vec: [liquidationPrice] }] = await MoarLens().view.get_estimated_health_metrics({
+    typeArguments: [],
+    functionArguments: [creditAccount, tradeToken, isLong, assets, assetAmounts, poolIds, debtAmounts, tradeAmount],
+  })
+
+  return { healthFactor, liquidationPrice }
+}
+
+/**
+ * Retrieves all active credit accounts from the credit manager
+ *
+ * @returns Promise resolving to an array of credit account addresses
+ */
+export async function getAllActiveCreditAccounts(): Promise<Address[]> {
+  const [accounts] = await CreditManager().view.get_all_credit_accounts({
+    typeArguments: [],
+    functionArguments: [],
+  })
+
+  return accounts
+}
+
+/**
+ * Retrieves all users from the credit manager
+ *
+ * @returns Promise resolving to an array of user addresses
+ */
+export async function getAllUsers(): Promise<Address[]> {
+  const [users] = await CreditManager().view.get_all_users({
+    typeArguments: [],
+    functionArguments: [],
+  })
+
+  return users
+}
+
+export interface EstimatedHealthFactorClAMMParams {
+  creditAccount: Address
+  assets: Address[]
+  assetAmounts: Array<bigint | string | number>
+  poolIds: number[]
+  debtAmounts: Array<bigint | string | number>
+  adapterId: number | string
+  liquidityPoolAddress: Address
+  estimatedLiquidity: bigint | string | number
+  tickLower: number | bigint | string
+  tickUpper: number | bigint | string
+  pendingFees: Array<bigint | string | number>
+}
+
+/**
+ * Gets the estimated health factor for a credit account when considering a CLAMM position state
+ *
+ * @param params Object containing account state and CLAMM position parameters
+ * @param params.creditAccount The credit account address
+ * @param params.assets Array of asset addresses in the credit account
+ * @param params.assetAmounts Array of asset amounts corresponding to assets
+ * @param params.poolIds Array of debt pool ids
+ * @param params.debtAmounts Array of debt amounts corresponding to poolIds
+ * @param params.adapterId Adapter id of the CLAMM position
+ * @param params.liquidityPoolAddress Address of the CLAMM liquidity pool
+ * @param params.estimatedLiquidity Total position liquidity after the action
+ * @param params.tickLower Lower tick of the CLAMM position
+ * @param params.tickUpper Upper tick of the CLAMM position
+ * @param params.pendingFees Pending fees of the exiting CLAMM position, empty if none
+ * @returns Estimated health factor as string, or undefined if not computable
+ */
+export async function getEstimatedHealthFactorClAMM({
+  creditAccount,
+  assets,
+  assetAmounts,
+  poolIds,
+  debtAmounts,
+  adapterId,
+  liquidityPoolAddress,
+  estimatedLiquidity,
+  tickLower,
+  tickUpper,
+  pendingFees,
+}: EstimatedHealthFactorClAMMParams): Promise<string | undefined> {
+  const [{ vec: [healthFactor] }] = await MoarLens().view.get_estimated_health_factor_clamm({
+    typeArguments: [],
+    functionArguments: [
+      creditAccount,
+      assets,
+      assetAmounts,
+      poolIds,
+      debtAmounts,
+      Number(adapterId),
+      liquidityPoolAddress,
+      estimatedLiquidity,
+      Number(tickLower),
+      Number(tickUpper),
+      pendingFees,
+    ],
+  })
+
+  return healthFactor
+}

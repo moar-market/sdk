@@ -371,6 +371,19 @@ export const thalaV2_staked_lpt_abi = {
       ]
     },
     {
+      "name": "epoch_remaining_seconds",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "exists_rate_limiter",
       "visibility": "public",
       "is_entry": false,

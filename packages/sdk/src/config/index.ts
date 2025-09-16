@@ -1,5 +1,16 @@
-import type { ChainConfig, LendPoolConfig, Modules, StrategyIdentifier } from '../types'
+import type {
+  Address,
+  ChainConfig,
+  HyperionPoolConfig,
+  LendPoolConfig,
+  Modules,
+  StrategyIdentifier,
+  ThalaV2PoolConfig,
+  TokenConfig,
+} from '../types'
 import { config as aptosMainnetConfig } from '../configs/aptos-mainnet.config'
+
+export * from './view-cache'
 
 // Store the configuration
 let config: Config | null = aptosMainnetConfig
@@ -28,7 +39,15 @@ export function getConfig(): Config {
 }
 
 export function isDebugEnabled(): boolean {
-  return getConfig().DEBUG || false
+  return getConfig().DEBUG ?? false // defaults to false
+}
+
+export function isCacheViewEnabled(): boolean {
+  return getConfig().APTOS_VIEW_FN_CACHE ?? false // defaults to false
+}
+
+export function isRouteViewEnabled(): boolean {
+  return getConfig().APTOS_ALL_VIEW_FN_ROUTE ?? false // defaults to false
 }
 
 export function useMoarApi(): string {
@@ -94,15 +113,89 @@ export function useAdapterStrategiesConfig(): Record<string, Omit<StrategyIdenti
   return getConfig().ADAPTER_STRATEGIES
 }
 
+export function useTokenConfig(): TokenConfig[] {
+  return getConfig().TOKENS
+}
+
+/**
+ * Get the token config by searching multiple properties
+ * @param value - The value to search for
+ * @returns The token config or undefined if not found
+ */
+export function findTokenConfig(value: string): TokenConfig | undefined {
+  const lowerValue = value.toLowerCase()
+  return getConfig().TOKENS.find(token =>
+    token.address.toLowerCase() === lowerValue
+    || token.coinType?.toLowerCase() === lowerValue
+    || token.symbol.toLowerCase() === lowerValue
+    || token.name.toLowerCase() === lowerValue,
+  )
+}
+
+// aptos only
+export function useThalaV2Pools(): ThalaV2PoolConfig[] {
+  return getConfig().THALA_V2_POOLS
+}
+
+/**
+ * Find a thala v2 pool config by asset in and asset out
+ * @param assetIn - The asset in
+ * @param assetOut - The asset out
+ * @returns The matching thala v2 pool or undefined if not found
+ */
+export function findThalaV2PoolConfig(assetIn: Address, assetOut: Address): ThalaV2PoolConfig | undefined {
+  const pools = useThalaV2Pools()
+  for (let i = 0; i < pools.length; i++) {
+    const pool = pools[i]
+    if (pool && pool.coinAddresses.includes(assetIn) && pool.coinAddresses.includes(assetOut)) {
+      return pool
+    }
+  }
+  return undefined
+}
+
+// hyperion
+export function useHyperionPools(): HyperionPoolConfig[] {
+  return getConfig().HYPERION_POOLS
+}
+
+/**
+ * Find a hyperion pool config by asset in and asset out
+ * @param assetIn - The asset in
+ * @param assetOut - The asset out
+ * @returns The matching hyperion pool or undefined if not found
+ */
+export function findHyperionPoolConfig(assetIn: Address, assetOut: Address): HyperionPoolConfig | undefined {
+  const pools = useHyperionPools()
+  for (let i = 0; i < pools.length; i++) {
+    const pool = pools[i]
+    if (pool && pool.coinAddresses.includes(assetIn) && pool.coinAddresses.includes(assetOut)) {
+      return pool
+    }
+  }
+  return undefined
+}
+
 export interface ModuleSettings {
   min_borrow_usd: string // usd price in oracle decimals 8
   min_debt_usd: string // usd price in oracle decimals 8
 }
 
 export interface Config {
-  DEBUG: boolean
-  MOAR_API: string
-  PANORA_API_KEY: string
+  DEBUG?: boolean
+  MOAR_API?: string
+  PANORA_API_KEY?: string
+  /**
+   * Enables caching for certain configured Aptos view functions.
+   * When true, view functions specified in the configuration will use cache rules to optimize performance.
+   */
+  APTOS_VIEW_FN_CACHE?: boolean
+
+  /**
+   * When enabled, route all Aptos view() calls through the Moar `/view` API.
+   * If a specific function has no cache rule, the caller should set `{ ttl: 0 }`.
+   */
+  APTOS_ALL_VIEW_FN_ROUTE?: boolean
 
   CHAIN: ChainConfig
 
@@ -113,6 +206,10 @@ export interface Config {
 
   readonly ADAPTERS: Record<string, number>
   readonly ADAPTER_STRATEGIES: Record<string, Omit<StrategyIdentifier, 'strategySubType'>>
+
+  readonly TOKENS: TokenConfig[]
+  readonly HYPERION_POOLS: HyperionPoolConfig[]
+  readonly THALA_V2_POOLS: ThalaV2PoolConfig[]
 
   readonly MOAR_MODULE_SETTINGS: ModuleSettings
 }

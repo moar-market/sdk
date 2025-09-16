@@ -3,119 +3,270 @@
   "type": "module",
   "version": "0.0.4",
   "private": false,
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "description": "Moar Market SDK",
   "author": "Moar Market",
   "license": "MIT",
   "homepage": "https://github.com/moar-market/sdk",
-  "keywords": ["moar", "market", "sdk", "typescript", "blockchain", "moar-market"],
+  "keywords": [
+    "moar",
+    "market",
+    "moar-market",
+    "sdk",
+    "moar-market-sdk",
+    "typescript",
+    "blockchain",
+    "aptos",
+    "move"
+  ],
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "development": {
+        "import": "./src/index.ts"
+      },
       "import": "./dist/index.js"
-    },
-    "./config": {
-      "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.js"
     },
     "./abis": {
       "types": "./dist/abis/index.d.ts",
+      "development": {
+        "import": "./src/abis/index.ts"
+      },
       "import": "./dist/abis/index.js"
     },
     "./clients": {
       "types": "./dist/clients/index.d.ts",
+      "development": {
+        "import": "./src/clients/index.ts"
+      },
       "import": "./dist/clients/index.js"
     },
     "./composer": {
       "types": "./dist/composer/index.d.ts",
+      "development": {
+        "import": "./src/composer/index.ts"
+      },
       "import": "./dist/composer/index.js"
     },
-    "./token": {
-      "types": "./dist/token/index.d.ts",
-      "import": "./dist/token/index.js"
-    },
-    "./lend-pool": {
-      "types": "./dist/lend-pool/index.d.ts",
-      "import": "./dist/lend-pool/index.js"
-    },
-    "./credit-manager": {
-      "types": "./dist/credit-manager/index.d.ts",
-      "import": "./dist/credit-manager/index.js"
-    },
-    "./logger": {
-      "types": "./dist/logger/index.d.ts",
-      "import": "./dist/logger/index.js"
-    },
-    "./types": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/types/index.js"
-    },
-
-    "./protocols/panora": {
-      "types": "./dist/protocols/panora/index.d.ts",
-      "import": "./dist/protocols/panora/index.js"
-    },
-    "./protocols/hyperion": {
-      "types": "./dist/protocols/hyperion/index.d.ts",
-      "import": "./dist/protocols/hyperion/index.js"
-    },
-
     "./composer-strategies": {
       "types": "./dist/composer-strategies/index.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/index.ts"
+      },
       "import": "./dist/composer-strategies/index.js"
     },
-    "./composer-strategies/protocols/panora": {
-      "types": "./dist/composer-strategies/protocols/panora.d.ts",
-      "import": "./dist/composer-strategies/protocols/panora.js"
+    "./composer-strategies/credit-manager": {
+      "types": "./dist/composer-strategies/credit-manager.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/credit-manager.ts"
+      },
+      "import": "./dist/composer-strategies/credit-manager.js"
+    },
+    "./composer-strategies/hyperion": {
+      "types": "./dist/composer-strategies/hyperion.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/hyperion.ts"
+      },
+      "import": "./dist/composer-strategies/hyperion.js"
+    },
+    "./composer-strategies/protocols/default-swap": {
+      "types": "./dist/composer-strategies/protocols/default-swap.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/default-swap.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/default-swap.js"
+    },
+    "./composer-strategies/protocols/dex_swap": {
+      "types": "./dist/composer-strategies/protocols/dex_swap.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/dex_swap.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/dex_swap.js"
     },
     "./composer-strategies/protocols/hyperion": {
       "types": "./dist/composer-strategies/protocols/hyperion.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/hyperion.ts"
+      },
       "import": "./dist/composer-strategies/protocols/hyperion.js"
     },
-    "./composer-strategies/trade/panora": {
-      "types": "./dist/composer-strategies/trade/panora/index.d.ts",
-      "import": "./dist/composer-strategies/trade/panora/index.js"
+    "./composer-strategies/protocols/panora": {
+      "types": "./dist/composer-strategies/protocols/panora.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/panora.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/panora.js"
     },
-
-    "./composer-strategies/hyperion": {
-      "types": "./dist/composer-strategies/hyperion/index.d.ts",
-      "import": "./dist/composer-strategies/hyperion/index.js"
+    "./composer-strategies/protocols/thala_v2": {
+      "types": "./dist/composer-strategies/protocols/thala_v2.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/thala_v2.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/thala_v2.js"
+    },
+    "./composer-strategies/thala_v2": {
+      "types": "./dist/composer-strategies/thala_v2.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/thala_v2.ts"
+      },
+      "import": "./dist/composer-strategies/thala_v2.js"
+    },
+    "./composer-strategies/thala_v2_lsd": {
+      "types": "./dist/composer-strategies/thala_v2_lsd.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/thala_v2_lsd.ts"
+      },
+      "import": "./dist/composer-strategies/thala_v2_lsd.js"
+    },
+    "./composer-strategies/trade/default": {
+      "types": "./dist/composer-strategies/trade/default.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/trade/default.ts"
+      },
+      "import": "./dist/composer-strategies/trade/default.js"
+    },
+    "./composer-strategies/trade/dex_swap": {
+      "types": "./dist/composer-strategies/trade/dex_swap.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/trade/dex_swap.ts"
+      },
+      "import": "./dist/composer-strategies/trade/dex_swap.js"
+    },
+    "./composer-strategies/trade/panora": {
+      "types": "./dist/composer-strategies/trade/panora.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/trade/panora.ts"
+      },
+      "import": "./dist/composer-strategies/trade/panora.js"
+    },
+    "./config": {
+      "types": "./dist/config/index.d.ts",
+      "development": {
+        "import": "./src/config/index.ts"
+      },
+      "import": "./dist/config/index.js"
+    },
+    "./credit-manager": {
+      "types": "./dist/credit-manager/index.d.ts",
+      "development": {
+        "import": "./src/credit-manager/index.ts"
+      },
+      "import": "./dist/credit-manager/index.js"
+    },
+    "./farming": {
+      "types": "./dist/farming/index.d.ts",
+      "development": {
+        "import": "./src/farming/index.ts"
+      },
+      "import": "./dist/farming/index.js"
+    },
+    "./lend-pool": {
+      "types": "./dist/lend-pool/index.d.ts",
+      "development": {
+        "import": "./src/lend-pool/index.ts"
+      },
+      "import": "./dist/lend-pool/index.js"
+    },
+    "./protocols/default-swap": {
+      "types": "./dist/protocols/default-swap.d.ts",
+      "development": {
+        "import": "./src/protocols/default-swap.ts"
+      },
+      "import": "./dist/protocols/default-swap.js"
+    },
+    "./protocols/dex_swap": {
+      "types": "./dist/protocols/dex_swap/index.d.ts",
+      "development": {
+        "import": "./src/protocols/dex_swap/index.ts"
+      },
+      "import": "./dist/protocols/dex_swap/index.js"
+    },
+    "./protocols/hyperion": {
+      "types": "./dist/protocols/hyperion/index.d.ts",
+      "development": {
+        "import": "./src/protocols/hyperion/index.ts"
+      },
+      "import": "./dist/protocols/hyperion/index.js"
+    },
+    "./protocols/panora": {
+      "types": "./dist/protocols/panora/index.d.ts",
+      "development": {
+        "import": "./src/protocols/panora/index.ts"
+      },
+      "import": "./dist/protocols/panora/index.js"
+    },
+    "./protocols/thala/v2": {
+      "types": "./dist/protocols/thala/v2/index.d.ts",
+      "development": {
+        "import": "./src/protocols/thala/v2/index.ts"
+      },
+      "import": "./dist/protocols/thala/v2/index.js"
+    },
+    "./token": {
+      "types": "./dist/token/index.d.ts",
+      "development": {
+        "import": "./src/token/index.ts"
+      },
+      "import": "./dist/token/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "development": {
+        "import": "./src/types/index.ts"
+      },
+      "import": "./dist/types/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "development": {
+        "import": "./src/utils/index.ts"
+      },
+      "import": "./dist/utils/index.js"
     }
-
   },
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "abis": "tsx scripts/generate-abis.ts",
     "build": "tsdown",
+    "build:t": "tsc --emitDeclarationOnly --outDir dist --rootDir src",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit",
-    "lint": "oxlint . && eslint . --cache",
+    "lint": "oxlint . --type-aware && eslint . --cache",
     "lint:fix": "oxlint . --fix && eslint . --fix --cache",
     "prepublishOnly": "pnpm run build",
     "clean": "npx rimraf dist .output",
-    "clean:full": "npx rimraf node_modules dist .output"
+    "cleanup": "npx rimraf node_modules dist .output",
+    "test": "vitest"
   },
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "catalog:blockchain"
   },
   "dependencies": {
     "@aptos-labs/script-composer-pack": "catalog:blockchain",
-    "@itsmnthn/big-utils": "catalog:utils",
-    "@moar-market/utils": "workspace:*",
+    "@itsmnthn/big-utils": "^2.0.3",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
+    "@hyperionxyz/sdk": "catalog:blockchain",
     "@types/node": "catalog:types",
     "eslint": "catalog:lint",
     "eslint-plugin-format": "catalog:lint",
     "eslint-plugin-oxlint": "catalog:lint",
     "oxlint": "catalog:lint",
+    "oxlint-tsgolint": "catalog:lint",
     "rimraf": "catalog:dev",
     "tsdown": "catalog:dev",
     "tsx": "catalog:dev",
-    "typescript": "catalog:dev"
+    "typescript": "catalog:dev",
+    "vitest": "catalog:dev"
+  },
+  "overrides": {
+    "@thalalabs/surf": {
+      "@aptos-labs/ts-sdk": "catalog:blockchain"
+    }
   }
-
 }

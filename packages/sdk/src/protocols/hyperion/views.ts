@@ -44,14 +44,14 @@ export interface AddLiquidityPreview {
  */
 export async function previewAddLiquidity(
   { tick, tokenA, tokenB, fromTokenA, feeTier, amount, minAmountA, minAmountB }: PreviewAddLiquidityParams,
-): Promise<string | undefined> {
+): Promise<{ lpAmount: bigint, outAmount: bigint } | undefined> {
   try {
     logger.debug(debugLabel, 'payload', { tick, tokenA, tokenB, fromTokenA, feeTier, amount, minAmountA, minAmountB })
     const moduleAddress = getModuleAddress('hyperion_router_v3')
     const views = useSurfClient().useABI(hyperion_router_v3_abi, moduleAddress).view
     const previewFunction = fromTokenA ? views.optimal_liquidity_amounts_from_a : views.optimal_liquidity_amounts_from_b
 
-    const [, outAmount] = await previewFunction({
+    const [lpAmount, outAmount] = await previewFunction({
       typeArguments: [],
       functionArguments: [
         Number(tick.lower),
@@ -66,7 +66,7 @@ export async function previewAddLiquidity(
       ],
     })
 
-    return outAmount
+    return { lpAmount: BigInt(lpAmount), outAmount: BigInt(outAmount) }
   }
   catch (error) {
     console.error(debugLabel, 'error previewing add liquidity', error)
@@ -92,12 +92,12 @@ export interface GetOptimalLiquidityAmountsParams {
  */
 export async function getOptimalLiquidityAmounts(
   { tickLower, tickUpper, tokenA, tokenB, feeTier, amountA, amountB, minAmountA, minAmountB }: GetOptimalLiquidityAmountsParams,
-): Promise<{ optimalAmountA: bigint, optimalAmountB: bigint } | undefined> {
+): Promise<{ optimalAmountA: bigint, optimalAmountB: bigint, lpAmount: bigint } | undefined> {
   try {
     const moduleAddress = getModuleAddress('hyperion_router_v3')
     const views = useSurfClient().useABI(hyperion_router_v3_abi, moduleAddress).view
 
-    const [, optimalAmountA, optimalAmountB] = await views.optimal_liquidity_amounts({
+    const [lpAmount, optimalAmountA, optimalAmountB] = await views.optimal_liquidity_amounts({
       typeArguments: [],
       functionArguments: [
         tickLower,
@@ -112,7 +112,7 @@ export async function getOptimalLiquidityAmounts(
       ],
     })
 
-    return { optimalAmountA: BigInt(optimalAmountA), optimalAmountB: BigInt(optimalAmountB) }
+    return { optimalAmountA: BigInt(optimalAmountA), optimalAmountB: BigInt(optimalAmountB), lpAmount: BigInt(lpAmount) }
   }
   catch (error) {
     console.error(debugLabel, 'error previewing add liquidity', error)
@@ -144,9 +144,16 @@ export async function getLiquidityAmounts(
   }
 }
 
-export async function getAllPositionsView(
+/**
+ * Fetches all Hyperion positions for a given credit account.
+ *
+ * @param {Address} creditAccount - The address of the credit account to query positions for.
+ * @returns {Promise<Array<{ poolAddress: Address, positionId: Address }>>}
+ *   A promise that resolves to an array of objects, each containing the pool address and the position object address.
+ */
+export async function getAllPositionIds(
   creditAccount: Address,
-): Promise<{ pool: Address, position_object: Address }[]> {
+): Promise<{ poolAddress: Address, positionId: Address }[]> {
   const moduleAddress = getModuleAddress('moarStrategies_hyperion_adapter')
 
   const [data] = await useSurfClient().useABI(
@@ -158,8 +165,8 @@ export async function getAllPositionsView(
   })
 
   return data.map((position: any) => ({
-    pool: position.pool.inner as Address,
-    position_object: position.position_object.inner as Address,
+    poolAddress: position.pool.inner as Address,
+    positionId: position.position_object.inner as Address,
   }))
 }
 
@@ -190,7 +197,7 @@ export interface PositionInfo {
  * @param {Address} pool The pool address
  * @returns {Promise<PositionInfo>} The position info
  */
-export async function get_position_info(position: Address, pool: Address): Promise<PositionInfo> {
+export async function getPositionInfo(position: Address, pool: Address): Promise<PositionInfo> {
   const moduleAddress = getModuleAddress('moar_hyperion_lens')
   const [data] = await useSurfClient().useABI(
     moar_hyperion_lens_abi,
@@ -201,60 +208,4 @@ export async function get_position_info(position: Address, pool: Address): Promi
   })
 
   return data as PositionInfo
-}
-
-/**
- * Get the price from the sqrt price x64
- * @param {bigint} sqrt_price_x64 The sqrt price x64
- * @param {Address} tokenA The tokenA address
- * @param {Address} tokenB The tokenB address
- * @returns {Promise<bigint>} Price in 1e8 decimals
- */
-export async function get_price_from_sqrt_price_x64(sqrt_price_x64: bigint, tokenA: Address, tokenB: Address): Promise<bigint> {
-  const moduleAddress = getModuleAddress('moar_hyperion_lens')
-  const [data] = await useSurfClient().useABI(
-    moar_hyperion_lens_abi,
-    moduleAddress,
-  ).view.get_price_from_sqrt_price_x64({
-    typeArguments: [],
-    functionArguments: [sqrt_price_x64, tokenA, tokenB],
-  })
-
-  return BigInt(data)
-}
-
-/**
- * Get the tick at the sqrt price x64
- * @param {bigint} sqrt_price_x64 The sqrt price x64
- * @returns {Promise<number>} The tick
- */
-export async function get_tick_at_sqrt_price(sqrt_price_x64: bigint): Promise<number> {
-  const moduleAddress = getModuleAddress('moar_hyperion_lens')
-  const [data] = await useSurfClient().useABI(
-    moar_hyperion_lens_abi,
-    moduleAddress,
-  ).view.get_tick_at_sqrt_price({
-    typeArguments: [],
-    functionArguments: [sqrt_price_x64],
-  })
-
-  return Number(data)
-}
-
-/**
- * Get the sqrt price x64 at the tick
- * @param {number} tick The tick
- * @returns {Promise<bigint>} The sqrt price x64
- */
-export async function get_sqrt_price_at_tick(tick: number): Promise<bigint> {
-  const moduleAddress = getModuleAddress('moar_hyperion_lens')
-  const [data] = await useSurfClient().useABI(
-    moar_hyperion_lens_abi,
-    moduleAddress,
-  ).view.get_sqrt_price_at_tick({
-    typeArguments: [],
-    functionArguments: [tick],
-  })
-
-  return BigInt(data)
 }

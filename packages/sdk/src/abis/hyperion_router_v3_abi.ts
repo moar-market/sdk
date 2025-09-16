@@ -225,317 +225,6 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
-      "name": "add_coin_rewarder",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "add_liquidity_both_coins",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        },
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
-        "u8",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "add_liquidity_by_contract",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "0x1::fungible_asset::FungibleAsset",
-        "0x1::fungible_asset::FungibleAsset",
-        "u64"
-      ],
-      "return": [
-        "u64",
-        "u64",
-        "0x1::fungible_asset::FungibleAsset",
-        "0x1::fungible_asset::FungibleAsset"
-      ]
-    },
-    {
-      "name": "add_liquidity_coin",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "add_liquidity_single",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u64",
-        "u256",
-        "u256",
-        "u256",
-        "u256"
-      ],
-      "return": []
-    },
-    {
-      "name": "add_liquidity_single_coins",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u64",
-        "u256",
-        "u256",
-        "u256",
-        "u256"
-      ],
-      "return": []
-    },
-    {
-      "name": "apt_transfer_to_coin",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer"
-      ],
-      "return": []
-    },
-    {
-      "name": "claim_fees_and_rewards",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "vector<address>",
-        "address"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_liquidity",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u32",
-        "u32",
-        "u32",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_liquidity_both_coins",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        },
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "u8",
-        "u32",
-        "u32",
-        "u32",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_liquidity_coin",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u32",
-        "u32",
-        "u32",
-        "u64",
-        "u64",
-        "u64",
-        "u64",
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_liquidity_single",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u32",
-        "u32",
-        "u64",
-        "u256",
-        "u256",
-        "u256",
-        "u256"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_liquidity_single_coins",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u32",
-        "u32",
-        "u64",
-        "u256",
-        "u256",
-        "u256",
-        "u256"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_pool_both_coins",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        },
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "u8",
-        "u32"
-      ],
-      "return": []
-    },
-    {
-      "name": "create_pool_coin",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8",
-        "u32"
-      ],
-      "return": []
-    },
-    {
       "name": "exact_input_asset_for_coin_entry",
       "visibility": "public",
       "is_entry": true,
@@ -710,6 +399,403 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "swap_batch",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u64",
+        "address"
+      ],
+      "return": []
+    },
+    {
+      "name": "swap_batch_coin_directly_deposit_entry",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "swap_batch_coin_entry",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u64",
+        "address"
+      ],
+      "return": []
+    },
+    {
+      "name": "swap_batch_directly_deposit",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_coin_rewarder",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_liquidity_both_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        },
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u8",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_liquidity_by_contract",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "0x1::fungible_asset::FungibleAsset",
+        "0x1::fungible_asset::FungibleAsset",
+        "u64"
+      ],
+      "return": [
+        "u64",
+        "u64",
+        "0x1::fungible_asset::FungibleAsset",
+        "0x1::fungible_asset::FungibleAsset"
+      ]
+    },
+    {
+      "name": "add_liquidity_coin",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_liquidity_single",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "add_liquidity_single_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "apt_transfer_to_coin",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer"
+      ],
+      "return": []
+    },
+    {
+      "name": "claim_fees_and_rewards",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "address"
+      ],
+      "return": []
+    },
+    {
+      "name": "claim_fees_and_rewards_directly_deposit",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "vector<address>"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u32",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_both_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        },
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "u8",
+        "u32",
+        "u32",
+        "u32",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_coin",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u32",
+        "u64",
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_single",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_liquidity_single_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32",
+        "u32",
+        "u64",
+        "u256",
+        "u256",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_pool_both_coins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        },
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "u8",
+        "u32"
+      ],
+      "return": []
+    },
+    {
+      "name": "create_pool_coin",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8",
+        "u32"
+      ],
+      "return": []
+    },
+    {
       "name": "get_batch_amount_in",
       "visibility": "public",
       "is_entry": false,
@@ -875,12 +961,55 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "remove_liquidity_both_coins_directly_deposit",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        },
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
       "name": "remove_liquidity_by_contract",
       "visibility": "public",
       "is_entry": false,
       "is_view": false,
       "generic_type_params": [],
       "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": [
+        "0x1::option::Option<0x1::fungible_asset::FungibleAsset>",
+        "0x1::option::Option<0x1::fungible_asset::FungibleAsset>"
+      ]
+    },
+    {
+      "name": "remove_liquidity_by_contract_with_second_signer",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
         "&signer",
         "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
         "u128",
@@ -910,6 +1039,42 @@ export const hyperion_router_v3_abi = {
         "u64",
         "u64",
         "address",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_liquidity_coin_directly_deposit",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_liquidity_directly_deposit",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
         "u64"
       ],
       "return": []
@@ -946,44 +1111,6 @@ export const hyperion_router_v3_abi = {
         "u128",
         "u256",
         "u256"
-      ],
-      "return": []
-    },
-    {
-      "name": "swap_batch",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "vector<address>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u64",
-        "u64",
-        "address"
-      ],
-      "return": []
-    },
-    {
-      "name": "swap_batch_coin_entry",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [
-        {
-          "constraints": []
-        }
-      ],
-      "params": [
-        "&signer",
-        "vector<address>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u64",
-        "u64",
-        "address"
       ],
       "return": []
     }

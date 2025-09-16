@@ -25,6 +25,8 @@ export function getCreditManagerEventTypes() {
 
     // panora swap events // needed for trade
     panoraSwapEvent: `${pkg.moar_strategies}::panora_adapter::PanoraSwapEvent`,
+    // dex swap events // needed for trade
+    dexSwapEvent: `${pkg.moar_strategies}::dex_swap_adapter::SwapEvent`,
 
     // hyperion events
     hyperionAddLiquidity: `${pkg.moar_strategies}::hyperion_adapter::AddLiquidityEvent`,
@@ -32,12 +34,12 @@ export function getCreditManagerEventTypes() {
     hyperionRemoveLiquidity: `${pkg.moar_strategies}::hyperion_adapter::RemoveLiquidityEvent`,
 
     // thala v2 LP Strategy Events
-    // thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
-    // thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
+    thalaV2AddLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::AddLiquidityEventV2`,
+    thalaV2RemoveLiquidity: `${pkg.moar_strategies}::thala_v2_adapter::RemoveLiquidityEventV2`,
 
     // thala v2 LSD Strategy Events
-    // thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
-    // thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
+    thalaV2LSDStake: `${pkg.moar_strategies}::thala_v2_adapter::StakeAPTAndThAPTEvent`,
+    thalaV2LSDUnstake: `${pkg.moar_strategies}::thala_v2_adapter::UnstakeThAPTEvent`,
   } as const
 }
 
@@ -50,14 +52,14 @@ export type CreditManagerEventType = CreditManagerEventTypeMap[CreditManagerEven
  *
  * @param {Address} creditAccount - The address of the credit account.
  * @param {CreditManagerEventKey | MoveStructId} eventType - The event type key or address::module::event_name.
- * @param {GetAccountEventsOptions} [options] - Optional pagination options.
+ * @param {AccountEventsOptions} [options] - Optional pagination options.
  * @returns {Promise<EventBaseResponse<T>[]>} The matching credit account events.
  * @throws {Error} If the fetch fails.
  */
 export async function fetchAccountEvent<T>(
   creditAccount: Address,
   eventType: CreditManagerEventKey | MoveStructId,
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): Promise<EventBaseResponse<T>[]> {
   // If eventType is a key, map it to the real Move struct ID
   const eventTypes = getCreditManagerEventTypes()
@@ -76,18 +78,45 @@ export async function fetchAccountEvent<T>(
 }
 
 /**
+ * Fetches all common events for a specified credit account.
+ * common events are: `borrowed`, `repaid`, `accountClosed`, `strategyExecuted`, `liquidated`, `badDebtLiquidated`,
+ * `assetAdded`, `collateralDeposited`, `assetWithdrawn`, `panoraSwapEvent`, `dexSwapEvent`
+ *
+ * @param {Address} creditAccount - The address of the credit account.
+ * @returns {Promise<EventBaseResponse<CreditAccountEventData>[]>} The sorted list of common credit account events.
+ * @throws {Error} If the fetch operation fails.
+ */
+export async function fetchCommonAccountEvents(
+  creditAccount: Address,
+): Promise<EventBaseResponse<CreditAccountEventData>[]> {
+  const ledgerVersion = useAptos().getLedgerVersion?.()
+  let url = `${useMoarApi()}/events/fe-account?credit_account=${creditAccount}`
+  if (ledgerVersion) {
+    url += `&version_end=${ledgerVersion}`
+  }
+
+  const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch common events: ${res.status} ${res.statusText}`)
+  }
+  const eventsRes = (await res.json()).events as EventBaseResponse<CreditAccountEventData>[]
+
+  return sortEvents(eventsRes)
+}
+
+/**
  * Fetches all events of a given types for a given creditAccount.
  *
  * @param {Address} creditAccount - The address of the credit account.
  * @param {(CreditManagerEventKey | MoveStructId)[]} eventTypes - The event types to fetch.
- * @param {GetAccountEventsOptions} [options] - Optional pagination options.
+ * @param {AccountEventsOptions} [options] - Optional pagination options.
  * @returns {Promise<EventBaseResponse<T>[]>} The matching credit account events.
  * @throws {Error} If the fetch fails.
  */
 export async function fetchAccountEvents<T = CreditAccountEventData>(
   creditAccount: Address,
   eventTypes: (CreditManagerEventKey | MoveStructId)[],
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): Promise<EventBaseResponse<T>[]> {
   // If eventType is a key, map it to the real Move struct ID
   const eventTypeMap = getCreditManagerEventTypes()
@@ -110,7 +139,7 @@ export async function fetchAccountEvents<T = CreditAccountEventData>(
 /**
  * Options for paginated event queries.
  */
-export interface GetAccountEventsOptions {
+export interface AccountEventsOptions {
   page_number?: number | string
   page_size?: number | string
   version_start?: number | string
@@ -124,13 +153,13 @@ export interface GetAccountEventsOptions {
  *
  * @param {Address} creditAccount - The address of the credit account to filter events for.
  * @param {string} indexedType - The event type(s) to filter, as a comma-separated string.
- * @param {GetAccountEventsOptions} [options] - Optional parameters for pagination and filtering, such as page number, page size, version range, and block height range.
+ * @param {AccountEventsOptions} [options] - Optional parameters for pagination and filtering, such as page number, page size, version range, and block height range.
  * @returns {string} The constructed query string for the events API endpoint.
  */
 function buildEventQueryFromParams(
   creditAccount: Address,
   indexedType: string,
-  options?: GetAccountEventsOptions,
+  options?: AccountEventsOptions,
 ): string {
   const endLedgerVersion = useAptos().getLedgerVersion?.()
   const params: Record<string, string> = {
@@ -350,6 +379,17 @@ export interface PanoraSwapEvent {
   trade_value: string
 }
 
+export interface DexSwapEvent {
+  dex_id: number
+  credit_account_address: Address
+  from_token: Address
+  amount_in: string
+  to_token: Address
+  amount_out: string
+  trade_value: string
+  is_trade: boolean
+}
+
 export interface HyperionAddLiquidityEvent {
   credit_account_address: Address
   pool: Address
@@ -395,6 +435,8 @@ export type CreditAccountEventData = CreditAccountCreatedEvent
   | BadDebtLiquidatedEvent
   // panora swap or panora trade events
   | PanoraSwapEvent
+  // dex swap or dex trade events
+  | DexSwapEvent
   // hyperion events
   | HyperionAddLiquidityEvent
   | HyperionAddLiquidityOptimallyEvent

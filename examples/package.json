@@ -1,5 +1,5 @@
 {
-  "name": "@moar-market/examples",
+  "name": "@moar-market/sdk-examples",
   "type": "module",
   "version": "0.0.4",
   "private": true,
@@ -19,7 +19,6 @@
     "@aptos-labs/ts-sdk": "catalog:blockchain",
     "@itsmnthn/big-utils": "catalog:utils",
     "@moar-market/sdk": "workspace:*",
-    "@moar-market/utils": "workspace:*",
     "@thalalabs/surf": "catalog:blockchain"
   },
   "devDependencies": {

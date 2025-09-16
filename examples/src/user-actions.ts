@@ -1,3 +1,5 @@
+// oxlint-disable no-unused-vars
+// oxlint-disable no-console
 /**
  * Example: User Actions
  *
@@ -27,7 +29,7 @@ import {
   removeLiquidity as removeLiquidityHyperion,
 } from '@moar-market/sdk/composer-strategies/protocols/hyperion'
 import { swap as panoraSwap } from '@moar-market/sdk/composer-strategies/protocols/panora'
-import { get_position_info, getAllPositionsView, getOptimalLiquidityAmounts } from '@moar-market/sdk/protocols/hyperion'
+import { getAllPositionIds, getOptimalLiquidityAmounts, getPositionInfo } from '@moar-market/sdk/protocols/hyperion'
 import { preview_swap_exact } from '@moar-market/sdk/protocols/panora'
 
 const creditAccount: Address = '0x380cbdccc27092d5a767fdc435ecd00e719a6b7c16a47b61be5cd8dd6f69db80'
@@ -234,11 +236,11 @@ async function removeLiquidityFromHyperion(creditAccount: Address) {
   const config = useAptosConfig()
   const sender = (await getSender()).accountAddress
 
-  const positions = await getAllPositionsView(creditAccount)
-  const position_info = await get_position_info(positions[0].position_object, positions[0].pool)
+  const positions = await getAllPositionIds(creditAccount)
+  const position_info = await getPositionInfo(positions[0].positionId, positions[0].poolAddress)
 
   const removeLiquidityParams = {
-    position_v3: positions[0].position_object,
+    position_v3: positions[0].positionId,
     liquidityDelta: position_info.liquidity,
     tokenA: apt_address,
     tokenB: usdc_address,

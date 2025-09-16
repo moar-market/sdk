@@ -12,6 +12,8 @@ export * from './hyperion_router_v3_abi'
 
 export * from './moar_credit_manager_abi'
 
+export * from './moar_farming_abi'
+
 export * from './moar_hyperion_lens_abi'
 
 export * from './moar_interest_rate_model_abi'
@@ -23,6 +25,8 @@ export * from './moar_oracle_abi'
 export * from './moar_pool_abi'
 
 export * from './moar_risk_manager_abi'
+
+export * from './moarStrategies_dex_swap_adapter_abi'
 
 export * from './moarStrategies_hyperion_adapter_abi'
 

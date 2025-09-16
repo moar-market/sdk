@@ -1,3 +1,4 @@
+import type { CallArgument, TransactionComposer } from '@aptos-labs/script-composer-pack'
 import type {
   AccountAddressInput,
   AptosConfig,
@@ -8,7 +9,6 @@ import type {
   SimpleEntryFunctionArgumentTypes,
   TypeArgument,
 } from '@aptos-labs/ts-sdk'
-import { CallArgument, ScriptComposerWasm } from '@aptos-labs/script-composer-pack'
 import {
   AccountAddress,
   AptosApiType,
@@ -21,11 +21,11 @@ import {
   standardizeTypeTags,
   TransactionPayloadScript,
 } from '@aptos-labs/ts-sdk'
-import { disableFetchCaching, enableFetchCaching, extractUrl } from '@moar-market/utils'
+import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
-export { CallArgument } // re-export for convenience
+export type { CallArgument, SimpleTransaction } // re-export for convenience
 
-// TODO: accept module bytecode as well to pass to the builder to avoid loading modules from the network
+// TODO: update composer pack to new version with module bytecode caching
 
 export interface InputBatchedFunctionData {
   function: MoveFunctionId
@@ -46,13 +46,26 @@ export interface InputBatchedFunctionData {
 export class AptosScriptComposer {
   private config: AptosConfig
 
-  private builder?: any
+  private builder?: TransactionComposer
 
+  private scriptComposerWasm?: any
   private static transactionComposer?: any
+  static callArgument?: typeof CallArgument
 
   constructor(aptosConfig: AptosConfig) {
     this.config = aptosConfig
     this.builder = undefined
+  }
+
+  private getState() {
+    if (!this.builder || !AptosScriptComposer.callArgument) {
+      throw new Error('AptosScriptComposer has not been initialized. Please call and await init() first.')
+    }
+
+    return {
+      builder: this.builder,
+      callArgument: AptosScriptComposer.callArgument,
+    }
   }
 
   // Initializing the wasm needed for the script composer, must be called
@@ -60,12 +73,18 @@ export class AptosScriptComposer {
   async init(): Promise<void> {
     if (!AptosScriptComposer.transactionComposer) {
       const module = await import('@aptos-labs/script-composer-pack')
-      const { TransactionComposer, initSync } = module
-      if (!ScriptComposerWasm.isInitialized) {
-        ScriptComposerWasm.init()
+      const { TransactionComposer: TC, initSync, ScriptComposerWasm, CallArgument: CA } = module
+      if (!this.scriptComposerWasm) {
+        this.scriptComposerWasm = ScriptComposerWasm
       }
-      initSync({ module: ScriptComposerWasm.wasm })
-      AptosScriptComposer.transactionComposer = TransactionComposer
+      if (!AptosScriptComposer.callArgument) {
+        AptosScriptComposer.callArgument = CA
+      }
+      if (!this.scriptComposerWasm.isInitialized) {
+        this.scriptComposerWasm.init()
+      }
+      initSync({ module: this.scriptComposerWasm.wasm })
+      AptosScriptComposer.transactionComposer = TC
     }
     this.builder = AptosScriptComposer.transactionComposer.single_signer()
   }
@@ -78,16 +97,17 @@ export class AptosScriptComposer {
   //
   // The function would also return a list of `CallArgument` that can be passed on to future calls.
   async addBatchedCall(input: InputBatchedFunctionData, moduleAbi?: any): Promise<CallArgument[]> {
+    const { builder, callArgument } = this.getState() // ensure the composer is initialized
     const { moduleAddress, moduleName, functionName } = getFunctionParts(input.function)
     const nodeUrl = this.config.getRequestUrl(AptosApiType.FULLNODE)
 
     // Load the calling module into the builder.
-    await this.builder.load_module(nodeUrl, `${moduleAddress}::${moduleName}`)
+    await builder.load_module(nodeUrl, `${moduleAddress}::${moduleName}`)
 
     // Load the calling type arguments into the loader.
     if (input.typeArguments !== undefined) {
       for (const typeArgument of input.typeArguments) {
-        await this.builder.load_type_tag(nodeUrl, typeArgument.toString())
+        await builder.load_type_tag(nodeUrl, typeArgument.toString())
       }
     }
     const typeArguments = standardizeTypeTags(input.typeArguments)
@@ -113,15 +133,23 @@ export class AptosScriptComposer {
       )
     }
 
-    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) =>
-      arg instanceof CallArgument
-        ? arg
-        : CallArgument.newBytes(
-            convertArgument(functionName, moduleAbi, arg, i, typeArguments, { allowUnknownStructs: true }).bcsToBytes(),
-          ),
-    )
+    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) => {
+      if (arg instanceof callArgument) {
+        return arg
+      }
+      return callArgument.newBytes(
+        convertArgument(
+          functionName,
+          moduleAbi,
+          arg as EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes,
+          i,
+          typeArguments,
+          { allowUnknownStructs: true },
+        ).bcsToBytes(),
+      )
+    })
 
-    return this.builder.add_batched_call(
+    return builder.add_batched_call(
       `${moduleAddress}::${moduleName}`,
       functionName,
       typeArguments.map(arg => arg.toString()),
@@ -129,8 +157,25 @@ export class AptosScriptComposer {
     )
   }
 
+  /**
+   * Utility function to handle CallArgument copying
+   * @template T - The type parameter for non-CallArgument values
+   * @param {CallArgument | T} arg - The argument to potentially copy
+   * @returns {CallArgument | T} A copy of the CallArgument if arg is a CallArgument, otherwise returns arg as-is
+   */
+  copyIfCallArgument<T>(arg: CallArgument | T): CallArgument | T {
+    const { callArgument } = this.getState() // ensure the composer is initialized
+    return arg instanceof callArgument ? (arg as CallArgument).copy() : arg
+  }
+
+  getNewSigner(id: number): CallArgument {
+    const { callArgument } = this.getState() // ensure the composer is initialized
+    return callArgument.newSigner(id)
+  }
+
   build(): Uint8Array {
-    return this.builder.generate_batched_calls(true)
+    const { builder } = this.getState() // ensure the composer is initialized
+    return builder.generate_batched_calls(true)
   }
 }
 

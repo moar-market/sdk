@@ -4,6 +4,8 @@ import { useSurfClient } from './../clients'
 import { getModuleAddress } from './../config'
 import { logger } from './../logger'
 
+// ? not used anymore as oracle.get_price now works for custom tokens too
+
 /**
  * Fetches the price of a custom token from the router
  * @param address The address of the token

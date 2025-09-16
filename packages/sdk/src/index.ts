@@ -19,8 +19,17 @@ export * from './token'
 // Lending pool exports
 export * from './lend-pool'
 
+// Farming exports
+export * from './farming'
+
 // Credit Manager exports
 export * from './credit-manager'
+
+// helpers exports
+export * from './helpers'
+
+// utils exports
+export * from './utils'
 
 // Logger exports
 export * from './logger'

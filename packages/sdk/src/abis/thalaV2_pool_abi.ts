@@ -885,6 +885,19 @@ export const thalaV2_pool_abi = {
       ]
     },
     {
+      "name": "pool_obj_exists",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "bool"
+      ]
+    },
+    {
       "name": "pool_precision_multipliers",
       "visibility": "public",
       "is_entry": false,

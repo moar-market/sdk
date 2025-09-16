@@ -4,31 +4,34 @@ packages:
 
 catalogs:
   blockchain:
-    '@aptos-labs/script-composer-pack': ^0.0.9
-    '@aptos-labs/ts-sdk': ^4.0.0
+    '@aptos-labs/script-composer-pack': 0.0.9
+    '@aptos-labs/ts-sdk': 4.0.0
+    '@hyperionxyz/sdk': 0.0.19
     '@thalalabs/surf': 1.8.1
   dev:
-    '@antfu/ni': ^25.0.0
-    bumpp: ^10.2.2
-    husky: ^9.1.7
-    lint-staged: ^16.1.4
-    rimraf: ^6.0.1
-    simple-git-hooks: ^2.13.1
-    tsdown: ^0.13.3
-    tsx: ^4.20.3
-    typescript: ^5.9.2
+    '@antfu/ni': 25.0.0
+    bumpp: 10.2.3
+    husky: 9.1.7
+    lint-staged: 16.1.6
+    rimraf: 6.0.1
+    simple-git-hooks: 2.13.1
+    tsdown: 0.13.3
+    tsx: 4.20.3
+    typescript: 5.9.2
+    vitest: 3.2.4
   lint:
-    '@antfu/eslint-config': ^5.1.0
-    '@commitlint/cli': ^19.8.1
-    '@commitlint/config-conventional': ^19.8.1
-    eslint: ^9.32.0
-    eslint-plugin-format: ^1.0.1
-    eslint-plugin-oxlint: ^1.9.0
-    oxlint: ^1.9.0
+    '@antfu/eslint-config': 5.3.0
+    '@commitlint/cli': 19.8.1
+    '@commitlint/config-conventional': 19.8.1
+    eslint: 9.35.0
+    eslint-plugin-format: 1.0.1
+    eslint-plugin-oxlint: 1.15.0
+    oxlint: 1.15.0
+    oxlint-tsgolint: 0.2.0
   types:
-    '@types/node': ^22.17.0
+    '@types/node': 24.3.1
   utils:
-    '@itsmnthn/big-utils': ^1.0.0
+    '@itsmnthn/big-utils': 2.0.3
 
 onlyBuiltDependencies:
   - esbuild

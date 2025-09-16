@@ -1,5 +1,3 @@
-import type { MoveStructId as AptosStructId } from '@aptos-labs/ts-sdk'
-
 /**
  * Basic blockchain address type
  */
@@ -9,7 +7,7 @@ export type Address = `0x${string}`
  * Move module structure ID format
  * The format is [address]::[module]::[struct]
  */
-export type MoveStructId = AptosStructId
+export type MoveStructId = `${string}::${string}::${string}`
 
 /**
  * Any number type

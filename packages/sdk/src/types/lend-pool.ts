@@ -18,10 +18,13 @@ export interface LendPoolResponse {
   interest_accrued: string
   total_lp_token_supply: string
   interest_rate: string
-  unbond_period: number
-  withdraw_period: number
 }
 
+/**
+ * A “knot” in a piecewise linear curve.
+ * util: [0…100] (percent utilization) — 0 is the minimum utilization, 100 is the maximum utilization
+ * rate: [0…∞) (APR in %, e.g. 10 = 10%) — 0 is the minimum rate, ∞ is the maximum rate
+ */
 export interface Kink {
   rate: number
   util: number
@@ -33,6 +36,7 @@ export interface Kink {
 export interface LendPoolConfig extends Omit<LendPoolResponse, 'underlying_asset'> {
   readonly id: number
   readonly underlying_asset: Address
+  readonly address: Address
   ltvs: { address: Address, ltv: string }[]
   kinks: Kink[]
   reduceLeverage?: Record<Address, number>

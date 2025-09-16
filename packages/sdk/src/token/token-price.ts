@@ -44,10 +44,11 @@ export async function fetchOraclePrices(addresses: Address[]): Promise<Record<Ad
   const loggerLabel = 'Oracle'
   logger.debug(loggerLabel, ': fetching oracle prices', addresses)
 
-  const defaultPriceMap: Record<Address, string> = {}
-  addresses.forEach((address) => {
-    defaultPriceMap[address] = '0' // Default price for each address
-  })
+  if (addresses.length === 0) {
+    return {}
+  }
+
+  const defaultPrice = '0'
 
   try {
     const [prices] = await useSurfClient().useABI(
@@ -58,17 +59,33 @@ export async function fetchOraclePrices(addresses: Address[]): Promise<Record<Ad
       functionArguments: [addresses],
     })
 
-    const priceMap: Record<Address, string> = {}
-    addresses.forEach((address, index) => {
-      priceMap[address] = prices[index] ?? '0'
-    })
+    if (Array.isArray(prices) && prices.length === addresses.length) {
+      const priceMap = addresses.reduce((acc, address, idx) => {
+        acc[address] = prices[idx] ?? defaultPrice
+        return acc
+      }, {} as Record<Address, string>)
+      logger.debug(loggerLabel, ': fetched oracle prices for', addresses, priceMap)
+      return priceMap
+    }
 
-    logger.debug(loggerLabel, ': fetched oracle prices for', addresses, priceMap)
-    return priceMap
+    logger.warn(loggerLabel, ': get_prices returned unexpected result, falling back to individual fetch')
   }
   catch (error) {
     console.error(loggerLabel, ': failed to fetch oracle prices for', addresses, error)
   }
 
-  return defaultPriceMap
+  logger.debug(loggerLabel, ': fetching prices individually as fallback', addresses)
+  const fallbackPrices = await Promise.all(
+    addresses.map(async (address) => {
+      const price = await fetchOraclePrice(address)
+      return [address, price ?? defaultPrice] as [Address, string]
+    }),
+  )
+  const fallbackPriceMap = fallbackPrices.reduce((acc, [address, price]) => {
+    acc[address] = price
+    return acc
+  }, {} as Record<Address, string>)
+
+  logger.debug(loggerLabel, ': fetched fallback oracle prices for', addresses, fallbackPriceMap)
+  return fallbackPriceMap
 }

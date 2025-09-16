@@ -501,6 +501,37 @@ export const thalaV1_farming_abi = {
       ]
     },
     {
+      "name": "pool_extra_reward_epoch_info",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u64",
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64",
+        "u64",
+        "u64",
+        "u64"
+      ]
+    },
+    {
+      "name": "pool_extra_reward_remaining_seconds",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "u64",
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "set_boost_scaling_factor_bps",
       "visibility": "public",
       "is_entry": true,
