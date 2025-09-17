@@ -2,6 +2,8 @@ packages:
   - packages/**
   - examples
 
+minimumReleaseAge: 10080 # 7 days
+
 catalogs:
   blockchain:
     '@aptos-labs/script-composer-pack': 0.0.9
