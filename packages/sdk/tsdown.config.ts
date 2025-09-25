@@ -84,6 +84,7 @@ export default defineConfig({
     './src/protocols/thala/v2/index.ts',
     './src/protocols/dex_swap/index.ts',
     './src/protocols/default-swap.ts',
+    './src/protocols/goblin/index.ts',
 
     // individual script composer actions
     './src/composer-strategies/index.ts',
@@ -95,6 +96,7 @@ export default defineConfig({
     './src/composer-strategies/protocols/dex_swap.ts',
     './src/composer-strategies/protocols/default-swap.ts', // default swap protocol dex_swap or panora
     './src/composer-strategies/protocols/thala_v2.ts',
+    './src/composer-strategies/protocols/goblin.ts',
 
     // assembled trade strategies(router)
     './src/composer-strategies/trade/panora.ts',
@@ -107,5 +109,8 @@ export default defineConfig({
 
     // assembled hyperion clmm strategies(router)
     './src/composer-strategies/hyperion.ts',
+
+    // assembled goblin vault strategies(router)
+    './src/composer-strategies/goblin.ts',
   ],
 })
