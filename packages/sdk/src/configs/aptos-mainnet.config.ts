@@ -1,5 +1,5 @@
 import type { Config } from '../config'
-import type { Address, ChainConfig, HyperionPoolConfig, LendPoolConfig, Modules, MoveStructId, ThalaV2PoolConfig } from '../types'
+import type { Address, ChainConfig, GoblinVaultConfig, HyperionPoolConfig, LendPoolConfig, Modules, MoveStructId, ThalaV2PoolConfig } from '../types'
 
 const COIN_ZERO: MoveStructId = '0x1::string::String'
 
@@ -22,6 +22,7 @@ export const ADAPTERS = {
   HYPERION: 3,
   TAPP: 4,
   DEX_SWAP: 5,
+  GOBLIN: 6,
 }
 
 export const ADAPTER_STRATEGIES = {
@@ -44,6 +45,12 @@ export const ADAPTER_STRATEGIES = {
   hyperion_remove_liquidity: { adapterId: ADAPTERS.HYPERION, strategyId: 2 },
   hyperion_add_liquidity_optimally: { adapterId: ADAPTERS.HYPERION, strategyId: 3 },
   hyperion_rebalance: { adapterId: ADAPTERS.HYPERION, strategyId: 4 },
+
+  // goblin vault - clmm
+  goblin_vault_add_pair: { adapterId: ADAPTERS.GOBLIN, strategyId: 1 },
+  goblin_vault_add_single: { adapterId: ADAPTERS.GOBLIN, strategyId: 2 },
+  goblin_vault_remove_pair: { adapterId: ADAPTERS.GOBLIN, strategyId: 3 },
+  goblin_vault_remove_single: { adapterId: ADAPTERS.GOBLIN, strategyId: 4 },
 }
 
 export const PKGS = {
@@ -66,6 +73,10 @@ export const PKGS = {
 
   // hyperion
   hyperion: '0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c' as Address,
+
+  // goblin
+  goblin: '0x19bcbcf8e688fd5ddf52725807bc8bf455a76d4b5a6021cfdc4b5b2652e5cd55' as Address,
+  goblin2: '0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92' as Address,
 }
 
 // before first _ is the protocol/abi directory name, after first _ is the module name
@@ -89,6 +100,7 @@ export const MODULES: Modules = {
   moarStrategies_thala_v2_adapter: PKGS.moar_strategies,
   moarStrategies_hyperion_adapter: PKGS.moar_strategies,
   moarStrategies_dex_swap_adapter: PKGS.moar_strategies,
+  moarStrategies_goblin_vault_adapter: PKGS.moar_strategies,
 
   moarTiered_tiered_oracle: PKGS.moar_oracle,
 
@@ -106,6 +118,10 @@ export const MODULES: Modules = {
   // hyperion modules
   hyperion_pool_v3: PKGS.hyperion,
   hyperion_router_v3: PKGS.hyperion,
+
+  // goblin modules
+  goblin_vaults: PKGS.goblin,
+  // goblin_masterchef: PKGS.goblin2,
 }
 
 const LEND_POOLS: LendPoolConfig[] = [
@@ -558,6 +574,21 @@ export const THALA_V2_POOLS = {
   } as ThalaV2PoolConfig,
 } as const
 
+export const GOBLIN_VAULTS = {
+  usdt_usdc: {
+    address: '0xab8fdae5dd99a4379362c01218cd7aef40758cd8111d11853ce6efd2f82b7cad',
+    name: 'USDT-USDC',
+    protocol: 'hyperion',
+    poolConfig: HYPERION_POOLS.usdt_usdc,
+  } as GoblinVaultConfig,
+  apt_usdc: {
+    address: '0x77d56ce63cf4d8c36a60a8a8f29e11ebbf7a1c0e22d6cd069d7f2e950d2fd0bd',
+    name: 'APT-USDC',
+    protocol: 'hyperion',
+    poolConfig: HYPERION_POOLS.apt_usdc,
+  } as GoblinVaultConfig,
+} as const
+
 export const config: Config = {
   MOAR_API,
   PANORA_API_KEY: '',
@@ -578,6 +609,7 @@ export const config: Config = {
   TOKENS: Object.values(tokens),
   HYPERION_POOLS: Object.values(HYPERION_POOLS),
   THALA_V2_POOLS: Object.values(THALA_V2_POOLS),
+  GOBLIN_VAULTS: Object.values(GOBLIN_VAULTS),
 
   MOAR_MODULE_SETTINGS: {
     min_borrow_usd: '100000000',

@@ -6,6 +6,7 @@
 import type { Address, MoveStructId } from './common'
 
 export * from './common'
+export * from './goblin'
 export * from './hyperion'
 export * from './lend-pool'
 export * from './swap'

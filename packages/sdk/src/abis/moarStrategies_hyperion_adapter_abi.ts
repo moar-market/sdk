@@ -310,6 +310,17 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "get_reward_tokens",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+      ]
+    },
+    {
       "name": "liquidate_non_fa_position",
       "visibility": "friend",
       "is_entry": false,

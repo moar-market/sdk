@@ -1,6 +1,7 @@
 import type {
   Address,
   ChainConfig,
+  GoblinVaultConfig,
   HyperionPoolConfig,
   LendPoolConfig,
   Modules,
@@ -176,6 +177,29 @@ export function findHyperionPoolConfig(assetIn: Address, assetOut: Address): Hyp
   return undefined
 }
 
+// goblin
+export function useGoblinVaults(): GoblinVaultConfig[] {
+  return getConfig().GOBLIN_VAULTS
+}
+
+/**
+ * Find a goblin vault config by asset in and asset out
+ */
+export function findGoblinVaultConfig(assetIn: Address, assetOut: Address): GoblinVaultConfig | undefined {
+  const vaults = useGoblinVaults()
+  for (let i = 0; i < vaults.length; i++) {
+    const vault = vaults[i]
+    if (
+      vault
+      && vault.poolConfig.coinAddresses.includes(assetIn)
+      && vault.poolConfig.coinAddresses.includes(assetOut)
+    ) {
+      return vault
+    }
+  }
+  return undefined
+}
+
 export interface ModuleSettings {
   min_borrow_usd: string // usd price in oracle decimals 8
   min_debt_usd: string // usd price in oracle decimals 8
@@ -210,6 +234,7 @@ export interface Config {
   readonly TOKENS: TokenConfig[]
   readonly HYPERION_POOLS: HyperionPoolConfig[]
   readonly THALA_V2_POOLS: ThalaV2PoolConfig[]
+  readonly GOBLIN_VAULTS: GoblinVaultConfig[]
 
   readonly MOAR_MODULE_SETTINGS: ModuleSettings
 }
