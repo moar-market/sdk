@@ -56,7 +56,7 @@ export async function getVaultPositionInfo({
   positionId,
   pool,
   vault,
-}: GetVaultPositionInfoParams): Promise<PositionInfo> {
+}: GetVaultPositionInfoParams): Promise<PositionInfo & { objectId: Address, poolId: Address }> {
   if ((!positionId || !pool) && vault) {
     const { positionId: newPositionId, pool: newPool } = await getVaultPositionId(vault)
     positionId = newPositionId
@@ -65,7 +65,12 @@ export async function getVaultPositionInfo({
   if (!positionId || !pool) {
     throw new Error('positionId and pool are required if vault is not provided')
   }
-  return await getPositionInfo(positionId, pool)
+  const positionInfo = await getPositionInfo(positionId, pool)
+  return {
+    objectId: positionId,
+    poolId: pool,
+    ...positionInfo,
+  }
 }
 
 /**
