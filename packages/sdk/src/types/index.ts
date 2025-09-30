@@ -39,3 +39,10 @@ export interface TokenData {
   surplus: bigint
   estimatedInterest: bigint
 }
+
+/**
+ * Custom token configuration extends TokenConfig
+ */
+export interface CustomTokenConfig extends TokenConfig {
+  protocol: number
+}

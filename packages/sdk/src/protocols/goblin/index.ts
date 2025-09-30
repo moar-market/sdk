@@ -1,6 +1,6 @@
 import type { PositionInfo } from '../hyperion'
 import type { Address } from './../../types'
-import { goblin_vaults_abi } from './../../abis'
+import { goblin_masterchef_abi, goblin_vaults_abi } from './../../abis'
 import { useSurfClient } from './../../clients'
 import { getModuleAddress } from './../../config'
 import { fetchFungibleBalance } from './../../token'
@@ -115,4 +115,30 @@ export async function getLiquidityShares(
   { vault, creditAccount }: { vault: Address, creditAccount: Address },
 ): Promise<string> {
   return await fetchFungibleBalance(creditAccount, vault)
+}
+
+export interface PoolRewardInfo {
+  totalLPAmount: string
+  rewardPerSecond: string
+}
+
+/**
+ * Retrieves the reward info for a given pool.
+ *
+ * Use `totalLPAmount` and `rewardPerSecond` to calculate incentive APR:
+ * incentiveApr = (rewardPerSecond * 365 * 86400 * reward_token_price) / (totalLPAmount * lp_token_price)
+ *
+ * @param {number} poolId - The ID of the pool in rewards.
+ * @returns {Promise<PoolRewardInfo>} The reward info.
+ */
+export async function getPoolRewardInfo(poolId: number): Promise<PoolRewardInfo> {
+  const moduleAddress = getModuleAddress('goblin_masterchef')
+  const [,,totalLPAmount, rewardPerSecond] = await useSurfClient().useABI(
+    goblin_masterchef_abi,
+    moduleAddress,
+  ).view.get_pool_info({
+    typeArguments: [],
+    functionArguments: [poolId],
+  })
+  return { totalLPAmount, rewardPerSecond }
 }

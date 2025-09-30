@@ -1,6 +1,7 @@
 import type {
   Address,
   ChainConfig,
+  CustomTokenConfig,
   GoblinVaultConfig,
   HyperionPoolConfig,
   LendPoolConfig,
@@ -133,6 +134,25 @@ export function findTokenConfig(value: string): TokenConfig | undefined {
   )
 }
 
+export function useCustomTokenConfig(): CustomTokenConfig[] {
+  return getConfig().CUSTOM_TOKENS
+}
+
+/**
+ * Get the token config by searching multiple properties
+ * @param value - The value to search for
+ * @returns The token config or undefined if not found
+ */
+export function findCustomTokenConfig(value: string): CustomTokenConfig | undefined {
+  const lowerValue = value.toLowerCase()
+  return getConfig().CUSTOM_TOKENS.find(token =>
+    token.address.toLowerCase() === lowerValue
+    || token.coinType?.toLowerCase() === lowerValue
+    || token.symbol.toLowerCase() === lowerValue
+    || token.name.toLowerCase() === lowerValue,
+  )
+}
+
 // aptos only
 export function useThalaV2Pools(): ThalaV2PoolConfig[] {
   return getConfig().THALA_V2_POOLS
@@ -232,6 +252,7 @@ export interface Config {
   readonly ADAPTER_STRATEGIES: Record<string, Omit<StrategyIdentifier, 'strategySubType'>>
 
   readonly TOKENS: TokenConfig[]
+  readonly CUSTOM_TOKENS: CustomTokenConfig[]
   readonly HYPERION_POOLS: HyperionPoolConfig[]
   readonly THALA_V2_POOLS: ThalaV2PoolConfig[]
   readonly GOBLIN_VAULTS: GoblinVaultConfig[]

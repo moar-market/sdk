@@ -1,5 +1,16 @@
 import type { Config } from '../config'
-import type { Address, ChainConfig, GoblinVaultConfig, HyperionPoolConfig, LendPoolConfig, Modules, MoveStructId, ThalaV2PoolConfig } from '../types'
+import type {
+  Address,
+  ChainConfig,
+  CustomTokenConfig,
+  GoblinVaultConfig,
+  HyperionPoolConfig,
+  LendPoolConfig,
+  Modules,
+  MoveStructId,
+  ThalaV2PoolConfig,
+  TokenConfig,
+} from '../types'
 
 const COIN_ZERO: MoveStructId = '0x1::string::String'
 
@@ -76,7 +87,7 @@ export const PKGS = {
 
   // goblin
   goblin: '0x19bcbcf8e688fd5ddf52725807bc8bf455a76d4b5a6021cfdc4b5b2652e5cd55' as Address,
-  goblin2: '0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92' as Address,
+  goblin_farming: '0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92' as Address,
 }
 
 // before first _ is the protocol/abi directory name, after first _ is the module name
@@ -121,32 +132,33 @@ export const MODULES: Modules = {
 
   // goblin modules
   goblin_vaults: PKGS.goblin,
-  // goblin_masterchef: PKGS.goblin2,
+  goblin_masterchef: PKGS.goblin_farming,
 }
 
 const LEND_POOLS: LendPoolConfig[] = [
   {
-    id: 0,
-    borrow_cap: '16400000000000',
+    borrow_cap: '9000',
     deposit_cap: '100000000000000000',
     fee_on_interest_bps: '2000',
-    interest_accrued: '3490251',
-    interest_rate: '3083813',
+    interest_accrued: '509873118',
+    interest_rate: '14630712',
     is_paused: false,
     name: 'APT',
     origination_fee_bps: '0',
     pool_owner: '0x2dd08646923a012b8384a437fb15964896a8ba0c9f660f3510be0e8466685bce',
-    total_borrow_shares: '2289863033043',
-    total_borrows: '2296217529946',
-    total_deposited: '18538182592200',
-    total_lp_token_supply: '18532935279672',
+    total_borrow_shares: '14510084337757',
+    total_borrows: '14834830314184',
+    total_deposited: '23490094208898',
+    total_lp_token_supply: '23296036932934',
     underlying_asset: '0xa',
+    id: 0,
     address: '0x7b11a1658b4f36214b60a51d02dd35d3b5703f1552f8b7e4d045c0a13f8259c3',
     kinks: [
       { rate: 2, util: 0 },
-      { rate: 9, util: 80 },
-      { rate: 96, util: 100 },
-      { rate: 96, util: 100 },
+      { rate: 20, util: 90 },
+      { rate: 40, util: 100 },
+      { rate: 40, util: 100 },
+      { rate: 40, util: 100 },
     ],
     ltvs: [
       {
@@ -163,11 +175,11 @@ const LEND_POOLS: LendPoolConfig[] = [
       },
       {
         address: '0x94ed76d3d66cb0b6e7a3ab81acf830e3a50b8ae3cfb9edc0abea635a11185ff4',
-        ltv: '80000000',
+        ltv: '0',
       },
       {
         address: '0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69',
-        ltv: '0',
+        ltv: '80000000',
       },
       {
         address: '0x377adc4848552eb2ea17259be928001923efe12271fef1667e2b784f04a7cf3a',
@@ -190,6 +202,18 @@ const LEND_POOLS: LendPoolConfig[] = [
         ltv: '75000000',
       },
       {
+        address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
+        ltv: '75000000',
+      },
+      {
+        address: '0x821c94e69bc7ca058c913b7b5e6b0a5c9fd1523d58723a966fb8c1f5ea888105',
+        ltv: '88888888',
+      },
+      {
+        address: '0x41cfdef11efd671cbcffa66f57716ee5698308b233359481d52d6dac34b42af2',
+        ltv: '75000000',
+      },
+      {
         address: '0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011',
         ltv: '90000000',
       },
@@ -197,27 +221,32 @@ const LEND_POOLS: LendPoolConfig[] = [
         address: '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b',
         ltv: '80000000',
       },
+      {
+        address: '0x42556039b88593e768c97ab1a3ab0c6a17230825769304482dff8fdebe4c002b',
+        ltv: '91666670',
+      },
+      {
+        address: '0x77d56ce63cf4d8c36a60a8a8f29e11ebbf7a1c0e22d6cd069d7f2e950d2fd0bd',
+        ltv: '75000000',
+      },
     ],
-    reduceLeverage: {
-      '0xa9ce1bddf93b074697ec5e483bc5050bc64cff2acd31e1ccfd8ac8cae5e4abe': 5,
-    },
   },
   {
-    id: 1,
-    borrow_cap: '470000000000',
+    borrow_cap: '9000',
     deposit_cap: '100000000000000000',
     fee_on_interest_bps: '2000',
-    interest_accrued: '1252565',
-    interest_rate: '9783310',
+    interest_accrued: '147483',
+    interest_rate: '7685002',
     is_paused: false,
     name: 'USDC',
     origination_fee_bps: '0',
     pool_owner: '0x2dd08646923a012b8384a437fb15964896a8ba0c9f660f3510be0e8466685bce',
-    total_borrow_shares: '354424170455',
-    total_borrows: '357875570756',
-    total_deposited: '528882139789',
-    total_lp_token_supply: '526200426862',
+    total_borrow_shares: '831959961640',
+    total_borrows: '867542465754',
+    total_deposited: '1924909892603',
+    total_lp_token_supply: '1880479695126',
     underlying_asset: '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b',
+    id: 1,
     address: '0x22dbe22abf689d8a0f751cab7a32fe5570c49b53fcccd4e5d709b269efda554a',
     kinks: [
       { rate: 3.5, util: 0 },
@@ -233,7 +262,7 @@ const LEND_POOLS: LendPoolConfig[] = [
       },
       {
         address: '0xa9ce1bddf93b074697ec5e483bc5050bc64cff2acd31e1ccfd8ac8cae5e4abe',
-        ltv: '0',
+        ltv: '80000000',
       },
       {
         address: '0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b',
@@ -241,11 +270,11 @@ const LEND_POOLS: LendPoolConfig[] = [
       },
       {
         address: '0x94ed76d3d66cb0b6e7a3ab81acf830e3a50b8ae3cfb9edc0abea635a11185ff4',
-        ltv: '91666600',
+        ltv: '0',
       },
       {
         address: '0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69',
-        ltv: '0',
+        ltv: '91666666',
       },
       {
         address: '0x377adc4848552eb2ea17259be928001923efe12271fef1667e2b784f04a7cf3a',
@@ -276,6 +305,18 @@ const LEND_POOLS: LendPoolConfig[] = [
         ltv: '75000000',
       },
       {
+        address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
+        ltv: '75000000',
+      },
+      {
+        address: '0x821c94e69bc7ca058c913b7b5e6b0a5c9fd1523d58723a966fb8c1f5ea888105',
+        ltv: '80000000',
+      },
+      {
+        address: '0xab8fdae5dd99a4379362c01218cd7aef40758cd8111d11853ce6efd2f82b7cad',
+        ltv: '75000000',
+      },
+      {
         address: '0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011',
         ltv: '0',
       },
@@ -299,74 +340,152 @@ const LEND_POOLS: LendPoolConfig[] = [
         address: '0x35c3e420fa4fd925628366f1977865d62432c8856a2db147a1cb13f7207f6a79',
         ltv: '0',
       },
+      {
+        address: '0x42556039b88593e768c97ab1a3ab0c6a17230825769304482dff8fdebe4c002b',
+        ltv: '80000000',
+      },
+      {
+        address: '0x77d56ce63cf4d8c36a60a8a8f29e11ebbf7a1c0e22d6cd069d7f2e950d2fd0bd',
+        ltv: '75000000',
+      },
+    ],
+    incentives: [
+      {
+        token: 'apt',
+        reward_id: 'APT-1',
+      },
     ],
   },
 ]
 
-export const tokens = {
+const tokens = {
+  // stables
   usdc: {
     address: '0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b',
     name: 'USDC',
     symbol: 'USDC',
     decimals: 6,
     coinType: COIN_ZERO,
-  },
+  } satisfies TokenConfig,
+
   usdt: {
     address: '0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b',
     name: 'Tether USDT',
     symbol: 'USDT',
     decimals: 6,
     coinType: COIN_ZERO,
-  },
-  apt: {
-    address: '0xa',
-    name: 'Aptos',
-    symbol: 'APT',
-    decimals: 8,
-    coinType: '0x1::aptos_coin::AptosCoin',
-  },
+  } satisfies TokenConfig,
+
   sUSDe: {
     address: '0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69',
     name: 'Staked USDe',
     symbol: 'sUSDe',
     decimals: 6,
     coinType: COIN_ZERO,
-  },
-  xBTC: {
-    address: '0x81214a80d82035a190fcb76b6ff3c0145161c3a9f33d137f2bbaee4cfec8a387',
-    name: 'OKX BTC',
-    symbol: 'xBTC',
+  } satisfies TokenConfig,
+
+  // apt & variants
+  apt: {
+    address: '0xa',
+    name: 'Aptos',
+    symbol: 'APT',
+    decimals: 8,
+    coinType: '0x1::aptos_coin::AptosCoin',
+  } satisfies TokenConfig,
+
+  kAPT: {
+    address: '0x821c94e69bc7ca058c913b7b5e6b0a5c9fd1523d58723a966fb8c1f5ea888105',
+    name: 'Kofi APT',
+    symbol: 'kAPT',
     decimals: 8,
     coinType: COIN_ZERO,
-  },
-  wbtc: {
-    address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
-    name: 'Wrapped BTC',
-    symbol: 'WBTC',
-    decimals: 8,
-    coinType: COIN_ZERO,
-  },
-  stkAPT: {
-    address: '0x42556039b88593e768c97ab1a3ab0c6a17230825769304482dff8fdebe4c002b',
-    name: 'Staked Kofi APT',
-    symbol: 'stkAPT',
-    decimals: 8,
-    coinType: COIN_ZERO,
-  },
+  } satisfies TokenConfig,
+
   thAPT: {
     address: '0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011',
     name: 'Thala APT',
     symbol: 'thAPT',
     decimals: 8,
     coinType: '0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::ThalaAPT',
-  },
+  } satisfies TokenConfig,
+
+  stkAPT: {
+    address: '0x42556039b88593e768c97ab1a3ab0c6a17230825769304482dff8fdebe4c002b',
+    name: 'Staked Kofi APT',
+    symbol: 'stkAPT',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  } satisfies TokenConfig,
+
   sthAPT: {
     address: '0xa9ce1bddf93b074697ec5e483bc5050bc64cff2acd31e1ccfd8ac8cae5e4abe',
     name: 'Staked Thala APT',
     symbol: 'sthAPT',
     decimals: 8,
     coinType: '0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::StakedThalaAPT',
-  },
+  } satisfies TokenConfig,
+
+  // btc variants
+  xBTC: {
+    address: '0x81214a80d82035a190fcb76b6ff3c0145161c3a9f33d137f2bbaee4cfec8a387',
+    name: 'OKX BTC',
+    symbol: 'xBTC',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  } satisfies TokenConfig,
+
+  wbtc: {
+    address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
+    name: 'Wrapped BTC',
+    symbol: 'WBTC',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  } satisfies TokenConfig,
+} as const
+
+// Custom Tokens that are LP Tokens or Staked Tokens which has no real utilities and custom pricing (non-oracle)
+const customTokens = {
+  // goblin vault lp tokens
+  goblin_vault_usdt_usdc: {
+    address: '0xab8fdae5dd99a4379362c01218cd7aef40758cd8111d11853ce6efd2f82b7cad',
+    name: 'Goblin USDT-USDC LP',
+    symbol: 'USDT-USDC',
+    icons: [tokens.usdt.symbol, tokens.usdc.symbol],
+    decimals: 8,
+    coinType: COIN_ZERO,
+    protocol: ADAPTERS.GOBLIN,
+  } satisfies CustomTokenConfig,
+
+  goblin_vault_apt_usdc: {
+    address: '0x77d56ce63cf4d8c36a60a8a8f29e11ebbf7a1c0e22d6cd069d7f2e950d2fd0bd',
+    name: 'Goblin APT-USDC LP',
+    symbol: 'APT-USDC',
+    icons: [tokens.apt.symbol, tokens.usdc.symbol],
+    decimals: 8,
+    coinType: COIN_ZERO,
+    protocol: ADAPTERS.GOBLIN,
+  } satisfies CustomTokenConfig,
+
+  goblin_vault_apt_usdt: {
+    address: '0x7a6ef286a6d3f482dcb56d683678dadc7a18be133bf5f01626d5164a52e68eeb',
+    name: 'Goblin APT-USDT LP',
+    symbol: 'APT-USDT',
+    icons: [tokens.apt.symbol, tokens.usdt.symbol],
+    decimals: 8,
+    coinType: COIN_ZERO,
+    protocol: ADAPTERS.GOBLIN,
+  } satisfies CustomTokenConfig,
+
+  goblin_vault_apt_kapt: {
+    address: '0x41cfdef11efd671cbcffa66f57716ee5698308b233359481d52d6dac34b42af2',
+    name: 'Goblin APT-kAPT LP',
+    symbol: 'APT-kAPT',
+    icons: [tokens.apt.symbol, tokens.kAPT.symbol],
+    decimals: 8,
+    coinType: COIN_ZERO,
+    protocol: ADAPTERS.GOBLIN,
+  } satisfies CustomTokenConfig,
+
 } as const
 
 export enum HYPERION_FEE_INDEX {
@@ -385,7 +504,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   usdt_usdc: {
     name: 'USDT-USDC',
     address: '0xd3894aca06d5f42b27c89e6f448114b3ed6a1ba07f992a58b2126c71dd83c127',
@@ -394,7 +513,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 4,
     weights: [50, 50],
     isWeighted: false,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   xbtc_usdc: {
     name: 'xBTC-USDC',
     address: '0xff5a013a4676f724714aec0082403fad822972c56348ba08e0405d08e533325e',
@@ -403,7 +522,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   wbtc_usdc: {
     name: 'WBTC-USDC',
     address: '0xa7bb8c9b3215e29a3e2c2370dcbad9c71816d385e7863170b147243724b2da58',
@@ -412,7 +531,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_usdt: {
     name: 'APT-USDT',
     address: '0x18269b1090d668fbbc01902fa6a5ac6e75565d61860ddae636ac89741c883cbc',
@@ -421,7 +540,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   wbtc_xbtc: {
     name: 'WBTC-xBTC',
     address: '0x0a5002fbf45627d0769a1448d7ec2e022390b1ed4cf00a62b65ce51ff6030271',
@@ -430,7 +549,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: false,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_sthapt: {
     name: 'APT-sthAPT',
     address: '0x9866e9ee75969c0274804231b55ed077c0c5c952268e3dc3df333614308f3f63',
@@ -439,7 +558,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: false,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_thapt: {
     name: 'APT-thAPT',
     address: '0x692ba87730279862aa1a93b5fef9a175ea0cccc1f29dfc84d3ec7fbe1561aef3',
@@ -448,7 +567,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: false,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_stkapt: {
     name: 'APT-stkAPT',
     address: '0x9878b6f039b1fce27240fd51f536fceefac939268ecaa8dd6c84b7640177abe4',
@@ -457,7 +576,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: false,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_xbtc: {
     name: 'APT-xBTC',
     address: '0xd8609fb7a2446b1e343de45decc9651d4402b967439d352849a422b55327516f',
@@ -466,7 +585,7 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
   apt_wbtc: {
     name: 'APT-WBTC',
     address: '0x6df8340de848eb3a43eaef4b090d365c8e88e79b3044f11964c9de7b213914e9',
@@ -475,7 +594,16 @@ export const HYPERION_POOLS = {
     priceDecimals: 8,
     weights: [50, 50],
     isWeighted: true,
-  } as HyperionPoolConfig,
+  } satisfies HyperionPoolConfig,
+  apt_kapt: {
+    name: 'APT-kAPT',
+    address: '0xbab8526a9eb7403a444fcc1f73bf02d8f94dafd3c88a02b5736a1a77fafe4169',
+    coinAddresses: [tokens.apt.address, tokens.kAPT.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } satisfies HyperionPoolConfig,
 } as const
 
 const ThalaV2LPT_COIN_TYPE = '0x7ca61cf9aa2239412154145e863823814b9fec37ef34b469718c5f690919e69e::coins::Coin2'
@@ -576,16 +704,36 @@ export const THALA_V2_POOLS = {
 
 export const GOBLIN_VAULTS = {
   usdt_usdc: {
-    address: '0xab8fdae5dd99a4379362c01218cd7aef40758cd8111d11853ce6efd2f82b7cad',
+    address: customTokens.goblin_vault_usdt_usdc.address,
     name: 'USDT-USDC',
     protocol: 'hyperion',
     poolConfig: HYPERION_POOLS.usdt_usdc,
   } as GoblinVaultConfig,
   apt_usdc: {
-    address: '0x77d56ce63cf4d8c36a60a8a8f29e11ebbf7a1c0e22d6cd069d7f2e950d2fd0bd',
+    address: customTokens.goblin_vault_apt_usdc.address,
     name: 'APT-USDC',
     protocol: 'hyperion',
     poolConfig: HYPERION_POOLS.apt_usdc,
+    reward: {
+      token: tokens.apt.address,
+      poolId: 0,
+    },
+  } as GoblinVaultConfig,
+  apt_usdt: {
+    address: customTokens.goblin_vault_apt_usdt.address,
+    name: 'APT-USDT',
+    protocol: 'hyperion',
+    poolConfig: HYPERION_POOLS.apt_usdt,
+    reward: {
+      token: tokens.apt.address,
+      poolId: 1, // reward pool id
+    },
+  } satisfies GoblinVaultConfig,
+  apt_kapt: {
+    address: customTokens.goblin_vault_apt_kapt.address,
+    name: 'APT-kAPT',
+    protocol: 'hyperion',
+    poolConfig: HYPERION_POOLS.apt_kapt,
   } as GoblinVaultConfig,
 } as const
 
@@ -607,6 +755,7 @@ export const config: Config = {
   ADAPTER_STRATEGIES,
 
   TOKENS: Object.values(tokens),
+  CUSTOM_TOKENS: Object.values(customTokens),
   HYPERION_POOLS: Object.values(HYPERION_POOLS),
   THALA_V2_POOLS: Object.values(THALA_V2_POOLS),
   GOBLIN_VAULTS: Object.values(GOBLIN_VAULTS),

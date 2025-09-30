@@ -6,6 +6,8 @@ export * from './generic_copyable_any_abi'
 
 export * from './generic_primary_fungible_store_abi'
 
+export * from './goblin_masterchef_abi'
+
 export * from './goblin_vaults_abi'
 
 export * from './hyperion_pool_v3_abi'

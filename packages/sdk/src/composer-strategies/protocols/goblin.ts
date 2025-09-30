@@ -43,7 +43,7 @@ export async function deposit(
       throw new Error('Goblin adapter not available or configured')
 
     const [, depositWithPairInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('goblinStrategies_adapter')}::goblin_vault_adapter::create_deposit_with_pair_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_pair_inputs`,
       functionArguments: [
         params.vaultAddress,
         params.amountADesired,
@@ -71,7 +71,7 @@ export async function deposit(
       throw new Error('Goblin adapter not available or configured')
 
     const [, depositWithSingleInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('goblinStrategies_adapter')}::goblin_vault_adapter::create_deposit_with_single_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_single_inputs`,
       functionArguments: [
         params.vaultAddress,
         params.metadataIn,
@@ -137,7 +137,7 @@ export async function remove(
       throw new Error('Goblin adapter not available or configured')
 
     const [, removeAsPairInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('goblinStrategies_adapter')}::goblin_vault_adapter::create_remove_as_pair_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_pair_inputs`,
       functionArguments: [
         params.vaultAddress,
         params.shareAmount ?? null,
@@ -164,7 +164,7 @@ export async function remove(
       throw new Error('Goblin adapter not available or configured')
 
     const [, removeAsSingleInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('goblinStrategies_adapter')}::goblin_vault_adapter::create_remove_as_single_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_single_inputs`,
       functionArguments: [
         params.vaultAddress,
         params.shareAmount ?? null,

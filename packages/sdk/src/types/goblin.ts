@@ -6,4 +6,8 @@ export interface GoblinVaultConfig {
   address: Address
   protocol: 'hyperion'
   poolConfig: HyperionPoolConfig
+  reward?: {
+    token: string | Address
+    poolId: number
+  }
 }
