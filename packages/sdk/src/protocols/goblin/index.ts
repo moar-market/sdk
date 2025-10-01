@@ -103,18 +103,119 @@ export async function getVaultTokens(vault: Address): Promise<VaultTokens> {
 }
 
 /**
+ * Retrieves the user's staked LP share balance for a specific pool from the masterchef module.
+ *
+ * If a user has staked their LP tokens, they will not have the vault LP as a fungible asset (FA) in their account.
+ * Instead, their staked LP balance can be retrieved from the masterchef module using this function.
+ *
+ * @param {number} rewardPoolId - The ID of the pool in the masterchef module.
+ * @param {Address} user - The address of the user.
+ * @returns {Promise<string>} The user's staked LP share balance.
+ */
+export async function getStakedLiquidityShares(rewardPoolId: number, user: Address): Promise<string> {
+  const moduleAddress = getModuleAddress('goblin_masterchef')
+  const [lpShares] = await useSurfClient().useABI(
+    goblin_masterchef_abi,
+    moduleAddress,
+  ).view.get_user_info({
+    typeArguments: [],
+    functionArguments: [rewardPoolId, user],
+  })
+  return lpShares
+}
+
+/**
  * Retrieves the liquidity share balance for a given credit account and vault.
- * A wrapper around fetchFungibleBalance.
+ *
+ * If the user has not staked, their vault LP will be available as a fungible asset (FA) and is fetched directly.
+ * If the user has staked, they will not have the vault LP as FA, so the balance is fetched from the masterchef module.
  *
  * @param {object} params - The parameters for fetching liquidity shares.
  * @param {Address} params.vault - The address of the vault.
- * @param {Address} params.creditAccount - The address of the credit account.
- * @returns {Promise<string>} The liquidity share balance as a string.
+ * @param {Address} params.user - The address of the credit account.
+ * @param {number} [params.rewardPoolId] - The ID of the pool in the masterchef module (required if staked).
+ * @returns {Promise<string>} The liquidity share balance.
  */
 export async function getLiquidityShares(
-  { vault, creditAccount }: { vault: Address, creditAccount: Address },
+  { vault, user, rewardPoolId }: { vault: Address, user: Address, rewardPoolId?: number },
 ): Promise<string> {
-  return await fetchFungibleBalance(creditAccount, vault)
+  let lpShares = await fetchFungibleBalance(user, vault)
+  // If not found as FA and rewardPoolId is provided, fetch from masterchef (staked)
+  if (lpShares === '0' && rewardPoolId !== undefined) {
+    lpShares = await getStakedLiquidityShares(rewardPoolId, user)
+  }
+
+  return lpShares
+}
+
+/**
+ * Retrieves the amounts of tokenA and tokenB corresponding to a given amount of LP shares in a specific vault.
+ *
+ * @param {object} params - The parameters for fetching token amounts.
+ * @param {Address} params.vault - The address of the vault.
+ * @param {string} params.lpShares - The amount of LP shares.
+ * @returns {Promise<{ tokenA: string, tokenB: string }>} An object containing the amounts of tokenA and tokenB.
+ */
+export async function getTokensFromLPShares(
+  { vault, lpShares }: { vault: Address, lpShares: string },
+): Promise<{ tokenA: string, tokenB: string }> {
+  const moduleAddress = getModuleAddress('goblin_vaults')
+  const [tokenA, tokenB] = await useSurfClient().useABI(
+    goblin_vaults_abi,
+    moduleAddress,
+  ).view.get_token_amount_by_share({
+    typeArguments: [],
+    functionArguments: [vault, lpShares],
+  })
+  return { tokenA, tokenB }
+}
+
+/**
+ * Represents a user's position in a vault, including tokenA, tokenB, and LP shares.
+ */
+interface UserPosition {
+  tokenA: string
+  tokenB: string
+  lpShares: string
+}
+
+/**
+ * Retrieves a user's position in a vault for a specific pool, including the amounts of tokenA, tokenB, and LP shares.
+ *
+ * @param {object} params - The parameters for fetching the user position.
+ * @param {Address} params.vault - The address of the vault.
+ * @param {Address} params.user - The address of the user.
+ * @param {number} params.rewardPoolId - The ID of the pool in the masterchef module.
+ * @returns {Promise<UserPosition>} An object containing tokenA, tokenB, and lpShares.
+ */
+export async function getUserPosition(
+  { vault, user, rewardPoolId }: { vault: Address, user: Address, rewardPoolId: number },
+): Promise<UserPosition> {
+  const lpShares = await getLiquidityShares({ vault, user, rewardPoolId })
+  const { tokenA, tokenB } = await getTokensFromLPShares({ vault, lpShares })
+  return { tokenA, tokenB, lpShares }
+}
+
+/**
+ * Retrieves the user's pending reward for a specific pool from the masterchef module.
+ *
+ * @param {object} params - The parameters for fetching the pending reward.
+ * @param {number} params.rewardPoolId - The ID of the pool in the masterchef module.
+ * @param {Address} params.user - The address of the user.
+ * @returns {Promise<string>} The user's pending reward token amount.
+ */
+export async function getPendingReward(
+  { rewardPoolId, user }: { rewardPoolId: number, user: Address },
+): Promise<string> {
+  const moduleAddress = getModuleAddress('goblin_masterchef')
+  const [reward] = await useSurfClient().useABI(
+    goblin_masterchef_abi,
+    moduleAddress,
+  ).view.pending_reward({
+    typeArguments: [],
+    functionArguments: [rewardPoolId, user],
+  })
+  return reward
 }
 
 export interface PoolRewardInfo {
@@ -128,17 +229,17 @@ export interface PoolRewardInfo {
  * Use `totalLPAmount` and `rewardPerSecond` to calculate incentive APR:
  * incentiveApr = (rewardPerSecond * 365 * 86400 * reward_token_price) / (totalLPAmount * lp_token_price)
  *
- * @param {number} poolId - The ID of the pool in rewards.
+ * @param {number} rewardPoolId - The ID of the pool in rewards.
  * @returns {Promise<PoolRewardInfo>} The reward info.
  */
-export async function getPoolRewardInfo(poolId: number): Promise<PoolRewardInfo> {
+export async function getPoolRewardInfo(rewardPoolId: number): Promise<PoolRewardInfo> {
   const moduleAddress = getModuleAddress('goblin_masterchef')
   const [,,totalLPAmount, rewardPerSecond] = await useSurfClient().useABI(
     goblin_masterchef_abi,
     moduleAddress,
   ).view.get_pool_info({
     typeArguments: [],
-    functionArguments: [poolId],
+    functionArguments: [rewardPoolId],
   })
   return { totalLPAmount, rewardPerSecond }
 }
