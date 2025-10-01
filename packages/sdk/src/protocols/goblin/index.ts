@@ -185,11 +185,11 @@ interface UserPosition {
  * @param {object} params - The parameters for fetching the user position.
  * @param {Address} params.vault - The address of the vault.
  * @param {Address} params.user - The address of the user.
- * @param {number} params.rewardPoolId - The ID of the pool in the masterchef module.
+ * @param {number} [params.rewardPoolId] - The ID of the pool in the masterchef module.
  * @returns {Promise<UserPosition>} An object containing tokenA, tokenB, and lpShares.
  */
 export async function getUserPosition(
-  { vault, user, rewardPoolId }: { vault: Address, user: Address, rewardPoolId: number },
+  { vault, user, rewardPoolId }: { vault: Address, user: Address, rewardPoolId?: number },
 ): Promise<UserPosition> {
   const lpShares = await getLiquidityShares({ vault, user, rewardPoolId })
   const { tokenA, tokenB } = await getTokensFromLPShares({ vault, lpShares })
