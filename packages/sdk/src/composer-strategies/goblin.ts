@@ -5,7 +5,7 @@ import type { BorrowParams, CollateralParams, RepayParams } from './shared'
 import { useAptosConfig } from './../clients'
 import { scriptComposer } from './../composer'
 import { swap } from './protocols/default-swap'
-import { deposit, remove } from './protocols/goblin'
+import { claimReward, deposit, remove } from './protocols/goblin'
 import { borrow, closeCreditAccount, depositCollateral, repay, setupStrategyAccount } from './shared'
 
 // re-export types for convenience
@@ -188,6 +188,31 @@ export async function closePosition(
 
       // close credit account
       await closeCreditAccount(builder, creditAccount)
+
+      return builder
+    },
+  })
+
+  return transaction
+}
+
+/**
+ * Claims rewards from the Goblin vault
+ * @param {object} params - The parameters for claiming rewards
+ * @param {Address} params.sender - The sender account address
+ * @param {Address} params.creditAccount - The credit account address
+ * @param {number} params.rewardPoolId - The reward pool id
+ * @returns {Promise<SimpleTransaction>} The transaction object
+ */
+export async function claimRewards(
+  { sender, creditAccount, rewardPoolId }: { sender: Address, creditAccount: Address, rewardPoolId: number },
+): Promise<SimpleTransaction> {
+  const transaction = await scriptComposer({
+    config: useAptosConfig(),
+    sender,
+    builder: async (builder) => {
+      // claim rewards
+      await claimReward(builder, creditAccount, rewardPoolId)
 
       return builder
     },

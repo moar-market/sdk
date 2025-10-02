@@ -1,11 +1,17 @@
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
-import { moarStrategies_goblin_vault_adapter_abi } from './../../abis'
+import { extendTypeArguments } from '../../utils'
+import { composerUtils_fe_abi, moarStrategies_goblin_vault_adapter_abi } from './../../abis'
 import { getModuleAddress, useAdapterStrategiesConfig } from './../../config'
-import { executeStrategy } from './../shared'
+import { claimRewards, executeStrategy } from './../shared'
 
-export interface DepositWithPairParams {
+interface CommonAddParams {
   vaultAddress: Address
+  rewardPoolId?: number
+  isStake?: boolean
+}
+
+export interface DepositWithPairParams extends CommonAddParams {
   amountADesired: bigint
   amountBDesired: bigint
   amountAMin: bigint
@@ -13,8 +19,7 @@ export interface DepositWithPairParams {
   type: 'pair'
 }
 
-export interface DepositWithSingleParams {
-  vaultAddress: Address
+export interface DepositWithSingleParams extends CommonAddParams {
   metadataIn: string
   useThala: boolean
   thalaPoolAddress: Address
@@ -43,13 +48,15 @@ export async function deposit(
       throw new Error('Goblin adapter not available or configured')
 
     const [, depositWithPairInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_pair_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_pair_inputs_v2`,
       functionArguments: [
         params.vaultAddress,
         params.amountADesired,
         params.amountBDesired,
         params.amountAMin,
         params.amountBMin,
+        params.isStake ?? false,
+        params.rewardPoolId,
       ],
       typeArguments: [],
     }, moarStrategies_goblin_vault_adapter_abi)
@@ -71,7 +78,7 @@ export async function deposit(
       throw new Error('Goblin adapter not available or configured')
 
     const [, depositWithSingleInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_single_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_deposit_with_single_inputs_v2`,
       functionArguments: [
         params.vaultAddress,
         params.metadataIn,
@@ -79,6 +86,8 @@ export async function deposit(
         params.thalaPoolAddress,
         params.amountIn,
         params.amountInMin,
+        params.isStake ?? false,
+        params.rewardPoolId,
       ],
       typeArguments: [],
     }, moarStrategies_goblin_vault_adapter_abi)
@@ -99,17 +108,20 @@ export async function deposit(
   }
 }
 
-export interface RemoveAsPairParams {
+interface CommonRemoveParams {
   vaultAddress: Address
   shareAmount?: bigint
+  isUnstake?: boolean
+  rewardPoolId?: number
+}
+
+export interface RemoveAsPairParams extends CommonRemoveParams {
   amountAMin: bigint
   amountBMin: bigint
   type: 'pair'
 }
 
-export interface RemoveAsSingleParams {
-  vaultAddress: Address
-  shareAmount?: bigint
+export interface RemoveAsSingleParams extends CommonRemoveParams {
   useThala: boolean
   thalaPoolAddress: Address
   metadataOut: string
@@ -137,12 +149,14 @@ export async function remove(
       throw new Error('Goblin adapter not available or configured')
 
     const [, removeAsPairInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_pair_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_pair_inputs_v2`,
       functionArguments: [
         params.vaultAddress,
         params.shareAmount ?? null,
         params.amountAMin,
         params.amountBMin,
+        params.isUnstake ?? false,
+        params.rewardPoolId,
       ],
       typeArguments: [],
     }, moarStrategies_goblin_vault_adapter_abi)
@@ -164,7 +178,7 @@ export async function remove(
       throw new Error('Goblin adapter not available or configured')
 
     const [, removeAsSingleInput] = await builder.addBatchedCall({
-      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_single_inputs`,
+      function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_remove_as_single_inputs_v2`,
       functionArguments: [
         params.vaultAddress,
         params.shareAmount ?? null,
@@ -172,6 +186,8 @@ export async function remove(
         params.thalaPoolAddress,
         params.metadataOut,
         params.amountOutMin,
+        params.isUnstake ?? false,
+        params.rewardPoolId,
       ],
       typeArguments: [],
     }, moarStrategies_goblin_vault_adapter_abi)
@@ -190,4 +206,34 @@ export async function remove(
   else {
     throw new Error('Invalid remove type')
   }
+}
+
+/**
+ * Claims rewards from a Goblin vault
+ * @param builder - Script composer instance to add the claim reward operations to
+ * @param creditAccount - Credit account address or argument to execute the claim reward operations from
+ * @param rewardPoolId - The reward pool id
+ */
+export async function claimReward(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  rewardPoolId: number,
+): Promise<void> {
+  const [claimRewardsInput] = await builder.addBatchedCall({
+    function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_claim_rewards_inputs`,
+    functionArguments: [rewardPoolId],
+    typeArguments: [],
+  }, moarStrategies_goblin_vault_adapter_abi)
+
+  const [calldata_vec] = await builder.addBatchedCall({
+    function: `${getModuleAddress('composerUtils_fe')}::fe::any_singleton`,
+    functionArguments: [claimRewardsInput],
+    typeArguments: [],
+  }, composerUtils_fe_abi)
+
+  await claimRewards(builder, builder.copyIfCallArgument(creditAccount), {
+    typeArguments: extendTypeArguments([], 4),
+    calldata: calldata_vec,
+    nullType: '',
+  })
 }

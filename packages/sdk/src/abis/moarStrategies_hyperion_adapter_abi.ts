@@ -43,6 +43,20 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
+      ]
+    },
+    {
       "name": "get_ltv_map",
       "visibility": "public",
       "is_entry": false,
