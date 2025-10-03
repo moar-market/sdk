@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "private": false,
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.17.1",
   "description": "Moar Market SDK",
   "author": "Moar Market",
   "license": "MIT",
@@ -63,6 +63,13 @@
       },
       "import": "./dist/composer-strategies/credit-manager.js"
     },
+    "./composer-strategies/goblin": {
+      "types": "./dist/composer-strategies/goblin.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/goblin.ts"
+      },
+      "import": "./dist/composer-strategies/goblin.js"
+    },
     "./composer-strategies/hyperion": {
       "types": "./dist/composer-strategies/hyperion.d.ts",
       "development": {
@@ -83,6 +90,13 @@
         "import": "./src/composer-strategies/protocols/dex_swap.ts"
       },
       "import": "./dist/composer-strategies/protocols/dex_swap.js"
+    },
+    "./composer-strategies/protocols/goblin": {
+      "types": "./dist/composer-strategies/protocols/goblin.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/goblin.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/goblin.js"
     },
     "./composer-strategies/protocols/hyperion": {
       "types": "./dist/composer-strategies/protocols/hyperion.d.ts",
@@ -181,6 +195,13 @@
         "import": "./src/protocols/dex_swap/index.ts"
       },
       "import": "./dist/protocols/dex_swap/index.js"
+    },
+    "./protocols/goblin": {
+      "types": "./dist/protocols/goblin/index.d.ts",
+      "development": {
+        "import": "./src/protocols/goblin/index.ts"
+      },
+      "import": "./dist/protocols/goblin/index.js"
     },
     "./protocols/hyperion": {
       "types": "./dist/protocols/hyperion/index.d.ts",

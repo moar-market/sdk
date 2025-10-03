@@ -79,10 +79,18 @@ export function useAptos(): Aptos {
         cache = args.cache || getFunctionCacheOptions(args.payload.function) // explicit or default cache
       }
 
+      const options = getLedgerVersionArg(args.options)
+
       // if cache is enabled or route view is enabled, call Moar `/view`
       if (isRouteViewEnabled() || cache) {
         // If no cache rule, set ttl: 0
-        const cacheForRequest: CacheOptions | undefined = cache ?? { ttl: 0 }
+        let cacheForRequest: CacheOptions | undefined
+        if (options.ledgerVersion !== undefined) {
+          cacheForRequest = { ttl: 0 } // don't cache specific ledger versions
+        }
+        else if (cache) {
+          cacheForRequest = cache
+        }
 
         let response: Response | undefined
         try {
@@ -92,7 +100,7 @@ export function useAptos(): Aptos {
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify({
               payload: { ...args.payload, abi: abiString },
-              options: args.options,
+              options,
               cache: cacheForRequest,
             }),
           })
@@ -126,7 +134,7 @@ export function useAptos(): Aptos {
       // Fallback to original view
       return await originalAptosView({
         payload: args.payload,
-        options: getLedgerVersionArg(args.options),
+        options,
       })
     }
 

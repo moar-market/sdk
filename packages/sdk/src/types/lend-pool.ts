@@ -20,6 +20,11 @@ export interface LendPoolResponse {
   interest_rate: string
 }
 
+export interface LendPoolIncentiveConfig {
+  pool: string // pool underlying asset symbol
+  rewards: { token: string, reward_id: string }[] // reward token symbols and ids
+}
+
 /**
  * A “knot” in a piecewise linear curve.
  * util: [0…100] (percent utilization) — 0 is the minimum utilization, 100 is the maximum utilization
@@ -40,4 +45,5 @@ export interface LendPoolConfig extends Omit<LendPoolResponse, 'underlying_asset
   ltvs: { address: Address, ltv: string }[]
   kinks: Kink[]
   reduceLeverage?: Record<Address, number>
+  incentives?: LendPoolIncentiveConfig['rewards']
 }

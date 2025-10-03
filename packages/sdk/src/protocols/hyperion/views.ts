@@ -1,9 +1,9 @@
-import type { Address } from '../../types'
-import { hyperion_router_v3_abi, moarStrategies_hyperion_adapter_abi } from '../../abis'
-import { moar_hyperion_lens_abi } from '../../abis/moar_hyperion_lens_abi'
-import { useSurfClient } from '../../clients'
-import { getModuleAddress } from '../../config'
-import { logger } from '../../logger'
+import type { Address } from './../../types'
+import { hyperion_router_v3_abi, moarStrategies_hyperion_adapter_abi } from './../../abis'
+import { moar_hyperion_lens_abi } from './../../abis/moar_hyperion_lens_abi'
+import { useSurfClient } from './../../clients'
+import { getModuleAddress } from './../../config'
+import { logger } from './../../logger'
 
 const debugLabel = 'Hyperion'
 

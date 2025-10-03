@@ -1,4 +1,4 @@
-import type { Address } from '../../types'
+import type { Address } from './../../types'
 import { hyperion_pool_v3_abi } from './../../abis'
 import { useSurfClient } from './../../clients'
 import { getModuleAddress } from './../../config'

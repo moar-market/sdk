@@ -6,6 +6,7 @@
 import type { Address, MoveStructId } from './common'
 
 export * from './common'
+export * from './goblin'
 export * from './hyperion'
 export * from './lend-pool'
 export * from './swap'
@@ -37,4 +38,11 @@ export interface TokenData {
   remainingDebt: bigint
   surplus: bigint
   estimatedInterest: bigint
+}
+
+/**
+ * Custom token configuration extends TokenConfig
+ */
+export interface CustomTokenConfig extends TokenConfig {
+  protocol: number
 }
