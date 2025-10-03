@@ -52,6 +52,19 @@ export const moar_credit_manager_abi = {
       "return": []
     },
     {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+      ]
+    },
+    {
       "name": "preview_liquidate_non_fa_position",
       "visibility": "public",
       "is_entry": false,
