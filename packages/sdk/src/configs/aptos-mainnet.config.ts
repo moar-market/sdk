@@ -707,12 +707,14 @@ export const GOBLIN_VAULTS = {
     address: customTokens.goblin_vault_usdt_usdc.address,
     name: 'USDT-USDC',
     protocol: 'hyperion',
+    performanceFeeRate: 0.2,
     poolConfig: HYPERION_POOLS.usdt_usdc,
   } as GoblinVaultConfig,
   apt_usdc: {
     address: customTokens.goblin_vault_apt_usdc.address,
     name: 'APT-USDC',
     protocol: 'hyperion',
+    performanceFeeRate: 0.2,
     poolConfig: HYPERION_POOLS.apt_usdc,
     reward: {
       token: tokens.apt.address,
@@ -723,6 +725,7 @@ export const GOBLIN_VAULTS = {
     address: customTokens.goblin_vault_apt_usdt.address,
     name: 'APT-USDT',
     protocol: 'hyperion',
+    performanceFeeRate: 0.2,
     poolConfig: HYPERION_POOLS.apt_usdt,
     reward: {
       token: tokens.apt.address,
@@ -733,6 +736,7 @@ export const GOBLIN_VAULTS = {
     address: customTokens.goblin_vault_apt_kapt.address,
     name: 'APT-kAPT',
     protocol: 'hyperion',
+    performanceFeeRate: 0.2,
     poolConfig: HYPERION_POOLS.apt_kapt,
   } as GoblinVaultConfig,
 } as const
