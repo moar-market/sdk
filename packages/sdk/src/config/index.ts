@@ -11,6 +11,7 @@ import type {
   TokenConfig,
 } from '../types'
 import { config as aptosMainnetConfig } from '../configs/aptos-mainnet.config'
+import { isEqualAddress } from '../utils'
 
 export * from './view-cache'
 
@@ -127,10 +128,10 @@ export function useTokenConfig(): TokenConfig[] {
 export function findTokenConfig(value: string): TokenConfig | undefined {
   const lowerValue = value.toLowerCase()
   return getConfig().TOKENS.find(token =>
-    token.address.toLowerCase() === lowerValue
-    || token.coinType?.toLowerCase() === lowerValue
+    token.coinType?.toLowerCase() === lowerValue
     || token.symbol.toLowerCase() === lowerValue
-    || token.name.toLowerCase() === lowerValue,
+    || token.name.toLowerCase() === lowerValue
+    || isEqualAddress(token.address, lowerValue),
   )
 }
 
@@ -146,10 +147,10 @@ export function useCustomTokenConfig(): CustomTokenConfig[] {
 export function findCustomTokenConfig(value: string): CustomTokenConfig | undefined {
   const lowerValue = value.toLowerCase()
   return getConfig().CUSTOM_TOKENS.find(token =>
-    token.address.toLowerCase() === lowerValue
-    || token.coinType?.toLowerCase() === lowerValue
+    token.coinType?.toLowerCase() === lowerValue
     || token.symbol.toLowerCase() === lowerValue
-    || token.name.toLowerCase() === lowerValue,
+    || token.name.toLowerCase() === lowerValue
+    || isEqualAddress(token.address, lowerValue),
   )
 }
 
