@@ -6,6 +6,7 @@ import process from 'node:process'
 
 const EXAMPLES_DIR = resolve('src')
 const fileArg = process.argv[2]
+const exampleArgs = process.argv.slice(3)
 
 function getAllTsFiles(dir: string): string[] {
   const entries = readdirSync(dir, { withFileTypes: true })
@@ -27,14 +28,16 @@ function printUsageAndExit() {
   console.info(`ℹ  Run a specific example script from /examples/src/.
 
 Usage:
-  pnpm examples <example-file-name>
+  pnpm examples <example-file-name> [args...]
 
 Where <example-file-name> is the name of a TypeScript file (without the .ts extension) in /examples/src/.
+Any additional [args...] will be passed to the example script.
 
 Examples:
   pnpm examples views
   pnpm examples user-actions
   pnpm examples inner-dir/inner-file
+  pnpm examples historical-goblin -u 0xabc...
 
 Available examples:
 ${files.map(f => `  - ${f}`).join('\n')}
@@ -54,7 +57,7 @@ if (!existsSync(fullPath)) {
   printUsageAndExit()
 }
 
-spawn('tsx', [fullPath], {
+spawn('tsx', [fullPath, ...exampleArgs], {
   stdio: 'inherit',
   cwd: process.cwd(),
 })
