@@ -85,6 +85,7 @@ export default defineConfig({
     './src/protocols/dex_swap/index.ts',
     './src/protocols/default-swap.ts',
     './src/protocols/goblin/index.ts',
+    './src/protocols/tapp/index.ts',
 
     // individual script composer actions
     './src/composer-strategies/index.ts',
@@ -97,6 +98,7 @@ export default defineConfig({
     './src/composer-strategies/protocols/default-swap.ts', // default swap protocol dex_swap or panora
     './src/composer-strategies/protocols/thala_v2.ts',
     './src/composer-strategies/protocols/goblin.ts',
+    './src/composer-strategies/protocols/tapp.ts',
 
     // assembled trade strategies(router)
     './src/composer-strategies/trade/panora.ts',
@@ -112,5 +114,8 @@ export default defineConfig({
 
     // assembled goblin vault strategies(router)
     './src/composer-strategies/goblin.ts',
+
+    // assembled tapp stable strategies(router)
+    './src/composer-strategies/tapp-stable.ts',
   ],
 })
