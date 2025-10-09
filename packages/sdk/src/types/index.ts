@@ -10,6 +10,7 @@ export * from './goblin'
 export * from './hyperion'
 export * from './lend-pool'
 export * from './swap'
+export * from './tapp'
 export * from './thala'
 
 /**

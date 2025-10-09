@@ -8,6 +8,7 @@ import type {
   LendPoolConfig,
   Modules,
   MoveStructId,
+  TappPoolConfig,
   ThalaV2PoolConfig,
   TokenConfig,
 } from '../types'
@@ -62,6 +63,10 @@ export const ADAPTER_STRATEGIES = {
   goblin_vault_add_single: { adapterId: ADAPTERS.GOBLIN, strategyId: 2 },
   goblin_vault_remove_pair: { adapterId: ADAPTERS.GOBLIN, strategyId: 3 },
   goblin_vault_remove_single: { adapterId: ADAPTERS.GOBLIN, strategyId: 4 },
+
+  // tapp - stable & clmm
+  tapp_add_stable: { adapterId: ADAPTERS.TAPP, strategyId: 1 },
+  tapp_remove_stable: { adapterId: ADAPTERS.TAPP, strategyId: 2 },
 }
 
 export const PKGS = {
@@ -88,6 +93,10 @@ export const PKGS = {
   // goblin
   goblin: '0x19bcbcf8e688fd5ddf52725807bc8bf455a76d4b5a6021cfdc4b5b2652e5cd55' as Address,
   goblin_farming: '0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92' as Address,
+
+  // tapp
+  tapp_view: '0xf5840b576a3a6a42464814bc32ae1160c50456fb885c62be389b817e75b2a385' as Address,
+  tapp_router: '0x487e905f899ccb6d46fdaec56ba1e0c4cf119862a16c409904b8c78fab1f5e8a' as Address,
 }
 
 // before first _ is the protocol/abi directory name, after first _ is the module name
@@ -112,6 +121,7 @@ export const MODULES: Modules = {
   moarStrategies_hyperion_adapter: PKGS.moar_strategies,
   moarStrategies_dex_swap_adapter: PKGS.moar_strategies,
   moarStrategies_goblin_vault_adapter: PKGS.moar_strategies,
+  moarStrategies_tapp_adapter: PKGS.moar_strategies,
 
   moarTiered_tiered_oracle: PKGS.moar_oracle,
 
@@ -133,6 +143,12 @@ export const MODULES: Modules = {
   // goblin modules
   goblin_vaults: PKGS.goblin,
   goblin_masterchef: PKGS.goblin_farming,
+
+  // tapp modules
+  tapp_stable_views: PKGS.tapp_view,
+  // tapp_amm_views: PKGS.tapp_view,
+  // tapp_clmm_views: PKGS.tapp_view,
+  // tapp_router: PKGS.tapp_router,
 }
 
 const LEND_POOLS: LendPoolConfig[] = [
@@ -376,6 +392,14 @@ const tokens = {
     coinType: COIN_ZERO,
   } satisfies TokenConfig,
 
+  usd1: {
+    address: '0x05fabd1b12e39967a3c24e91b7b8f67719a6dacee74f3c8b9fb7d93e855437d2',
+    name: 'World Liberty Financial USD',
+    symbol: 'USD1',
+    decimals: 6,
+    coinType: COIN_ZERO,
+  } satisfies TokenConfig,
+
   sUSDe: {
     address: '0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69',
     name: 'Staked USDe',
@@ -438,6 +462,14 @@ const tokens = {
     address: '0x68844a0d7f2587e726ad0579f3d640865bb4162c08a4589eeda3f9689ec52a3d',
     name: 'Wrapped BTC',
     symbol: 'WBTC',
+    decimals: 8,
+    coinType: COIN_ZERO,
+  } satisfies TokenConfig,
+
+  aBTC: {
+    address: '0xf599112bc3a5b6092469890d6a2f353f485a6193c9d36626b480704467d3f4c8',
+    name: 'aBTC',
+    symbol: 'aBTC',
     decimals: 8,
     coinType: COIN_ZERO,
   } satisfies TokenConfig,
@@ -604,6 +636,15 @@ export const HYPERION_POOLS = {
     weights: [50, 50],
     isWeighted: false,
   } satisfies HyperionPoolConfig,
+  usd1_usdc: {
+    name: 'USD1-USDC',
+    address: '0x1609a6f6e914e60bf958d0e1ba24a471ee2bcadeca9e72659336a1f002be50db',
+    coinAddresses: [tokens.usd1.address, tokens.usdc.address],
+    feeTierIndex: 0,
+    priceDecimals: 8,
+    weights: [50, 50],
+    isWeighted: false,
+  } satisfies HyperionPoolConfig,
 } as const
 
 const ThalaV2LPT_COIN_TYPE = '0x7ca61cf9aa2239412154145e863823814b9fec37ef34b469718c5f690919e69e::coins::Coin2'
@@ -702,6 +743,37 @@ export const THALA_V2_POOLS = {
   } as ThalaV2PoolConfig,
 } as const
 
+export const TAPP_POOLS = {
+  usdt_usdc: {
+    name: 'USDT-USDC',
+    address: '0x82e0b52f95ae57b35220726a32c3415919389aa5b8baa33a058d7125797535cc',
+    coinAddresses: [tokens.usdt.address, tokens.usdc.address],
+    feeTierIndex: 0,
+    isWeighted: false,
+  } satisfies TappPoolConfig,
+  usd1_usdt_usdc: {
+    name: 'USD1-USDT-USDC',
+    address: '0x76e7c1ad414f50274b371e51b7a272cf774c7027c2e4433b9f82ab47a6e5527b',
+    coinAddresses: [tokens.usd1.address, tokens.usdt.address, tokens.usdc.address],
+    feeTierIndex: 0,
+    isWeighted: false,
+  } satisfies TappPoolConfig,
+  apt_kapt: {
+    name: 'APT-kAPT',
+    address: '0xb98e96345d129a6d5775be1c4ef3753b740c8f3a4e1c9d6ea0a4ae2f5681ee61',
+    coinAddresses: [tokens.apt.address, tokens.kAPT.address],
+    feeTierIndex: 0,
+    isWeighted: false,
+  } satisfies TappPoolConfig,
+  wbtc_xbtc_abtc: {
+    name: 'wBTC-xBTC-aBTC',
+    address: '0x1527374dcf52dee16b4da3bd0952823e12e5f567939b50cfbc4c3d993b529dca',
+    coinAddresses: [tokens.wbtc.address, tokens.xBTC.address, tokens.aBTC.address],
+    feeTierIndex: 0,
+    isWeighted: false,
+  } satisfies TappPoolConfig,
+} as const
+
 export const GOBLIN_VAULTS = {
   usdt_usdc: {
     address: customTokens.goblin_vault_usdt_usdc.address,
@@ -762,6 +834,7 @@ export const config: Config = {
   CUSTOM_TOKENS: Object.values(customTokens),
   HYPERION_POOLS: Object.values(HYPERION_POOLS),
   THALA_V2_POOLS: Object.values(THALA_V2_POOLS),
+  TAPP_POOLS: Object.values(TAPP_POOLS),
   GOBLIN_VAULTS: Object.values(GOBLIN_VAULTS),
 
   MOAR_MODULE_SETTINGS: {
