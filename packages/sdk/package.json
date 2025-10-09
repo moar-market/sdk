@@ -112,12 +112,26 @@
       },
       "import": "./dist/composer-strategies/protocols/panora.js"
     },
+    "./composer-strategies/protocols/tapp": {
+      "types": "./dist/composer-strategies/protocols/tapp.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/protocols/tapp.ts"
+      },
+      "import": "./dist/composer-strategies/protocols/tapp.js"
+    },
     "./composer-strategies/protocols/thala_v2": {
       "types": "./dist/composer-strategies/protocols/thala_v2.d.ts",
       "development": {
         "import": "./src/composer-strategies/protocols/thala_v2.ts"
       },
       "import": "./dist/composer-strategies/protocols/thala_v2.js"
+    },
+    "./composer-strategies/tapp-stable": {
+      "types": "./dist/composer-strategies/tapp-stable.d.ts",
+      "development": {
+        "import": "./src/composer-strategies/tapp-stable.ts"
+      },
+      "import": "./dist/composer-strategies/tapp-stable.js"
     },
     "./composer-strategies/thala_v2": {
       "types": "./dist/composer-strategies/thala_v2.d.ts",
@@ -216,6 +230,13 @@
         "import": "./src/protocols/panora/index.ts"
       },
       "import": "./dist/protocols/panora/index.js"
+    },
+    "./protocols/tapp": {
+      "types": "./dist/protocols/tapp/index.d.ts",
+      "development": {
+        "import": "./src/protocols/tapp/index.ts"
+      },
+      "import": "./dist/protocols/tapp/index.js"
     },
     "./protocols/thala/v2": {
       "types": "./dist/protocols/thala/v2/index.d.ts",
