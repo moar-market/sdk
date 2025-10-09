@@ -7,6 +7,7 @@ import type {
   LendPoolConfig,
   Modules,
   StrategyIdentifier,
+  TappPoolConfig,
   ThalaV2PoolConfig,
   TokenConfig,
 } from '../types'
@@ -198,6 +199,25 @@ export function findHyperionPoolConfig(assetIn: Address, assetOut: Address): Hyp
   return undefined
 }
 
+// tapp
+export function useTappPools(): TappPoolConfig[] {
+  return getConfig().TAPP_POOLS
+}
+
+/**
+ * Find a tapp pool config by asset in and asset out
+ */
+export function findTappPoolConfig(assetIn: Address, assetOut: Address): TappPoolConfig | undefined {
+  const pools = useTappPools()
+  for (let i = 0; i < pools.length; i++) {
+    const pool = pools[i]
+    if (pool && pool.coinAddresses.includes(assetIn) && pool.coinAddresses.includes(assetOut)) {
+      return pool
+    }
+  }
+  return undefined
+}
+
 // goblin
 export function useGoblinVaults(): GoblinVaultConfig[] {
   return getConfig().GOBLIN_VAULTS
@@ -256,6 +276,7 @@ export interface Config {
   readonly CUSTOM_TOKENS: CustomTokenConfig[]
   readonly HYPERION_POOLS: HyperionPoolConfig[]
   readonly THALA_V2_POOLS: ThalaV2PoolConfig[]
+  readonly TAPP_POOLS: TappPoolConfig[]
   readonly GOBLIN_VAULTS: GoblinVaultConfig[]
 
   readonly MOAR_MODULE_SETTINGS: ModuleSettings

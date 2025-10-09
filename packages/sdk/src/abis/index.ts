@@ -40,9 +40,13 @@ export * from './moarStrategies_panora_adapter_abi'
 
 export * from './moarStrategies_router_abi'
 
+export * from './moarStrategies_tapp_adapter_abi'
+
 export * from './moarStrategies_thala_v2_adapter_abi'
 
 export * from './moarTiered_tiered_oracle_abi'
+
+export * from './tapp_stable_views_abi'
 
 export * from './thalaV1_farming_abi'
 
