@@ -71,14 +71,14 @@ export interface PositionQuery {
   }
 }
 
-export async function poolStats(
+export async function getPoolStats(
   params: PoolStatsQuery,
   options?: { signal?: AbortSignal },
 ): Promise<TappPoolStatsResponse> {
   return await tappRpc<TappPoolStatsResponse>('public/pool_stats', params, options || {})
 }
 
-export async function positions(
+export async function getPositions(
   params: PositionQuery,
   options?: { signal?: AbortSignal },
 ): Promise<TappPositionResponse> {
