@@ -49,43 +49,76 @@ export async function fetchOraclePrices(addresses: Address[]): Promise<Record<Ad
   }
 
   const defaultPrice = '0'
+  const CHUNK_SIZE = 10
+  const priceMap: Record<Address, string> = {}
+  const failedChunks: Address[][] = []
 
-  try {
-    const [prices] = await useSurfClient().useABI(
+  // Step 1: Split the addresses into chunks of 10.
+  const addressChunks: Address[][] = []
+  for (let i = 0; i < addresses.length; i += CHUNK_SIZE) {
+    addressChunks.push(addresses.slice(i, i + CHUNK_SIZE))
+  }
+  logger.debug(loggerLabel, `split ${addresses.length} addresses into ${addressChunks.length} chunks`)
+
+  // Step 2: Create a promise for each chunk to fetch prices in bulk.
+  const chunkPromises = addressChunks.map(chunk =>
+    useSurfClient().useABI(
       moar_lens_abi,
       getModuleAddress('moar_lens'),
     ).view.get_prices({
       typeArguments: [],
-      functionArguments: [addresses],
-    })
-
-    if (Array.isArray(prices) && prices.length === addresses.length) {
-      const priceMap = addresses.reduce((acc, address, idx) => {
-        acc[address] = prices[idx] ?? defaultPrice
-        return acc
-      }, {} as Record<Address, string>)
-      logger.debug(loggerLabel, ': fetched oracle prices for', addresses, priceMap)
-      return priceMap
-    }
-
-    logger.warn(loggerLabel, ': get_prices returned unexpected result, falling back to individual fetch')
-  }
-  catch (error) {
-    console.error(loggerLabel, ': failed to fetch oracle prices for', addresses, error)
-  }
-
-  logger.debug(loggerLabel, ': fetching prices individually as fallback', addresses)
-  const fallbackPrices = await Promise.all(
-    addresses.map(async (address) => {
-      const price = await fetchOraclePrice(address)
-      return [address, price ?? defaultPrice] as [Address, string]
+      functionArguments: [chunk],
     }),
   )
-  const fallbackPriceMap = fallbackPrices.reduce((acc, [address, price]) => {
-    acc[address] = price
-    return acc
-  }, {} as Record<Address, string>)
 
-  logger.debug(loggerLabel, ': fetched fallback oracle prices for', addresses, fallbackPriceMap)
-  return fallbackPriceMap
+  // Step 3: Use Promise.allSettled to execute all chunk requests.
+  // This ensures that one failed chunk doesn't prevent others from completing.
+  const results = await Promise.allSettled(chunkPromises)
+
+  // Step 4: Process the results of the settled promises.
+  results.forEach((result, index) => {
+    const chunk = addressChunks[index]
+    if (result.status === 'fulfilled') {
+      const [prices] = result.value
+      // Ensure the returned prices array matches the chunk length.
+      if (Array.isArray(prices) && prices.length === chunk.length) {
+        chunk.forEach((address, idx) => {
+          priceMap[address] = prices[idx] ?? defaultPrice
+        })
+        logger.debug(loggerLabel, 'successfully fetched prices for chunk', index)
+      }
+      else {
+        logger.warn(loggerLabel, `get_prices returned unexpected result for chunk ${index}, marking for fallback.`)
+        failedChunks.push(chunk)
+      }
+    }
+    else { // status === 'rejected'
+      console.error(loggerLabel, `failed to fetch oracle prices for chunk ${index}`, result.reason)
+      failedChunks.push(chunk)
+    }
+  })
+
+  // Step 5: For any chunks that failed, fetch their prices individually as a fallback.
+  const addressesToFetchIndividually = failedChunks.flat()
+  if (addressesToFetchIndividually.length > 0) {
+    logger.debug(loggerLabel, 'fetching prices individually as fallback for:', addressesToFetchIndividually)
+    const fallbackPromises = addressesToFetchIndividually.map(address =>
+      fetchOraclePrice(address).then(price => ({ address, price })),
+    )
+
+    // Again, use allSettled to be robust against individual failures.
+    const fallbackResults = await Promise.allSettled(fallbackPromises)
+
+    fallbackResults.forEach((result) => {
+      if (result.status === 'fulfilled') {
+        const { address, price } = result.value
+        priceMap[address] = price
+      }
+      // If an individual call fails, fetchOraclePrice already logs it and returns '0',
+      // so we don't need to handle the 'rejected' case here explicitly.
+    })
+  }
+
+  logger.debug(loggerLabel, 'finished fetching all prices.', priceMap)
+  return priceMap
 }
