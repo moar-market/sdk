@@ -1,4 +1,7 @@
 import type { Address } from './../../types'
+import { tapp_stable_views_abi } from './../../abis'
+import { useSurfClient } from './../../clients'
+import { getModuleAddress } from './../../config'
 
 const TAPP_API_URL = 'https://api.tapp.exchange/api/v1' as const
 
@@ -62,9 +65,7 @@ export interface PoolStatsQuery {
 
 export interface PositionQuery {
   query: {
-    accountAddress?: Address | string
-    positionAddress?: Address | string
-    poolId?: Address | string
+    userAddr?: Address | string
     page?: number
     pageSize?: number
     [key: string]: unknown
@@ -75,14 +76,14 @@ export async function getPoolStats(
   params: PoolStatsQuery,
   options?: { signal?: AbortSignal },
 ): Promise<TappPoolStatsResponse> {
-  return await tappRpc<TappPoolStatsResponse>('public/pool_stats', params, options || {})
+  return await tappRpc<TappPoolStatsResult>('public/pool_stats', params, options || {})
 }
 
 export async function getPositions(
   params: PositionQuery,
   options?: { signal?: AbortSignal },
 ): Promise<TappPositionResponse> {
-  return await tappRpc<TappPositionResponse>('public/position', params, options || {})
+  return await tappRpc<TappPositionResult>('public/position', params, options || {})
 }
 
 // --- Tapp Position Response Types ---
@@ -148,13 +149,7 @@ export interface TappPositionResult {
   total: number
 }
 
-export interface TappPositionResponse {
-  result: TappPositionResult
-  usIn: number
-  usOut: number
-  usDiff: number
-  [key: string]: unknown
-}
+export type TappPositionResponse = TappPositionResult
 
 // --- Tapp Pool Stats Types ---
 
@@ -190,19 +185,44 @@ export interface TappPoolStatsToken {
 
 export interface TappPoolStatsResult {
   apr: TappPoolStatsApr
-  fee24h: string
+  fee24h: string | null
   feeTier: string
   poolId: string
   poolType: string
   tokens: TappPoolStatsToken[]
   tvl: string
-  volume24h: string
+  volume24h: string | null
 }
 
-export interface TappPoolStatsResponse {
-  result: TappPoolStatsResult
-  usIn: number
-  usOut: number
-  usDiff: number
-  [key: string]: unknown
+export type TappPoolStatsResponse = TappPoolStatsResult
+
+export interface PreviewStableLPTokenParams {
+  pool: Address
+  amounts: bigint[]
+  isDeposit: boolean
+}
+
+/**
+ * Previews the amount of LP tokens received or withdrawn for a given stable pool & token amounts
+ *
+ * @param {PreviewStableLPTokenParams} params - The parameters for previewing LP tokens.
+ *   - pool: The pool address.
+ *   - amounts: An array of token input amounts as bigint should be in the same order as the pool tokens
+ *   - isDeposit: Set to true for deposit preview, false for withdrawal preview.
+ * @returns {Promise<string>} The amount of LP tokens (as a string) that would be minted or withdrawn.
+ */
+export async function previewStableLPToken(
+  params: PreviewStableLPTokenParams,
+): Promise<string> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.calc_token_amount({
+    typeArguments: [],
+    functionArguments: [params.pool, params.amounts, params.isDeposit],
+  })
+
+  return data
 }

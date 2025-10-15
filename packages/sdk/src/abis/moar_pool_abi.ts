@@ -130,6 +130,19 @@ export const moar_pool_abi = {
       "return": []
     },
     {
+      "name": "compensate_bad_debt",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u64",
+        "u64"
+      ],
+      "return": []
+    },
+    {
       "name": "convert_amount_to_lp_shares",
       "visibility": "public",
       "is_entry": false,
@@ -659,6 +672,26 @@ export const moar_pool_abi = {
         {
           "name": "mutate_metadata_ref",
           "type": "0x1::fungible_asset::MutateMetadataRef"
+        }
+      ]
+    },
+    {
+      "name": "BadDebtCompensated",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_id",
+          "type": "u64"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
         }
       ]
     },
