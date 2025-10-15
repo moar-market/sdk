@@ -226,3 +226,61 @@ export async function previewStableLPToken(
 
   return data
 }
+
+export interface PreviewRemoveLiquidityParams {
+  pool: Address
+  amount: bigint
+}
+
+/**
+ * Previews the output token amounts for removing a specific amount of LP tokens from a stable pool.
+ *
+ * @param {PreviewRemoveLiquidityParams} params - The parameters for previewing liquidity removal.
+ *   @property {Address} pool - The address of the stable pool.
+ *   @property {bigint} amount - The amount of LP tokens to remove.
+ * @returns {Promise<string[]>} An array of output token amounts (as strings), ordered the same as the pool's tokens.
+ */
+export async function previewRemoveLiquidity(
+  params: PreviewRemoveLiquidityParams,
+): Promise<string[]> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.calc_ratio_amounts({
+    typeArguments: [],
+    functionArguments: [params.pool, params.amount],
+  })
+
+  return data
+}
+
+export interface GetLpAmountParams {
+  pool: Address
+  positionIdx: number
+}
+
+/**
+ * Fetches the current LP token share amount for a given stable pool position.
+ *
+ * @param {GetLpAmountParams} params - The parameters for querying position shares.
+ *   @property {Address} pool - The address of the pool
+ *   @property {number} positionIdx - The index identifying the position within the pool.
+ * @returns {Promise<string>} The current LP token amount (as a string) associated with the specified position.
+ */
+export async function getLpAmount(
+  params: GetLpAmountParams,
+): Promise<string> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.position_shares({
+    typeArguments: [],
+    functionArguments: [params.pool, params.positionIdx],
+  })
+
+  return data
+}
