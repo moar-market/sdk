@@ -1,0 +1,286 @@
+import type { Address } from './../../types'
+import { tapp_stable_views_abi } from './../../abis'
+import { useSurfClient } from './../../clients'
+import { getModuleAddress } from './../../config'
+
+const TAPP_API_URL = 'https://api.tapp.exchange/api/v1' as const
+
+interface JsonRpcRequest<TParams = unknown> {
+  jsonrpc: '2.0'
+  id: number
+  method: string
+  params?: TParams
+}
+
+interface JsonRpcError {
+  code: number
+  message: string
+  data?: unknown
+}
+
+interface JsonRpcResponse<TResult = unknown> {
+  jsonrpc: '2.0'
+  id: number
+  result?: TResult
+  error?: JsonRpcError
+}
+
+async function tappRpc<TResult = unknown>(
+  method: string,
+  params?: unknown,
+  { signal }: { signal?: AbortSignal } = {},
+): Promise<TResult> {
+  const payload: JsonRpcRequest = {
+    jsonrpc: '2.0',
+    id: Date.now(),
+    method,
+    ...(params !== undefined ? { params } : {}),
+  }
+  const response = await fetch(
+    TAPP_API_URL,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal,
+    },
+  )
+  const body = await response.json() as JsonRpcResponse<TResult>
+  if (!response.ok || body.error) {
+    const errorMessage = body.error?.message || `HTTP ${response.status}`
+    const error = new Error(`Tapp RPC ${method} failed: ${errorMessage}`);
+    (error as any).code = body.error?.code;
+    (error as any).data = body.error?.data
+    throw error
+  }
+  return body.result as TResult
+}
+
+export interface PoolStatsQuery {
+  query: {
+    poolId: Address | string
+    [key: string]: unknown
+  }
+}
+
+export interface PositionQuery {
+  query: {
+    userAddr?: Address | string
+    page?: number
+    pageSize?: number
+    [key: string]: unknown
+  }
+}
+
+export async function getPoolStats(
+  params: PoolStatsQuery,
+  options?: { signal?: AbortSignal },
+): Promise<TappPoolStatsResponse> {
+  return await tappRpc<TappPoolStatsResult>('public/pool_stats', params, options || {})
+}
+
+export async function getPositions(
+  params: PositionQuery,
+  options?: { signal?: AbortSignal },
+): Promise<TappPositionResponse> {
+  return await tappRpc<TappPositionResult>('public/position', params, options || {})
+}
+
+// --- Tapp Position Response Types ---
+
+export interface TappPositionAprCampaign {
+  aprPercentage: string
+  campaignIdx: string
+  token: {
+    addr: string
+    color: string
+    decimals: number
+    img: string
+    symbol: string
+    verified: boolean
+  }
+}
+
+export interface TappPositionApr {
+  boostedAprPercentage: string
+  campaignAprs: TappPositionAprCampaign[]
+  feeAprPercentage: string
+  totalAprPercentage: string
+}
+
+export interface TappPositionToken {
+  addr: string
+  amount: string
+  color: string
+  decimals: number
+  idx: number
+  img: string
+  symbol: string
+  usd: string
+  verified: boolean
+}
+
+export interface TappPositionData {
+  apr: TappPositionApr
+  collectedFees: string
+  createdAt: string
+  estimatedCollectFees: TappPositionToken[]
+  estimatedIncentives: TappPositionToken[]
+  estimatedWithdrawals: TappPositionToken[]
+  feeTier: string
+  initialDeposits: TappPositionToken[]
+  max: string
+  min: string
+  mintedShare: string
+  poolId: string
+  poolType: string
+  positionAddr: string
+  positionIdx: string
+  shareOfPool: string
+  sqrtPrice: string
+  timeWeightedTvl: string
+  totalEarnings: TappPositionToken[]
+  tvl: string
+  userAddr: string
+}
+
+export interface TappPositionResult {
+  data: TappPositionData[]
+  total: number
+}
+
+export type TappPositionResponse = TappPositionResult
+
+// --- Tapp Pool Stats Types ---
+
+export interface TappPoolStatsAprCampaign {
+  aprPercentage: number
+  campaignIdx: number
+  token: {
+    addr: string
+    color: string
+    decimals: number
+    img: string
+    symbol: string
+    verified: boolean
+  }
+}
+
+export interface TappPoolStatsApr {
+  boostedAprPercentage: number
+  campaignAprs: TappPoolStatsAprCampaign[]
+  feeAprPercentage: number
+  totalAprPercentage: number
+}
+
+export interface TappPoolStatsToken {
+  addr: string
+  amount: number
+  color: string
+  idx: number
+  img: string
+  symbol: string
+  verified: boolean
+}
+
+export interface TappPoolStatsResult {
+  apr: TappPoolStatsApr
+  fee24h: string | null
+  feeTier: string
+  poolId: string
+  poolType: string
+  tokens: TappPoolStatsToken[]
+  tvl: string
+  volume24h: string | null
+}
+
+export type TappPoolStatsResponse = TappPoolStatsResult
+
+export interface PreviewStableLPTokenParams {
+  pool: Address
+  amounts: bigint[]
+  isDeposit: boolean
+}
+
+/**
+ * Previews the amount of LP tokens received or withdrawn for a given stable pool & token amounts
+ *
+ * @param {PreviewStableLPTokenParams} params - The parameters for previewing LP tokens.
+ *   - pool: The pool address.
+ *   - amounts: An array of token input amounts as bigint should be in the same order as the pool tokens
+ *   - isDeposit: Set to true for deposit preview, false for withdrawal preview.
+ * @returns {Promise<string>} The amount of LP tokens (as a string) that would be minted or withdrawn.
+ */
+export async function previewStableLPToken(
+  params: PreviewStableLPTokenParams,
+): Promise<string> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.calc_token_amount({
+    typeArguments: [],
+    functionArguments: [params.pool, params.amounts, params.isDeposit],
+  })
+
+  return data
+}
+
+export interface PreviewRemoveLiquidityParams {
+  pool: Address
+  amount: bigint
+}
+
+/**
+ * Previews the output token amounts for removing a specific amount of LP tokens from a stable pool.
+ *
+ * @param {PreviewRemoveLiquidityParams} params - The parameters for previewing liquidity removal.
+ *   @property {Address} pool - The address of the stable pool.
+ *   @property {bigint} amount - The amount of LP tokens to remove.
+ * @returns {Promise<string[]>} An array of output token amounts (as strings), ordered the same as the pool's tokens.
+ */
+export async function previewRemoveLiquidity(
+  params: PreviewRemoveLiquidityParams,
+): Promise<string[]> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.calc_ratio_amounts({
+    typeArguments: [],
+    functionArguments: [params.pool, params.amount],
+  })
+
+  return data
+}
+
+export interface GetLpAmountParams {
+  pool: Address
+  positionIdx: number
+}
+
+/**
+ * Fetches the current LP token share amount for a given stable pool position.
+ *
+ * @param {GetLpAmountParams} params - The parameters for querying position shares.
+ *   @property {Address} pool - The address of the pool
+ *   @property {number} positionIdx - The index identifying the position within the pool.
+ * @returns {Promise<string>} The current LP token amount (as a string) associated with the specified position.
+ */
+export async function getLpAmount(
+  params: GetLpAmountParams,
+): Promise<string> {
+  const moduleAddress = getModuleAddress('tapp_stable_views')
+
+  const [data] = await useSurfClient().useABI(
+    tapp_stable_views_abi,
+    moduleAddress,
+  ).view.position_shares({
+    typeArguments: [],
+    functionArguments: [params.pool, params.positionIdx],
+  })
+
+  return data
+}
