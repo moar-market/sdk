@@ -7,31 +7,31 @@ minimumReleaseAge: 1440 # 1 day
 catalogs:
   blockchain:
     '@aptos-labs/script-composer-pack': 0.0.9
-    '@aptos-labs/ts-sdk': 5.1.0
-    '@hyperionxyz/sdk': 0.0.19
+    '@aptos-labs/ts-sdk': 5.1.1
+    '@hyperionxyz/sdk': 0.0.22
     '@thalalabs/surf': 1.8.1
   dev:
-    '@antfu/ni': 26.0.1
-    bumpp: 10.2.3
+    '@antfu/ni': 26.1.0
+    bumpp: 10.3.1
     husky: 9.1.7
-    lint-staged: 16.2.3
+    lint-staged: 16.2.4
     rimraf: 6.0.1
     simple-git-hooks: 2.13.1
-    tsdown: 0.15.1
-    tsx: 4.20.3
-    typescript: 5.9.2
+    tsdown: 0.15.7
+    tsx: 4.20.6
+    typescript: ^5.9.3
     vitest: 3.2.4
   lint:
-    '@antfu/eslint-config': 5.4.1
-    '@commitlint/cli': 20.0.0
+    '@antfu/eslint-config': 6.0.0
+    '@commitlint/cli': 20.1.0
     '@commitlint/config-conventional': 20.0.0
-    eslint: 9.36.0
+    eslint: 9.37.0
     eslint-plugin-format: 1.0.2
-    eslint-plugin-oxlint: 1.19.0
-    oxlint: 1.19.0
+    eslint-plugin-oxlint: 1.23.0
+    oxlint: 1.23.0
     oxlint-tsgolint: 0.2.0
   types:
-    '@types/node': 24.5.2
+    '@types/node': 24.8.0
   utils:
     '@itsmnthn/big-utils': 2.0.3
 
