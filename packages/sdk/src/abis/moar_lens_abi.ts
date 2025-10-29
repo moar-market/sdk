@@ -245,6 +245,25 @@ export const moar_lens_abi = {
       ]
     },
     {
+      "name": "get_pnl_with_components",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64",
+        "u128",
+        "bool",
+        "u64",
+        "u64",
+        "u64",
+        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+      ]
+    },
+    {
       "name": "get_prices",
       "visibility": "public",
       "is_entry": false,

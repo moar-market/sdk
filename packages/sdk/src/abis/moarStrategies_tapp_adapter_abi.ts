@@ -56,6 +56,19 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "get_ltv_map",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "0x1::simple_map::SimpleMap<u64, u64>"
+      ]
+    },
+    {
       "name": "execute_strategy",
       "visibility": "friend",
       "is_entry": false,
@@ -109,6 +122,19 @@ export const moarStrategies_tapp_adapter_abi = {
       ],
       "return": [
         "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::Position>"
+      ]
+    },
+    {
+      "name": "get_combined_pool_assets",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
       ]
     },
     {
@@ -216,16 +242,17 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
-      "name": "get_combined_pool_assets",
+      "name": "get_oracle_based_position_value",
       "visibility": "public",
       "is_entry": false,
-      "is_view": false,
+      "is_view": true,
       "generic_type_params": [],
       "params": [
-        "address"
+        "address",
+        "u64"
       ],
       "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+        "u64"
       ]
     },
     {
@@ -243,6 +270,19 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "get_pool_assets_v2",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+      ]
+    },
+    {
       "name": "get_position_value",
       "visibility": "public",
       "is_entry": false,
@@ -256,6 +296,33 @@ export const moarStrategies_tapp_adapter_abi = {
       "return": [
         "u64"
       ]
+    },
+    {
+      "name": "get_remove_liquidity_value",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "u64"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
+      "name": "set_pool_price_diff_tolerance",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "u8",
+        "u64"
+      ],
+      "return": []
     }
   ],
   "structs": [
@@ -567,6 +634,41 @@ export const moarStrategies_tapp_adapter_abi = {
         {
           "name": "reward_tokens",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+        }
+      ]
+    },
+    {
+      "name": "TappDiffTolerance",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_price_diff_tolerance",
+          "type": "0x1::simple_map::SimpleMap<u8, u64>"
+        }
+      ]
+    },
+    {
+      "name": "TappDiffToleranceSet",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "hook_type",
+          "type": "u8"
+        },
+        {
+          "name": "diff_tolerance",
+          "type": "u64"
         }
       ]
     }

@@ -161,21 +161,6 @@ export const moar_risk_manager_abi = {
       ]
     },
     {
-      "name": "is_bad_debt",
-      "visibility": "friend",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ],
-      "return": [
-        "bool"
-      ]
-    },
-    {
       "name": "is_position_healthy",
       "visibility": "friend",
       "is_entry": false,

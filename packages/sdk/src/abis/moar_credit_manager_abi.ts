@@ -92,7 +92,7 @@ export const moar_credit_manager_abi = {
       "return": []
     },
     {
-      "name": "is_bad_debt",
+      "name": "is_position_healthy",
       "visibility": "public",
       "is_entry": false,
       "is_view": true,
@@ -105,7 +105,7 @@ export const moar_credit_manager_abi = {
       ]
     },
     {
-      "name": "is_position_healthy",
+      "name": "is_bad_debt",
       "visibility": "public",
       "is_entry": false,
       "is_view": true,
@@ -1036,6 +1036,19 @@ export const moar_credit_manager_abi = {
       "params": [
         "&signer",
         "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "transfer_funds_to_owner_from_inactive_credit_accounts",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "vector<address>",
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
       ],
       "return": []
     },

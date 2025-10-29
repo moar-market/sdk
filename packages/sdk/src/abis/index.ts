@@ -14,6 +14,8 @@ export * from './hyperion_pool_v3_abi'
 
 export * from './hyperion_router_v3_abi'
 
+export * from './moar_accountant_abi'
+
 export * from './moar_credit_manager_abi'
 
 export * from './moar_farming_abi'
