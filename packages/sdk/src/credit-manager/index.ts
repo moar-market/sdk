@@ -1,5 +1,6 @@
 export * from './accountant'
 export * from './entry'
 export * from './events'
+export * from './lens'
 export * from './liquidation-price'
 export * from './view'
