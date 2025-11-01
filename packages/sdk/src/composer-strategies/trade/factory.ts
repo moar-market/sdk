@@ -47,7 +47,7 @@ export interface ClosePositionParams {
 export type SwapComposerFn = (
   builder: AptosScriptComposer,
   creditAccount: CallArgument | Address,
-  swaps: SwapParams[]
+  swaps: SwapParams[],
 ) => Promise<void>
 
 export function getSwapInCreditAccount(swap: SwapComposerFn) {

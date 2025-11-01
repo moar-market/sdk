@@ -6,7 +6,7 @@ minimumReleaseAge: 1440 # 1 day
 
 catalogs:
   blockchain:
-    '@aptos-labs/script-composer-pack': 0.0.9
+    '@aptos-labs/script-composer-pack': 0.2.0
     '@aptos-labs/ts-sdk': 5.1.1
     '@hyperionxyz/sdk': 0.0.22
     '@thalalabs/surf': 1.8.1

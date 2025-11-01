@@ -4,19 +4,25 @@ import type {
   AptosConfig,
   EntryFunctionArgumentTypes,
   InputGenerateTransactionOptions,
+  LedgerVersionArg,
   MoveFunctionId,
-  // MoveModule,
+  MoveModule,
+  MoveModuleBytecode,
   SimpleEntryFunctionArgumentTypes,
   TypeArgument,
+  TypeTag,
+  TypeTagStruct,
 } from '@aptos-labs/ts-sdk'
 import {
   AccountAddress,
-  AptosApiType,
   convertArgument,
   Deserializer,
   fetchModuleAbi,
   generateRawTransaction,
+  getAptosFullNode,
   getFunctionParts,
+  Hex,
+  parseTypeTag,
   SimpleTransaction,
   standardizeTypeTags,
   TransactionPayloadScript,
@@ -25,17 +31,22 @@ import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
 export type { CallArgument, SimpleTransaction } // re-export for convenience
 
-// TODO: update composer pack to new version with module bytecode caching
-
 export interface InputBatchedFunctionData {
   function: MoveFunctionId
   typeArguments?: Array<TypeArgument>
   functionArguments: Array<
     EntryFunctionArgumentTypes | CallArgument | SimpleEntryFunctionArgumentTypes
   >
-  // moduleAbi: MoveModule
-  // moduleBytecodes?: string[]
+  moduleAbi?: MoveModule
+  moduleBytecodes?: string[]
+  options?: {
+    /** @default true - Automatically fetch missing modules from the chain */
+    allowFetch?: boolean
+  }
 }
+
+type TransactionComposerClass = typeof import('@aptos-labs/script-composer-pack').TransactionComposer
+type CallArgumentClass = typeof import('@aptos-labs/script-composer-pack').CallArgument
 
 /**
  * A wrapper class around TransactionComposer, which is a WASM library compiled
@@ -48,13 +59,15 @@ export class AptosScriptComposer {
 
   private builder?: TransactionComposer
 
-  private scriptComposerWasm?: any
-  private static transactionComposer?: any
-  static callArgument?: typeof CallArgument
+  private storedModulesMap: Set<string> = new Set()
+
+  private static initPromise?: Promise<void>
+  private static transactionComposer?: TransactionComposerClass
+  private static callArgument?: CallArgumentClass
+  private static loadedModulesCache: Map<string, MoveModuleBytecode> = new Map()
 
   constructor(aptosConfig: AptosConfig) {
     this.config = aptosConfig
-    this.builder = undefined
   }
 
   private getState() {
@@ -68,25 +81,47 @@ export class AptosScriptComposer {
     }
   }
 
+  private static async ensureComposerLoaded(): Promise<void> {
+    if (AptosScriptComposer.transactionComposer) {
+      return
+    }
+
+    if (!AptosScriptComposer.initPromise) {
+      AptosScriptComposer.initPromise = (async () => {
+        const module = await import('@aptos-labs/script-composer-pack')
+        const { TransactionComposer: TC, initSync, wasmModule, CallArgument: CA } = module
+        initSync({ module: wasmModule })
+        AptosScriptComposer.transactionComposer = TC
+        AptosScriptComposer.callArgument = CA
+      })()
+    }
+
+    await AptosScriptComposer.initPromise
+  }
+
   // Initializing the wasm needed for the script composer, must be called
   // before using the composer.
   async init(): Promise<void> {
-    if (!AptosScriptComposer.transactionComposer) {
-      const module = await import('@aptos-labs/script-composer-pack')
-      const { TransactionComposer: TC, initSync, ScriptComposerWasm, CallArgument: CA } = module
-      if (!this.scriptComposerWasm) {
-        this.scriptComposerWasm = ScriptComposerWasm
-      }
-      if (!AptosScriptComposer.callArgument) {
-        AptosScriptComposer.callArgument = CA
-      }
-      if (!this.scriptComposerWasm.isInitialized) {
-        this.scriptComposerWasm.init()
-      }
-      initSync({ module: this.scriptComposerWasm.wasm })
-      AptosScriptComposer.transactionComposer = TC
+    await AptosScriptComposer.ensureComposerLoaded()
+    this.builder = AptosScriptComposer.transactionComposer!.single_signer()
+  }
+
+  storeModule(module: MoveModuleBytecode, moduleName?: string): void {
+    const { builder } = this.getState()
+    if (!moduleName && !module.abi) {
+      throw new Error('Module ABI or module name is required')
     }
-    this.builder = AptosScriptComposer.transactionComposer.single_signer()
+    const moduleId = moduleName || `${module.abi?.address}::${module.abi?.name}`
+    if (moduleId && !AptosScriptComposer.loadedModulesCache.has(moduleId)) {
+      AptosScriptComposer.loadedModulesCache.set(moduleId, module)
+    }
+    if (moduleId && this.storedModulesMap.has(moduleId)) {
+      return
+    }
+    if (moduleId) {
+      this.storedModulesMap.add(moduleId)
+    }
+    builder.store_module(Hex.fromHexInput(module.bytecode).toUint8Array())
   }
 
   // Add a move function invocation to the TransactionComposer.
@@ -96,35 +131,117 @@ export class AptosScriptComposer {
   // or the regular entry function arguments.
   //
   // The function would also return a list of `CallArgument` that can be passed on to future calls.
-  async addBatchedCall(input: InputBatchedFunctionData, moduleAbi?: any): Promise<CallArgument[]> {
+  //
+  // Validation behavior:
+  // - If allowFetch is true (default): Validates that the function exists in the provided ABI (if any)
+  // - If allowFetch is false: Requires both moduleAbi and moduleBytecodes to be provided
+  // - Automatically fetches missing modules from the chain when allowFetch is enabled
+  //
+  // Note: The function will throw an error if the module is not found in the global cache and autoFetch is disabled.
+  //       The caller should ensure that the module is loaded before calling this function.
+  async addBatchedCall(input: InputBatchedFunctionData): Promise<CallArgument[]> {
     const { builder, callArgument } = this.getState() // ensure the composer is initialized
     const { moduleAddress, moduleName, functionName } = getFunctionParts(input.function)
-    const nodeUrl = this.config.getRequestUrl(AptosApiType.FULLNODE)
+    const module = input.moduleAbi
+    const moduleBytecode = input.moduleBytecodes
+    const autoFetch = input.options?.allowFetch ?? true
 
-    // Load the calling module into the builder.
-    await builder.load_module(nodeUrl, `${moduleAddress}::${moduleName}`)
-
-    // Load the calling type arguments into the loader.
-    if (input.typeArguments !== undefined) {
-      for (const typeArgument of input.typeArguments) {
-        await builder.load_type_tag(nodeUrl, typeArgument.toString())
+    // Validation logic based on auto-fetch option
+    if (autoFetch) {
+      // Auto-fetch mode: Check if function exists in ABI
+      if (module) {
+        const functionAbi = module.exposed_functions.find(func => func.name === functionName)
+        if (!functionAbi) {
+          throw new Error(
+            `Function '${functionName}' not found in provided ABI for module '${moduleAddress}::${moduleName}'`,
+          )
+        }
       }
     }
+    else {
+      // Manual mode: Check if both ABI and bytecode are provided
+      if (!module) {
+        throw new Error(
+          `Module ABI is required when auto-fetch is disabled for '${moduleAddress}::${moduleName}'`,
+        )
+      }
+      if (!moduleBytecode || moduleBytecode.length === 0) {
+        throw new Error(
+          `Module bytecode is required when auto-fetch is disabled for '${moduleAddress}::${moduleName}'`,
+        )
+      }
+    }
+
+    moduleBytecode?.forEach((rawModule) => {
+      builder.store_module(Hex.fromHexInput(rawModule).toUint8Array())
+    })
+
+    const moduleId = `${moduleAddress}::${moduleName}`
+    const isModuleLoaded = AptosScriptComposer.loadedModulesCache.has(moduleId)
+    const isModuleStored = this.storedModulesMap.has(moduleId)
+
+    // If the module is not loaded in the global cache (isModuleLoaded) or not stored in the local map (isModuleStored),
+    // and autoFetch is enabled, we need to fetch and store the module.
+    // This ensures that the module is available both globally and locally for execution.
+    if ((!isModuleLoaded || !isModuleStored) && autoFetch) {
+      // If the module is not loaded, we can fetch it.
+      const fetchedModule = await getModuleInner({
+        aptosConfig: this.config,
+        accountAddress: moduleAddress,
+        moduleName: moduleName.toString(),
+      })
+      if (fetchedModule) {
+        this.storeModule(fetchedModule, moduleId)
+      }
+      else {
+        throw new Error(
+          `Module '${moduleAddress}::${moduleName}' could not be fetched. Please ensure it exists on the chain.`,
+        )
+      }
+    }
+
+    if (input.typeArguments !== undefined) {
+      for (const typeArgument of input.typeArguments) {
+        const typeTag = parseTypeTag(typeArgument.toString())
+        const requiredModules = await this.collectRequiredModulesFromTypeTag(typeTag, input.options)
+        requiredModules.forEach((id) => {
+          if (!AptosScriptComposer.loadedModulesCache.has(id)) {
+            throw new Error(
+              `Module '${id}' is not loaded in the cache. Please load it before using it in a batched call.`,
+            )
+          }
+          if (!this.storedModulesMap.has(id)) {
+            const cachedModule = AptosScriptComposer.loadedModulesCache.get(id)
+            if (cachedModule) {
+              this.storeModule(cachedModule, id)
+            }
+            else {
+              throw new Error(
+                `Module '${id}' could not be found in the cache. Please ensure it is loaded.`,
+              )
+            }
+          }
+        })
+      }
+    }
+
     const typeArguments = standardizeTypeTags(input.typeArguments)
-
-    // load module abi if not provided
-    if (!moduleAbi) {
+    let moduleAbi: MoveModule | undefined
+    if (!module) {
       moduleAbi = await fetchModuleAbi(moduleAddress, moduleName, this.config)
+      if (!moduleAbi) {
+        throw new Error(`Could not find module ABI for '${moduleAddress}::${moduleName}'`)
+      }
+    }
+    else {
+      moduleAbi = module
     }
 
-    if (!moduleAbi) {
-      throw new Error(`Could not find module ABI for '${moduleAddress}::${moduleName}'`)
-    }
-
-    // Check the type argument count against the ABI
-    const functionAbi = moduleAbi.exposed_functions.find((func: any) => func.name === functionName)
+    const functionAbi = moduleAbi.exposed_functions.find(func => func.name === functionName)
     if (!functionAbi) {
-      throw new Error(`Could not find function ABI for '${moduleAddress}::${moduleName}::${functionName}'`)
+      throw new Error(
+        `Could not find function ABI for '${moduleAddress}::${moduleName}::${functionName}'`,
+      )
     }
 
     if (typeArguments.length !== functionAbi.generic_type_params.length) {
@@ -133,21 +250,15 @@ export class AptosScriptComposer {
       )
     }
 
-    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) => {
-      if (arg instanceof callArgument) {
-        return arg
-      }
-      return callArgument.newBytes(
-        convertArgument(
-          functionName,
-          moduleAbi,
-          arg as EntryFunctionArgumentTypes | SimpleEntryFunctionArgumentTypes,
-          i,
-          typeArguments,
-          { allowUnknownStructs: true },
-        ).bcsToBytes(),
-      )
-    })
+    const functionArguments: CallArgument[] = input.functionArguments.map((arg, i) =>
+      arg instanceof callArgument
+        ? arg
+        : callArgument.newBytes(
+            convertArgument(functionName, moduleAbi, arg, i, typeArguments, {
+              allowUnknownStructs: true,
+            }).bcsToBytes(),
+          ),
+    )
 
     return builder.add_batched_call(
       `${moduleAddress}::${moduleName}`,
@@ -177,6 +288,58 @@ export class AptosScriptComposer {
     const { builder } = this.getState() // ensure the composer is initialized
     return builder.generate_batched_calls(true)
   }
+
+  build_payload(): TransactionPayloadScript {
+    return TransactionPayloadScript.load(new Deserializer(this.build()))
+  }
+
+  async collectRequiredModulesFromTypeTag(
+    typeTag: TypeTag,
+    options?: { allowFetch?: boolean },
+  ): Promise<Set<string>> {
+    const modules = new Set<string>()
+    if (typeTag.isStruct()) {
+      const structTag = typeTag as TypeTagStruct
+      const moduleId = `${structTag.value.address}::${structTag.value.moduleName.identifier.toString()}`
+      modules.add(moduleId)
+      const autoFetch = options?.allowFetch ?? true
+      if (!AptosScriptComposer.loadedModulesCache.has(moduleId)) {
+        if (autoFetch) {
+          const module = await getModuleInner({
+            aptosConfig: this.config,
+            accountAddress: structTag.value.address,
+            moduleName: structTag.value.moduleName.identifier.toString(),
+          })
+          if (module) {
+            this.storeModule(module, moduleId)
+          }
+          else {
+            throw new Error(
+              `Module '${moduleId}' could not be fetched. Please ensure it exists on the chain.`,
+            )
+          }
+        }
+        else {
+          throw new Error(
+            `Module '${moduleId}' is not loaded in the cache. Please load it before using it in a batched call.`,
+          )
+        }
+      }
+      for (const ty of structTag.value.typeArgs) {
+        const result = await this.collectRequiredModulesFromTypeTag(ty, options)
+        for (const module of result) {
+          modules.add(module)
+        }
+      }
+    }
+    else if (typeTag.isVector()) {
+      const result = await this.collectRequiredModulesFromTypeTag(typeTag.value, options)
+      for (const module of result) {
+        modules.add(module)
+      }
+    }
+    return modules
+  }
 }
 
 /**
@@ -205,7 +368,7 @@ export async function scriptComposer({
   enableFetchCaching((req: RequestInfo | URL) => {
     const url = extractUrl(req)
     return url.includes('/accounts/') && url.includes('/module/')
-  }) // caches modules and bytecode
+  }) // caches fetch requests for modules and bytecode
 
   const composer = new AptosScriptComposer(config)
   await composer.init()
@@ -223,3 +386,20 @@ export async function scriptComposer({
 }
 
 export type ScriptComposer = typeof scriptComposer
+
+export async function getModuleInner(args: {
+  aptosConfig: AptosConfig
+  accountAddress: AccountAddressInput
+  moduleName: string
+  options?: LedgerVersionArg
+}): Promise<MoveModuleBytecode> {
+  const { aptosConfig, accountAddress, moduleName, options } = args
+
+  const { data } = await getAptosFullNode<object, MoveModuleBytecode>({
+    aptosConfig,
+    originMethod: 'getModule',
+    path: `accounts/${AccountAddress.from(accountAddress).toString()}/module/${moduleName}`,
+    params: { ledger_version: options?.ledgerVersion },
+  })
+  return data
+}
