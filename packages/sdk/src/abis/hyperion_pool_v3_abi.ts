@@ -134,6 +134,20 @@ export const hyperion_pool_v3_abi = {
       "return": []
     },
     {
+      "name": "set_rewarder_op_admin",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>",
+        "u64"
+      ],
+      "return": []
+    },
+    {
       "name": "update_emissions_rate",
       "visibility": "public",
       "is_entry": true,
@@ -174,6 +188,19 @@ export const hyperion_pool_v3_abi = {
         "u64"
       ],
       "return": []
+    },
+    {
+      "name": "user_managed_rewarders",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::string::String>"
+      ]
     },
     {
       "name": "add_liquidity",
@@ -716,6 +743,19 @@ export const hyperion_pool_v3_abi = {
       ],
       "return": [
         "vector<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::rewarder::Numbers>"
+      ]
+    },
+    {
+      "name": "get_rewarder_numbers_v1",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
+      ],
+      "return": [
+        "vector<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::rewarder::NumbersV1>"
       ]
     },
     {

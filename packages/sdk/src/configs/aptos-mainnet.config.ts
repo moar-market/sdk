@@ -110,6 +110,7 @@ export const MODULES: Modules = {
   moar_accountant: PKGS.moar,
   moar_lens: PKGS.moar_lens,
   moar_hyperion_lens: PKGS.moar_lens,
+  moar_tapp_lens: PKGS.moar_lens,
   moar_interest_rate_model: PKGS.moar,
 
   // composer utils

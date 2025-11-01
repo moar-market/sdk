@@ -66,6 +66,22 @@ export const moar_hyperion_lens_abi = {
       ]
     },
     {
+      "name": "get_pending_fee_and_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>",
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
+      ]
+    },
+    {
       "name": "get_pending_fee_value",
       "visibility": "public",
       "is_entry": false,

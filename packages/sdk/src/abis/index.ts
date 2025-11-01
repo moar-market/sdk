@@ -32,6 +32,8 @@ export * from './moar_pool_abi'
 
 export * from './moar_risk_manager_abi'
 
+export * from './moar_tapp_lens_abi'
+
 export * from './moarStrategies_dex_swap_adapter_abi'
 
 export * from './moarStrategies_goblin_vault_adapter_abi'

@@ -125,6 +125,21 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "get_all_positions_and_pools",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<address>",
+        "vector<address>",
+        "vector<u64>"
+      ]
+    },
+    {
       "name": "get_combined_pool_assets",
       "visibility": "public",
       "is_entry": false,
