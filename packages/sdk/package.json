@@ -285,7 +285,7 @@
     "clean": "npx rimraf dist .output",
     "cleanup": "npx rimraf node_modules dist .output",
     "test": "vitest",
-    "release": "changelogen --release --push --noAuthor"
+    "release": "changelogen --release --push --noAuthors"
   },
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "catalog:blockchain"

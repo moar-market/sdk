@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.3.0
+
+[compare changes](https://github.com/moar-market/sdk/compare/v0.2.0...v0.3.0)
+
+### 🚀 Enhancements
+
+- Add performance fee rate to GoblinVaultConfig for mainnet vaults ([078a053](https://github.com/moar-market/sdk/commit/078a053))
+- New util isEqualAddress ([1c0c977](https://github.com/moar-market/sdk/commit/1c0c977))
+- Enhance example scripts to support additional arguments and add token constants ([bb4033c](https://github.com/moar-market/sdk/commit/bb4033c))
+- Optimize price fetching with chunks ([0619bf8](https://github.com/moar-market/sdk/commit/0619bf8))
+- Tapp config ([b035ab5](https://github.com/moar-market/sdk/commit/b035ab5))
+- Tapp stable pool composer strategy ([64db873](https://github.com/moar-market/sdk/commit/64db873))
+- Add preview function for stable LP token calculations and refactor response types ([6a69950](https://github.com/moar-market/sdk/commit/6a69950))
+- **tapp:** View for preview remove ratio & current lp amount ([8d07a99](https://github.com/moar-market/sdk/commit/8d07a99))
+- Accountant view fns & update abis ([3fcbdd9](https://github.com/moar-market/sdk/commit/3fcbdd9))
+- Add pnl component view fn ([4c0718c](https://github.com/moar-market/sdk/commit/4c0718c))
+- **tapp:** Position info view fn & update abis ([dfb97f7](https://github.com/moar-market/sdk/commit/dfb97f7))
+- **composer:** Upgrade to new version ([4de42f2](https://github.com/moar-market/sdk/commit/4de42f2))
+
+### 🩹 Fixes
+
+- Export tapp ([33f0068](https://github.com/moar-market/sdk/commit/33f0068))
+
+### 🏡 Chore
+
+- Tapp fn renames ([c80e3fc](https://github.com/moar-market/sdk/commit/c80e3fc))
+- Upgrade deps ([4736ef3](https://github.com/moar-market/sdk/commit/4736ef3))
+- **sdk:** Add .npmignore to exclude source maps from published package ([6b18135](https://github.com/moar-market/sdk/commit/6b18135))
+- Release v0.3.0 ([596a044](https://github.com/moar-market/sdk/commit/596a044))
+
 ## [0.1.0](https://github.com/moar-market/sdk/releases/tag/v0.1.0) (2025-09-16)
 
 ### Features
