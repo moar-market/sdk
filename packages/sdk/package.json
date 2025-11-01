@@ -1,7 +1,7 @@
 {
   "name": "@moar-market/sdk",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": false,
   "packageManager": "pnpm@10.18.3",
   "description": "Moar Market SDK",
@@ -284,7 +284,8 @@
     "prepublishOnly": "pnpm run build",
     "clean": "npx rimraf dist .output",
     "cleanup": "npx rimraf node_modules dist .output",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "changelogen --release --push --noAuthor"
   },
   "peerDependencies": {
     "@aptos-labs/ts-sdk": "catalog:blockchain"
@@ -298,6 +299,7 @@
     "@antfu/eslint-config": "catalog:lint",
     "@hyperionxyz/sdk": "catalog:blockchain",
     "@types/node": "catalog:types",
+    "changelogen": "catalog:dev",
     "eslint": "catalog:lint",
     "eslint-plugin-format": "catalog:lint",
     "eslint-plugin-oxlint": "catalog:lint",

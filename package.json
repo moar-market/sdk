@@ -1,7 +1,7 @@
 {
   "name": "@moar-market/sdk-workspace",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "packageManager": "pnpm@10.18.3",
   "description": "Moar Market SDK workspace",
@@ -28,7 +28,7 @@
     "clean": "pnpm all clean && npx rimraf dist",
     "cleanup": "pnpm all cleanup && npx rimraf dist node_modules  pnpm-lock.yaml",
     "prepare": "husky",
-    "bump": "bumpp -r"
+    "bump": "bumpp -r --no-tag --no-push"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
