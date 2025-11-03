@@ -29,7 +29,7 @@ async function tappRpc<TResult = unknown>(
 ): Promise<TResult> {
   const payload: JsonRpcRequest = {
     jsonrpc: '2.0',
-    id: Date.now(),
+    id: 7,
     method,
     ...(params !== undefined ? { params } : {}),
   }
@@ -62,7 +62,7 @@ export interface PoolStatsQuery {
 
 export interface PositionQuery {
   query: {
-    userAddr?: Address | string
+    nftAddrs?: (Address | string)[]
     page?: number
     pageSize?: number
     [key: string]: unknown
@@ -129,6 +129,7 @@ export interface TappPositionData {
   max: string
   min: string
   mintedShare: string
+  parent?: string
   poolId: string
   poolType: string
   positionAddr: string
