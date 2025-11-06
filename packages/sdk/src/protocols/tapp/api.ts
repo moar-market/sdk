@@ -29,7 +29,7 @@ async function tappRpc<TResult = unknown>(
 ): Promise<TResult> {
   const payload: JsonRpcRequest = {
     jsonrpc: '2.0',
-    id: 7,
+    id: Math.abs(Date.now() ^ Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)),
     method,
     ...(params !== undefined ? { params } : {}),
   }
