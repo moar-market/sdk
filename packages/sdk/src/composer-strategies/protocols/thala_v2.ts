@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
 import type { ClaimRewardsParams } from './../shared'
@@ -34,7 +35,8 @@ export async function addLiquidity(
     function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_add_liquidity_inputs`,
     functionArguments: [liquidity.pool, liquidity.amounts, liquidity.minAmount, liquidity.isStake],
     typeArguments: [],
-  }, moarStrategies_thala_v2_adapter_abi)
+    moduleAbi: moarStrategies_thala_v2_adapter_abi as unknown as MoveModule,
+  })
 
   if (!addLiquidityInput)
     throw new Error('Failed to create thala v2 add liquidity inputs')
@@ -77,7 +79,8 @@ export async function removeLiquidity(
     function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_remove_liquidity_inputs`,
     functionArguments: [liquidity.pool, liquidity.pool, liquidity.amount, liquidity.minAmounts, liquidity.isUnstake],
     typeArguments: [],
-  }, moarStrategies_thala_v2_adapter_abi)
+    moduleAbi: moarStrategies_thala_v2_adapter_abi as unknown as MoveModule,
+  })
 
   if (!removeLiquidityInput)
     throw new Error('Failed to create thala v2 remove liquidity inputs')
@@ -109,13 +112,15 @@ export async function claimReward(
       function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_claim_rewards_inputs`,
       functionArguments: [[reward.calldata]],
       typeArguments: [],
-    }, moarStrategies_thala_v2_adapter_abi)
+      moduleAbi: moarStrategies_thala_v2_adapter_abi as unknown as MoveModule,
+    })
 
     const [calldata_vec] = await builder.addBatchedCall({
       function: `${getModuleAddress('composerUtils_fe')}::fe::any_singleton`,
       functionArguments: [claimRewardsInput],
       typeArguments: [],
-    }, composerUtils_fe_abi)
+      moduleAbi: composerUtils_fe_abi as unknown as MoveModule,
+    })
 
     await claimRewards(
       builder,
@@ -154,7 +159,8 @@ export async function stakeAPTthAPT(
     function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_stake_inputs`,
     functionArguments: [params.amount, params.minAmount],
     typeArguments: [],
-  }, moarStrategies_thala_v2_adapter_abi)
+    moduleAbi: moarStrategies_thala_v2_adapter_abi as unknown as MoveModule,
+  })
 
   if (!stakeAPTthAPTInput)
     throw new Error('Failed to create thala v2 stake apt thapt inputs')
@@ -188,7 +194,8 @@ export async function unstakeAPTthAPT(
     function: `${getModuleAddress('moarStrategies_thala_v2_adapter')}::thala_v2_adapter::create_stake_inputs`,
     functionArguments: [params.amount, params.minAmount],
     typeArguments: [],
-  }, moarStrategies_thala_v2_adapter_abi)
+    moduleAbi: moarStrategies_thala_v2_adapter_abi as unknown as MoveModule,
+  })
 
   if (!unstakeAPTthAPTInput)
     throw new Error('Failed to create thala v2 unstake thapt inputs')

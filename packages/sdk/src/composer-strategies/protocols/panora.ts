@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address, SwapParams } from './../../types'
 import { moarStrategies_panora_adapter_abi } from './../../abis'
@@ -29,7 +30,8 @@ export async function swap(
       function: `${getModuleAddress('moarStrategies_panora_adapter')}::panora_adapter::create_swap_inputs`,
       functionArguments,
       typeArguments: [],
-    }, moarStrategies_panora_adapter_abi)
+      moduleAbi: moarStrategies_panora_adapter_abi as unknown as MoveModule,
+    })
 
     if (!swapInput)
       throw new Error('Failed to create panora swap inputs')

@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
 import { extendTypeArguments } from '../../utils'
@@ -59,7 +60,8 @@ export async function deposit(
         params.rewardPoolId,
       ],
       typeArguments: [],
-    }, moarStrategies_goblin_vault_adapter_abi)
+      moduleAbi: moarStrategies_goblin_vault_adapter_abi as unknown as MoveModule,
+    })
 
     if (!depositWithPairInput)
       throw new Error('Failed to create goblin deposit with pair inputs')
@@ -90,7 +92,8 @@ export async function deposit(
         params.rewardPoolId,
       ],
       typeArguments: [],
-    }, moarStrategies_goblin_vault_adapter_abi)
+      moduleAbi: moarStrategies_goblin_vault_adapter_abi as unknown as MoveModule,
+    })
 
     if (!depositWithSingleInput)
       throw new Error('Failed to create goblin deposit with single inputs')
@@ -159,7 +162,8 @@ export async function remove(
         params.rewardPoolId,
       ],
       typeArguments: [],
-    }, moarStrategies_goblin_vault_adapter_abi)
+      moduleAbi: moarStrategies_goblin_vault_adapter_abi as unknown as MoveModule,
+    })
 
     if (!removeAsPairInput)
       throw new Error('Failed to create goblin remove as pair inputs')
@@ -190,7 +194,8 @@ export async function remove(
         params.rewardPoolId,
       ],
       typeArguments: [],
-    }, moarStrategies_goblin_vault_adapter_abi)
+      moduleAbi: moarStrategies_goblin_vault_adapter_abi as unknown as MoveModule,
+    })
 
     if (!removeAsSingleInput)
       throw new Error('Failed to create goblin remove as single inputs')
@@ -223,13 +228,15 @@ export async function claimReward(
     function: `${getModuleAddress('moarStrategies_goblin_vault_adapter')}::goblin_vault_adapter::create_claim_rewards_inputs`,
     functionArguments: [rewardPoolId],
     typeArguments: [],
-  }, moarStrategies_goblin_vault_adapter_abi)
+    moduleAbi: moarStrategies_goblin_vault_adapter_abi as unknown as MoveModule,
+  })
 
   const [calldata_vec] = await builder.addBatchedCall({
     function: `${getModuleAddress('composerUtils_fe')}::fe::any_singleton`,
     functionArguments: [claimRewardsInput],
     typeArguments: [],
-  }, composerUtils_fe_abi)
+    moduleAbi: composerUtils_fe_abi as unknown as MoveModule,
+  })
 
   await claimRewards(builder, builder.copyIfCallArgument(creditAccount), {
     typeArguments: extendTypeArguments([], 4),

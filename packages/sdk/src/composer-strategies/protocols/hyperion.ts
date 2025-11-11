@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
 import { extendTypeArguments } from '../../utils'
@@ -54,7 +55,8 @@ export async function addLiquidity(
       !!liquidity.isStake,
     ],
     typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
+    moduleAbi: moarStrategies_hyperion_adapter_abi as unknown as MoveModule,
+  })
 
   if (!addLiquidityInput)
     throw new Error('Failed to create hyperion add liquidity inputs')
@@ -102,7 +104,8 @@ export async function addLiquidityOptimally(
       liquidity.dustThreshold ?? 100000, // 0.1% by default
     ],
     typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
+    moduleAbi: moarStrategies_hyperion_adapter_abi as unknown as MoveModule,
+  })
 
   if (!addLiquidityOptimallyInput)
     throw new Error('Failed to create hyperion add liquidity optimally inputs')
@@ -175,7 +178,8 @@ export async function rebalanceLiquidity(
       liquidity.dustThreshold ?? 100000, // 0.1% by default
     ],
     typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
+    moduleAbi: moarStrategies_hyperion_adapter_abi as unknown as MoveModule,
+  })
 
   if (!rebalanceLiquidityInput)
     throw new Error('Failed to create hyperion rebalance liquidity inputs')
@@ -229,7 +233,8 @@ export async function removeLiquidity(
       !!liquidity.isUnstake,
     ],
     typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
+    moduleAbi: moarStrategies_hyperion_adapter_abi as unknown as MoveModule,
+  })
 
   if (!removeLiquidityInput)
     throw new Error('Failed to create hyperion remove liquidity inputs')
@@ -256,13 +261,15 @@ export async function claimReward(
     function: `${getModuleAddress('moarStrategies_hyperion_adapter')}::hyperion_adapter::create_claim_rewards_inputs`,
     functionArguments: [],
     typeArguments: [],
-  }, moarStrategies_hyperion_adapter_abi)
+    moduleAbi: moarStrategies_hyperion_adapter_abi as unknown as MoveModule,
+  })
 
   const [calldata_vec] = await builder.addBatchedCall({
     function: `${getModuleAddress('composerUtils_fe')}::fe::any_singleton`,
     functionArguments: [claimRewardsInput],
     typeArguments: [],
-  }, composerUtils_fe_abi)
+    moduleAbi: composerUtils_fe_abi as unknown as MoveModule,
+  })
 
   await claimRewards(builder, builder.copyIfCallArgument(creditAccount), {
     typeArguments: extendTypeArguments([], 4),

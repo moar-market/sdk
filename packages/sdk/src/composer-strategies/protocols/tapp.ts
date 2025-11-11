@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../../composer'
 import type { Address } from './../../types'
 import { moarStrategies_tapp_adapter_abi } from './../../abis'
@@ -36,7 +37,8 @@ export async function addStableLiquidity(
       liquidity.minLPAmount,
     ],
     typeArguments: [],
-  }, moarStrategies_tapp_adapter_abi)
+    moduleAbi: moarStrategies_tapp_adapter_abi as unknown as MoveModule,
+  })
 
   if (!addLiquidityInput)
     throw new Error('Failed to create tapp add stable liquidity inputs')
@@ -88,7 +90,8 @@ export async function removeStableLiquidity(
       liquidity.minReceived,
     ],
     typeArguments: [],
-  }, moarStrategies_tapp_adapter_abi)
+    moduleAbi: moarStrategies_tapp_adapter_abi as unknown as MoveModule,
+  })
 
   if (!removeLiquidityInput)
     throw new Error('Failed to create tapp remove stable liquidity inputs')
