@@ -3,7 +3,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
   "address": "0x0",
   "name": "thala_v2_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::router"
   ],
   "exposed_functions": [
     {
@@ -72,7 +72,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::AddLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::thala_v2_adapter::AddLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -86,7 +86,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::ClaimRewardInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::thala_v2_adapter::ClaimRewardInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -104,7 +104,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::RemoveLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::thala_v2_adapter::RemoveLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -146,7 +146,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::StakeInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::thala_v2_adapter::StakeInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -374,7 +374,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "fields": [
         {
           "name": "lp_token_metadata_to_pool_info",
-          "type": "0x1::smart_table::SmartTable<0x1::object::Object<0x1::fungible_asset::Metadata>, 0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::PoolInfo>"
+          "type": "0x1::smart_table::SmartTable<0x1::object::Object<0x1::fungible_asset::Metadata>, 0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::thala_v2_adapter::PoolInfo>"
         }
       ]
     },

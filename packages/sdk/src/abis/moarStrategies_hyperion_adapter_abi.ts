@@ -3,7 +3,7 @@ export const moarStrategies_hyperion_adapter_abi = {
   "address": "0x0",
   "name": "hyperion_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::router"
   ],
   "exposed_functions": [
     {
@@ -40,20 +40,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0x1::fungible_asset::FungibleAsset>"
-      ]
-    },
-    {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
       ]
     },
     {
@@ -119,7 +105,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::AddLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::AddLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -145,7 +131,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::AddLiquidityOptimallyInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::AddLiquidityOptimallyInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -172,7 +158,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "vector<u64>"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::LiquidateNonFAPositionInputs>",
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::LiquidateNonFAPositionInputs>",
         "0x1::copyable_any::Any"
       ]
     },
@@ -200,7 +186,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::RebalanceInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::RebalanceInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -221,7 +207,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::RemoveLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::RemoveLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -235,21 +221,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>"
-      ]
-    },
-    {
-      "name": "get_all_positions_and_pools",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<address>",
-        "vector<address>"
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::Position>"
       ]
     },
     {
@@ -306,7 +278,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::assets::NonFAAsset>"
       ]
     },
     {
@@ -321,17 +293,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "u128"
-      ]
-    },
-    {
-      "name": "get_reward_tokens",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
       ]
     },
     {
@@ -673,7 +634,7 @@ export const moarStrategies_hyperion_adapter_abi = {
       "fields": [
         {
           "name": "positions",
-          "type": "0x1::ordered_map::OrderedMap<address, vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>>"
+          "type": "0x1::ordered_map::OrderedMap<address, vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::hyperion_adapter::Position>>"
         },
         {
           "name": "ltv_map",
@@ -743,38 +704,6 @@ export const moarStrategies_hyperion_adapter_abi = {
         {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
-        }
-      ]
-    },
-    {
-      "name": "RebalanceEvent",
-      "is_native": false,
-      "is_event": true,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "pool",
-          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
-        },
-        {
-          "name": "old_position_object",
-          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
-        },
-        {
-          "name": "new_position_object",
-          "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
-        },
-        {
-          "name": "tick_lower",
-          "type": "u32"
-        },
-        {
-          "name": "tick_upper",
-          "type": "u32"
         }
       ]
     },

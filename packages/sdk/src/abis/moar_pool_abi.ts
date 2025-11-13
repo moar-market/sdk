@@ -3,7 +3,7 @@ export const moar_pool_abi = {
   "address": "0x0",
   "name": "pool",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager"
+    "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::credit_manager"
   ],
   "exposed_functions": [
     {
@@ -119,25 +119,23 @@ export const moar_pool_abi = {
       ]
     },
     {
+      "name": "reconcile_existing_lp_staking",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer"
+      ],
+      "return": []
+    },
+    {
       "name": "accrue",
       "visibility": "public",
       "is_entry": true,
       "is_view": false,
       "generic_type_params": [],
       "params": [
-        "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "compensate_bad_debt",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "u64",
         "u64"
       ],
       "return": []
@@ -210,7 +208,7 @@ export const moar_pool_abi = {
       "generic_type_params": [],
       "params": [],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::PoolView>"
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::PoolView>"
       ]
     },
     {
@@ -289,7 +287,7 @@ export const moar_pool_abi = {
         "u64"
       ],
       "return": [
-        "0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>"
+        "0x1::object::Object<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::Pool>"
       ]
     },
     {
@@ -305,6 +303,36 @@ export const moar_pool_abi = {
       "return": [
         "u64",
         "u64",
+        "u64"
+      ]
+    },
+    {
+      "name": "get_user_farming_pool_apy",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "u64",
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
+      "name": "get_user_farming_pool_reward_per_month",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "u64",
+        "0x1::string::String"
+      ],
+      "return": [
         "u64"
       ]
     },
@@ -596,7 +624,7 @@ export const moar_pool_abi = {
         },
         {
           "name": "lp_token_refs",
-          "type": "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::LPTokenRefs"
+          "type": "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::LPTokenRefs"
         },
         {
           "name": "deposit_cap",
@@ -672,26 +700,6 @@ export const moar_pool_abi = {
         {
           "name": "mutate_metadata_ref",
           "type": "0x1::fungible_asset::MutateMetadataRef"
-        }
-      ]
-    },
-    {
-      "name": "BadDebtCompensated",
-      "is_native": false,
-      "is_event": true,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "pool_id",
-          "type": "u64"
-        },
-        {
-          "name": "amount",
-          "type": "u64"
         }
       ]
     },
@@ -978,7 +986,7 @@ export const moar_pool_abi = {
       "fields": [
         {
           "name": "all_pools",
-          "type": "0x1::smart_vector::SmartVector<0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>>"
+          "type": "0x1::smart_vector::SmartVector<0x1::object::Object<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::Pool>>"
         },
         {
           "name": "is_paused",
@@ -1014,7 +1022,7 @@ export const moar_pool_abi = {
         },
         {
           "name": "pool",
-          "type": "0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>"
+          "type": "0x1::object::Object<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::Pool>"
         },
         {
           "name": "underlying_asset",
@@ -1287,7 +1295,7 @@ export const moar_pool_abi = {
       "fields": [
         {
           "name": "unbonding_info",
-          "type": "0x1::smart_table::SmartTable<u64, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::UnbondingInfo>"
+          "type": "0x1::smart_table::SmartTable<u64, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool::UnbondingInfo>"
         }
       ]
     },

@@ -3,7 +3,7 @@ export const moarStrategies_tapp_adapter_abi = {
   "address": "0x0",
   "name": "tapp_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::router"
   ],
   "exposed_functions": [
     {
@@ -40,33 +40,6 @@ export const moarStrategies_tapp_adapter_abi = {
         "address"
       ],
       "return": []
-    },
-    {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
-      "name": "get_ltv_map",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "0x1::simple_map::SimpleMap<u64, u64>"
-      ]
     },
     {
       "name": "execute_strategy",
@@ -107,7 +80,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "vector<vector<u256>>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::LiquidateNonFAPositionInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::tapp_adapter::LiquidateNonFAPositionInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -121,35 +94,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::Position>"
-      ]
-    },
-    {
-      "name": "get_all_positions_and_pools",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<address>",
-        "vector<address>",
-        "vector<u64>"
-      ]
-    },
-    {
-      "name": "get_combined_pool_assets",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::tapp_adapter::Position>"
       ]
     },
     {
@@ -162,7 +107,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::assets::NonFAAsset>"
       ]
     },
     {
@@ -232,7 +177,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "u256"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::AddStableLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::tapp_adapter::AddStableLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -252,22 +197,21 @@ export const moarStrategies_tapp_adapter_abi = {
         "0x1::option::Option<u256>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::RemoveStableLiquidityInputs",
+        "0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::tapp_adapter::RemoveStableLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
     {
-      "name": "get_oracle_based_position_value",
+      "name": "get_combined_pool_assets",
       "visibility": "public",
       "is_entry": false,
-      "is_view": true,
+      "is_view": false,
       "generic_type_params": [],
       "params": [
-        "address",
-        "u64"
+        "address"
       ],
       "return": [
-        "u64"
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
       ]
     },
     {
@@ -285,19 +229,6 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
-      "name": "get_pool_assets_v2",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
-      ]
-    },
-    {
       "name": "get_position_value",
       "visibility": "public",
       "is_entry": false,
@@ -311,33 +242,6 @@ export const moarStrategies_tapp_adapter_abi = {
       "return": [
         "u64"
       ]
-    },
-    {
-      "name": "get_remove_liquidity_value",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "u64"
-      ],
-      "return": [
-        "u64"
-      ]
-    },
-    {
-      "name": "set_pool_price_diff_tolerance",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "u8",
-        "u64"
-      ],
-      "return": []
     }
   ],
   "structs": [
@@ -640,7 +544,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "fields": [
         {
           "name": "positions",
-          "type": "0x1::ordered_map::OrderedMap<address, vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::Position>>"
+          "type": "0x1::ordered_map::OrderedMap<address, vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::tapp_adapter::Position>>"
         },
         {
           "name": "ltv_map",
@@ -649,41 +553,6 @@ export const moarStrategies_tapp_adapter_abi = {
         {
           "name": "reward_tokens",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
-        }
-      ]
-    },
-    {
-      "name": "TappDiffTolerance",
-      "is_native": false,
-      "is_event": false,
-      "abilities": [
-        "key"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "pool_price_diff_tolerance",
-          "type": "0x1::simple_map::SimpleMap<u8, u64>"
-        }
-      ]
-    },
-    {
-      "name": "TappDiffToleranceSet",
-      "is_native": false,
-      "is_event": true,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "hook_type",
-          "type": "u8"
-        },
-        {
-          "name": "diff_tolerance",
-          "type": "u64"
         }
       ]
     }

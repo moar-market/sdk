@@ -67,7 +67,7 @@ export async function fetchAccountEvent<T>(
 
   const queryString = buildEventQueryFromParams(creditAccount, typeStr, options)
 
-  const url = `${useMoarApi()}/events?${queryString}`
+  const url = `${useMoarApi()}/events/fe-account-test?${queryString}`
   const res = await fetch(url)
   if (!res.ok) {
     throw new Error(`Failed to fetch event type ${eventType}: ${res.status} ${res.statusText}`)
@@ -90,7 +90,7 @@ export async function fetchCommonAccountEvents(
   creditAccount: Address,
 ): Promise<EventBaseResponse<CreditAccountEventData>[]> {
   const ledgerVersion = useAptos().getLedgerVersion?.()
-  let url = `${useMoarApi()}/events/fe-account?credit_account=${creditAccount}`
+  let url = `${useMoarApi()}/events/fe-account-test?credit_account=${creditAccount}`
   if (ledgerVersion) {
     url += `&version_end=${ledgerVersion}`
   }

@@ -3,7 +3,7 @@ export const moar_farming_abi = {
   "address": "0x0",
   "name": "farming",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool"
+    "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool"
   ],
   "exposed_functions": [
     {
@@ -158,6 +158,23 @@ export const moar_farming_abi = {
       "is_view": true,
       "generic_type_params": [],
       "params": [
+        "0x1::string::String",
+        "0x1::string::String",
+        "u64",
+        "u8"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
+      "name": "get_user_apy",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
         "0x1::string::String",
         "0x1::string::String",
         "u64",
@@ -430,7 +447,22 @@ export const moar_farming_abi = {
         },
         {
           "name": "rewards",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::PoolReward>"
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::farming::PoolReward>"
+        }
+      ]
+    },
+    {
+      "name": "Staker",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "user_pools",
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::farming::UserPool>"
         }
       ]
     },
@@ -485,11 +517,11 @@ export const moar_farming_abi = {
       "fields": [
         {
           "name": "pools",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::Pool>"
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::farming::Pool>"
         },
         {
           "name": "rewards",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::Reward>"
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::farming::Reward>"
         },
         {
           "name": "blacklisted_accounts",
@@ -706,21 +738,6 @@ export const moar_farming_abi = {
       ]
     },
     {
-      "name": "Staker",
-      "is_native": false,
-      "is_event": false,
-      "abilities": [
-        "key"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "user_pools",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPool>"
-        }
-      ]
-    },
-    {
       "name": "Unstaked",
       "is_native": false,
       "is_event": true,
@@ -763,7 +780,7 @@ export const moar_farming_abi = {
         },
         {
           "name": "rewards",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPoolReward>"
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::farming::UserPoolReward>"
         }
       ]
     },

@@ -3,7 +3,7 @@ export const moar_interest_rate_model_abi = {
   "address": "0x0",
   "name": "interest_rate_model",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool"
+    "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::pool"
   ],
   "exposed_functions": [
     {
@@ -45,7 +45,7 @@ export const moar_interest_rate_model_abi = {
         "u64"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::interest_rate_model::PiecewiseLinearInterestRateModel",
+        "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::interest_rate_model::PiecewiseLinearInterestRateModel",
         "0x1::copyable_any::Any"
       ]
     },
@@ -190,7 +190,7 @@ export const moar_interest_rate_model_abi = {
       "fields": [
         {
           "name": "interest_rate_model",
-          "type": "0x1::smart_table::SmartTable<u64, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::interest_rate_model::InterestRateModel>"
+          "type": "0x1::smart_table::SmartTable<u64, 0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::interest_rate_model::InterestRateModel>"
         }
       ]
     },

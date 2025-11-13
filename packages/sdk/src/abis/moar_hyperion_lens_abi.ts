@@ -53,48 +53,6 @@ export const moar_hyperion_lens_abi = {
       ]
     },
     {
-      "name": "get_ca_position_info",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::hyperion_lens::PositionInfo>"
-      ]
-    },
-    {
-      "name": "get_pending_fee_and_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>",
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
-      "name": "get_pending_fee_value",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "u64"
-      ]
-    },
-    {
       "name": "get_position_info",
       "visibility": "public",
       "is_entry": false,
@@ -105,7 +63,7 @@ export const moar_hyperion_lens_abi = {
         "address"
       ],
       "return": [
-        "0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::hyperion_lens::PositionInfo"
+        "0x5b92d15ccb52e79e8c9ca4366563e3ab2ccb4e206909c58a8b31f1bde7b533a4::hyperion_lens::PositionInfo"
       ]
     },
     {
@@ -219,7 +177,7 @@ export const moar_hyperion_lens_abi = {
         },
         {
           "name": "pending_rewards",
-          "type": "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::hyperion_lens::PendingReward>"
+          "type": "vector<0x5b92d15ccb52e79e8c9ca4366563e3ab2ccb4e206909c58a8b31f1bde7b533a4::hyperion_lens::PendingReward>"
         },
         {
           "name": "tick_lower_price",

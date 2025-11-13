@@ -57,21 +57,6 @@ export const moarStrategies_router_abi = {
       ]
     },
     {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "vector<u8>"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
       "name": "execute_strategy",
       "visibility": "public",
       "is_entry": false,
@@ -212,7 +197,7 @@ export const moarStrategies_router_abi = {
         "u8"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0xd68399ef6eb44d753d3ec4f9db6016a5eab55f6ff9c12a8e7080dc6948df3ab0::assets::NonFAAsset>"
       ]
     },
     {

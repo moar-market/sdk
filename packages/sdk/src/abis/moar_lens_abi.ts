@@ -31,6 +31,20 @@ export const moar_lens_abi = {
       ]
     },
     {
+      "name": "combine_asset_data",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::AssetData>",
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::AssetData>"
+      ],
+      "return": [
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::AssetData>"
+      ]
+    },
+    {
       "name": "get_credit_account_assets",
       "visibility": "public",
       "is_entry": false,
@@ -44,6 +58,19 @@ export const moar_lens_abi = {
       ]
     },
     {
+      "name": "get_credit_account_combined_asset_amounts",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::AssetData>"
+      ]
+    },
+    {
       "name": "get_credit_account_debt_and_asset_amounts",
       "visibility": "public",
       "is_entry": false,
@@ -53,8 +80,8 @@ export const moar_lens_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::DebtData>",
+        "vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::utils::AssetData>"
       ]
     },
     {
@@ -82,6 +109,29 @@ export const moar_lens_abi = {
       ],
       "return": [
         "vector<u64>"
+      ]
+    },
+    {
+      "name": "get_estimated_health_factor_clamm",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>",
+        "vector<u64>",
+        "vector<u64>",
+        "u8",
+        "address",
+        "u128",
+        "u32",
+        "u32",
+        "vector<u64>"
+      ],
+      "return": [
+        "0x1::option::Option<u64>"
       ]
     },
     {
@@ -153,117 +203,6 @@ export const moar_lens_abi = {
       ]
     },
     {
-      "name": "get_unhealthy_credit_accounts",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "vector<address>"
-      ],
-      "return": [
-        "vector<address>",
-        "vector<address>"
-      ]
-    },
-    {
-      "name": "combine_asset_data",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
-      ],
-      "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
-      ]
-    },
-    {
-      "name": "get_bulk_health_summary",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "vector<address>"
-      ],
-      "return": [
-        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::lens::HealthSummary>"
-      ]
-    },
-    {
-      "name": "get_credit_account_combined_asset_amounts",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
-      ]
-    },
-    {
-      "name": "get_estimated_health_factor_clamm",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>",
-        "vector<u64>",
-        "vector<u64>",
-        "u8",
-        "address",
-        "u128",
-        "u32",
-        "u32",
-        "vector<u64>"
-      ],
-      "return": [
-        "0x1::option::Option<u64>"
-      ]
-    },
-    {
-      "name": "get_lp_value",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "u64",
-        "address"
-      ],
-      "return": [
-        "u64",
-        "u64"
-      ]
-    },
-    {
-      "name": "get_pnl_with_components",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "u64",
-        "u128",
-        "bool",
-        "u64",
-        "u64",
-        "u64",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
-      ]
-    },
-    {
       "name": "get_prices",
       "visibility": "public",
       "is_entry": false,
@@ -290,47 +229,19 @@ export const moar_lens_abi = {
       ]
     },
     {
-      "name": "get_total_lp_value",
+      "name": "get_unhealthy_credit_accounts",
       "visibility": "public",
       "is_entry": false,
       "is_view": true,
       "generic_type_params": [],
       "params": [
-        "address"
+        "vector<address>"
       ],
       "return": [
-        "u64"
+        "vector<address>",
+        "vector<address>"
       ]
     }
   ],
-  "structs": [
-    {
-      "name": "HealthSummary",
-      "is_native": false,
-      "is_event": false,
-      "abilities": [
-        "copy",
-        "drop"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "credit_account_address",
-          "type": "address"
-        },
-        {
-          "name": "is_healthy",
-          "type": "bool"
-        },
-        {
-          "name": "is_bad_debt",
-          "type": "bool"
-        },
-        {
-          "name": "health_factor",
-          "type": "u64"
-        }
-      ]
-    }
-  ]
+  "structs": []
 } as const;

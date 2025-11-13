@@ -3,7 +3,7 @@ export const moar_accountant_abi = {
   "address": "0x0",
   "name": "accountant",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager"
+    "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::credit_manager"
   ],
   "exposed_functions": [
     {
@@ -74,7 +74,7 @@ export const moar_accountant_abi = {
       "params": [
         "address",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": [
@@ -118,7 +118,7 @@ export const moar_accountant_abi = {
       "params": [
         "address",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": [
@@ -161,7 +161,7 @@ export const moar_accountant_abi = {
         "u64",
         "bool",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": []
@@ -204,7 +204,7 @@ export const moar_accountant_abi = {
         "0x1::option::Option<0x1::object::Object<0x1::fungible_asset::Metadata>>",
         "0x1::option::Option<u64>",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": []
@@ -282,7 +282,7 @@ export const moar_accountant_abi = {
         },
         {
           "name": "type",
-          "type": "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::accountant::PnLType"
+          "type": "0xeeaea90cd2a6a0d7a184a87a648aa43b2ffd871933f8b7d86638f584de856b7c::accountant::PnLType"
         }
       ]
     },
