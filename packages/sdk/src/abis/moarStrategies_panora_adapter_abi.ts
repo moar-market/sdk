@@ -3,7 +3,7 @@ export const moarStrategies_panora_adapter_abi = {
   "address": "0x0",
   "name": "panora_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::router"
   ],
   "exposed_functions": [
     {
@@ -148,7 +148,7 @@ export const moarStrategies_panora_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::panora_adapter::SwapInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::panora_adapter::SwapInputs",
         "0x1::copyable_any::Any"
       ]
     }

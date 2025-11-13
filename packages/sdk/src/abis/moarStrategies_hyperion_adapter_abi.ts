@@ -3,7 +3,7 @@ export const moarStrategies_hyperion_adapter_abi = {
   "address": "0x0",
   "name": "hyperion_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::router"
   ],
   "exposed_functions": [
     {
@@ -29,6 +29,19 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "get_ltv_map",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "0x1::simple_map::SimpleMap<u64, u64>"
+      ]
+    },
+    {
       "name": "claim_rewards",
       "visibility": "friend",
       "is_entry": false,
@@ -40,33 +53,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       ],
       "return": [
         "vector<0x1::fungible_asset::FungibleAsset>"
-      ]
-    },
-    {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
-      "name": "get_ltv_map",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "0x1::simple_map::SimpleMap<u64, u64>"
       ]
     },
     {
@@ -84,6 +70,20 @@ export const moarStrategies_hyperion_adapter_abi = {
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
         "0x1::option::Option<u8>",
         "address"
+      ]
+    },
+    {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
       ]
     },
     {
@@ -119,7 +119,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::AddLiquidityInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::AddLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -145,7 +145,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::AddLiquidityOptimallyInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::AddLiquidityOptimallyInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -172,7 +172,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "vector<u64>"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::LiquidateNonFAPositionInputs>",
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::LiquidateNonFAPositionInputs>",
         "0x1::copyable_any::Any"
       ]
     },
@@ -200,7 +200,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::RebalanceInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::RebalanceInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -221,7 +221,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::RemoveLiquidityInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::RemoveLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -235,7 +235,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::Position>"
       ]
     },
     {
@@ -306,7 +306,7 @@ export const moarStrategies_hyperion_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>"
       ]
     },
     {
@@ -673,7 +673,7 @@ export const moarStrategies_hyperion_adapter_abi = {
       "fields": [
         {
           "name": "positions",
-          "type": "0x1::ordered_map::OrderedMap<address, vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::hyperion_adapter::Position>>"
+          "type": "0x1::ordered_map::OrderedMap<address, vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::hyperion_adapter::Position>>"
         },
         {
           "name": "ltv_map",

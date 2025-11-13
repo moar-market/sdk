@@ -61,7 +61,7 @@ export const moar_credit_manager_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -74,7 +74,7 @@ export const moar_credit_manager_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -225,7 +225,7 @@ export const moar_credit_manager_abi = {
       "generic_type_params": [],
       "params": [
         "&signer",
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::LiquidationReceipt",
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::LiquidationReceipt",
         "vector<0x1::fungible_asset::FungibleAsset>"
       ],
       "return": []
@@ -258,7 +258,7 @@ export const moar_credit_manager_abi = {
       ],
       "return": [
         "vector<0x1::fungible_asset::FungibleAsset>",
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::LiquidationReceipt"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::LiquidationReceipt"
       ]
     },
     {
@@ -411,7 +411,7 @@ export const moar_credit_manager_abi = {
         "0x1::copyable_any::Any"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -426,7 +426,7 @@ export const moar_credit_manager_abi = {
         "vector<0x1::option::Option<u64>>"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -454,7 +454,7 @@ export const moar_credit_manager_abi = {
         "vector<0x1::option::Option<u64>>"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
       ]
     },
     {
@@ -769,7 +769,7 @@ export const moar_credit_manager_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::strategy::Strategy>"
       ]
     },
     {
@@ -834,7 +834,7 @@ export const moar_credit_manager_abi = {
       "generic_type_params": [],
       "params": [
         "&signer",
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::LiquidationReceipt",
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::LiquidationReceipt",
         "vector<0x1::fungible_asset::FungibleAsset>"
       ],
       "return": []
@@ -861,14 +861,14 @@ export const moar_credit_manager_abi = {
       "params": [
         "&signer",
         "address",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>",
         "vector<0x1::copyable_any::Any>",
         "vector<0x1::copyable_any::Any>"
       ],
       "return": [
         "vector<0x1::fungible_asset::FungibleAsset>",
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::LiquidationReceipt"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::LiquidationReceipt"
       ]
     },
     {
@@ -882,7 +882,7 @@ export const moar_credit_manager_abi = {
         "u64"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -893,7 +893,7 @@ export const moar_credit_manager_abi = {
       "generic_type_params": [],
       "params": [],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -907,7 +907,7 @@ export const moar_credit_manager_abi = {
         "u64"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -922,7 +922,7 @@ export const moar_credit_manager_abi = {
         "0x1::copyable_any::Any"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -936,7 +936,7 @@ export const moar_credit_manager_abi = {
         "0x1::option::Option<u64>"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -951,7 +951,7 @@ export const moar_credit_manager_abi = {
         "0x1::object::Object<0x1::fungible_asset::Metadata>"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager::ActionData"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager::ActionData"
       ]
     },
     {
@@ -1371,7 +1371,7 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "debt_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
         }
       ]
     },
@@ -1395,11 +1395,11 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "debt_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
         },
         {
           "name": "asset_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
         },
         {
           "name": "debt_repaid_value",
@@ -1487,7 +1487,7 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "strategies",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::strategy::Strategy>"
         },
         {
           "name": "debt_pools",
@@ -1684,7 +1684,7 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "debt_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
         },
         {
           "name": "final_health_factor",
@@ -1729,7 +1729,7 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "debt_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
         },
         {
           "name": "initial_health_factor",
@@ -1761,11 +1761,11 @@ export const moar_credit_manager_abi = {
         },
         {
           "name": "debt_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
         },
         {
           "name": "asset_data",
-          "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+          "type": "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
         },
         {
           "name": "debt_repaid_value",

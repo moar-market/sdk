@@ -3,7 +3,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
   "address": "0x0",
   "name": "dex_swap_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::router"
   ],
   "exposed_functions": [
     {
@@ -21,7 +21,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::dex_swap_adapter::HyperionMultiPoolSwapInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::dex_swap_adapter::HyperionMultiPoolSwapInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -43,7 +43,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::dex_swap_adapter::HyperionSinglePoolSwapInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::dex_swap_adapter::HyperionSinglePoolSwapInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -63,7 +63,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
         "bool"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::dex_swap_adapter::ThalaV2SwapInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::dex_swap_adapter::ThalaV2SwapInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -136,50 +136,6 @@ export const moarStrategies_dex_swap_adapter_abi = {
     }
   ],
   "structs": [
-    {
-      "name": "SwapEvent",
-      "is_native": false,
-      "is_event": true,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "dex_id",
-          "type": "u8"
-        },
-        {
-          "name": "credit_account_address",
-          "type": "address"
-        },
-        {
-          "name": "from_token",
-          "type": "address"
-        },
-        {
-          "name": "amount_in",
-          "type": "u64"
-        },
-        {
-          "name": "to_token",
-          "type": "address"
-        },
-        {
-          "name": "amount_out",
-          "type": "u64"
-        },
-        {
-          "name": "trade_value",
-          "type": "u64"
-        },
-        {
-          "name": "is_trade",
-          "type": "bool"
-        }
-      ]
-    },
     {
       "name": "HyperionMultiPoolSwapInputs",
       "is_native": false,
@@ -259,6 +215,50 @@ export const moarStrategies_dex_swap_adapter_abi = {
         {
           "name": "is_exact_in",
           "type": "bool"
+        },
+        {
+          "name": "is_trade",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "SwapEvent",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "dex_id",
+          "type": "u8"
+        },
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "from_token",
+          "type": "address"
+        },
+        {
+          "name": "amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "to_token",
+          "type": "address"
+        },
+        {
+          "name": "amount_out",
+          "type": "u64"
+        },
+        {
+          "name": "trade_value",
+          "type": "u64"
         },
         {
           "name": "is_trade",

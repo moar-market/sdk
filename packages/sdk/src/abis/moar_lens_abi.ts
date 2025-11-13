@@ -53,8 +53,8 @@ export const moar_lens_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -173,11 +173,11 @@ export const moar_lens_abi = {
       "is_view": false,
       "generic_type_params": [],
       "params": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -190,7 +190,7 @@ export const moar_lens_abi = {
         "vector<address>"
       ],
       "return": [
-        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::lens::HealthSummary>"
+        "vector<0xe7be11f45427d77dbe292dae5f4ec645c94ffc2cb1d861c204af6498dc779eb8::lens::HealthSummary>"
       ]
     },
     {
@@ -203,7 +203,7 @@ export const moar_lens_abi = {
         "address"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -260,7 +260,7 @@ export const moar_lens_abi = {
         "u64",
         "u64",
         "u64",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
       ]
     },
     {

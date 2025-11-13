@@ -3,7 +3,7 @@ export const moar_risk_manager_abi = {
   "address": "0x0",
   "name": "risk_manager",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager"
+    "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager"
   ],
   "exposed_functions": [
     {
@@ -38,7 +38,7 @@ export const moar_risk_manager_abi = {
         "vector<u64>"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::risk_manager::PoolLtvEntries>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::risk_manager::PoolLtvEntries>"
       ]
     },
     {
@@ -51,7 +51,7 @@ export const moar_risk_manager_abi = {
         "u64"
       ],
       "return": [
-        "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::risk_manager::PoolLtvEntries"
+        "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::risk_manager::PoolLtvEntries"
       ]
     },
     {
@@ -63,7 +63,7 @@ export const moar_risk_manager_abi = {
       "params": [
         "address",
         "&vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>",
+        "&vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>",
         "&vector<u64>"
       ],
       "return": [
@@ -84,7 +84,7 @@ export const moar_risk_manager_abi = {
       ],
       "return": [
         "u64",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>"
       ]
     },
     {
@@ -151,7 +151,7 @@ export const moar_risk_manager_abi = {
       "params": [
         "&vector<u64>",
         "&vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>",
+        "&vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>",
         "&vector<u64>",
         "&vector<u64>",
         "&vector<u64>"
@@ -169,7 +169,7 @@ export const moar_risk_manager_abi = {
       "params": [
         "address",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": [
@@ -213,11 +213,11 @@ export const moar_risk_manager_abi = {
       "params": [
         "address",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>"
       ],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>",
         "u64",
         "u64",
         "u64"
@@ -231,7 +231,7 @@ export const moar_risk_manager_abi = {
       "generic_type_params": [],
       "params": [
         "address",
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>",
         "u64"
       ],
       "return": [
@@ -247,10 +247,10 @@ export const moar_risk_manager_abi = {
       "generic_type_params": [],
       "params": [
         "address",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::AssetData>",
+        "&vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::DebtData>",
+        "&vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::utils::AssetData>",
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "&vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::strategy::Strategy>",
+        "&vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::strategy::Strategy>",
         "vector<u64>"
       ],
       "return": [

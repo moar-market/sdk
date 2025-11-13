@@ -3,7 +3,7 @@ export const moarStrategies_tapp_adapter_abi = {
   "address": "0x0",
   "name": "tapp_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::router"
   ],
   "exposed_functions": [
     {
@@ -42,20 +42,6 @@ export const moarStrategies_tapp_adapter_abi = {
       "return": []
     },
     {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
       "name": "get_ltv_map",
       "visibility": "public",
       "is_entry": false,
@@ -86,6 +72,20 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
+      ]
+    },
+    {
       "name": "add_reward_token",
       "visibility": "public",
       "is_entry": true,
@@ -107,7 +107,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "vector<vector<u256>>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::LiquidateNonFAPositionInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::tapp_adapter::LiquidateNonFAPositionInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -121,7 +121,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::Position>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::tapp_adapter::Position>"
       ]
     },
     {
@@ -162,7 +162,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>"
       ]
     },
     {
@@ -232,7 +232,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "u256"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::AddStableLiquidityInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::tapp_adapter::AddStableLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -252,7 +252,7 @@ export const moarStrategies_tapp_adapter_abi = {
         "0x1::option::Option<u256>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::RemoveStableLiquidityInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::tapp_adapter::RemoveStableLiquidityInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -640,7 +640,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "fields": [
         {
           "name": "positions",
-          "type": "0x1::ordered_map::OrderedMap<address, vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::tapp_adapter::Position>>"
+          "type": "0x1::ordered_map::OrderedMap<address, vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::tapp_adapter::Position>>"
         },
         {
           "name": "ltv_map",

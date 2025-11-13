@@ -14,7 +14,7 @@ export const moar_tapp_lens_abi = {
         "address"
       ],
       "return": [
-        "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::tapp_lens::PositionInfo>"
+        "vector<0xe7be11f45427d77dbe292dae5f4ec645c94ffc2cb1d861c204af6498dc779eb8::tapp_lens::PositionInfo>"
       ]
     }
   ],
@@ -75,7 +75,7 @@ export const moar_tapp_lens_abi = {
         },
         {
           "name": "pending_rewards",
-          "type": "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::tapp_lens::PendingReward>"
+          "type": "vector<0xe7be11f45427d77dbe292dae5f4ec645c94ffc2cb1d861c204af6498dc779eb8::tapp_lens::PendingReward>"
         }
       ]
     }

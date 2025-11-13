@@ -3,7 +3,7 @@ export const moar_pool_abi = {
   "address": "0x0",
   "name": "pool",
   "friends": [
-    "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::credit_manager"
+    "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::credit_manager"
   ],
   "exposed_functions": [
     {
@@ -210,7 +210,7 @@ export const moar_pool_abi = {
       "generic_type_params": [],
       "params": [],
       "return": [
-        "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::PoolView>"
+        "vector<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::PoolView>"
       ]
     },
     {
@@ -289,7 +289,7 @@ export const moar_pool_abi = {
         "u64"
       ],
       "return": [
-        "0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>"
+        "0x1::object::Object<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::Pool>"
       ]
     },
     {
@@ -596,7 +596,7 @@ export const moar_pool_abi = {
         },
         {
           "name": "lp_token_refs",
-          "type": "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::LPTokenRefs"
+          "type": "0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::LPTokenRefs"
         },
         {
           "name": "deposit_cap",
@@ -978,7 +978,7 @@ export const moar_pool_abi = {
       "fields": [
         {
           "name": "all_pools",
-          "type": "0x1::smart_vector::SmartVector<0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>>"
+          "type": "0x1::smart_vector::SmartVector<0x1::object::Object<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::Pool>>"
         },
         {
           "name": "is_paused",
@@ -1014,7 +1014,7 @@ export const moar_pool_abi = {
         },
         {
           "name": "pool",
-          "type": "0x1::object::Object<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::Pool>"
+          "type": "0x1::object::Object<0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::Pool>"
         },
         {
           "name": "underlying_asset",
@@ -1287,7 +1287,7 @@ export const moar_pool_abi = {
       "fields": [
         {
           "name": "unbonding_info",
-          "type": "0x1::smart_table::SmartTable<u64, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::UnbondingInfo>"
+          "type": "0x1::smart_table::SmartTable<u64, 0xa49c8041dba4fe49fbdbb3c193c499548be9dfec1649165c8558a7bced520b5a::pool::UnbondingInfo>"
         }
       ]
     },

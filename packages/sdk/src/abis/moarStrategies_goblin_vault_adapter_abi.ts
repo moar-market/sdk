@@ -3,9 +3,22 @@ export const moarStrategies_goblin_vault_adapter_abi = {
   "address": "0x0",
   "name": "goblin_vault_adapter",
   "friends": [
-    "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::router"
+    "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::router"
   ],
   "exposed_functions": [
+    {
+      "name": "get_ltv_map",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "0x1::simple_map::SimpleMap<u64, u64>"
+      ]
+    },
     {
       "name": "claim_rewards",
       "visibility": "friend",
@@ -18,33 +31,6 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       ],
       "return": [
         "vector<0x1::fungible_asset::FungibleAsset>"
-      ]
-    },
-    {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
-      "name": "get_ltv_map",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address"
-      ],
-      "return": [
-        "0x1::simple_map::SimpleMap<u64, u64>"
       ]
     },
     {
@@ -62,6 +48,20 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
         "0x1::option::Option<u8>",
         "address"
+      ]
+    },
+    {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
       ]
     },
     {
@@ -114,7 +114,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "address"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>"
       ]
     },
     {
@@ -174,7 +174,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::DepositWithPairInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::DepositWithPairInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -194,7 +194,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "0x1::option::Option<u64>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::DepositWithPairInputsV2",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::DepositWithPairInputsV2",
         "0x1::copyable_any::Any"
       ]
     },
@@ -213,7 +213,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::DepositWithSingleInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::DepositWithSingleInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -234,7 +234,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "0x1::option::Option<u64>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::DepositWithSingleInputsV2",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::DepositWithSingleInputsV2",
         "0x1::copyable_any::Any"
       ]
     },
@@ -251,7 +251,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::RemoveAsPairInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::RemoveAsPairInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -270,7 +270,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "0x1::option::Option<u64>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::RemoveAsPairInputsV2",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::RemoveAsPairInputsV2",
         "0x1::copyable_any::Any"
       ]
     },
@@ -289,7 +289,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "u64"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::RemoveAsSingleInputs",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::RemoveAsSingleInputs",
         "0x1::copyable_any::Any"
       ]
     },
@@ -310,7 +310,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
         "0x1::option::Option<u64>"
       ],
       "return": [
-        "0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::RemoveAsSingleInputsV2",
+        "0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::RemoveAsSingleInputsV2",
         "0x1::copyable_any::Any"
       ]
     },
@@ -537,7 +537,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "fields": [
         {
           "name": "positions",
-          "type": "0x1::ordered_map::OrderedMap<address, vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::goblin_vault_adapter::Position>>"
+          "type": "0x1::ordered_map::OrderedMap<address, vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::goblin_vault_adapter::Position>>"
         },
         {
           "name": "ltv_map",

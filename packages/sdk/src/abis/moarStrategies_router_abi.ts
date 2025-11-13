@@ -57,21 +57,6 @@ export const moarStrategies_router_abi = {
       ]
     },
     {
-      "name": "get_pending_rewards",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "address",
-        "vector<u8>"
-      ],
-      "return": [
-        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
-        "vector<u64>"
-      ]
-    },
-    {
       "name": "execute_strategy",
       "visibility": "public",
       "is_entry": false,
@@ -188,6 +173,21 @@ export const moarStrategies_router_abi = {
       ]
     },
     {
+      "name": "get_pending_rewards",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address",
+        "vector<u8>"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>",
+        "vector<u64>"
+      ]
+    },
+    {
       "name": "get_custom_token_price",
       "visibility": "public",
       "is_entry": false,
@@ -212,7 +212,7 @@ export const moarStrategies_router_abi = {
         "u8"
       ],
       "return": [
-        "vector<0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::assets::NonFAAsset>"
+        "vector<0x538578d562e20150569addf6a935c33330d1e62af2ae8cea0c372805e29cfba9::assets::NonFAAsset>"
       ]
     },
     {

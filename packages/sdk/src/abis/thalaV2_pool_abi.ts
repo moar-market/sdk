@@ -716,6 +716,19 @@ export const thalaV2_pool_abi = {
       ]
     },
     {
+      "name": "pool_add_liquidity_paused",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>"
+      ],
+      "return": [
+        "bool"
+      ]
+    },
+    {
       "name": "pool_assets_metadata",
       "visibility": "public",
       "is_entry": false,
@@ -752,6 +765,19 @@ export const thalaV2_pool_abi = {
       ],
       "return": [
         "vector<u128>"
+      ]
+    },
+    {
+      "name": "pool_flashloan_paused",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>"
+      ],
+      "return": [
+        "bool"
       ]
     },
     {
@@ -911,6 +937,19 @@ export const thalaV2_pool_abi = {
       ]
     },
     {
+      "name": "pool_remove_liquidity_paused",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>"
+      ],
+      "return": [
+        "bool"
+      ]
+    },
+    {
       "name": "pool_size",
       "visibility": "public",
       "is_entry": false,
@@ -934,6 +973,19 @@ export const thalaV2_pool_abi = {
       ],
       "return": [
         "u64"
+      ]
+    },
+    {
+      "name": "pool_swap_paused",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>"
+      ],
+      "return": [
+        "bool"
       ]
     },
     {
@@ -1164,6 +1216,58 @@ export const thalaV2_pool_abi = {
       "return": [
         "vector<address>"
       ]
+    },
+    {
+      "name": "set_pause_pool_add_liquidity",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>",
+        "bool"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_pause_pool_flashloan",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>",
+        "bool"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_pause_pool_remove_liquidity",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>",
+        "bool"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_pause_pool_swap",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0x7730cd28ee1cdc9e999336cbc430f99e7c44397c0aa77516f6f23a78559bb5::pool::Pool>",
+        "bool"
+      ],
+      "return": []
     },
     {
       "name": "set_pause_thalaswap",
@@ -1959,6 +2063,33 @@ export const thalaV2_pool_abi = {
         {
           "name": "new_value",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "PoolPauseFlag",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "add_liquidity_paused",
+          "type": "bool"
+        },
+        {
+          "name": "remove_liquidity_paused",
+          "type": "bool"
+        },
+        {
+          "name": "swap_paused",
+          "type": "bool"
+        },
+        {
+          "name": "flashloan_paused",
+          "type": "bool"
         }
       ]
     },
