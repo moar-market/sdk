@@ -342,7 +342,6 @@ export const moarStrategies_hyperion_adapter_abi = {
       "generic_type_params": [],
       "params": [
         "&signer",
-        "&signer",
         "0x1::copyable_any::Any"
       ],
       "return": [

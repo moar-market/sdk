@@ -1,5 +1,6 @@
 export * from './common'
 export * from './fetch_patch'
 export * from './sqrtPrice'
+export * from './tick-price'
 export * from './twos-complement'
 export * from './type-args'
