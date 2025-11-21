@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.3.0",
   "private": false,
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.23.0",
   "description": "Moar Market SDK",
   "author": "Moar Market",
   "license": "MIT",
@@ -195,6 +195,13 @@
         "import": "./src/lend-pool/index.ts"
       },
       "import": "./dist/lend-pool/index.js"
+    },
+    "./logger": {
+      "types": "./dist/logger.d.ts",
+      "development": {
+        "import": "./src/logger.ts"
+      },
+      "import": "./dist/logger.js"
     },
     "./protocols/default-swap": {
       "types": "./dist/protocols/default-swap.d.ts",

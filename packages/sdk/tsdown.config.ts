@@ -18,6 +18,10 @@ export default defineConfig({
         }
 
         const value = exports[key]
+        if (value === undefined) {
+          continue
+        }
+
         if (key === './package.json') {
           newExports[key] = value
           continue
@@ -73,7 +77,7 @@ export default defineConfig({
     './src/credit-manager/index.ts',
 
     // logger
-    './src/logger/index.ts',
+    './src/logger.ts',
 
     // types
     './src/types/index.ts',
