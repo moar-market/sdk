@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.3.1
+
+[compare changes](https://github.com/moar-market/sdk/compare/v0.3.0...v0.3.1)
+
+### 🩹 Fixes
+
+- **tapp:** Update tappRpc id to a static value and modify PositionQuery to accept nftAddrs array ([968d2b0](https://github.com/moar-market/sdk/commit/968d2b0))
+- **tapp:** Use random id for api requests ([80d6ced](https://github.com/moar-market/sdk/commit/80d6ced))
+- **composer-strategies:** Shared helpers to correctly pass module abi ([f3bc5c6](https://github.com/moar-market/sdk/commit/f3bc5c6))
+
+### 💅 Refactors
+
+- **protocols:** Update ABI handling to use MoveModule type for adapter functions ([6acb70a](https://github.com/moar-market/sdk/commit/6acb70a))
+- **hyperion:** Return current tick from getCurrentSqrtPrice ([09609aa](https://github.com/moar-market/sdk/commit/09609aa))
+
+### 🏡 Chore
+
+- Abi update ([eb23f08](https://github.com/moar-market/sdk/commit/eb23f08))
+- Update package dependencies and pnpm version to 10.23.0 ([3aa650a](https://github.com/moar-market/sdk/commit/3aa650a))
+- **sdk:** Build module(mjs) & avoid sourcemap on publish ([926fb6c](https://github.com/moar-market/sdk/commit/926fb6c))
+- Release v0.3.1 ([d754b9d](https://github.com/moar-market/sdk/commit/d754b9d))
+
 ## v0.3.0
 
 [compare changes](https://github.com/moar-market/sdk/compare/v0.2.0...v0.3.0)
