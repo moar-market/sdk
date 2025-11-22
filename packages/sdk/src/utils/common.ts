@@ -1,4 +1,4 @@
-import type { Address, Kink } from '../types'
+import type { Kink } from '../types'
 import { AccountAddress } from '@aptos-labs/ts-sdk'
 import { bigDivRound, bigDivScaled, bigMulDivRound, ROUND_MODES, scale, unScale } from '@itsmnthn/big-utils'
 import { DECIMALS, ZERO } from './constants'
@@ -247,11 +247,11 @@ export function calcWeights(amounts: number[]): number[] {
 /**
  * Checks if two addresses are equal
  *
- * @param {string | Address | undefined} address1 - The first address to compare.
- * @param {string | Address | undefined} address2 - The second address to compare.
+ * @param {string | undefined} address1 - The first address to compare.
+ * @param {string | undefined} address2 - The second address to compare.
  * @returns {boolean} True if the addresses are equal, false otherwise.
  */
-export function isEqualAddress(address1?: string | Address, address2?: string | Address) {
+export function isEqualAddress(address1?: string, address2?: string) {
   if (!address1 || !address2)
     return false
   try {

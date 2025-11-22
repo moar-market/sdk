@@ -8,7 +8,7 @@ export interface GoblinVaultConfig {
   poolConfig: HyperionPoolConfig
   performanceFeeRate: number
   reward?: {
-    token: string | Address
+    token: string
     poolId: number
   }
 }

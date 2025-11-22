@@ -300,14 +300,14 @@ export class AptosScriptComposer {
     const modules = new Set<string>()
     if (typeTag.isStruct()) {
       const structTag = typeTag as TypeTagStruct
-      const moduleId = `${structTag.value.address}::${structTag.value.moduleName.identifier.toString()}`
+      const moduleId = `${structTag.value.address.toString()}::${structTag.value.moduleName.identifier.toString()}`
       modules.add(moduleId)
       const autoFetch = options?.allowFetch ?? true
       if (!AptosScriptComposer.loadedModulesCache.has(moduleId)) {
         if (autoFetch) {
           const module = await getModuleInner({
             aptosConfig: this.config,
-            accountAddress: structTag.value.address,
+            accountAddress: structTag.value.address.toString(),
             moduleName: structTag.value.moduleName.identifier.toString(),
           })
           if (module) {

@@ -55,14 +55,14 @@ async function tappRpc<TResult = unknown>(
 
 export interface PoolStatsQuery {
   query: {
-    poolId: Address | string
+    poolId: Address
     [key: string]: unknown
   }
 }
 
 export interface PositionQuery {
   query: {
-    nftAddrs?: (Address | string)[]
+    nftAddrs?: (Address)[]
     page?: number
     pageSize?: number
     [key: string]: unknown

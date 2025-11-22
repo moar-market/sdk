@@ -121,8 +121,8 @@ export async function getPoolData(poolId: Address): Promise<HyperionPoolData> {
 }
 
 export async function getAllPositions(
-  poolId: Address | string,
-  user: Address | string,
+  poolId: Address,
+  user: Address,
 ): Promise<HyperionPositionStats[]> {
   const allPositionQuery = {
     query: `

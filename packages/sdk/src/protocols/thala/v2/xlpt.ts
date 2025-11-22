@@ -15,6 +15,7 @@ import { logger } from './../../../logger'
 export async function getAccumulatedReward(
   userAddress: Address,
   xlptAddress: Address,
+  // oxlint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   rewardId: Address | `@${Address}` | string,
 ): Promise<string> {
   const debugLabel = 'getAccumulatedReward'

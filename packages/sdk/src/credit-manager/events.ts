@@ -143,7 +143,8 @@ export interface AccountEventsOptions {
   page_number?: number | string
   page_size?: number | string
   version_start?: number | string
-  version_end?: number | string | 'latest'
+  // oxlint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  version_end?: number | 'latest' | string
   block_height_start?: number | string
   block_height_end?: number | string
 }
