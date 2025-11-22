@@ -5,7 +5,7 @@ import { useAptos } from './aptos'
 let surfClient: ReturnType<typeof createSurfClient>
 let chainId: number
 
-export function useSurfClient() {
+export function useSurfClient(): ReturnType<typeof createSurfClient> {
   // after changing the chain in config at runtime, we need to recreate the surf client
   if (!surfClient || chainId !== useChainConfig().chainId) {
     chainId = useChainConfig().chainId

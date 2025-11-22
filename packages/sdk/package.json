@@ -22,261 +22,261 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/index.d.mts",
       "development": {
         "import": "./src/index.ts"
       },
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./abis": {
-      "types": "./dist/abis/index.d.ts",
+      "types": "./dist/abis/index.d.mts",
       "development": {
         "import": "./src/abis/index.ts"
       },
-      "import": "./dist/abis/index.js"
+      "import": "./dist/abis/index.mjs"
     },
     "./clients": {
-      "types": "./dist/clients/index.d.ts",
+      "types": "./dist/clients/index.d.mts",
       "development": {
         "import": "./src/clients/index.ts"
       },
-      "import": "./dist/clients/index.js"
+      "import": "./dist/clients/index.mjs"
     },
     "./composer": {
-      "types": "./dist/composer/index.d.ts",
+      "types": "./dist/composer/index.d.mts",
       "development": {
         "import": "./src/composer/index.ts"
       },
-      "import": "./dist/composer/index.js"
+      "import": "./dist/composer/index.mjs"
     },
     "./composer-strategies": {
-      "types": "./dist/composer-strategies/index.d.ts",
+      "types": "./dist/composer-strategies/index.d.mts",
       "development": {
         "import": "./src/composer-strategies/index.ts"
       },
-      "import": "./dist/composer-strategies/index.js"
+      "import": "./dist/composer-strategies/index.mjs"
     },
     "./composer-strategies/credit-manager": {
-      "types": "./dist/composer-strategies/credit-manager.d.ts",
+      "types": "./dist/composer-strategies/credit-manager.d.mts",
       "development": {
         "import": "./src/composer-strategies/credit-manager.ts"
       },
-      "import": "./dist/composer-strategies/credit-manager.js"
+      "import": "./dist/composer-strategies/credit-manager.mjs"
     },
     "./composer-strategies/goblin": {
-      "types": "./dist/composer-strategies/goblin.d.ts",
+      "types": "./dist/composer-strategies/goblin.d.mts",
       "development": {
         "import": "./src/composer-strategies/goblin.ts"
       },
-      "import": "./dist/composer-strategies/goblin.js"
+      "import": "./dist/composer-strategies/goblin.mjs"
     },
     "./composer-strategies/hyperion": {
-      "types": "./dist/composer-strategies/hyperion.d.ts",
+      "types": "./dist/composer-strategies/hyperion.d.mts",
       "development": {
         "import": "./src/composer-strategies/hyperion.ts"
       },
-      "import": "./dist/composer-strategies/hyperion.js"
+      "import": "./dist/composer-strategies/hyperion.mjs"
     },
     "./composer-strategies/protocols/default-swap": {
-      "types": "./dist/composer-strategies/protocols/default-swap.d.ts",
+      "types": "./dist/composer-strategies/protocols/default-swap.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/default-swap.ts"
       },
-      "import": "./dist/composer-strategies/protocols/default-swap.js"
+      "import": "./dist/composer-strategies/protocols/default-swap.mjs"
     },
     "./composer-strategies/protocols/dex_swap": {
-      "types": "./dist/composer-strategies/protocols/dex_swap.d.ts",
+      "types": "./dist/composer-strategies/protocols/dex_swap.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/dex_swap.ts"
       },
-      "import": "./dist/composer-strategies/protocols/dex_swap.js"
+      "import": "./dist/composer-strategies/protocols/dex_swap.mjs"
     },
     "./composer-strategies/protocols/goblin": {
-      "types": "./dist/composer-strategies/protocols/goblin.d.ts",
+      "types": "./dist/composer-strategies/protocols/goblin.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/goblin.ts"
       },
-      "import": "./dist/composer-strategies/protocols/goblin.js"
+      "import": "./dist/composer-strategies/protocols/goblin.mjs"
     },
     "./composer-strategies/protocols/hyperion": {
-      "types": "./dist/composer-strategies/protocols/hyperion.d.ts",
+      "types": "./dist/composer-strategies/protocols/hyperion.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/hyperion.ts"
       },
-      "import": "./dist/composer-strategies/protocols/hyperion.js"
+      "import": "./dist/composer-strategies/protocols/hyperion.mjs"
     },
     "./composer-strategies/protocols/panora": {
-      "types": "./dist/composer-strategies/protocols/panora.d.ts",
+      "types": "./dist/composer-strategies/protocols/panora.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/panora.ts"
       },
-      "import": "./dist/composer-strategies/protocols/panora.js"
+      "import": "./dist/composer-strategies/protocols/panora.mjs"
     },
     "./composer-strategies/protocols/tapp": {
-      "types": "./dist/composer-strategies/protocols/tapp.d.ts",
+      "types": "./dist/composer-strategies/protocols/tapp.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/tapp.ts"
       },
-      "import": "./dist/composer-strategies/protocols/tapp.js"
+      "import": "./dist/composer-strategies/protocols/tapp.mjs"
     },
     "./composer-strategies/protocols/thala_v2": {
-      "types": "./dist/composer-strategies/protocols/thala_v2.d.ts",
+      "types": "./dist/composer-strategies/protocols/thala_v2.d.mts",
       "development": {
         "import": "./src/composer-strategies/protocols/thala_v2.ts"
       },
-      "import": "./dist/composer-strategies/protocols/thala_v2.js"
+      "import": "./dist/composer-strategies/protocols/thala_v2.mjs"
     },
     "./composer-strategies/tapp-stable": {
-      "types": "./dist/composer-strategies/tapp-stable.d.ts",
+      "types": "./dist/composer-strategies/tapp-stable.d.mts",
       "development": {
         "import": "./src/composer-strategies/tapp-stable.ts"
       },
-      "import": "./dist/composer-strategies/tapp-stable.js"
+      "import": "./dist/composer-strategies/tapp-stable.mjs"
     },
     "./composer-strategies/thala_v2": {
-      "types": "./dist/composer-strategies/thala_v2.d.ts",
+      "types": "./dist/composer-strategies/thala_v2.d.mts",
       "development": {
         "import": "./src/composer-strategies/thala_v2.ts"
       },
-      "import": "./dist/composer-strategies/thala_v2.js"
+      "import": "./dist/composer-strategies/thala_v2.mjs"
     },
     "./composer-strategies/thala_v2_lsd": {
-      "types": "./dist/composer-strategies/thala_v2_lsd.d.ts",
+      "types": "./dist/composer-strategies/thala_v2_lsd.d.mts",
       "development": {
         "import": "./src/composer-strategies/thala_v2_lsd.ts"
       },
-      "import": "./dist/composer-strategies/thala_v2_lsd.js"
+      "import": "./dist/composer-strategies/thala_v2_lsd.mjs"
     },
     "./composer-strategies/trade/default": {
-      "types": "./dist/composer-strategies/trade/default.d.ts",
+      "types": "./dist/composer-strategies/trade/default.d.mts",
       "development": {
         "import": "./src/composer-strategies/trade/default.ts"
       },
-      "import": "./dist/composer-strategies/trade/default.js"
+      "import": "./dist/composer-strategies/trade/default.mjs"
     },
     "./composer-strategies/trade/dex_swap": {
-      "types": "./dist/composer-strategies/trade/dex_swap.d.ts",
+      "types": "./dist/composer-strategies/trade/dex_swap.d.mts",
       "development": {
         "import": "./src/composer-strategies/trade/dex_swap.ts"
       },
-      "import": "./dist/composer-strategies/trade/dex_swap.js"
+      "import": "./dist/composer-strategies/trade/dex_swap.mjs"
     },
     "./composer-strategies/trade/panora": {
-      "types": "./dist/composer-strategies/trade/panora.d.ts",
+      "types": "./dist/composer-strategies/trade/panora.d.mts",
       "development": {
         "import": "./src/composer-strategies/trade/panora.ts"
       },
-      "import": "./dist/composer-strategies/trade/panora.js"
+      "import": "./dist/composer-strategies/trade/panora.mjs"
     },
     "./config": {
-      "types": "./dist/config/index.d.ts",
+      "types": "./dist/config/index.d.mts",
       "development": {
         "import": "./src/config/index.ts"
       },
-      "import": "./dist/config/index.js"
+      "import": "./dist/config/index.mjs"
     },
     "./credit-manager": {
-      "types": "./dist/credit-manager/index.d.ts",
+      "types": "./dist/credit-manager/index.d.mts",
       "development": {
         "import": "./src/credit-manager/index.ts"
       },
-      "import": "./dist/credit-manager/index.js"
+      "import": "./dist/credit-manager/index.mjs"
     },
     "./farming": {
-      "types": "./dist/farming/index.d.ts",
+      "types": "./dist/farming/index.d.mts",
       "development": {
         "import": "./src/farming/index.ts"
       },
-      "import": "./dist/farming/index.js"
+      "import": "./dist/farming/index.mjs"
     },
     "./lend-pool": {
-      "types": "./dist/lend-pool/index.d.ts",
+      "types": "./dist/lend-pool/index.d.mts",
       "development": {
         "import": "./src/lend-pool/index.ts"
       },
-      "import": "./dist/lend-pool/index.js"
+      "import": "./dist/lend-pool/index.mjs"
     },
     "./logger": {
-      "types": "./dist/logger.d.ts",
+      "types": "./dist/logger.d.mts",
       "development": {
         "import": "./src/logger.ts"
       },
-      "import": "./dist/logger.js"
+      "import": "./dist/logger.mjs"
     },
     "./protocols/default-swap": {
-      "types": "./dist/protocols/default-swap.d.ts",
+      "types": "./dist/protocols/default-swap.d.mts",
       "development": {
         "import": "./src/protocols/default-swap.ts"
       },
-      "import": "./dist/protocols/default-swap.js"
+      "import": "./dist/protocols/default-swap.mjs"
     },
     "./protocols/dex_swap": {
-      "types": "./dist/protocols/dex_swap/index.d.ts",
+      "types": "./dist/protocols/dex_swap/index.d.mts",
       "development": {
         "import": "./src/protocols/dex_swap/index.ts"
       },
-      "import": "./dist/protocols/dex_swap/index.js"
+      "import": "./dist/protocols/dex_swap/index.mjs"
     },
     "./protocols/goblin": {
-      "types": "./dist/protocols/goblin/index.d.ts",
+      "types": "./dist/protocols/goblin/index.d.mts",
       "development": {
         "import": "./src/protocols/goblin/index.ts"
       },
-      "import": "./dist/protocols/goblin/index.js"
+      "import": "./dist/protocols/goblin/index.mjs"
     },
     "./protocols/hyperion": {
-      "types": "./dist/protocols/hyperion/index.d.ts",
+      "types": "./dist/protocols/hyperion/index.d.mts",
       "development": {
         "import": "./src/protocols/hyperion/index.ts"
       },
-      "import": "./dist/protocols/hyperion/index.js"
+      "import": "./dist/protocols/hyperion/index.mjs"
     },
     "./protocols/panora": {
-      "types": "./dist/protocols/panora/index.d.ts",
+      "types": "./dist/protocols/panora/index.d.mts",
       "development": {
         "import": "./src/protocols/panora/index.ts"
       },
-      "import": "./dist/protocols/panora/index.js"
+      "import": "./dist/protocols/panora/index.mjs"
     },
     "./protocols/tapp": {
-      "types": "./dist/protocols/tapp/index.d.ts",
+      "types": "./dist/protocols/tapp/index.d.mts",
       "development": {
         "import": "./src/protocols/tapp/index.ts"
       },
-      "import": "./dist/protocols/tapp/index.js"
+      "import": "./dist/protocols/tapp/index.mjs"
     },
     "./protocols/thala/v2": {
-      "types": "./dist/protocols/thala/v2/index.d.ts",
+      "types": "./dist/protocols/thala/v2/index.d.mts",
       "development": {
         "import": "./src/protocols/thala/v2/index.ts"
       },
-      "import": "./dist/protocols/thala/v2/index.js"
+      "import": "./dist/protocols/thala/v2/index.mjs"
     },
     "./token": {
-      "types": "./dist/token/index.d.ts",
+      "types": "./dist/token/index.d.mts",
       "development": {
         "import": "./src/token/index.ts"
       },
-      "import": "./dist/token/index.js"
+      "import": "./dist/token/index.mjs"
     },
     "./types": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/types/index.d.mts",
       "development": {
         "import": "./src/types/index.ts"
       },
-      "import": "./dist/types/index.js"
+      "import": "./dist/types/index.mjs"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
+      "types": "./dist/utils/index.d.mts",
       "development": {
         "import": "./src/utils/index.ts"
       },
-      "import": "./dist/utils/index.js"
+      "import": "./dist/utils/index.mjs"
     }
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
@@ -288,7 +288,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint . --type-aware && eslint . --cache",
     "lint:fix": "oxlint . --fix && eslint . --fix --cache",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "DISABLE_SOURCEMAP=true pnpm run build",
     "clean": "npx rimraf dist .output",
     "cleanup": "npx rimraf node_modules dist .output",
     "test": "vitest",

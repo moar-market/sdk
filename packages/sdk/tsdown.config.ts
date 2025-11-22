@@ -1,9 +1,12 @@
 import { defineConfig } from 'tsdown'
 
+// eslint-disable-next-line node/prefer-global/process
+const isSourcemapDisabled = process?.env?.DISABLE_SOURCEMAP === 'true'
+
 export default defineConfig({
   clean: true,
   dts: {
-    sourcemap: true,
+    sourcemap: !isSourcemapDisabled,
   },
   exports: {
     all: true,
@@ -31,8 +34,8 @@ export default defineConfig({
         const newKey = key.endsWith('/index') ? key.slice(0, -6) : key
 
         newExports[newKey] = {
-          types: value.replace(/\.js$/, '.d.ts'),
-          development: { import: value.replace(/\.js$/, '.ts').replace('./dist', './src') }, // export source for development
+          types: value.replace(/\.mjs$/, '.d.mts'),
+          development: { import: value.replace(/\.mjs$/, '.ts').replace('./dist', './src') }, // export source for development
           import: value,
         }
       }
@@ -40,7 +43,7 @@ export default defineConfig({
       return newExports
     },
   },
-  sourcemap: true,
+  sourcemap: !isSourcemapDisabled,
   tsconfig: 'tsconfig.json',
   target: 'esnext',
   format: ['esm'],
