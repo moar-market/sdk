@@ -1,3 +1,4 @@
+import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../composer'
 import type { Address, MoveStructId } from './../types'
 import { extendTypeArguments } from '../utils'
@@ -15,7 +16,8 @@ export async function openCreditAccount(builder: AptosScriptComposer): Promise<C
     function: `${getModuleAddress('moar_credit_manager')}::credit_manager::create_credit_account`,
     functionArguments: [builder.getNewSigner(0)],
     typeArguments: [],
-  }, moar_credit_manager_abi)
+    moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+  })
 
   if (!creditAccount)
     throw new Error('Failed to create credit account')
@@ -40,7 +42,8 @@ export async function closeCreditAccount(
       builder.copyIfCallArgument(creditAccount),
     ],
     typeArguments: [],
-  }, moar_credit_manager_abi)
+    moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+  })
 }
 
 /**
@@ -71,7 +74,8 @@ export async function executeStrategy(
       calldata,
     ],
     typeArguments,
-  }, moar_credit_manager_abi)
+    moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+  })
 }
 
 export interface CollateralParams {
@@ -101,7 +105,8 @@ export async function depositCollateral(
         collateral.amount,
       ],
       typeArguments: [collateral.type],
-    }, moar_credit_manager_abi)
+      moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+    })
   }
 }
 
@@ -138,7 +143,8 @@ export async function withdrawCollateral(
         param.metadata,
       ],
       typeArguments: [],
-    }, moar_credit_manager_abi)
+      moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+    })
   }
 }
 
@@ -169,7 +175,8 @@ export async function borrow(
         borrow.amount,
       ],
       typeArguments: [],
-    }, moar_credit_manager_abi)
+      moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+    })
   }
 }
 
@@ -199,12 +206,14 @@ export async function repay(
         repay.amount,
       ],
       typeArguments: [],
-    }, moar_credit_manager_abi)
+      moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+    })
   }
 }
 
 export interface ClaimRewardsParams {
-  calldata: any | CallArgument
+  // oxlint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  calldata: CallArgument | any
   typeArguments: string[]
   nullType: string
 }
@@ -229,7 +238,8 @@ export async function claimRewards(
       builder.copyIfCallArgument(params.calldata),
     ],
     typeArguments: params.typeArguments,
-  }, moar_credit_manager_abi)
+    moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+  })
 }
 
 /**
