@@ -46,6 +46,7 @@ export default defineConfig({
   sourcemap: !isSourcemapDisabled,
   tsconfig: 'tsconfig.json',
   target: 'esnext',
+  fixedExtension: true, // always use .mjs for ESM output
   format: ['esm'],
   external: ['@aptos-labs/ts-sdk'],
   entry: [
