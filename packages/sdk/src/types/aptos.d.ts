@@ -26,5 +26,26 @@ declare module '@aptos-labs/ts-sdk' {
      * const ledgerVersion = aptos.getLedgerVersion();
      */
     getLedgerVersion?: () => number | undefined
+    /**
+     * Returns an expiration timestamp aligned with the latest on-chain ledger timestamp.
+     * Falls back to the local clock if the ledger info request fails.
+     *
+     * @example
+     * const aptos = useAptos();
+     * const expireAt = await aptos.getLedgerAlignedExpirationTimestamp();
+     */
+    getLedgerAlignedExpirationTimestamp?: (bufferSec?: number) => Promise<number>
+    /**
+     * Returns transaction options that include a ledger-aligned expiration timestamp.
+     * If the provided options already include an expiration timestamp, they are returned as-is.
+     *
+     * @example
+     * const aptos = useAptos();
+     * const options = await aptos.ensureLedgerExpirationOptions(existingOptions);
+     */
+    ensureLedgerExpirationOptions?: (
+      options?: import('@aptos-labs/ts-sdk').InputGenerateTransactionOptions,
+      bufferSec?: number,
+    ) => Promise<import('@aptos-labs/ts-sdk').InputGenerateTransactionOptions>
   }
 }

@@ -2,6 +2,7 @@ import type {
   AccountAddressInput,
   AptosSettings,
   ClientConfig,
+  InputGenerateTransactionOptions,
   InputViewFunctionData,
   LedgerVersionArg,
   MoveStructId,
@@ -18,6 +19,9 @@ import {
   useChainConfig,
   useMoarApi,
 } from './../config'
+
+const MICROS_PER_SECOND = 1_000_000
+const DEFAULT_LEDGER_EXPIRATION_BUFFER_SEC = 120
 
 declare module '@aptos-labs/ts-sdk' {
   interface Aptos {
@@ -43,6 +47,27 @@ declare module '@aptos-labs/ts-sdk' {
      * const ledgerVersion = aptos.getLedgerVersion();
      */
     getLedgerVersion?: () => number | undefined
+    /**
+     * Returns an expiration timestamp aligned with the latest on-chain ledger timestamp.
+     * Falls back to the local clock if the ledger info request fails.
+     *
+     * @example
+     * const aptos = useAptos();
+     * const expireAt = await aptos.getLedgerAlignedExpirationTimestamp();
+     */
+    getLedgerAlignedExpirationTimestamp?: (bufferSec?: number) => Promise<number>
+    /**
+     * Returns transaction options that include a ledger-aligned expiration timestamp.
+     * If the provided options already include an expiration timestamp, they are returned as-is.
+     *
+     * @example
+     * const aptos = useAptos();
+     * const options = await aptos.ensureLedgerExpirationOptions(existingOptions);
+     */
+    ensureLedgerExpirationOptions?: (
+      options?: InputGenerateTransactionOptions,
+      bufferSec?: number,
+    ) => Promise<InputGenerateTransactionOptions>
   }
 }
 
@@ -57,6 +82,51 @@ function getLedgerVersionArg(options?: LedgerVersionArg): LedgerVersionArg {
     : ledgerVersion
 
   return { ledgerVersion: ledgerVersionToUse }
+}
+
+export async function getLedgerAlignedExpirationTimestamp(options?: {
+  aptos?: Aptos
+  config?: AptosConfig
+  bufferSec?: number
+}): Promise<number> {
+  const bufferSec = options?.bufferSec ?? DEFAULT_LEDGER_EXPIRATION_BUFFER_SEC
+  const client = options?.aptos
+    ?? (options?.config ? new Aptos(options.config) : useAptos())
+  try {
+    const ledgerInfo = await client.getLedgerInfo()
+    const ledgerTimestampSec = Math.ceil(Number(ledgerInfo.ledger_timestamp) / MICROS_PER_SECOND)
+    return ledgerTimestampSec + bufferSec
+  }
+  catch {
+    return Math.ceil(Date.now() / 1000) + bufferSec
+  }
+}
+
+export async function ensureLedgerExpirationOptions(args?: {
+  options?: InputGenerateTransactionOptions
+  aptos?: Aptos
+  config?: AptosConfig
+  bufferSec?: number
+}): Promise<InputGenerateTransactionOptions> {
+  const options = args?.options
+  if (options?.expireTimestamp !== undefined) {
+    return options
+  }
+
+  const expireTimestamp = await getLedgerAlignedExpirationTimestamp({
+    aptos: args?.aptos,
+    config: args?.config,
+    bufferSec: args?.bufferSec,
+  })
+
+  if (options) {
+    return {
+      ...options,
+      expireTimestamp,
+    }
+  }
+
+  return { expireTimestamp }
 }
 
 export function useAptos(): Aptos {
@@ -154,6 +224,10 @@ export function useAptos(): Aptos {
     Object.assign(aptosInstance, {
       setLedgerVersion: (value: number | undefined) => { ledgerVersion = value },
       getLedgerVersion: () => ledgerVersion,
+      getLedgerAlignedExpirationTimestamp: (bufferSec?: number) =>
+        getLedgerAlignedExpirationTimestamp({ aptos: aptosInstance, bufferSec }),
+      ensureLedgerExpirationOptions: (options?: InputGenerateTransactionOptions, bufferSec?: number) =>
+        ensureLedgerExpirationOptions({ aptos: aptosInstance, options, bufferSec }),
     })
   }
 

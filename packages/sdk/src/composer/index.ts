@@ -27,6 +27,7 @@ import {
   standardizeTypeTags,
   TransactionPayloadScript,
 } from '@aptos-labs/ts-sdk'
+import { ensureLedgerExpirationOptions } from '../clients/aptos'
 import { disableFetchCaching, enableFetchCaching, extractUrl } from '../utils'
 
 export type { CallArgument, SimpleTransaction } // re-export for convenience
@@ -374,11 +375,12 @@ export async function scriptComposer({
   await composer.init()
   const _builder = await builder(composer)
   const bytes = _builder.build()
+  const composedOptions = await ensureLedgerExpirationOptions({ options, config })
   const rawTxn = await generateRawTransaction({
     sender,
     aptosConfig: config,
     payload: TransactionPayloadScript.load(new Deserializer(bytes)),
-    options,
+    options: composedOptions,
   })
 
   disableFetchCaching()
