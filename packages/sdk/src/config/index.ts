@@ -244,6 +244,8 @@ export function findGoblinVaultConfig(assetIn: Address, assetOut: Address): Gobl
 export interface ModuleSettings {
   min_borrow_usd: string // usd price in oracle decimals 8
   min_debt_usd: string // usd price in oracle decimals 8
+  auto_compound_authority_address: Address
+  auto_rebalance_authority_address: Address
 }
 
 export interface Config {

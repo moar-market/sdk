@@ -1,4 +1,5 @@
 export * from './accountant'
+export * from './authority'
 export * from './entry'
 export * from './events'
 export * from './lens'

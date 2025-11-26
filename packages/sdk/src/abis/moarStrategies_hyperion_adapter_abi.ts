@@ -29,17 +29,16 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
-      "name": "claim_rewards",
-      "visibility": "friend",
+      "name": "get_pending_fees",
+      "visibility": "public",
       "is_entry": false,
-      "is_view": false,
+      "is_view": true,
       "generic_type_params": [],
       "params": [
-        "&signer",
-        "0x1::copyable_any::Any"
+        "address"
       ],
       "return": [
-        "vector<0x1::fungible_asset::FungibleAsset>"
+        "vector<u64>"
       ]
     },
     {
@@ -97,6 +96,19 @@ export const moarStrategies_hyperion_adapter_abi = {
         "0x1::object::Object<0x1::fungible_asset::Metadata>"
       ],
       "return": []
+    },
+    {
+      "name": "claim_rewards_and_fee",
+      "visibility": "friend",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer"
+      ],
+      "return": [
+        "vector<0x1::fungible_asset::FungibleAsset>"
+      ]
     },
     {
       "name": "create_add_liquidity_inputs",
@@ -335,6 +347,19 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "get_rewards_fee",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "liquidate_non_fa_position",
       "visibility": "friend",
       "is_entry": false,
@@ -385,6 +410,19 @@ export const moarStrategies_hyperion_adapter_abi = {
         "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>",
         "vector<u64>",
         "vector<u64>"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_rewards_fee",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::option::Option<address>",
+        "u64"
       ],
       "return": []
     }
@@ -662,6 +700,34 @@ export const moarStrategies_hyperion_adapter_abi = {
       ]
     },
     {
+      "name": "FeeOnRewardsCharged",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "fee_on_rewards",
+          "type": "u64"
+        },
+        {
+          "name": "fee_recipient",
+          "type": "address"
+        }
+      ]
+    },
+    {
       "name": "HyperionAdapterConfig",
       "is_native": false,
       "is_event": false,
@@ -742,6 +808,26 @@ export const moarStrategies_hyperion_adapter_abi = {
         {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
+        }
+      ]
+    },
+    {
+      "name": "PoolRewardsFeeSet",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_address",
+          "type": "address"
+        },
+        {
+          "name": "pool_rewards_fee",
+          "type": "u64"
         }
       ]
     },
@@ -924,6 +1010,41 @@ export const moarStrategies_hyperion_adapter_abi = {
         {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        }
+      ]
+    },
+    {
+      "name": "RewardsFeeConfig",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_rewards_fee",
+          "type": "0x1::simple_map::SimpleMap<address, u64>"
+        },
+        {
+          "name": "rewards_fee",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "RewardsFeeSet",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "rewards_fee",
+          "type": "u64"
         }
       ]
     }

@@ -1,7 +1,7 @@
 import type { SimpleTransaction } from './../composer'
 import type { Address, SwapParams } from './../types'
 import type { AddLiquidityParams, RebalanceLiquidityParams, RemoveLiquidityParams } from './protocols/hyperion'
-import type { BorrowParams, CollateralParams, RepayParams } from './shared'
+import type { BorrowParams, CollateralParams, RepayParams, WhitelistAuthorityParams } from './shared'
 import { useAptosConfig } from './../clients'
 import { scriptComposer } from './../composer'
 import { swap } from './protocols/default-swap'
@@ -12,7 +12,7 @@ import {
   rebalanceLiquidity,
   removeLiquidity,
 } from './protocols/hyperion'
-import { borrow, closeCreditAccount, depositCollateral, repay, setupStrategyAccount } from './shared'
+import { addAuthority, borrow, closeCreditAccount, depositCollateral, repay, setupStrategyAccount } from './shared'
 
 // re-export types for convenience
 export type { AddLiquidityParams, RebalanceLiquidityParams, RemoveLiquidityParams }
@@ -24,6 +24,7 @@ export interface OpenPositionParams {
   swaps: SwapParams[]
   liquidity: AddLiquidityParams
   optimally?: boolean
+  authority?: WhitelistAuthorityParams
 }
 
 /**
@@ -35,10 +36,11 @@ export interface OpenPositionParams {
  * @param {SwapParams[]} params.swaps - The swap parameters
  * @param {AddLiquidityParams} params.liquidity - The liquidity parameters
  * @param {boolean} params.optimally - Whether to add liquidity optimally (default: false)
+ * @param {WhitelistAuthorityParams} params.authority - The authority parameters
  * @returns {Promise<SimpleTransaction>} The transaction object
  */
 export async function openPosition(
-  { sender, collaterals, borrows, swaps, liquidity, optimally = false }: OpenPositionParams,
+  { sender, collaterals, borrows, swaps, liquidity, authority, optimally = false }: OpenPositionParams,
 ): Promise<SimpleTransaction> {
   const transaction = await scriptComposer({
     config: useAptosConfig(),
@@ -56,6 +58,10 @@ export async function openPosition(
       else
         await addLiquidity(builder, creditAccount, liquidity)
 
+      // add authority
+      if (authority !== undefined) {
+        await addAuthority(builder, creditAccount, authority)
+      }
       return builder
     },
   })

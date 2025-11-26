@@ -99,12 +99,15 @@ export const PKGS = {
   tapp_router: '0x487e905f899ccb6d46fdaec56ba1e0c4cf119862a16c409904b8c78fab1f5e8a' as Address,
 }
 
+const AUTOMATION_AUTHORITY_ADDRESS = '0x98f930ba0e68b29f7faced4340fad2f5a2a8d0ad9986c78411219d5e7f88a870'
+
 // before first _ is the protocol/abi directory name, after first _ is the module name
 export const MODULES: Modules = {
   // moar modules
   moar_credit_manager: PKGS.moar,
   moar_oracle: PKGS.moar,
   moar_pool: PKGS.moar,
+  moar_authority: PKGS.moar,
   moar_farming: PKGS.moar,
   moar_risk_manager: PKGS.moar,
   moar_accountant: PKGS.moar,
@@ -842,5 +845,7 @@ export const config: Config = {
   MOAR_MODULE_SETTINGS: {
     min_borrow_usd: '100000000',
     min_debt_usd: '100000000',
+    auto_compound_authority_address: AUTOMATION_AUTHORITY_ADDRESS,
+    auto_rebalance_authority_address: AUTOMATION_AUTHORITY_ADDRESS,
   },
 }

@@ -1,5 +1,6 @@
 import type { MoveModule } from '@aptos-labs/ts-sdk'
 import type { AptosScriptComposer, CallArgument } from './../composer'
+import type { AddAuthorityParams } from './../credit-manager'
 import type { Address, MoveStructId } from './../types'
 import { extendTypeArguments } from '../utils'
 import { moar_credit_manager_abi } from './../abis'
@@ -264,4 +265,32 @@ export async function setupStrategyAccount(
   await borrow(builder, creditAccount, borrows)
 
   return creditAccount
+}
+
+export type WhitelistAuthorityParams = Omit<AddAuthorityParams, 'creditAccount'>
+
+/**
+ * Claims rewards to credit account from a protocol
+ * @param {AptosScriptComposer} builder - The script composer instance to add the transaction to
+ * @param {CallArgument | Address} creditAccount - The credit account to add authority to
+ * @param {WhitelistAuthorityParams} params - The parameters for adding authority
+ * @param params.authority - The authority to add
+ * @param params.actions - The actions to add
+ */
+export async function addAuthority(
+  builder: AptosScriptComposer,
+  creditAccount: CallArgument | Address,
+  params: WhitelistAuthorityParams,
+): Promise<void> {
+  await builder.addBatchedCall({
+    function: `${getModuleAddress('moar_credit_manager')}::credit_manager::add_authority`,
+    functionArguments: [
+      builder.getNewSigner(0),
+      builder.copyIfCallArgument(creditAccount),
+      params.authority,
+      params.actions,
+    ],
+    typeArguments: [],
+    moduleAbi: moar_credit_manager_abi as unknown as MoveModule,
+  })
 }

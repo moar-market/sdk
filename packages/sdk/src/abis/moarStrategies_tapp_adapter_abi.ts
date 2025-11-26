@@ -166,6 +166,19 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "get_rewards_fee",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "liquidate_non_fa_position",
       "visibility": "friend",
       "is_entry": false,
@@ -216,6 +229,19 @@ export const moarStrategies_tapp_adapter_abi = {
         "address",
         "vector<u64>",
         "vector<u64>"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_rewards_fee",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::option::Option<address>",
+        "u64"
       ],
       "return": []
     },
@@ -367,6 +393,50 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "FeeOnRewardsCharged",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "credit_account_address",
+          "type": "address"
+        },
+        {
+          "name": "pool_address",
+          "type": "address"
+        },
+        {
+          "name": "position_index",
+          "type": "u64"
+        },
+        {
+          "name": "metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "initial_pending_amount",
+          "type": "u64"
+        },
+        {
+          "name": "current_pending_amount",
+          "type": "u64"
+        },
+        {
+          "name": "fee_on_rewards",
+          "type": "u64"
+        },
+        {
+          "name": "fee_recipient",
+          "type": "address"
+        }
+      ]
+    },
+    {
       "name": "LiquidateNonFAPositionEvent",
       "is_native": false,
       "is_event": true,
@@ -424,6 +494,26 @@ export const moarStrategies_tapp_adapter_abi = {
       ]
     },
     {
+      "name": "PoolRewardsFeeSet",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_address",
+          "type": "address"
+        },
+        {
+          "name": "pool_rewards_fee",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "RewardTokenAdded",
       "is_native": false,
       "is_event": true,
@@ -452,6 +542,41 @@ export const moarStrategies_tapp_adapter_abi = {
         {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        }
+      ]
+    },
+    {
+      "name": "RewardsFeeConfig",
+      "is_native": false,
+      "is_event": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "pool_rewards_fee",
+          "type": "0x1::simple_map::SimpleMap<address, u64>"
+        },
+        {
+          "name": "rewards_fee",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "RewardsFeeSet",
+      "is_native": false,
+      "is_event": true,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "rewards_fee",
+          "type": "u64"
         }
       ]
     },
