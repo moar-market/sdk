@@ -1152,6 +1152,61 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "remove_liquidity_with_multiagent_and_second_signer_by_contract",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": [
+            "drop"
+          ]
+        }
+      ],
+      "params": [
+        "&signer",
+        "&signer",
+        "&signer",
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64",
+        "T0"
+      ],
+      "return": [
+        "0x1::option::Option<0x1::fungible_asset::FungibleAsset>",
+        "0x1::option::Option<0x1::fungible_asset::FungibleAsset>"
+      ]
+    },
+    {
+      "name": "remove_liquidity_with_multiagent_by_contract",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": [
+            "drop"
+          ]
+        }
+      ],
+      "params": [
+        "&signer",
+        "&signer",
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "address",
+        "u64",
+        "T0"
+      ],
+      "return": []
+    },
+    {
       "name": "remove_liquidity_with_multiagent_directly_deposit",
       "visibility": "public",
       "is_entry": true,
@@ -1166,6 +1221,31 @@ export const hyperion_router_v3_abi = {
         "u64",
         "u64",
         "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_liquidity_with_multiagent_directly_deposit_by_contract",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [
+        {
+          "constraints": [
+            "drop"
+          ]
+        }
+      ],
+      "params": [
+        "&signer",
+        "&signer",
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64",
+        "T0"
       ],
       "return": []
     }
