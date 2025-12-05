@@ -209,3 +209,26 @@ export async function getPositionInfo(position: Address, pool: Address): Promise
 
   return data as PositionInfo
 }
+
+/**
+ * Get the moar fee on rewards for a specific Hyperion pool.
+ *
+ * The fee is returned with 1e8 precision. To get the percentage representation,
+ * use fee / 1e6.
+ *
+ * @param {Address} poolAddress - The address of the Hyperion pool to query the rewards fee for.
+ * @returns {Promise<string>} A promise that resolves to the moar fee on rewards as a string.
+ */
+export async function getFeeOnRewards(poolAddress: Address): Promise<string> {
+  const moduleAddress = getModuleAddress('moarStrategies_hyperion_adapter')
+  const [fee] = await useSurfClient().useABI(
+    moarStrategies_hyperion_adapter_abi,
+    moduleAddress,
+  ).view.get_rewards_fee({
+    typeArguments: [],
+    functionArguments: [poolAddress],
+  })
+
+  // 1e8 precision, fee/1e6 will be the fee in percentage
+  return fee
+}
