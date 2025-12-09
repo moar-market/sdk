@@ -152,6 +152,19 @@ export const moar_hyperion_lens_abi = {
       "return": [
         "vector<u64>"
       ]
+    },
+    {
+      "name": "get_total_position_value",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "u64"
+      ]
     }
   ],
   "structs": [
