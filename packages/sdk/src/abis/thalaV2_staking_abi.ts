@@ -590,6 +590,7 @@ export const thalaV2_staking_abi = {
       "name": "CompleteUnstakeAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -618,6 +619,7 @@ export const thalaV2_staking_abi = {
       "name": "FeesExempt",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -633,6 +635,7 @@ export const thalaV2_staking_abi = {
       "name": "PauseEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -649,6 +652,7 @@ export const thalaV2_staking_abi = {
       "name": "PauseFlag",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -664,6 +668,7 @@ export const thalaV2_staking_abi = {
       "name": "RequestUnstakeAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -708,6 +713,7 @@ export const thalaV2_staking_abi = {
       "name": "RestakeAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -740,6 +746,7 @@ export const thalaV2_staking_abi = {
       "name": "StakeAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -768,6 +775,7 @@ export const thalaV2_staking_abi = {
       "name": "StakeThalaAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -796,6 +804,7 @@ export const thalaV2_staking_abi = {
       "name": "StakedThalaAPT",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [
@@ -809,6 +818,7 @@ export const thalaV2_staking_abi = {
       "name": "SyncRewardsEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -869,6 +879,7 @@ export const thalaV2_staking_abi = {
       "name": "TLSD",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -964,6 +975,7 @@ export const thalaV2_staking_abi = {
       "name": "ThalaAPT",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [
@@ -977,6 +989,7 @@ export const thalaV2_staking_abi = {
       "name": "UnstakeRequest",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1010,6 +1023,7 @@ export const thalaV2_staking_abi = {
       "name": "UnstakeThalaAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1034,6 +1048,7 @@ export const thalaV2_staking_abi = {
       "name": "UserUnstake",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

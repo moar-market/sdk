@@ -215,6 +215,7 @@ export const moar_accountant_abi = {
       "name": "Accountant",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -242,6 +243,7 @@ export const moar_accountant_abi = {
       "name": "InterestPaid",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -262,6 +264,7 @@ export const moar_accountant_abi = {
       "name": "PnLRealized",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -290,6 +293,7 @@ export const moar_accountant_abi = {
       "name": "PnLType",
       "is_native": false,
       "is_event": false,
+      "is_enum": true,
       "abilities": [
         "drop",
         "store"

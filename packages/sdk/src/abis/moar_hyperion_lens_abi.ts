@@ -172,6 +172,7 @@ export const moar_hyperion_lens_abi = {
       "name": "PendingReward",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -191,6 +192,7 @@ export const moar_hyperion_lens_abi = {
       "name": "PositionInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [

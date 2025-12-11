@@ -140,6 +140,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
       "name": "SwapEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -184,6 +185,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
       "name": "HyperionMultiPoolSwapInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -221,6 +223,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
       "name": "HyperionSinglePoolSwapInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -270,6 +273,7 @@ export const moarStrategies_dex_swap_adapter_abi = {
       "name": "ThalaV2SwapInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

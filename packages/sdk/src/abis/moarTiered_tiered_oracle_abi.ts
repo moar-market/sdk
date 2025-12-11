@@ -126,6 +126,7 @@ export const moarTiered_tiered_oracle_abi = {
       "name": "AssetOracle",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -158,6 +159,7 @@ export const moarTiered_tiered_oracle_abi = {
       "name": "TieredOracle",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

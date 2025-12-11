@@ -265,6 +265,7 @@ export const moar_risk_manager_abi = {
       "name": "LiquidationDiscountUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -281,6 +282,7 @@ export const moar_risk_manager_abi = {
       "name": "LtvUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -305,6 +307,7 @@ export const moar_risk_manager_abi = {
       "name": "PoolLtvEntries",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop"
       ],
@@ -328,6 +331,7 @@ export const moar_risk_manager_abi = {
       "name": "RiskManagerConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

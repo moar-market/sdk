@@ -415,6 +415,7 @@ export const moar_farming_abi = {
       "name": "Pool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -438,6 +439,7 @@ export const moar_farming_abi = {
       "name": "BlacklistedAccountsAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -458,6 +460,7 @@ export const moar_farming_abi = {
       "name": "BlacklistedAccountsRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -478,6 +481,7 @@ export const moar_farming_abi = {
       "name": "FarmingConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -505,6 +509,7 @@ export const moar_farming_abi = {
       "name": "FarmingPoolCreated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -521,6 +526,7 @@ export const moar_farming_abi = {
       "name": "NewRewardAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -541,6 +547,7 @@ export const moar_farming_abi = {
       "name": "PoolAllocPointUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -569,6 +576,7 @@ export const moar_farming_abi = {
       "name": "PoolReward",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -596,6 +604,7 @@ export const moar_farming_abi = {
       "name": "Reward",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -633,6 +642,7 @@ export const moar_farming_abi = {
       "name": "RewardEpochUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -661,6 +671,7 @@ export const moar_farming_abi = {
       "name": "RewardsClaimed",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -685,6 +696,7 @@ export const moar_farming_abi = {
       "name": "Staked",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -709,6 +721,7 @@ export const moar_farming_abi = {
       "name": "Staker",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -724,6 +737,7 @@ export const moar_farming_abi = {
       "name": "Unstaked",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -748,6 +762,7 @@ export const moar_farming_abi = {
       "name": "UserPool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -771,6 +786,7 @@ export const moar_farming_abi = {
       "name": "UserPoolReward",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"

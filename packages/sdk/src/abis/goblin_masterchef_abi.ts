@@ -205,6 +205,7 @@ export const goblin_masterchef_abi = {
       "name": "DepositEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -229,6 +230,7 @@ export const goblin_masterchef_abi = {
       "name": "WithdrawEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -253,6 +255,7 @@ export const goblin_masterchef_abi = {
       "name": "AddPoolEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -277,6 +280,7 @@ export const goblin_masterchef_abi = {
       "name": "ClaimRewardEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -301,6 +305,7 @@ export const goblin_masterchef_abi = {
       "name": "EmergencyWithdrawEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -325,6 +330,7 @@ export const goblin_masterchef_abi = {
       "name": "MasterChef",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -352,6 +358,7 @@ export const goblin_masterchef_abi = {
       "name": "PoolInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -395,6 +402,7 @@ export const goblin_masterchef_abi = {
       "name": "PoolUserInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -410,6 +418,7 @@ export const goblin_masterchef_abi = {
       "name": "SetAdminEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -426,6 +435,7 @@ export const goblin_masterchef_abi = {
       "name": "SetUpkeepAdminEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -442,6 +452,7 @@ export const goblin_masterchef_abi = {
       "name": "UpdatePoolEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -470,6 +481,7 @@ export const goblin_masterchef_abi = {
       "name": "UpkeepEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -502,6 +514,7 @@ export const goblin_masterchef_abi = {
       "name": "UserInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],

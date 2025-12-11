@@ -65,6 +65,7 @@ export const moar_authority_abi = {
       "name": "Authority",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -86,6 +87,7 @@ export const moar_authority_abi = {
       "name": "AuthorityAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -110,6 +112,7 @@ export const moar_authority_abi = {
       "name": "AuthorityRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -130,6 +133,7 @@ export const moar_authority_abi = {
       "name": "CreditAccountAuthority",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

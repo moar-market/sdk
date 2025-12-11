@@ -96,6 +96,7 @@ export const moar_oracle_abi = {
       "name": "LpTokenAdapterIdUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -116,6 +117,7 @@ export const moar_oracle_abi = {
       "name": "OracleConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -135,6 +137,7 @@ export const moar_oracle_abi = {
       "name": "TieredOracleSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"

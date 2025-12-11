@@ -1255,6 +1255,7 @@ export const hyperion_router_v3_abi = {
       "name": "AddSingleLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1312,6 +1313,7 @@ export const hyperion_router_v3_abi = {
       "name": "RemoveSingleLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

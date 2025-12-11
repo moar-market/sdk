@@ -768,6 +768,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "NewRewardEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -788,6 +789,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "StakeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -816,6 +818,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "UnstakeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -844,6 +847,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "Farming",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -899,6 +903,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "Management",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -930,6 +935,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "RateLimitUpdateEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -958,6 +964,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "RateLimitWhitelist",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -973,6 +980,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "StakedLPTCreationEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -997,6 +1005,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "StakedLPTParamChangeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1021,6 +1030,7 @@ export const thalaV2_staked_lpt_abi = {
       "name": "StakedLptRateLimit",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

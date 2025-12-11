@@ -388,6 +388,7 @@ export const generic_primary_fungible_store_abi = {
       "name": "DeriveRefPod",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

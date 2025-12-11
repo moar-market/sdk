@@ -61,6 +61,7 @@ export const generic_copyable_any_abi = {
       "name": "Any",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

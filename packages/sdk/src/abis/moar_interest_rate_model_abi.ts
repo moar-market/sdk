@@ -183,6 +183,7 @@ export const moar_interest_rate_model_abi = {
       "name": "InterestRateConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -198,6 +199,7 @@ export const moar_interest_rate_model_abi = {
       "name": "InterestRateModel",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -223,6 +225,7 @@ export const moar_interest_rate_model_abi = {
       "name": "InterestRateModelAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -247,6 +250,7 @@ export const moar_interest_rate_model_abi = {
       "name": "InterestRateModelUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -271,6 +275,7 @@ export const moar_interest_rate_model_abi = {
       "name": "PiecewiseLinearInterestRateModel",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

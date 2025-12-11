@@ -577,6 +577,7 @@ export const moar_pool_abi = {
       "name": "Pool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -652,6 +653,7 @@ export const moar_pool_abi = {
       "name": "LPTokenRefs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -679,6 +681,7 @@ export const moar_pool_abi = {
       "name": "BadDebtCompensated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -699,6 +702,7 @@ export const moar_pool_abi = {
       "name": "BadDebtRebalanced",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -727,6 +731,7 @@ export const moar_pool_abi = {
       "name": "BorrowCapUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -747,6 +752,7 @@ export const moar_pool_abi = {
       "name": "Borrowed",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -779,6 +785,7 @@ export const moar_pool_abi = {
       "name": "DepositCapUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -799,6 +806,7 @@ export const moar_pool_abi = {
       "name": "Deposited",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -827,6 +835,7 @@ export const moar_pool_abi = {
       "name": "FeeOnInterestUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -847,6 +856,7 @@ export const moar_pool_abi = {
       "name": "FeeRecipientUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -863,6 +873,7 @@ export const moar_pool_abi = {
       "name": "InterestAccrued",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -895,6 +906,7 @@ export const moar_pool_abi = {
       "name": "LpTokenMetadataUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -931,6 +943,7 @@ export const moar_pool_abi = {
       "name": "MinAmountsUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -951,6 +964,7 @@ export const moar_pool_abi = {
       "name": "OriginationFeeUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -971,6 +985,7 @@ export const moar_pool_abi = {
       "name": "PoolConfigs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1002,6 +1017,7 @@ export const moar_pool_abi = {
       "name": "PoolCreated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1026,6 +1042,7 @@ export const moar_pool_abi = {
       "name": "PoolNameUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1046,6 +1063,7 @@ export const moar_pool_abi = {
       "name": "PoolOwnerUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1066,6 +1084,7 @@ export const moar_pool_abi = {
       "name": "PoolPaused",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1082,6 +1101,7 @@ export const moar_pool_abi = {
       "name": "PoolUnpaused",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1098,6 +1118,7 @@ export const moar_pool_abi = {
       "name": "PoolView",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [
@@ -1171,6 +1192,7 @@ export const moar_pool_abi = {
       "name": "Repaid",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1207,6 +1229,7 @@ export const moar_pool_abi = {
       "name": "UnbondingInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1228,6 +1251,7 @@ export const moar_pool_abi = {
       "name": "UnbondingParamsUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1252,6 +1276,7 @@ export const moar_pool_abi = {
       "name": "UnbondingStarted",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1280,6 +1305,7 @@ export const moar_pool_abi = {
       "name": "UserUnbondingInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1295,6 +1321,7 @@ export const moar_pool_abi = {
       "name": "Withdrawn",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"

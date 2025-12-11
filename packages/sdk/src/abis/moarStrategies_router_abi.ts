@@ -266,6 +266,7 @@ export const moarStrategies_router_abi = {
       "name": "RouterConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

@@ -1085,6 +1085,7 @@ export const moar_credit_manager_abi = {
       "name": "TokenData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1102,6 +1103,7 @@ export const moar_credit_manager_abi = {
       "name": "RewardsClaimed",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1134,6 +1136,7 @@ export const moar_credit_manager_abi = {
       "name": "Borrowed",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1162,6 +1165,7 @@ export const moar_credit_manager_abi = {
       "name": "Repaid",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1190,6 +1194,7 @@ export const moar_credit_manager_abi = {
       "name": "ActionData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1211,6 +1216,7 @@ export const moar_credit_manager_abi = {
       "name": "AllowedAssetAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1227,6 +1233,7 @@ export const moar_credit_manager_abi = {
       "name": "AllowedAssetRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1243,6 +1250,7 @@ export const moar_credit_manager_abi = {
       "name": "AllowedCollateralAssetAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1259,6 +1267,7 @@ export const moar_credit_manager_abi = {
       "name": "AllowedCollateralAssetRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1275,6 +1284,7 @@ export const moar_credit_manager_abi = {
       "name": "AssetAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1299,6 +1309,7 @@ export const moar_credit_manager_abi = {
       "name": "AssetRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1323,6 +1334,7 @@ export const moar_credit_manager_abi = {
       "name": "AssetWithdrawn",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1355,6 +1367,7 @@ export const moar_credit_manager_abi = {
       "name": "BadDebtLiquidationEnded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1379,6 +1392,7 @@ export const moar_credit_manager_abi = {
       "name": "BadDebtLiquidationStarted",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1427,6 +1441,7 @@ export const moar_credit_manager_abi = {
       "name": "BorrowData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1448,6 +1463,7 @@ export const moar_credit_manager_abi = {
       "name": "CollateralDeposited",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1476,6 +1492,7 @@ export const moar_credit_manager_abi = {
       "name": "CreditAccount",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1519,6 +1536,7 @@ export const moar_credit_manager_abi = {
       "name": "CreditAccountClosed",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1539,6 +1557,7 @@ export const moar_credit_manager_abi = {
       "name": "CreditAccountCreated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1559,6 +1578,7 @@ export const moar_credit_manager_abi = {
       "name": "CreditManagerConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1606,6 +1626,7 @@ export const moar_credit_manager_abi = {
       "name": "CreditManagerPauseStatusUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1622,6 +1643,7 @@ export const moar_credit_manager_abi = {
       "name": "DepositData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1643,6 +1665,7 @@ export const moar_credit_manager_abi = {
       "name": "ExecStrategyData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1668,6 +1691,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidationEnded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1700,6 +1724,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidationFeeUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1720,6 +1745,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidationReceipt",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [
@@ -1745,6 +1771,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidationStarted",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1789,6 +1816,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidatorRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1805,6 +1833,7 @@ export const moar_credit_manager_abi = {
       "name": "LiquidatorWhitelisted",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1821,6 +1850,7 @@ export const moar_credit_manager_abi = {
       "name": "MaxAssetsUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1837,6 +1867,7 @@ export const moar_credit_manager_abi = {
       "name": "MaxDebtPoolsUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1853,6 +1884,7 @@ export const moar_credit_manager_abi = {
       "name": "RepayData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1874,6 +1906,7 @@ export const moar_credit_manager_abi = {
       "name": "StrategyExecuted",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1906,6 +1939,7 @@ export const moar_credit_manager_abi = {
       "name": "UnstakedByLiquidator",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1934,6 +1968,7 @@ export const moar_credit_manager_abi = {
       "name": "WithdrawData",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

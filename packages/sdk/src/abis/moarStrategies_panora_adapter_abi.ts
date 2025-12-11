@@ -158,6 +158,7 @@ export const moarStrategies_panora_adapter_abi = {
       "name": "PanoraSwapEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -198,6 +199,7 @@ export const moarStrategies_panora_adapter_abi = {
       "name": "SwapInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

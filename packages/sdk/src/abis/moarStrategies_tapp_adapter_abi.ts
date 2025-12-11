@@ -371,6 +371,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "Position",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -396,6 +397,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "FeeOnRewardsCharged",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -440,6 +442,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "LiquidateNonFAPositionEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -460,6 +463,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "LiquidateNonFAPositionInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -477,6 +481,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "LtvMapSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -497,6 +502,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "PoolRewardsFeeSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -517,6 +523,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RewardTokenAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -533,6 +540,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RewardTokenRemoved",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -549,6 +557,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RewardsFeeConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -568,6 +577,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RewardsFeeSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -584,6 +594,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "AddStableLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -620,6 +631,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "AddStableLiquidityInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -649,6 +661,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "CollectFeesEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -673,6 +686,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RemoveStableLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -717,6 +731,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "RemoveStableLiquidityInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -758,6 +773,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "TappAdapterConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -781,6 +797,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "TappDiffTolerance",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -796,6 +813,7 @@ export const moarStrategies_tapp_adapter_abi = {
       "name": "TappDiffToleranceSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"

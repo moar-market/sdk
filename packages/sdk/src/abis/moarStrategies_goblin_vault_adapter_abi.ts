@@ -333,6 +333,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "Position",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -354,6 +355,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "LtvMapSet",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -374,6 +376,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "DepositWithPairInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -407,6 +410,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "DepositWithPairInputsV2",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -448,6 +452,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "DepositWithSingleInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -485,6 +490,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "DepositWithSingleInputsV2",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -530,6 +536,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "GoblinVaultAdapterConfig",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -549,6 +556,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "GoblinVaultDepositEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -586,6 +594,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "GoblinVaultDepositEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -631,6 +640,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "GoblinVaultWithdrawEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -667,6 +677,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "GoblinVaultWithdrawEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -711,6 +722,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "RemoveAsPairInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -740,6 +752,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "RemoveAsPairInputsV2",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -777,6 +790,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "RemoveAsSingleInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -814,6 +828,7 @@ export const moarStrategies_goblin_vault_adapter_abi = {
       "name": "RemoveAsSingleInputsV2",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

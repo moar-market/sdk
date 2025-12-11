@@ -769,6 +769,7 @@ export const thalaV1_farming_abi = {
       "name": "BoostMultiplierChangeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -793,6 +794,7 @@ export const thalaV1_farming_abi = {
       "name": "BoostedFarming",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -816,6 +818,7 @@ export const thalaV1_farming_abi = {
       "name": "ClaimEvent",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -840,6 +843,7 @@ export const thalaV1_farming_abi = {
       "name": "EpochInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -865,6 +869,7 @@ export const thalaV1_farming_abi = {
       "name": "Farming",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -888,6 +893,7 @@ export const thalaV1_farming_abi = {
       "name": "FarmingEvents",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -919,6 +925,7 @@ export const thalaV1_farming_abi = {
       "name": "FarmingV2",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -934,6 +941,7 @@ export const thalaV1_farming_abi = {
       "name": "PauseFlag",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -949,6 +957,7 @@ export const thalaV1_farming_abi = {
       "name": "PoolChangeEvent",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -977,6 +986,7 @@ export const thalaV1_farming_abi = {
       "name": "PoolInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -1016,6 +1026,7 @@ export const thalaV1_farming_abi = {
       "name": "RateLimit",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1035,6 +1046,7 @@ export const thalaV1_farming_abi = {
       "name": "RateLimitMaxQtyUpdateEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1055,6 +1067,7 @@ export const thalaV1_farming_abi = {
       "name": "RateLimitWindowDurationUpdateEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1071,6 +1084,7 @@ export const thalaV1_farming_abi = {
       "name": "RewardEpochEvent",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1099,6 +1113,7 @@ export const thalaV1_farming_abi = {
       "name": "StakeEvent",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1123,6 +1138,7 @@ export const thalaV1_farming_abi = {
       "name": "StakeEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1155,6 +1171,7 @@ export const thalaV1_farming_abi = {
       "name": "Staker",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1170,6 +1187,7 @@ export const thalaV1_farming_abi = {
       "name": "UnstakeEvent",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1194,6 +1212,7 @@ export const thalaV1_farming_abi = {
       "name": "UnstakeEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1226,6 +1245,7 @@ export const thalaV1_farming_abi = {
       "name": "UserPoolInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -1249,6 +1269,7 @@ export const thalaV1_farming_abi = {
       "name": "VeTHLGatedFarming",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],

@@ -492,6 +492,7 @@ export const goblin_vaults_abi = {
       "name": "RewardRecord",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop"
@@ -512,6 +513,7 @@ export const goblin_vaults_abi = {
       "name": "Vault",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store",
         "key"
@@ -600,6 +602,7 @@ export const goblin_vaults_abi = {
       "name": "VaultClosedPositionEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -641,6 +644,7 @@ export const goblin_vaults_abi = {
       "name": "VaultCompoundedEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -686,6 +690,7 @@ export const goblin_vaults_abi = {
       "name": "VaultCreatedEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -763,6 +768,7 @@ export const goblin_vaults_abi = {
       "name": "VaultDepositedWithPairEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -828,6 +834,7 @@ export const goblin_vaults_abi = {
       "name": "VaultDepositedWithPairEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -897,6 +904,7 @@ export const goblin_vaults_abi = {
       "name": "VaultDepositedWithSingleEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -958,6 +966,7 @@ export const goblin_vaults_abi = {
       "name": "VaultDepositedWithSingleEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1023,6 +1032,7 @@ export const goblin_vaults_abi = {
       "name": "VaultFeeUpdatedEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1072,6 +1082,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRebalancedEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1125,6 +1136,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRemovedWithPairEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1190,6 +1202,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRemovedWithPairEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1259,6 +1272,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRemovedWithSingleEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1320,6 +1334,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRemovedWithSingleEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1385,6 +1400,7 @@ export const goblin_vaults_abi = {
       "name": "VaultRewardsToLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -1430,6 +1446,7 @@ export const goblin_vaults_abi = {
       "name": "Vault_fee_and_reward_share",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

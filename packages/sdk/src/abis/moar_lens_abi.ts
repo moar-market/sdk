@@ -308,6 +308,7 @@ export const moar_lens_abi = {
       "name": "HealthSummary",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop"

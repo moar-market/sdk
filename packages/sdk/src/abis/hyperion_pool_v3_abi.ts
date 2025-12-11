@@ -1142,6 +1142,7 @@ export const hyperion_pool_v3_abi = {
       "name": "AddLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1194,6 +1195,7 @@ export const hyperion_pool_v3_abi = {
       "name": "AddLiquidityEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1254,6 +1256,7 @@ export const hyperion_pool_v3_abi = {
       "name": "AddLiquidityEventV3",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1326,6 +1329,7 @@ export const hyperion_pool_v3_abi = {
       "name": "ClaimFeesEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1358,6 +1362,7 @@ export const hyperion_pool_v3_abi = {
       "name": "ClaimFeesEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1398,6 +1403,7 @@ export const hyperion_pool_v3_abi = {
       "name": "CreatePoolEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1438,6 +1444,7 @@ export const hyperion_pool_v3_abi = {
       "name": "LiquidityPoolConfigsV3",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1477,6 +1484,7 @@ export const hyperion_pool_v3_abi = {
       "name": "LiquidityPoolInfoV3",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop"
@@ -1517,6 +1525,7 @@ export const hyperion_pool_v3_abi = {
       "name": "LiquidityPoolV3",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1632,6 +1641,7 @@ export const hyperion_pool_v3_abi = {
       "name": "PageInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop"
@@ -1660,6 +1670,7 @@ export const hyperion_pool_v3_abi = {
       "name": "PoolSnapshot",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1720,6 +1731,7 @@ export const hyperion_pool_v3_abi = {
       "name": "PoolSnapshotV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1788,6 +1800,7 @@ export const hyperion_pool_v3_abi = {
       "name": "PoolTemporaryStorage",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1803,6 +1816,7 @@ export const hyperion_pool_v3_abi = {
       "name": "ProtocolFees",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "store"
       ],
@@ -1822,6 +1836,7 @@ export const hyperion_pool_v3_abi = {
       "name": "RemoveLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1874,6 +1889,7 @@ export const hyperion_pool_v3_abi = {
       "name": "RemoveLiquidityEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1934,6 +1950,7 @@ export const hyperion_pool_v3_abi = {
       "name": "RemoveLiquidityEventV3",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2006,6 +2023,7 @@ export const hyperion_pool_v3_abi = {
       "name": "StepComputations",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2042,6 +2060,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapAfterEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2070,6 +2089,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapBeforeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2098,6 +2118,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2138,6 +2159,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapEventV2",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2186,6 +2208,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapEventV3",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2246,6 +2269,7 @@ export const hyperion_pool_v3_abi = {
       "name": "SwapState",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop"
       ],
@@ -2293,6 +2317,7 @@ export const hyperion_pool_v3_abi = {
       "name": "UpdateRemoveLiqudityAmount",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",

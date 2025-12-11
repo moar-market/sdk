@@ -196,6 +196,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "AddLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -232,6 +233,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "RemoveLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -268,6 +270,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "AddLiquidityInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -297,6 +300,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "RemoveLiquidityInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -330,6 +334,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "ClaimRewardInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -347,6 +352,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "PoolInfo",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -367,6 +373,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "PoolLookup",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -382,6 +389,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "PoolLookupAdded",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -406,6 +414,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "PoolLookupUpdated",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -430,6 +439,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "StakeAPTAndThAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -458,6 +468,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "StakeAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -482,6 +493,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "StakeInputs",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "copy",
         "drop",
@@ -503,6 +515,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "StakeThAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -527,6 +540,7 @@ export const moarStrategies_thala_v2_adapter_abi = {
       "name": "UnstakeThAPTEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"

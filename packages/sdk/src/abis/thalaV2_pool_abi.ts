@@ -1634,6 +1634,7 @@ export const thalaV2_pool_abi = {
       "name": "Pool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1677,6 +1678,7 @@ export const thalaV2_pool_abi = {
       "name": "RateLimit",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1696,6 +1698,7 @@ export const thalaV2_pool_abi = {
       "name": "AddLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1728,6 +1731,7 @@ export const thalaV2_pool_abi = {
       "name": "Flashloan",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [],
       "generic_type_params": [],
       "fields": [
@@ -1745,6 +1749,7 @@ export const thalaV2_pool_abi = {
       "name": "FlashloanEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1773,6 +1778,7 @@ export const thalaV2_pool_abi = {
       "name": "PauseFlag",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1796,6 +1802,7 @@ export const thalaV2_pool_abi = {
       "name": "RemoveLiquidityEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1828,6 +1835,7 @@ export const thalaV2_pool_abi = {
       "name": "StablePool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -1847,6 +1855,7 @@ export const thalaV2_pool_abi = {
       "name": "SwapEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1895,6 +1904,7 @@ export const thalaV2_pool_abi = {
       "name": "TwapOracle",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store",
@@ -1940,6 +1950,7 @@ export const thalaV2_pool_abi = {
       "name": "AddLiquidityPreview",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop"
       ],
@@ -1959,6 +1970,7 @@ export const thalaV2_pool_abi = {
       "name": "CreateTwapOracleEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -1987,6 +1999,7 @@ export const thalaV2_pool_abi = {
       "name": "MetaStablePool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -2010,6 +2023,7 @@ export const thalaV2_pool_abi = {
       "name": "PoolCreationEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2042,6 +2056,7 @@ export const thalaV2_pool_abi = {
       "name": "PoolParamChangeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2070,6 +2085,7 @@ export const thalaV2_pool_abi = {
       "name": "PoolPauseFlag",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -2097,6 +2113,7 @@ export const thalaV2_pool_abi = {
       "name": "RateLimitUpdateEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2121,6 +2138,7 @@ export const thalaV2_pool_abi = {
       "name": "RemoveLiquidityPreview",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop"
       ],
@@ -2136,6 +2154,7 @@ export const thalaV2_pool_abi = {
       "name": "RemoveTwapOracleEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2160,6 +2179,7 @@ export const thalaV2_pool_abi = {
       "name": "SwapFeeMultipliers",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -2175,6 +2195,7 @@ export const thalaV2_pool_abi = {
       "name": "SwapPreview",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "drop"
       ],
@@ -2226,6 +2247,7 @@ export const thalaV2_pool_abi = {
       "name": "SyncRatesEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2254,6 +2276,7 @@ export const thalaV2_pool_abi = {
       "name": "ThalaSwap",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
@@ -2281,6 +2304,7 @@ export const thalaV2_pool_abi = {
       "name": "ThalaSwapParamChangeEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2305,6 +2329,7 @@ export const thalaV2_pool_abi = {
       "name": "UpdateTwapOracleEvent",
       "is_native": false,
       "is_event": true,
+      "is_enum": false,
       "abilities": [
         "drop",
         "store"
@@ -2353,6 +2378,7 @@ export const thalaV2_pool_abi = {
       "name": "WeightedPool",
       "is_native": false,
       "is_event": false,
+      "is_enum": false,
       "abilities": [
         "key"
       ],
