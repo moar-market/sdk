@@ -153,10 +153,10 @@ export function useAptos(): Aptos {
 
       // if cache is enabled or route view is enabled, call Moar `/view`
       if (isRouteViewEnabled() || cache) {
-        // If no cache rule, set ttl: 0
-        let cacheForRequest: CacheOptions | undefined
+        // If no cache rule, set ttl: 0 a default
+        let cacheForRequest: CacheOptions = { ttl: 0 } // default to no caching
         if (options.ledgerVersion !== undefined) {
-          cacheForRequest = { ttl: 0 } // don't cache specific ledger versions
+          cacheForRequest = { ttl: 60 * 60 * 24 } // cache specific ledger versions for 24 hours
         }
         else if (cache) {
           cacheForRequest = cache
