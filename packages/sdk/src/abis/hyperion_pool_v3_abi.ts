@@ -47,6 +47,21 @@ export const hyperion_pool_v3_abi = {
       ]
     },
     {
+      "name": "current_price",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u8"
+      ],
+      "return": [
+        "u128"
+      ]
+    },
+    {
       "name": "update_net_only",
       "visibility": "public",
       "is_entry": true,
@@ -486,21 +501,6 @@ export const hyperion_pool_v3_abi = {
       ],
       "return": [
         "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::pool_v3::LiquidityPoolV3>"
-      ]
-    },
-    {
-      "name": "current_price",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>",
-        "u8"
-      ],
-      "return": [
-        "u128"
       ]
     },
     {
