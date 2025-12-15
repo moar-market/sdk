@@ -24,6 +24,7 @@ const debugLabel = 'RepayDebtsWithSwaps'
  * @param params.excludeSources - List of swap sources to exclude.
  * @param params.preview_swap_exact - Function to preview swap quotes. Defaults to the dex_swap preview_swap_exact.
  * @returns Promise resolving to an array of CommonSwapPreview objects representing the swaps needed to repay debts.
+ * @throws {Error} If any of the swap previews fail.
  */
 export async function getRequiredSwapsToPayDebt(
   {
@@ -58,7 +59,7 @@ export async function getRequiredSwapsToPayDebt(
         })
 
         // 1. if surplus token is enough to pay full remaining debt
-        if (swap && swap.amountIn < surplus) {
+        if (swap.amountIn < surplus) {
           swaps.push(swap)
           remainingDebt = ZERO
           surplus -= swap.amountIn
@@ -66,7 +67,7 @@ export async function getRequiredSwapsToPayDebt(
         }
 
         // 2. if surplus token is not enough to pay full remaining debt we use surplus to pay as much as possible
-        else if (swap && swap.amountIn >= surplus) {
+        else if (swap.amountIn >= surplus) {
           const swap = await preview_swap_exact({
             assetIn: surplusToken.address,
             assetOut: debtToken.address,
@@ -77,13 +78,12 @@ export async function getRequiredSwapsToPayDebt(
             includeSources,
             excludeSources,
           })
-          if (swap) {
-            swaps.push(swap)
-            remainingDebt -= swap.amountOut
-            surplus = ZERO
-            if (remainingDebt <= ZERO) {
-              break
-            }
+
+          swaps.push(swap)
+          remainingDebt -= swap.amountOut
+          surplus = ZERO
+          if (remainingDebt <= ZERO) {
+            break
           }
         }
       }

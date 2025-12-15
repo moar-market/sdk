@@ -10,14 +10,15 @@ const debugLabel = 'DexSwapAdapter'
 
 export async function preview_swap_exact_hyperion(
   { assetIn, assetOut, amount, isExactIn, slippage = 0.2 }: CommonSwapParams,
-): Promise<CommonSwapPreview | undefined> {
+): Promise<CommonSwapPreview> {
   const pool = findHyperionPoolConfig(assetIn as Address, assetOut as Address)
   const tokenIn = findTokenConfig(assetIn as Address)
   const tokenOut = findTokenConfig(assetOut as Address)
 
   if (!pool || !tokenIn || !tokenOut) {
-    console.error(debugLabel, 'Hyperion pool not found with assets', assetIn, assetOut)
-    return
+    const cause = `Hyperion pool not found with assets ${assetIn} and ${assetOut}`
+    console.error(debugLabel, cause)
+    throw new Error('Preview swap exact failed', { cause })
   }
 
   try {
@@ -126,19 +127,21 @@ export async function preview_swap_exact_hyperion(
   }
   catch (error) {
     console.error(debugLabel, 'error previewing hyperion swap', error)
+    throw new Error('Preview swap exact failed', { cause: error })
   }
 }
 
 export async function preview_swap_exact_thala_v2(
   { assetIn, assetOut, amount, isExactIn, slippage = 0.2 }: CommonSwapParams,
-): Promise<CommonSwapPreview | undefined> {
+): Promise<CommonSwapPreview> {
   const pool = findThalaV2PoolConfig(assetIn as Address, assetOut as Address)
   const tokenIn = findTokenConfig(assetIn as Address)
   const tokenOut = findTokenConfig(assetOut as Address)
 
   if (!pool || !tokenIn || !tokenOut) {
-    console.error(debugLabel, 'Thala V2 pool not found with assets', assetIn, assetOut)
-    return
+    const cause = `Thala V2 pool not found with assets ${assetIn} and ${assetOut}`
+    console.error(debugLabel, cause)
+    throw new Error('Preview swap exact failed', { cause })
   }
 
   try {
@@ -237,6 +240,7 @@ export async function preview_swap_exact_thala_v2(
   }
   catch (error) {
     console.error(debugLabel, 'error previewing thala v2 swap', error)
+    throw new Error('Preview swap exact failed', { cause: error })
   }
 }
 
@@ -249,49 +253,38 @@ export async function preview_swap_exact({
   toAddress: _toAddress,
   includeSources = [],
   excludeSources = [],
-}: CommonSwapParams): Promise<CommonSwapPreview | undefined> {
-  try {
-    const include = includeSources.map(s => s.toLowerCase())
-    const exclude = excludeSources.map(s => s.toLowerCase())
+}: CommonSwapParams): Promise<CommonSwapPreview> {
+  const include = includeSources.map(s => s.toLowerCase())
+  const exclude = excludeSources.map(s => s.toLowerCase())
 
-    const canUseHyperion = (
-      (include.length === 0 || include.includes('hyperion'))
-      && !exclude.includes('hyperion')
-    )
-    const canUseThalaV2 = (
-      (include.length === 0 || include.includes('thalav2'))
-      && !exclude.includes('thalav2')
-    )
+  const canUseHyperion = (
+    (include.length === 0 || include.includes('hyperion'))
+    && !exclude.includes('hyperion')
+  )
+  const canUseThalaV2 = (
+    (include.length === 0 || include.includes('thalav2'))
+    && !exclude.includes('thalav2')
+  )
 
-    let result: CommonSwapPreview | undefined
-
-    if (canUseHyperion) {
-      result = await preview_swap_exact_hyperion({
-        assetIn,
-        assetOut,
-        amount,
-        isExactIn,
-        slippage,
-      })
-      if (result)
-        return result
-    }
-
-    if (canUseThalaV2) {
-      result = await preview_swap_exact_thala_v2({
-        assetIn,
-        assetOut,
-        amount,
-        isExactIn,
-        slippage,
-      })
-      if (result)
-        return result
-    }
-
-    throw new Error('No swap preview found for the specified sources')
+  if (canUseHyperion) {
+    return await preview_swap_exact_hyperion({
+      assetIn,
+      assetOut,
+      amount,
+      isExactIn,
+      slippage,
+    })
   }
-  catch (error) {
-    console.error(debugLabel, 'error previewing swap', error)
+
+  if (canUseThalaV2) {
+    return await preview_swap_exact_thala_v2({
+      assetIn,
+      assetOut,
+      amount,
+      isExactIn,
+      slippage,
+    })
   }
+
+  throw new Error('No swap preview found for the specified sources')
 }

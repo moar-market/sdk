@@ -16,12 +16,13 @@ export async function preview_swap_exact({
   toAddress = ADDRESS_ZERO,
   includeSources = [],
   excludeSources = [],
-}: CommonSwapParams): Promise<CommonSwapPreview | undefined> {
+}: CommonSwapParams): Promise<CommonSwapPreview> {
   const X_API_KEY = usePanoraApiKey()
 
   if (!X_API_KEY) {
-    console.error(debugLabel, 'Panora API key is not set')
-    return undefined
+    const cause = 'Panora API key is not set'
+    console.error(debugLabel, cause)
+    throw new Error('Preview swap exact failed', { cause })
   }
 
   const params: Params = {
@@ -57,26 +58,28 @@ export async function preview_swap_exact({
   logger.debug(debugLabel, 'preview swap exact', isExactIn ? 'in' : 'out', 'result', data)
 
   const quote = data.quotes?.[0]
-  if (data && quote) {
-    const amountIn = isExactIn ? data.fromTokenAmount : quote.fromTokenAmount
-    const amountInMax = isExactIn ? data.fromTokenAmount : quote.maxFromTokenAmount
-    const amountOut = isExactIn ? quote.toTokenAmount : data.toTokenAmount
-    const amountOutMin = isExactIn ? quote.minToTokenAmount : data.toTokenAmount
-    return {
-      swapParams: quote.txData as SwapParams,
-      assetIn,
-      assetOut,
-      amountIn: scale(isExactIn ? amountIn : amountInMax, data.fromToken.decimals),
-      amountOut: scale(isExactIn ? amountOutMin : amountOut, data.toToken.decimals),
-      isExactIn,
-      quote: {
-        ...quote,
-        fromTokenAmount: scale(amountIn || ZERO, data.fromToken.decimals), // without slippage
-        toTokenAmount: scale(amountOut || ZERO, data.toToken.decimals), // without slippage
-        maxFromTokenAmount: scale(amountInMax, data.fromToken.decimals), // with slippage
-        minToTokenAmount: scale(amountOutMin, data.toToken.decimals), // with slippage
-      },
-    }
+  if (!data || !quote || !response.ok) {
+    throw new Error('Preview swap exact failed', { cause: data })
+  }
+
+  const amountIn = isExactIn ? data.fromTokenAmount : quote.fromTokenAmount
+  const amountInMax = isExactIn ? data.fromTokenAmount : quote.maxFromTokenAmount
+  const amountOut = isExactIn ? quote.toTokenAmount : data.toTokenAmount
+  const amountOutMin = isExactIn ? quote.minToTokenAmount : data.toTokenAmount
+  return {
+    swapParams: quote.txData as SwapParams,
+    assetIn,
+    assetOut,
+    amountIn: scale(isExactIn ? amountIn : amountInMax, data.fromToken.decimals),
+    amountOut: scale(isExactIn ? amountOutMin : amountOut, data.toToken.decimals),
+    isExactIn,
+    quote: {
+      ...quote,
+      fromTokenAmount: scale(amountIn || ZERO, data.fromToken.decimals), // without slippage
+      toTokenAmount: scale(amountOut || ZERO, data.toToken.decimals), // without slippage
+      maxFromTokenAmount: scale(amountInMax, data.fromToken.decimals), // with slippage
+      minToTokenAmount: scale(amountOutMin, data.toToken.decimals), // with slippage
+    },
   }
 }
 

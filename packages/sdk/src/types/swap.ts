@@ -50,7 +50,8 @@ export interface CommonSwapPreview {
   quote: CommonSwapQuote
 }
 
-export type PreviewSwapExact = (params: CommonSwapParams) => Promise<CommonSwapPreview | undefined>
+/** throws error if swap preview fails */
+export type PreviewSwapExact = (params: CommonSwapParams) => Promise<CommonSwapPreview>
 
 export interface ThalaV2SwapPreview {
   amount_in: string
