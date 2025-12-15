@@ -18,7 +18,7 @@ export async function preview_swap_exact_hyperion(
   if (!pool || !tokenIn || !tokenOut) {
     const cause = `Hyperion pool not found with assets ${assetIn} and ${assetOut}`
     console.error(debugLabel, cause)
-    throw new Error('Preview swap exact failed', { cause })
+    throw new Error('Failed to preview swap', { cause })
   }
 
   try {
@@ -127,7 +127,7 @@ export async function preview_swap_exact_hyperion(
   }
   catch (error) {
     console.error(debugLabel, 'error previewing hyperion swap', error)
-    throw new Error('Preview swap exact failed', { cause: error })
+    throw new Error('Failed to preview swap', { cause: error })
   }
 }
 
@@ -141,7 +141,7 @@ export async function preview_swap_exact_thala_v2(
   if (!pool || !tokenIn || !tokenOut) {
     const cause = `Thala V2 pool not found with assets ${assetIn} and ${assetOut}`
     console.error(debugLabel, cause)
-    throw new Error('Preview swap exact failed', { cause })
+    throw new Error('Failed to preview swap', { cause })
   }
 
   try {
@@ -240,7 +240,7 @@ export async function preview_swap_exact_thala_v2(
   }
   catch (error) {
     console.error(debugLabel, 'error previewing thala v2 swap', error)
-    throw new Error('Preview swap exact failed', { cause: error })
+    throw new Error('Failed to preview swap', { cause: error })
   }
 }
 

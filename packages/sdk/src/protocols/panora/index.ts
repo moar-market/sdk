@@ -22,7 +22,7 @@ export async function preview_swap_exact({
   if (!X_API_KEY) {
     const cause = 'Panora API key is not set'
     console.error(debugLabel, cause)
-    throw new Error('Preview swap exact failed', { cause })
+    throw new Error('Failed to preview swap', { cause })
   }
 
   const params: Params = {
@@ -59,7 +59,7 @@ export async function preview_swap_exact({
 
   const quote = data.quotes?.[0]
   if (!data || !quote || !response.ok) {
-    throw new Error('Preview swap exact failed', { cause: data })
+    throw new Error('Failed to preview swap', { cause: data })
   }
 
   const amountIn = isExactIn ? data.fromTokenAmount : quote.fromTokenAmount
