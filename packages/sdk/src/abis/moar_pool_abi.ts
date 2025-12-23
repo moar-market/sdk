@@ -105,6 +105,29 @@ export const moar_pool_abi = {
       ]
     },
     {
+      "name": "get_fee_recipient",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [],
+      "return": [
+        "address"
+      ]
+    },
+    {
+      "name": "set_fee_recipient",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "address"
+      ],
+      "return": []
+    },
+    {
       "name": "get_interest_rate",
       "visibility": "public",
       "is_entry": false,
@@ -240,17 +263,6 @@ export const moar_pool_abi = {
       ],
       "return": [
         "u64"
-      ]
-    },
-    {
-      "name": "get_fee_recipient",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [],
-      "return": [
-        "address"
       ]
     },
     {
@@ -440,18 +452,6 @@ export const moar_pool_abi = {
         "&signer",
         "u64",
         "u64"
-      ],
-      "return": []
-    },
-    {
-      "name": "set_fee_recipient",
-      "visibility": "public",
-      "is_entry": true,
-      "is_view": false,
-      "generic_type_params": [],
-      "params": [
-        "&signer",
-        "address"
       ],
       "return": []
     },
@@ -678,6 +678,23 @@ export const moar_pool_abi = {
       ]
     },
     {
+      "name": "FeeRecipientUpdated",
+      "is_native": false,
+      "is_event": true,
+      "is_enum": false,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "new_fee_recipient",
+          "type": "address"
+        }
+      ]
+    },
+    {
       "name": "BadDebtCompensated",
       "is_native": false,
       "is_event": true,
@@ -849,23 +866,6 @@ export const moar_pool_abi = {
         {
           "name": "fee_on_interest_bps",
           "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "FeeRecipientUpdated",
-      "is_native": false,
-      "is_event": true,
-      "is_enum": false,
-      "abilities": [
-        "drop",
-        "store"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "new_fee_recipient",
-          "type": "address"
         }
       ]
     },

@@ -369,6 +369,19 @@ export const moar_farming_abi = {
       ]
     },
     {
+      "name": "time_remaining_until_incentive_end",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::string::String"
+      ],
+      "return": [
+        "u64"
+      ]
+    },
+    {
       "name": "unstake",
       "visibility": "friend",
       "is_entry": false,
@@ -432,6 +445,22 @@ export const moar_farming_abi = {
         {
           "name": "rewards",
           "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::PoolReward>"
+        }
+      ]
+    },
+    {
+      "name": "Staker",
+      "is_native": false,
+      "is_event": false,
+      "is_enum": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "user_pools",
+          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPool>"
         }
       ]
     },
@@ -714,22 +743,6 @@ export const moar_farming_abi = {
         {
           "name": "amount",
           "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "Staker",
-      "is_native": false,
-      "is_event": false,
-      "is_enum": false,
-      "abilities": [
-        "key"
-      ],
-      "generic_type_params": [],
-      "fields": [
-        {
-          "name": "user_pools",
-          "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPool>"
         }
       ]
     },
