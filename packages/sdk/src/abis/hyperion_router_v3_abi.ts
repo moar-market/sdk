@@ -1115,6 +1115,24 @@ export const hyperion_router_v3_abi = {
       "return": []
     },
     {
+      "name": "remove_liquidity_single_to_fridge_with_multiagent",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "&signer",
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "u256",
+        "u256"
+      ],
+      "return": []
+    },
+    {
       "name": "remove_liquidity_single_with_multiagent",
       "visibility": "public",
       "is_entry": true,
@@ -1129,6 +1147,24 @@ export const hyperion_router_v3_abi = {
         "0x1::object::Object<0x1::fungible_asset::Metadata>",
         "u256",
         "u256"
+      ],
+      "return": []
+    },
+    {
+      "name": "remove_liquidity_to_fridge_with_multiagent",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "&signer",
+        "&signer",
+        "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>",
+        "u128",
+        "u64",
+        "u64",
+        "u64"
       ],
       "return": []
     },
