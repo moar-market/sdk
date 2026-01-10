@@ -5,49 +5,6 @@ export const moarTiered_tiered_oracle_abi = {
   "friends": [],
   "exposed_functions": [
     {
-      "name": "asset_oracle_address",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>"
-      ],
-      "return": [
-        "address"
-      ]
-    },
-    {
-      "name": "get_price",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>"
-      ],
-      "return": [
-        "u8",
-        "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
-      ]
-    },
-    {
-      "name": "must_get_price",
-      "visibility": "public",
-      "is_entry": false,
-      "is_view": true,
-      "generic_type_params": [],
-      "params": [
-        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
-        "0x1::object::Object<0x1::fungible_asset::Metadata>"
-      ],
-      "return": [
-        "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
-      ]
-    },
-    {
       "name": "new",
       "visibility": "public",
       "is_entry": false,
@@ -72,6 +29,87 @@ export const moarTiered_tiered_oracle_abi = {
         "0x1::object::Object<0x1::fungible_asset::Metadata>",
         "u64",
         "u64"
+      ],
+      "return": []
+    },
+    {
+      "name": "get_price",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u8",
+        "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
+      ]
+    },
+    {
+      "name": "asset_oracle_address",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "address"
+      ]
+    },
+    {
+      "name": "add_admins",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "vector<address>"
+      ],
+      "return": []
+    },
+    {
+      "name": "admin_check",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>"
+      ],
+      "return": []
+    },
+    {
+      "name": "must_get_price",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
+      ]
+    },
+    {
+      "name": "remove_admin",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "address"
       ],
       "return": []
     },
@@ -122,6 +160,56 @@ export const moarTiered_tiered_oracle_abi = {
     }
   ],
   "structs": [
+    {
+      "name": "GovernanceConfig",
+      "is_native": false,
+      "is_event": false,
+      "is_enum": false,
+      "abilities": [
+        "key"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "admins",
+          "type": "vector<address>"
+        }
+      ]
+    },
+    {
+      "name": "AdminAdded",
+      "is_native": false,
+      "is_event": true,
+      "is_enum": false,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "admin",
+          "type": "address"
+        }
+      ]
+    },
+    {
+      "name": "AdminRemoved",
+      "is_native": false,
+      "is_event": true,
+      "is_enum": false,
+      "abilities": [
+        "drop",
+        "store"
+      ],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "admin",
+          "type": "address"
+        }
+      ]
+    },
     {
       "name": "AssetOracle",
       "is_native": false,
