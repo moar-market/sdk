@@ -11,6 +11,7 @@ export function getCreditManagerEventTypes() {
     collateralDeposited: `${pkg.moar}::credit_manager::CollateralDeposited`,
     assetAdded: `${pkg.moar}::credit_manager::AssetAdded`,
     borrowed: `${pkg.moar}::credit_manager::Borrowed`,
+    repaidPool: `${pkg.moar}::pool::Repaid`,
     repaid: `${pkg.moar}::credit_manager::Repaid`,
     assetWithdrawn: `${pkg.moar}::credit_manager::AssetWithdrawn`,
 
@@ -316,6 +317,15 @@ export interface RepaidEvent {
   amount: string
 }
 
+export interface RepaidPoolEvent {
+  credit_account: Address
+  pool_id: string
+  repaid_amount: string
+  repaid_shares: string
+  remaining_shares: string
+  remaining_debt: string
+}
+
 export interface StrategyExecutedEvent {
   user: Address
   credit_account_address: Address
@@ -429,6 +439,7 @@ export type CreditAccountEventData = CreditAccountCreatedEvent
   | AssetWithdrawnEvent
   | BorrowedEvent
   | RepaidEvent
+  | RepaidPoolEvent
   | StrategyExecutedEvent
   | LiquidationStartedEvent
   | LiquidatedEvent

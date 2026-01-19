@@ -66,6 +66,19 @@ export const moar_hyperion_lens_abi = {
       ]
     },
     {
+      "name": "get_ca_position_info_v2",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "address"
+      ],
+      "return": [
+        "0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::hyperion_lens::PositionInfoV2"
+      ]
+    },
+    {
       "name": "get_pending_fee_and_rewards",
       "visibility": "public",
       "is_entry": false,
@@ -247,6 +260,64 @@ export const moar_hyperion_lens_abi = {
         {
           "name": "current_price",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "PositionInfoV2",
+      "is_native": false,
+      "is_event": false,
+      "is_enum": false,
+      "abilities": [],
+      "generic_type_params": [],
+      "fields": [
+        {
+          "name": "liquidity",
+          "type": "u128"
+        },
+        {
+          "name": "token_a_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "token_b_metadata",
+          "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
+        },
+        {
+          "name": "tick_lower",
+          "type": "u32"
+        },
+        {
+          "name": "tick_upper",
+          "type": "u32"
+        },
+        {
+          "name": "current_tick",
+          "type": "u32"
+        },
+        {
+          "name": "tick_lower_price",
+          "type": "u64"
+        },
+        {
+          "name": "tick_upper_price",
+          "type": "u64"
+        },
+        {
+          "name": "current_price",
+          "type": "u64"
+        },
+        {
+          "name": "pool_address",
+          "type": "address"
+        },
+        {
+          "name": "position_address",
+          "type": "address"
+        },
+        {
+          "name": "token_amounts",
+          "type": "vector<u64>"
         }
       ]
     }
