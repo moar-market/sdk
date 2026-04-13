@@ -224,7 +224,8 @@ export const goblin_masterchef_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "WithdrawEvent",
@@ -249,7 +250,8 @@ export const goblin_masterchef_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddPoolEvent",
@@ -274,7 +276,8 @@ export const goblin_masterchef_abi = {
           "name": "reward_fa",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ClaimRewardEvent",
@@ -299,7 +302,8 @@ export const goblin_masterchef_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "EmergencyWithdrawEvent",
@@ -324,7 +328,8 @@ export const goblin_masterchef_abi = {
           "name": "amount",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "MasterChef",
@@ -352,7 +357,8 @@ export const goblin_masterchef_abi = {
           "name": "pool_info",
           "type": "vector<0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92::masterchef::PoolInfo>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolInfo",
@@ -396,7 +402,8 @@ export const goblin_masterchef_abi = {
           "name": "last_reward_timestamp",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolUserInfo",
@@ -412,7 +419,8 @@ export const goblin_masterchef_abi = {
           "name": "pid_to_user_info",
           "type": "0x1::table_with_length::TableWithLength<u64, 0x1ddda82f0491ef60282a1ae8c4c82908723f945f1f10b809dcf1b5b085f77b92::masterchef::UserInfo>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SetAdminEvent",
@@ -429,7 +437,8 @@ export const goblin_masterchef_abi = {
           "name": "new_admin",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SetUpkeepAdminEvent",
@@ -446,7 +455,8 @@ export const goblin_masterchef_abi = {
           "name": "new_upkeep_admin",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UpdatePoolEvent",
@@ -475,7 +485,8 @@ export const goblin_masterchef_abi = {
           "name": "acc_reward_per_share",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UpkeepEvent",
@@ -508,7 +519,8 @@ export const goblin_masterchef_abi = {
           "name": "reward_per_second",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserInfo",
@@ -528,7 +540,8 @@ export const goblin_masterchef_abi = {
           "name": "reward_debt",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

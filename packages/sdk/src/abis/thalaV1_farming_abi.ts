@@ -228,6 +228,21 @@ export const thalaV1_farming_abi = {
       ]
     },
     {
+      "name": "coin_rate_limiter_remaining",
+      "visibility": "private",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [
+        {
+          "constraints": []
+        }
+      ],
+      "params": [],
+      "return": [
+        "u128"
+      ]
+    },
+    {
       "name": "coin_rate_limiter_view",
       "visibility": "public",
       "is_entry": false,
@@ -788,7 +803,8 @@ export const thalaV1_farming_abi = {
           "name": "curr_boost_factor",
           "type": "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BoostedFarming",
@@ -812,7 +828,8 @@ export const thalaV1_farming_abi = {
           "name": "max_boost_multiplier_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ClaimEvent",
@@ -837,7 +854,8 @@ export const thalaV1_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "EpochInfo",
@@ -863,7 +881,8 @@ export const thalaV1_farming_abi = {
           "name": "reward_per_sec",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Farming",
@@ -887,7 +906,8 @@ export const thalaV1_farming_abi = {
           "name": "total_thl_alloc_point",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FarmingEvents",
@@ -919,7 +939,8 @@ export const thalaV1_farming_abi = {
           "name": "pool_change_events",
           "type": "0x1::event::EventHandle<0x6b3720cd988adeaf721ed9d4730da4324d52364871a68eac62b46d21e4d2fa99::farming::PoolChangeEvent>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FarmingV2",
@@ -935,7 +956,8 @@ export const thalaV1_farming_abi = {
           "name": "v2_only_mode",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PauseFlag",
@@ -951,7 +973,8 @@ export const thalaV1_farming_abi = {
           "name": "paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolChangeEvent",
@@ -980,7 +1003,8 @@ export const thalaV1_farming_abi = {
           "name": "new_thl_alloc_point",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolInfo",
@@ -1020,7 +1044,8 @@ export const thalaV1_farming_abi = {
           "name": "extra_reward_coins",
           "type": "vector<0x1::string::String>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimit",
@@ -1040,7 +1065,8 @@ export const thalaV1_farming_abi = {
           "name": "coin_rate_limiters",
           "type": "0x1::simple_map::SimpleMap<0x1::string::String, 0x87978b35bf1eb73ae6cf04cfedcaa1f48254a683ebd00a21e7516a991edae3ac::rate_limiter::RateLimiter>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimitMaxQtyUpdateEvent",
@@ -1061,7 +1087,8 @@ export const thalaV1_farming_abi = {
           "name": "window_max_qty",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimitWindowDurationUpdateEvent",
@@ -1078,7 +1105,8 @@ export const thalaV1_farming_abi = {
           "name": "window_duration_seconds",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardEpochEvent",
@@ -1107,7 +1135,8 @@ export const thalaV1_farming_abi = {
           "name": "reward_per_sec",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeEvent",
@@ -1132,7 +1161,8 @@ export const thalaV1_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeEventV2",
@@ -1165,7 +1195,8 @@ export const thalaV1_farming_abi = {
           "name": "boost_factor",
           "type": "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Staker",
@@ -1181,7 +1212,8 @@ export const thalaV1_farming_abi = {
           "name": "pool_info",
           "type": "0x1::table::Table<u64, 0x6b3720cd988adeaf721ed9d4730da4324d52364871a68eac62b46d21e4d2fa99::farming::UserPoolInfo>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeEvent",
@@ -1206,7 +1238,8 @@ export const thalaV1_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeEventV2",
@@ -1239,7 +1272,8 @@ export const thalaV1_farming_abi = {
           "name": "boost_factor",
           "type": "0x4dcae85fc5559071906cd5c76b7420fcbb4b0a92f00ab40ffc394aadbbff5ee9::fixed_point64::FixedPoint64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserPoolInfo",
@@ -1263,7 +1297,8 @@ export const thalaV1_farming_abi = {
           "name": "rewards",
           "type": "0x1::table::Table<0x1::string::String, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VeTHLGatedFarming",
@@ -1283,7 +1318,8 @@ export const thalaV1_farming_abi = {
           "name": "exempt_pools",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

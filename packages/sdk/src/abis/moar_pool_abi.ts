@@ -647,7 +647,8 @@ export const moar_pool_abi = {
           "name": "unbond_period",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LPTokenRefs",
@@ -675,7 +676,8 @@ export const moar_pool_abi = {
           "name": "mutate_metadata_ref",
           "type": "0x1::fungible_asset::MutateMetadataRef"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FeeRecipientUpdated",
@@ -692,7 +694,8 @@ export const moar_pool_abi = {
           "name": "new_fee_recipient",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BadDebtCompensated",
@@ -713,7 +716,8 @@ export const moar_pool_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BadDebtRebalanced",
@@ -742,7 +746,8 @@ export const moar_pool_abi = {
           "name": "bad_debt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BorrowCapUpdated",
@@ -763,7 +768,8 @@ export const moar_pool_abi = {
           "name": "borrow_cap",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Borrowed",
@@ -796,7 +802,8 @@ export const moar_pool_abi = {
           "name": "fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositCapUpdated",
@@ -817,7 +824,8 @@ export const moar_pool_abi = {
           "name": "deposit_cap",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Deposited",
@@ -846,7 +854,8 @@ export const moar_pool_abi = {
           "name": "shares_minted",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FeeOnInterestUpdated",
@@ -867,7 +876,8 @@ export const moar_pool_abi = {
           "name": "fee_on_interest_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "InterestAccrued",
@@ -900,7 +910,8 @@ export const moar_pool_abi = {
           "name": "fee_recipient",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LpTokenMetadataUpdated",
@@ -937,7 +948,8 @@ export const moar_pool_abi = {
           "name": "project_uri",
           "type": "0x1::option::Option<0x1::string::String>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "MinAmountsUpdated",
@@ -958,7 +970,8 @@ export const moar_pool_abi = {
           "name": "min_debt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "OriginationFeeUpdated",
@@ -979,7 +992,8 @@ export const moar_pool_abi = {
           "name": "origination_fee_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolConfigs",
@@ -1011,7 +1025,8 @@ export const moar_pool_abi = {
           "name": "min_debt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolCreated",
@@ -1036,7 +1051,8 @@ export const moar_pool_abi = {
           "name": "underlying_asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolNameUpdated",
@@ -1057,7 +1073,8 @@ export const moar_pool_abi = {
           "name": "name",
           "type": "0x1::string::String"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolOwnerUpdated",
@@ -1078,7 +1095,8 @@ export const moar_pool_abi = {
           "name": "new_owner",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolPaused",
@@ -1095,7 +1113,8 @@ export const moar_pool_abi = {
           "name": "pool_id",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolUnpaused",
@@ -1112,7 +1131,8 @@ export const moar_pool_abi = {
           "name": "pool_id",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolView",
@@ -1186,7 +1206,8 @@ export const moar_pool_abi = {
           "name": "withdraw_period",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Repaid",
@@ -1223,7 +1244,8 @@ export const moar_pool_abi = {
           "name": "remaining_debt",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnbondingInfo",
@@ -1245,7 +1267,8 @@ export const moar_pool_abi = {
           "name": "unbond_time",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnbondingParamsUpdated",
@@ -1270,7 +1293,8 @@ export const moar_pool_abi = {
           "name": "unbond_period",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnbondingStarted",
@@ -1299,7 +1323,8 @@ export const moar_pool_abi = {
           "name": "unbond_time",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserUnbondingInfo",
@@ -1315,7 +1340,8 @@ export const moar_pool_abi = {
           "name": "unbonding_info",
           "type": "0x1::smart_table::SmartTable<u64, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::pool::UnbondingInfo>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Withdrawn",
@@ -1344,7 +1370,8 @@ export const moar_pool_abi = {
           "name": "shares_burned",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

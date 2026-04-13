@@ -398,7 +398,8 @@ export const generic_primary_fungible_store_abi = {
           "name": "metadata_derive_ref",
           "type": "0x1::object::DeriveRef"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

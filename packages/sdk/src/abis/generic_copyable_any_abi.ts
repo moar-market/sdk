@@ -77,7 +77,8 @@ export const generic_copyable_any_abi = {
           "name": "data",
           "type": "vector<u8>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

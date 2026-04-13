@@ -111,7 +111,8 @@ export const moar_oracle_abi = {
           "name": "adapter_id",
           "type": "0x1::option::Option<u8>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "OracleConfig",
@@ -131,7 +132,8 @@ export const moar_oracle_abi = {
           "name": "lp_token_map",
           "type": "0x1::smart_table::SmartTable<0x1::object::Object<0x1::fungible_asset::Metadata>, 0x1::option::Option<u8>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TieredOracleSet",
@@ -148,7 +150,8 @@ export const moar_oracle_abi = {
           "name": "tiered_oracle_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

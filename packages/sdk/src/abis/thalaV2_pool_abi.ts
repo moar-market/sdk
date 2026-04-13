@@ -34,6 +34,19 @@ export const thalaV2_pool_abi = {
       ]
     },
     {
+      "name": "asset_rate_limiter_remaining",
+      "visibility": "private",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u128"
+      ]
+    },
+    {
       "name": "asset_rate_limiter_view",
       "visibility": "public",
       "is_entry": false,
@@ -1672,7 +1685,8 @@ export const thalaV2_pool_abi = {
           "name": "lp_token_burn_ref",
           "type": "0x1::fungible_asset::BurnRef"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimit",
@@ -1692,7 +1706,8 @@ export const thalaV2_pool_abi = {
           "name": "whitelisted_users",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityEvent",
@@ -1725,7 +1740,8 @@ export const thalaV2_pool_abi = {
           "name": "pool_balances",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Flashloan",
@@ -1743,7 +1759,8 @@ export const thalaV2_pool_abi = {
           "name": "amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FlashloanEvent",
@@ -1772,7 +1789,8 @@ export const thalaV2_pool_abi = {
           "name": "amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PauseFlag",
@@ -1796,7 +1814,8 @@ export const thalaV2_pool_abi = {
           "name": "flashloan_paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEvent",
@@ -1829,7 +1848,8 @@ export const thalaV2_pool_abi = {
           "name": "pool_balances",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StablePool",
@@ -1849,7 +1869,8 @@ export const thalaV2_pool_abi = {
           "name": "precision_multipliers",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapEvent",
@@ -1898,7 +1919,8 @@ export const thalaV2_pool_abi = {
           "name": "pool_balances",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TwapOracle",
@@ -1944,7 +1966,8 @@ export const thalaV2_pool_abi = {
           "name": "timestamp",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityPreview",
@@ -1964,7 +1987,8 @@ export const thalaV2_pool_abi = {
           "name": "refund_amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreateTwapOracleEvent",
@@ -1993,7 +2017,8 @@ export const thalaV2_pool_abi = {
           "name": "metadata_y",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "MetaStablePool",
@@ -2017,7 +2042,8 @@ export const thalaV2_pool_abi = {
           "name": "last_updated",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolCreationEvent",
@@ -2050,7 +2076,8 @@ export const thalaV2_pool_abi = {
           "name": "swap_fee_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolParamChangeEvent",
@@ -2079,7 +2106,8 @@ export const thalaV2_pool_abi = {
           "name": "new_value",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolPauseFlag",
@@ -2107,7 +2135,8 @@ export const thalaV2_pool_abi = {
           "name": "flashloan_paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimitUpdateEvent",
@@ -2132,7 +2161,8 @@ export const thalaV2_pool_abi = {
           "name": "window_duration_seconds",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityPreview",
@@ -2148,7 +2178,8 @@ export const thalaV2_pool_abi = {
           "name": "withdrawn_amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveTwapOracleEvent",
@@ -2173,7 +2204,8 @@ export const thalaV2_pool_abi = {
           "name": "metadata_y",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapFeeMultipliers",
@@ -2189,7 +2221,8 @@ export const thalaV2_pool_abi = {
           "name": "traders",
           "type": "0x1::smart_table::SmartTable<address, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapPreview",
@@ -2241,7 +2274,8 @@ export const thalaV2_pool_abi = {
           "name": "swap_fee_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SyncRatesEvent",
@@ -2270,7 +2304,8 @@ export const thalaV2_pool_abi = {
           "name": "last_updated",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ThalaSwap",
@@ -2298,7 +2333,8 @@ export const thalaV2_pool_abi = {
           "name": "flashloan_fee_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ThalaSwapParamChangeEvent",
@@ -2323,7 +2359,8 @@ export const thalaV2_pool_abi = {
           "name": "new_value",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UpdateTwapOracleEvent",
@@ -2372,7 +2409,8 @@ export const thalaV2_pool_abi = {
           "name": "timestamp",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "WeightedPool",
@@ -2388,7 +2426,8 @@ export const thalaV2_pool_abi = {
           "name": "weights",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

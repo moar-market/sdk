@@ -276,7 +276,8 @@ export const moarStrategies_router_abi = {
           "name": "moar_package_manager",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

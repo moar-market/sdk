@@ -349,7 +349,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "vault_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LtvMapSet",
@@ -370,7 +371,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositWithPairInputs",
@@ -404,7 +406,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "amount_b_min",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositWithPairInputsV2",
@@ -446,7 +449,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositWithSingleInputs",
@@ -484,7 +488,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "amount_in_min",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositWithSingleInputsV2",
@@ -530,7 +535,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "GoblinVaultAdapterConfig",
@@ -550,7 +556,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "ltv_map",
           "type": "0x1::ordered_map::OrderedMap<address, 0x1::simple_map::SimpleMap<u64, u64>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "GoblinVaultDepositEvent",
@@ -588,7 +595,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "is_single_token_in",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "GoblinVaultDepositEventV2",
@@ -634,7 +642,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "GoblinVaultWithdrawEvent",
@@ -671,7 +680,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "is_single_token_out",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "GoblinVaultWithdrawEventV2",
@@ -716,7 +726,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveAsPairInputs",
@@ -746,7 +757,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "amount_b_min",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveAsPairInputsV2",
@@ -784,7 +796,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveAsSingleInputs",
@@ -822,7 +835,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "amount_out_min",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveAsSingleInputsV2",
@@ -868,7 +882,8 @@ export const moarStrategies_goblin_vault_adapter_abi = {
           "name": "pool_id",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

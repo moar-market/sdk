@@ -446,7 +446,8 @@ export const moar_farming_abi = {
           "name": "rewards",
           "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::PoolReward>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Staker",
@@ -462,7 +463,8 @@ export const moar_farming_abi = {
           "name": "user_pools",
           "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPool>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BlacklistedAccountsAdded",
@@ -483,7 +485,8 @@ export const moar_farming_abi = {
           "name": "accounts",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BlacklistedAccountsRemoved",
@@ -504,7 +507,8 @@ export const moar_farming_abi = {
           "name": "accounts",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FarmingConfig",
@@ -532,7 +536,8 @@ export const moar_farming_abi = {
           "name": "reward_id_to_metadata",
           "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FarmingPoolCreated",
@@ -549,7 +554,8 @@ export const moar_farming_abi = {
           "name": "farming_identifier",
           "type": "0x1::string::String"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "NewRewardAdded",
@@ -570,7 +576,8 @@ export const moar_farming_abi = {
           "name": "asset_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolAllocPointUpdated",
@@ -599,7 +606,8 @@ export const moar_farming_abi = {
           "name": "new_alloc_point",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolReward",
@@ -627,7 +635,8 @@ export const moar_farming_abi = {
           "name": "acc_rewards_per_share",
           "type": "u256"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Reward",
@@ -665,7 +674,8 @@ export const moar_farming_abi = {
           "name": "reward_token_store",
           "type": "0x1::object::Object<0x1::fungible_asset::FungibleStore>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardEpochUpdated",
@@ -694,7 +704,8 @@ export const moar_farming_abi = {
           "name": "epoch_reward_per_sec",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsClaimed",
@@ -719,7 +730,8 @@ export const moar_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Staked",
@@ -744,7 +756,8 @@ export const moar_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Unstaked",
@@ -769,7 +782,8 @@ export const moar_farming_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserPool",
@@ -793,7 +807,8 @@ export const moar_farming_abi = {
           "name": "rewards",
           "type": "0x1::ordered_map::OrderedMap<0x1::string::String, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::farming::UserPoolReward>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserPoolReward",
@@ -818,7 +833,8 @@ export const moar_farming_abi = {
           "name": "reward_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

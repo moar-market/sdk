@@ -673,6 +673,19 @@ export const thalaV2_staked_lpt_abi = {
       "return": []
     },
     {
+      "name": "stake_rate_limiter_remaining",
+      "visibility": "private",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u128"
+      ]
+    },
+    {
       "name": "stake_rate_limiter_view",
       "visibility": "public",
       "is_entry": false,
@@ -697,6 +710,19 @@ export const thalaV2_staked_lpt_abi = {
         "u64"
       ],
       "return": []
+    },
+    {
+      "name": "unstake_rate_limiter_remaining",
+      "visibility": "private",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u128"
+      ]
     },
     {
       "name": "unstake_rate_limiter_view",
@@ -783,7 +809,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "reward_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeEvent",
@@ -812,7 +839,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeEvent",
@@ -841,7 +869,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Farming",
@@ -897,7 +926,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "unstake_paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Management",
@@ -929,7 +959,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "lpt_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimitUpdateEvent",
@@ -958,7 +989,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "window_duration_seconds",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RateLimitWhitelist",
@@ -974,7 +1006,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "whitelisted_users",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakedLPTCreationEvent",
@@ -999,7 +1032,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "staked_lpt_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakedLPTParamChangeEvent",
@@ -1024,7 +1058,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "new_value",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakedLptRateLimit",
@@ -1044,7 +1079,8 @@ export const thalaV2_staked_lpt_abi = {
           "name": "unstake",
           "type": "0x87978b35bf1eb73ae6cf04cfedcaa1f48254a683ebd00a21e7516a991edae3ac::rate_limiter::RateLimiter"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

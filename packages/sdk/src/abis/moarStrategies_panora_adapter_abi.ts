@@ -193,7 +193,8 @@ export const moarStrategies_panora_adapter_abi = {
           "name": "trade_value",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapInputs",
@@ -283,7 +284,8 @@ export const moarStrategies_panora_adapter_abi = {
           "name": "is_trade",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

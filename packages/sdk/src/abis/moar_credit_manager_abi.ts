@@ -1097,7 +1097,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsClaimed",
@@ -1130,7 +1131,8 @@ export const moar_credit_manager_abi = {
           "name": "calldatas",
           "type": "vector<0x1::copyable_any::Any>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Borrowed",
@@ -1159,7 +1161,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Repaid",
@@ -1188,7 +1191,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ActionData",
@@ -1210,7 +1214,8 @@ export const moar_credit_manager_abi = {
           "name": "data",
           "type": "0x1::copyable_any::Any"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AllowedAssetAdded",
@@ -1227,7 +1232,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AllowedAssetRemoved",
@@ -1244,7 +1250,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AllowedCollateralAssetAdded",
@@ -1261,7 +1268,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AllowedCollateralAssetRemoved",
@@ -1278,7 +1286,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AssetAdded",
@@ -1303,7 +1312,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AssetRemoved",
@@ -1328,7 +1338,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AssetWithdrawn",
@@ -1361,7 +1372,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BadDebtLiquidationEnded",
@@ -1386,7 +1398,8 @@ export const moar_credit_manager_abi = {
           "name": "debt_data",
           "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::utils::DebtData>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BadDebtLiquidationStarted",
@@ -1435,7 +1448,8 @@ export const moar_credit_manager_abi = {
           "name": "fee_amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "BorrowData",
@@ -1457,7 +1471,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CollateralDeposited",
@@ -1486,7 +1501,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditAccount",
@@ -1530,7 +1546,8 @@ export const moar_credit_manager_abi = {
           "name": "liquidators",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditAccountClosed",
@@ -1551,7 +1568,8 @@ export const moar_credit_manager_abi = {
           "name": "credit_account_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditAccountCreated",
@@ -1572,7 +1590,8 @@ export const moar_credit_manager_abi = {
           "name": "credit_account_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditManagerConfig",
@@ -1620,7 +1639,8 @@ export const moar_credit_manager_abi = {
           "name": "is_paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditManagerPauseStatusUpdated",
@@ -1637,7 +1657,8 @@ export const moar_credit_manager_abi = {
           "name": "is_paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "DepositData",
@@ -1659,7 +1680,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ExecStrategyData",
@@ -1685,7 +1707,8 @@ export const moar_credit_manager_abi = {
           "name": "calldata",
           "type": "0x1::copyable_any::Any"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidationEnded",
@@ -1718,7 +1741,8 @@ export const moar_credit_manager_abi = {
           "name": "initial_health_factor",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidationFeeUpdated",
@@ -1739,7 +1763,8 @@ export const moar_credit_manager_abi = {
           "name": "bad_debt_liquidation_fee_bps",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidationReceipt",
@@ -1765,7 +1790,8 @@ export const moar_credit_manager_abi = {
           "name": "is_bad_debt",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidationStarted",
@@ -1810,7 +1836,8 @@ export const moar_credit_manager_abi = {
           "name": "fee_amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidatorRemoved",
@@ -1827,7 +1854,8 @@ export const moar_credit_manager_abi = {
           "name": "liquidator",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidatorWhitelisted",
@@ -1844,7 +1872,8 @@ export const moar_credit_manager_abi = {
           "name": "liquidator",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "MaxAssetsUpdated",
@@ -1861,7 +1890,8 @@ export const moar_credit_manager_abi = {
           "name": "max_assets",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "MaxDebtPoolsUpdated",
@@ -1878,7 +1908,8 @@ export const moar_credit_manager_abi = {
           "name": "max_debt_pools",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RepayData",
@@ -1900,7 +1931,8 @@ export const moar_credit_manager_abi = {
           "name": "amount",
           "type": "0x1::option::Option<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StrategyExecuted",
@@ -1933,7 +1965,8 @@ export const moar_credit_manager_abi = {
           "name": "calldata",
           "type": "0x1::copyable_any::Any"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakedByLiquidator",
@@ -1962,7 +1995,8 @@ export const moar_credit_manager_abi = {
           "name": "fa_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "WithdrawData",
@@ -1988,7 +2022,8 @@ export const moar_credit_manager_abi = {
           "name": "asset",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

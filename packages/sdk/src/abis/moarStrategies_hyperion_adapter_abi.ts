@@ -448,7 +448,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "position_object",
           "type": "0x1::object::Object<0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::position_v3::Info>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityEvent",
@@ -477,7 +478,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "is_stake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEvent",
@@ -510,7 +512,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "is_unstake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityInputs",
@@ -572,7 +575,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "is_stake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityOptimallyEvent",
@@ -637,7 +641,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "loop_count",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityOptimallyInputs",
@@ -703,7 +708,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "dust_threshold",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FeeOnRewardsCharged",
@@ -732,7 +738,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "fee_recipient",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "HyperionAdapterConfig",
@@ -756,7 +763,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "reward_tokens",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidateNonFAPositionEvent",
@@ -777,7 +785,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "removed_assets_metadata",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidateNonFAPositionInputs",
@@ -799,7 +808,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "token_b_min_out",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LtvMapSet",
@@ -820,7 +830,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolRewardsFeeSet",
@@ -841,7 +852,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "pool_rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RebalanceEvent",
@@ -874,7 +886,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "tick_upper",
           "type": "u32"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RebalanceInputs",
@@ -948,7 +961,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "dust_threshold",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityInputs",
@@ -994,7 +1008,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "is_unstake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardTokenAdded",
@@ -1011,7 +1026,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardTokenRemoved",
@@ -1028,7 +1044,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsFeeConfig",
@@ -1048,7 +1065,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsFeeSet",
@@ -1065,7 +1083,8 @@ export const moarStrategies_hyperion_adapter_abi = {
           "name": "rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

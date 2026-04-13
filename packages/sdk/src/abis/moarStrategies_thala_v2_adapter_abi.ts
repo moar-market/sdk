@@ -151,6 +151,19 @@ export const moarStrategies_thala_v2_adapter_abi = {
       ]
     },
     {
+      "name": "get_lpt_reward_metadata_list",
+      "visibility": "private",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
+      ]
+    },
+    {
       "name": "get_xlpt_metadata_from_lpt_metadata",
       "visibility": "public",
       "is_entry": false,
@@ -227,7 +240,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "is_stake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEvent",
@@ -264,7 +278,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "is_unstake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityInputs",
@@ -294,7 +309,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "is_stake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityInputs",
@@ -328,7 +344,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "is_unstake",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ClaimRewardInputs",
@@ -346,7 +363,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "lpt_metadatas",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolInfo",
@@ -367,7 +385,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "xlpt_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolLookup",
@@ -383,7 +402,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "lp_token_metadata_to_pool_info",
           "type": "0x1::smart_table::SmartTable<0x1::object::Object<0x1::fungible_asset::Metadata>, 0xc9613ed6276f7c70a5eabdef237dc57ea07a72f563d15cd998dc31ebe6cc0db5::thala_v2_adapter::PoolInfo>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolLookupAdded",
@@ -408,7 +428,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "xlpt_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolLookupUpdated",
@@ -433,7 +454,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "xlpt_metadata",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeAPTAndThAPTEvent",
@@ -462,7 +484,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "sthapt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeAPTEvent",
@@ -487,7 +510,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "thapt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeInputs",
@@ -509,7 +533,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "min_out_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeThAPTEvent",
@@ -534,7 +559,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "sthapt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeThAPTEvent",
@@ -559,7 +585,8 @@ export const moarStrategies_thala_v2_adapter_abi = {
           "name": "thapt_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

@@ -1189,7 +1189,8 @@ export const hyperion_pool_v3_abi = {
           "name": "amount_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityEventV2",
@@ -1250,7 +1251,8 @@ export const hyperion_pool_v3_abi = {
           "name": "pool_reserve_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddLiquidityEventV3",
@@ -1323,7 +1325,8 @@ export const hyperion_pool_v3_abi = {
           "name": "active_liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ClaimFeesEvent",
@@ -1356,7 +1359,8 @@ export const hyperion_pool_v3_abi = {
           "name": "owner",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ClaimFeesEventV2",
@@ -1397,7 +1401,8 @@ export const hyperion_pool_v3_abi = {
           "name": "token_b_liquidity_after_claim",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreatePoolEvent",
@@ -1438,7 +1443,8 @@ export const hyperion_pool_v3_abi = {
           "name": "tick",
           "type": "0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::i32::I32"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidityPoolConfigsV3",
@@ -1478,7 +1484,8 @@ export const hyperion_pool_v3_abi = {
           "name": "tick_spacing_list",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidityPoolInfoV3",
@@ -1519,7 +1526,8 @@ export const hyperion_pool_v3_abi = {
           "name": "liquidity_total",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidityPoolV3",
@@ -1635,7 +1643,8 @@ export const hyperion_pool_v3_abi = {
           "name": "rewarder_manager",
           "type": "0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c::rewarder::RewarderManager"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PageInfo",
@@ -1664,7 +1673,8 @@ export const hyperion_pool_v3_abi = {
           "name": "take",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolSnapshot",
@@ -1725,7 +1735,8 @@ export const hyperion_pool_v3_abi = {
           "name": "tick_spacing",
           "type": "u32"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolSnapshotV2",
@@ -1794,7 +1805,8 @@ export const hyperion_pool_v3_abi = {
           "name": "token_b_reserve",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolTemporaryStorage",
@@ -1810,7 +1822,8 @@ export const hyperion_pool_v3_abi = {
           "name": "stores",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::FungibleStore>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ProtocolFees",
@@ -1830,7 +1843,8 @@ export const hyperion_pool_v3_abi = {
           "name": "token_b",
           "type": "0x1::object::Object<0x1::fungible_asset::FungibleStore>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEvent",
@@ -1883,7 +1897,8 @@ export const hyperion_pool_v3_abi = {
           "name": "amount_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEventV2",
@@ -1944,7 +1959,8 @@ export const hyperion_pool_v3_abi = {
           "name": "pool_reserve_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveLiquidityEventV3",
@@ -2017,7 +2033,8 @@ export const hyperion_pool_v3_abi = {
           "name": "active_liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StepComputations",
@@ -2054,7 +2071,8 @@ export const hyperion_pool_v3_abi = {
           "name": "current_liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapAfterEvent",
@@ -2083,7 +2101,8 @@ export const hyperion_pool_v3_abi = {
           "name": "liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapBeforeEvent",
@@ -2112,7 +2131,8 @@ export const hyperion_pool_v3_abi = {
           "name": "liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapEvent",
@@ -2153,7 +2173,8 @@ export const hyperion_pool_v3_abi = {
           "name": "protocol_fee_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapEventV2",
@@ -2202,7 +2223,8 @@ export const hyperion_pool_v3_abi = {
           "name": "pool_reserve_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapEventV3",
@@ -2263,7 +2285,8 @@ export const hyperion_pool_v3_abi = {
           "name": "active_liquidity",
           "type": "u128"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SwapState",
@@ -2311,7 +2334,8 @@ export const hyperion_pool_v3_abi = {
           "name": "fee_amount_total",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UpdateRemoveLiqudityAmount",
@@ -2341,7 +2365,8 @@ export const hyperion_pool_v3_abi = {
           "name": "tick_upper",
           "type": "u32"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

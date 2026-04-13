@@ -276,7 +276,8 @@ export const moar_risk_manager_abi = {
           "name": "discount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LtvUpdated",
@@ -301,7 +302,8 @@ export const moar_risk_manager_abi = {
           "name": "ltv",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolLtvEntries",
@@ -325,7 +327,8 @@ export const moar_risk_manager_abi = {
           "name": "ltv",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RiskManagerConfig",
@@ -345,7 +348,8 @@ export const moar_risk_manager_abi = {
           "name": "liquidation_discount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

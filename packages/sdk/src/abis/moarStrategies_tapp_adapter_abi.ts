@@ -391,7 +391,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "position_idx",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FeeOnRewardsCharged",
@@ -436,7 +437,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "fee_recipient",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidateNonFAPositionEvent",
@@ -457,7 +459,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "removed_assets_metadata",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LiquidateNonFAPositionInputs",
@@ -475,7 +478,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "min_outs",
           "type": "vector<vector<u256>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "LtvMapSet",
@@ -496,7 +500,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "ltv_map",
           "type": "0x1::simple_map::SimpleMap<u64, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PoolRewardsFeeSet",
@@ -517,7 +522,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "pool_rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardTokenAdded",
@@ -534,7 +540,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardTokenRemoved",
@@ -551,7 +558,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "reward_token",
           "type": "0x1::object::Object<0x1::fungible_asset::Metadata>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsFeeConfig",
@@ -571,7 +579,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RewardsFeeSet",
@@ -588,7 +597,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "rewards_fee",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddStableLiquidityEvent",
@@ -625,7 +635,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "min_mint_amount",
           "type": "u256"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AddStableLiquidityInputs",
@@ -655,7 +666,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "min_mint_amount",
           "type": "u256"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CollectFeesEvent",
@@ -680,7 +692,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "position_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveStableLiquidityEvent",
@@ -725,7 +738,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "min_received",
           "type": "0x1::option::Option<u256>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveStableLiquidityInputs",
@@ -767,7 +781,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "min_received",
           "type": "0x1::option::Option<u256>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TappAdapterConfig",
@@ -791,7 +806,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "reward_tokens",
           "type": "vector<0x1::object::Object<0x1::fungible_asset::Metadata>>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TappDiffTolerance",
@@ -807,7 +823,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "pool_price_diff_tolerance",
           "type": "0x1::simple_map::SimpleMap<u8, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TappDiffToleranceSet",
@@ -828,7 +845,8 @@ export const moarStrategies_tapp_adapter_abi = {
           "name": "diff_tolerance",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

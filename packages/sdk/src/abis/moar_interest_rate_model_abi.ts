@@ -193,7 +193,8 @@ export const moar_interest_rate_model_abi = {
           "name": "interest_rate_model",
           "type": "0x1::smart_table::SmartTable<u64, 0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::interest_rate_model::InterestRateModel>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "InterestRateModel",
@@ -219,7 +220,8 @@ export const moar_interest_rate_model_abi = {
           "name": "last_accrued_at",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "InterestRateModelAdded",
@@ -244,7 +246,8 @@ export const moar_interest_rate_model_abi = {
           "name": "rate_data",
           "type": "0x1::copyable_any::Any"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "InterestRateModelUpdated",
@@ -269,7 +272,8 @@ export const moar_interest_rate_model_abi = {
           "name": "rate_data",
           "type": "0x1::copyable_any::Any"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PiecewiseLinearInterestRateModel",
@@ -315,7 +319,8 @@ export const moar_interest_rate_model_abi = {
           "name": "u4",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

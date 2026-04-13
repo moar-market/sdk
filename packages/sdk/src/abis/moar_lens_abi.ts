@@ -331,7 +331,8 @@ export const moar_lens_abi = {
           "name": "health_factor",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

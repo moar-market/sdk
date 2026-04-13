@@ -199,7 +199,8 @@ export const moar_hyperion_lens_abi = {
           "name": "reward_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PositionInfo",
@@ -261,7 +262,8 @@ export const moar_hyperion_lens_abi = {
           "name": "current_price",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PositionInfoV2",
@@ -319,7 +321,8 @@ export const moar_hyperion_lens_abi = {
           "name": "token_amounts",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

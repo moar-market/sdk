@@ -179,7 +179,8 @@ export const moarStrategies_dex_swap_adapter_abi = {
           "name": "is_trade",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "HyperionMultiPoolSwapInputs",
@@ -217,7 +218,8 @@ export const moarStrategies_dex_swap_adapter_abi = {
           "name": "is_trade",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "HyperionSinglePoolSwapInputs",
@@ -267,7 +269,8 @@ export const moarStrategies_dex_swap_adapter_abi = {
           "name": "is_trade",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ThalaV2SwapInputs",
@@ -309,7 +312,8 @@ export const moarStrategies_dex_swap_adapter_abi = {
           "name": "is_trade",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

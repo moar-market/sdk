@@ -1343,7 +1343,8 @@ export const hyperion_router_v3_abi = {
           "name": "add_amount_b",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RemoveSingleLiquidityEvent",
@@ -1401,7 +1402,8 @@ export const hyperion_router_v3_abi = {
           "name": "output_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

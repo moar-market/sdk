@@ -613,7 +613,8 @@ export const thalaV2_staking_abi = {
           "name": "withdrawn_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "FeesExempt",
@@ -629,7 +630,8 @@ export const thalaV2_staking_abi = {
           "name": "addresses",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PauseEvent",
@@ -646,7 +648,8 @@ export const thalaV2_staking_abi = {
           "name": "paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PauseFlag",
@@ -662,7 +665,8 @@ export const thalaV2_staking_abi = {
           "name": "paused",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RequestUnstakeAPTEvent",
@@ -707,7 +711,8 @@ export const thalaV2_staking_abi = {
           "name": "withdrawn_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "RestakeAPTEvent",
@@ -740,7 +745,8 @@ export const thalaV2_staking_abi = {
           "name": "cumulative_restake_increment",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeAPTEvent",
@@ -769,7 +775,8 @@ export const thalaV2_staking_abi = {
           "name": "minted_thAPT",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakeThalaAPTEvent",
@@ -798,7 +805,8 @@ export const thalaV2_staking_abi = {
           "name": "sthAPT_minted",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "StakedThalaAPT",
@@ -812,7 +820,8 @@ export const thalaV2_staking_abi = {
           "name": "dummy_field",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "SyncRewardsEvent",
@@ -873,7 +882,8 @@ export const thalaV2_staking_abi = {
           "name": "rewards_kept",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TLSD",
@@ -969,7 +979,8 @@ export const thalaV2_staking_abi = {
           "name": "sthAPT_mint_capability",
           "type": "0x1::coin::MintCapability<0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::StakedThalaAPT>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "ThalaAPT",
@@ -983,7 +994,8 @@ export const thalaV2_staking_abi = {
           "name": "dummy_field",
           "type": "bool"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeRequest",
@@ -1017,7 +1029,8 @@ export const thalaV2_staking_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UnstakeThalaAPTEvent",
@@ -1042,7 +1055,8 @@ export const thalaV2_staking_abi = {
           "name": "sthAPT_burnt",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "UserUnstake",
@@ -1058,7 +1072,8 @@ export const thalaV2_staking_abi = {
           "name": "requests",
           "type": "0x1::smart_table::SmartTable<u64, 0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6::staking::UnstakeRequest>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

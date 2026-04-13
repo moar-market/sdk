@@ -81,7 +81,8 @@ export const moar_authority_abi = {
           "name": "actions",
           "type": "vector<u8>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AuthorityAdded",
@@ -106,7 +107,8 @@ export const moar_authority_abi = {
           "name": "actions",
           "type": "vector<u8>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AuthorityRemoved",
@@ -127,7 +129,8 @@ export const moar_authority_abi = {
           "name": "authorized_address",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "CreditAccountAuthority",
@@ -143,7 +146,8 @@ export const moar_authority_abi = {
           "name": "authorities",
           "type": "vector<0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::authority::Authority>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

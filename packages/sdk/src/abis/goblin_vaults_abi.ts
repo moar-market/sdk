@@ -507,7 +507,8 @@ export const goblin_vaults_abi = {
           "name": "amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Vault",
@@ -596,7 +597,8 @@ export const goblin_vaults_abi = {
           "name": "vault_name",
           "type": "0x1::string::String"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultClosedPositionEvent",
@@ -638,7 +640,8 @@ export const goblin_vaults_abi = {
           "name": "pool_current_tick",
           "type": "u32"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultCompoundedEvent",
@@ -684,7 +687,8 @@ export const goblin_vaults_abi = {
           "name": "token_b_amount_in",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultCreatedEvent",
@@ -762,7 +766,8 @@ export const goblin_vaults_abi = {
           "name": "vault_name",
           "type": "0x1::string::String"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultDepositedWithPairEvent",
@@ -828,7 +833,8 @@ export const goblin_vaults_abi = {
           "name": "added_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultDepositedWithPairEventV2",
@@ -898,7 +904,8 @@ export const goblin_vaults_abi = {
           "name": "current_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultDepositedWithSingleEvent",
@@ -960,7 +967,8 @@ export const goblin_vaults_abi = {
           "name": "added_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultDepositedWithSingleEventV2",
@@ -1026,7 +1034,8 @@ export const goblin_vaults_abi = {
           "name": "current_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultFeeUpdatedEvent",
@@ -1076,7 +1085,8 @@ export const goblin_vaults_abi = {
           "name": "fee_share",
           "type": "vector<u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRebalancedEvent",
@@ -1130,7 +1140,8 @@ export const goblin_vaults_abi = {
           "name": "pool_current_tick",
           "type": "u32"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRemovedWithPairEvent",
@@ -1196,7 +1207,8 @@ export const goblin_vaults_abi = {
           "name": "removed_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRemovedWithPairEventV2",
@@ -1266,7 +1278,8 @@ export const goblin_vaults_abi = {
           "name": "current_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRemovedWithSingleEvent",
@@ -1328,7 +1341,8 @@ export const goblin_vaults_abi = {
           "name": "removed_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRemovedWithSingleEventV2",
@@ -1394,7 +1408,8 @@ export const goblin_vaults_abi = {
           "name": "current_shares",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "VaultRewardsToLiquidityEvent",
@@ -1440,7 +1455,8 @@ export const goblin_vaults_abi = {
           "name": "liquidity_token_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "Vault_fee_and_reward_share",
@@ -1474,7 +1490,8 @@ export const goblin_vaults_abi = {
           "name": "time",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

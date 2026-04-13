@@ -174,7 +174,8 @@ export const moarTiered_tiered_oracle_abi = {
           "name": "admins",
           "type": "vector<address>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AdminAdded",
@@ -191,7 +192,8 @@ export const moarTiered_tiered_oracle_abi = {
           "name": "admin",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AdminRemoved",
@@ -208,7 +210,8 @@ export const moarTiered_tiered_oracle_abi = {
           "name": "admin",
           "type": "address"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "AssetOracle",
@@ -241,7 +244,8 @@ export const moarTiered_tiered_oracle_abi = {
           "name": "broken_seconds",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "TieredOracle",
@@ -261,7 +265,8 @@ export const moarTiered_tiered_oracle_abi = {
           "name": "assets",
           "type": "0x1::smart_table::SmartTable<0x1::object::Object<0x1::fungible_asset::Metadata>, 0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::AssetOracle>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

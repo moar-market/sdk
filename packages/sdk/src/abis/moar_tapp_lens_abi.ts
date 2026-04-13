@@ -37,7 +37,8 @@ export const moar_tapp_lens_abi = {
           "name": "reward_amount",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PositionInfo",
@@ -79,7 +80,8 @@ export const moar_tapp_lens_abi = {
           "name": "pending_rewards",
           "type": "vector<0xfa3d17dfdf5037ed9b68c2c85976f899155048fdf96bc77b57ef1ad206c5b007::tapp_lens::PendingReward>"
         }
-      ]
+      ],
+      "variants": []
     }
   ]
 } as const;

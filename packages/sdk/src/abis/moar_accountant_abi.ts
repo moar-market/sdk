@@ -237,7 +237,8 @@ export const moar_accountant_abi = {
           "name": "principal_borrowed",
           "type": "0x1::smart_table::SmartTable<u64, u64>"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "InterestPaid",
@@ -258,7 +259,8 @@ export const moar_accountant_abi = {
           "name": "interest_paid",
           "type": "u64"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PnLRealized",
@@ -287,7 +289,8 @@ export const moar_accountant_abi = {
           "name": "type",
           "type": "0xa3afc59243afb6deeac965d40b25d509bb3aebc12f502b8592c283070abc2e07::accountant::PnLType"
         }
-      ]
+      ],
+      "variants": []
     },
     {
       "name": "PnLType",
@@ -299,7 +302,17 @@ export const moar_accountant_abi = {
         "store"
       ],
       "generic_type_params": [],
-      "fields": []
+      "fields": [],
+      "variants": [
+        {
+          "name": "Liquidation",
+          "fields": []
+        },
+        {
+          "name": "Withdrawal",
+          "fields": []
+        }
+      ]
     }
   ]
 } as const;
