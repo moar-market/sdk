@@ -87,6 +87,34 @@ export const moarTiered_tiered_oracle_abi = {
       "return": []
     },
     {
+      "name": "get_all_assets",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>"
+      ],
+      "return": [
+        "0x1::simple_map::SimpleMap<0x1::object::Object<0x1::fungible_asset::Metadata>, u8>"
+      ]
+    },
+    {
+      "name": "get_oracle_tier",
+      "visibility": "public",
+      "is_entry": false,
+      "is_view": true,
+      "generic_type_params": [],
+      "params": [
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>"
+      ],
+      "return": [
+        "u8",
+        "u8"
+      ]
+    },
+    {
       "name": "must_get_price",
       "visibility": "public",
       "is_entry": false,
@@ -125,6 +153,21 @@ export const moarTiered_tiered_oracle_abi = {
         "0x1::object::Object<0x1::fungible_asset::Metadata>",
         "0x1::option::Option<u64>",
         "0x1::option::Option<u64>"
+      ],
+      "return": []
+    },
+    {
+      "name": "set_tier_chainlink",
+      "visibility": "public",
+      "is_entry": true,
+      "is_view": false,
+      "generic_type_params": [],
+      "params": [
+        "&signer",
+        "0x1::object::Object<0xd74401951a74141b1c0b2a7285fb7e060bf56be829f9e34182819f9c5546e90b::tiered_oracle::TieredOracle>",
+        "0x1::object::Object<0x1::fungible_asset::Metadata>",
+        "bool",
+        "vector<u8>"
       ],
       "return": []
     },
